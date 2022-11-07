@@ -22,27 +22,6 @@ class AlcubierreRootNavRender(
     private val stackRenders = HashMap<Int, NavRender<StackNavState>>()
     private var dialogRender: NavRender<Dialog?> by Delegates.notNull()
 
-    internal fun setOnDialogDismissed(onDialogDismissed: () -> Unit) {
-        dialogRender = AlcubierreDialogNavRender(classLoader, fragmentManager, onDialogDismissed)
-    }
-
-    private fun createStackRender(): NavRender<StackNavState> =
-        AlcubierreStackNavRender(containerId, classLoader, fragmentManager, transactionModifier)
-
-    fun restoreState(state: RootSavedState) {
-        dialogRender.restoreState(state.state.dialog)
-        state.rendered.forEach { (id, stackState) ->
-            stackRenders[id] = createStackRender()
-                .also { render -> render.restoreState(stackState) }
-        }
-    }
-
-    fun saveState(): RootSavedState =
-        RootSavedState(
-            state = currentState,
-            rendered = stackRenders.mapValues { it.value.currentState }
-        )
-
     fun render(state: RootNavState) {
         // Применяем изменения состояния диалога.
         dialogRender.render(state.dialog)
@@ -78,6 +57,27 @@ class AlcubierreRootNavRender(
             doRender(state)
         }
     }
+
+    fun restoreState(state: RootSavedState) {
+        dialogRender.restoreState(state.state.dialog)
+        state.rendered.forEach { (id, stackState) ->
+            stackRenders[id] = createStackRender()
+                .also { render -> render.restoreState(stackState) }
+        }
+    }
+
+    fun saveState(): RootSavedState =
+        RootSavedState(
+            state = currentState,
+            rendered = stackRenders.mapValues { it.value.currentState }
+        )
+
+    internal fun setOnDialogDismissed(onDialogDismissed: () -> Unit) {
+        dialogRender = AlcubierreDialogNavRender(classLoader, fragmentManager, onDialogDismissed)
+    }
+
+    private fun createStackRender(): NavRender<StackNavState> =
+        AlcubierreStackNavRender(containerId, classLoader, fragmentManager, transactionModifier)
 
     private fun doRender(newState: RootNavState) {
         val toStackId = newState.currentStackId
