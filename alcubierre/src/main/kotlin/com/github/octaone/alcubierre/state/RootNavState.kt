@@ -9,19 +9,19 @@ import kotlinx.parcelize.Parcelize
  * Состояние всей навигации в приложении (диалога и каждого стека).
  */
 @Parcelize
-data class RootNavigationState(
+data class RootNavState(
     val dialog: Dialog?,
-    val stacks: Map<Int, StackNavigationState>,
+    val stacks: Map<Int, StackNavState>,
     val currentStackId: Int
 ): Parcelable {
 
-    val currentStackState: StackNavigationState get() = stacks.getNotNull(currentStackId)
+    val currentStackState: StackNavState get() = stacks.getNotNull(currentStackId)
 
     companion object {
 
-        val EMPTY = RootNavigationState(
+        val EMPTY = RootNavState(
             dialog = null,
-            stacks = mapOf(-1 to StackNavigationState.EMPTY),
+            stacks = mapOf(-1 to StackNavState.EMPTY),
             currentStackId = -1
         )
     }

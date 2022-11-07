@@ -11,13 +11,13 @@ class StackStateBuilder {
         screens.add(screen)
     }
 
-    fun build(): StackNavigationState =
-        StackNavigationState(screens.toList())
+    fun build(): StackNavState =
+        StackNavState(screens.toList())
 }
 
 class RootStateBuilder {
 
-    private val stacks = HashMap<Int, StackNavigationState>()
+    private val stacks = HashMap<Int, StackNavState>()
     private var stackId: Int? = null
 
     fun stack(id: Int, builder: StackStateBuilder.() -> Unit) {
@@ -29,14 +29,14 @@ class RootStateBuilder {
         stackId = id
     }
 
-    fun build(): RootNavigationState =
-        RootNavigationState(null, stacks, checkNotNull(stackId))
+    fun build(): RootNavState =
+        RootNavState(null, stacks, checkNotNull(stackId))
 }
 
-fun rootState(builder: RootStateBuilder.() -> Unit): RootNavigationState =
+fun rootState(builder: RootStateBuilder.() -> Unit): RootNavState =
     RootStateBuilder().apply(builder).build()
 
-fun singleRootState(builder: StackStateBuilder.() -> Unit): RootNavigationState =
+fun singleRootState(builder: StackStateBuilder.() -> Unit): RootNavState =
     RootStateBuilder()
         .apply { stack(SINGLE_STACK_ID, builder) }
         .build()

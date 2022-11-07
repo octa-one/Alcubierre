@@ -8,11 +8,11 @@ import kotlinx.parcelize.Parcelize
  * Состояние одного стека.
  */
 @Parcelize
-data class StackNavigationState(
+data class StackNavState(
     val chain: List<Screen>
 ): Parcelable {
 
     companion object {
-        val EMPTY = StackNavigationState(emptyList())
+        val EMPTY = StackNavState(emptyList())
     }
 }

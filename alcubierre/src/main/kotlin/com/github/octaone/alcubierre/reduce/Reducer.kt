@@ -1,8 +1,8 @@
 package com.github.octaone.alcubierre.reduce
 
-import com.github.octaone.alcubierre.action.NavigationAction
+import com.github.octaone.alcubierre.action.NavAction
 
-interface NavigationReducer<S> {
+interface NavReducer<S> {
 
-    fun reduce(state: S, action: NavigationAction): S
+    fun reduce(state: S, action: NavAction): S
 }

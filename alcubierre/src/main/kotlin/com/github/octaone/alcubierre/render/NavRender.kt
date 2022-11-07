@@ -2,7 +2,7 @@ package com.github.octaone.alcubierre.render
 
 import android.os.Parcelable
 
-interface Render<T : Parcelable?> {
+interface NavRender<T : Parcelable?> {
 
     val currentState: T
 

@@ -5,28 +5,28 @@ import com.github.octaone.alcubierre.action.Back
 import com.github.octaone.alcubierre.action.BackTo
 import com.github.octaone.alcubierre.action.BackToRoot
 import com.github.octaone.alcubierre.action.Forward
-import com.github.octaone.alcubierre.action.NavigationAction
+import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.NewStack
 import com.github.octaone.alcubierre.action.Replace
 import com.github.octaone.alcubierre.action.ReplaceRoot
 import com.github.octaone.alcubierre.action.SelectStack
-import com.github.octaone.alcubierre.state.RootNavigationState
-import com.github.octaone.alcubierre.state.StackNavigationState
+import com.github.octaone.alcubierre.state.RootNavState
+import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.getNotNull
 
 /**
- * [NavigationReducer], отвечающий за команды со стеками и перенаправляющий остальные команды в нужный [stackReducer].
+ * [NavReducer], отвечающий за команды со стеками и перенаправляющий остальные команды в нужный [stackReducer].
  */
-class AlcubierreRootNavigationReducer(
-    private val stackReducer: NavigationReducer<StackNavigationState> = AlcubierreStackNavigationReducer()
-) : NavigationReducer<RootNavigationState> {
+class AlcubierreRootNavReducer(
+    private val stackReducer: NavReducer<StackNavState> = AlcubierreStackNavReducer()
+) : NavReducer<RootNavState> {
 
-    override fun reduce(state: RootNavigationState, action: NavigationAction) = when (action) {
+    override fun reduce(state: RootNavState, action: NavAction) = when (action) {
         is Forward, is Back, is Replace, is BackToRoot, is ReplaceRoot, is BackTo -> {
             state.modifyStack(state.currentStackId) { stackReducer.reduce(this, action) }
         }
         is NewStack -> {
-            state.setStack(action.stackId, StackNavigationState(action.screens))
+            state.setStack(action.stackId, StackNavState(action.screens))
         }
         is SelectStack -> {
             check(state.stacks.containsKey(action.stackId))
@@ -40,9 +40,9 @@ class AlcubierreRootNavigationReducer(
         }
     }
 
-    private inline fun RootNavigationState.modifyStack(id: Int, update: StackNavigationState.() -> StackNavigationState): RootNavigationState =
+    private inline fun RootNavState.modifyStack(id: Int, update: StackNavState.() -> StackNavState): RootNavState =
         setStack(id, stacks.getNotNull(id).update())
 
-    private fun RootNavigationState.setStack(id: Int, stack: StackNavigationState): RootNavigationState =
+    private fun RootNavState.setStack(id: Int, stack: StackNavState): RootNavState =
         copy(stacks = stacks.toMutableMap().apply { put(id, stack) })
 }

@@ -10,9 +10,11 @@ abstract class FragmentDialog(
     val fragmentName: String
 ) : Dialog {
 
-    constructor(fragmentClass: KClass<out DialogFragment>) : this(fragmentClass.java.name)
+    constructor(
+        fragmentClass: KClass<out DialogFragment>
+    ) : this(fragmentClass.java.name)
 
-    override val id: String by lazy(LazyThreadSafetyMode.NONE) { fragmentName + hashCode() }
+    override val dialogId: String by lazy(LazyThreadSafetyMode.NONE) { "${fragmentName}_${hashCode()}" }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

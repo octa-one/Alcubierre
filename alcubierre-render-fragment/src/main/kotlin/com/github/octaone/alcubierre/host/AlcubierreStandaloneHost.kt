@@ -1,33 +1,33 @@
 package com.github.octaone.alcubierre.host
 
 import android.os.Bundle
-import com.github.octaone.alcubierre.AlcubierreHost
-import com.github.octaone.alcubierre.action.NavigationAction
+import com.github.octaone.alcubierre.NavDriveOwner
+import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.applyState
-import com.github.octaone.alcubierre.reduce.NavigationReducer
-import com.github.octaone.alcubierre.render.AlcubierreRootNavigationRender
-import com.github.octaone.alcubierre.state.RootNavigationState
+import com.github.octaone.alcubierre.reduce.NavReducer
+import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
+import com.github.octaone.alcubierre.state.RootNavState
 import com.github.octaone.alcubierre.state.RootSavedState
 import com.github.octaone.alcubierre.util.getParcelableCompat
 import kotlin.properties.Delegates
 
-class AlcubierreStandaloneHost : AlcubierreHost {
+class AlcubierreNavDriveOwner : NavDriveOwner {
 
     private var isReadyToProcess = false
     private var isStatePending = false
     private var isStateSaved = false
 
-    private var reducer: NavigationReducer<RootNavigationState> by Delegates.notNull()
-    private var render: AlcubierreRootNavigationRender by Delegates.notNull()
+    private var reducer: NavReducer<RootNavState> by Delegates.notNull()
+    private var render: AlcubierreRootNavRender by Delegates.notNull()
 
-    private var currentState: RootNavigationState = RootNavigationState.EMPTY
-    override val state: RootNavigationState get() = currentState
+    private var currentState: RootNavState = RootNavState.EMPTY
+    override val state: RootNavState get() = currentState
 
     fun initialize(
-        reducer: NavigationReducer<RootNavigationState>,
-        render: AlcubierreRootNavigationRender,
+        reducer: NavReducer<RootNavState>,
+        render: AlcubierreRootNavRender,
         savedState: Bundle?,
-        initialState: RootNavigationState
+        initialState: RootNavState
     ) {
         this.reducer = reducer
         this.render = render
@@ -60,7 +60,7 @@ class AlcubierreStandaloneHost : AlcubierreHost {
         outState.putParcelable(KEY_STATE, render.saveState())
     }
 
-    override fun dispatch(action: NavigationAction) {
+    override fun dispatch(action: NavAction) {
         if (isStateSaved) return
 
         currentState = reducer.reduce(state, action)

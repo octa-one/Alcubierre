@@ -1,10 +1,10 @@
 package com.github.octaone.alcubierre.reduce
 
-import com.github.octaone.alcubierre.state.RootNavigationState
+import com.github.octaone.alcubierre.state.RootNavState
 
 /**
  * Базовая цепочка редьюсеров.
  */
 @Suppress("FunctionName")
-fun AlcubierreDefaultReducer(): NavigationReducer<RootNavigationState> =
-    DialogNavigationReducer(AlcubierreRootNavigationReducer())
+fun AlcubierreDefaultNavReducer(): NavReducer<RootNavState> =
+    DialogNavReducer(AlcubierreRootNavReducer())

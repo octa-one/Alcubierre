@@ -2,18 +2,18 @@ package com.github.octaone.alcubierre.reduce
 
 import com.github.octaone.alcubierre.action.Back
 import com.github.octaone.alcubierre.action.DismissDialog
-import com.github.octaone.alcubierre.action.NavigationAction
+import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.ShowDialog
-import com.github.octaone.alcubierre.state.RootNavigationState
+import com.github.octaone.alcubierre.state.RootNavState
 
 /**
  * Reducer, отвечающий за операции с диалогом.
  */
-class DialogNavigationReducer(
-    private val origin: NavigationReducer<RootNavigationState>
-) : NavigationReducer<RootNavigationState> {
+class DialogNavReducer(
+    private val origin: NavReducer<RootNavState>
+) : NavReducer<RootNavState> {
 
-    override fun reduce(state: RootNavigationState, action: NavigationAction) = when (action) {
+    override fun reduce(state: RootNavState, action: NavAction) = when (action) {
         is ShowDialog -> {
             state.copy(dialog = action.dialog)
         }

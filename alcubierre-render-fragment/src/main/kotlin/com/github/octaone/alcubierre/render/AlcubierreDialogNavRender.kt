@@ -13,11 +13,11 @@ import com.github.octaone.alcubierre.screen.withDialogData
  *
  * @property onDismiss - колбек, чтобы сообщить о сворачивании диалога жестом не через библиотеку навигации.
  */
-class AlcubierreDialogNavigationRender(
+class AlcubierreDialogNavRender(
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
     private val onDismiss: () -> Unit
-) : Render<Dialog?> {
+) : NavRender<Dialog?> {
 
     override var currentState: Dialog? = null
 
@@ -36,7 +36,7 @@ class AlcubierreDialogNavigationRender(
     override fun restoreState(state: Dialog?) {
         currentState = state
         if (state != null) {
-            fragmentManager.findFragmentByTag(state.id)
+            fragmentManager.findFragmentByTag(state.dialogId)
                 .let(::requireNotNull)
                 .lifecycle
                 .addObserver(dialogObserver)
@@ -44,13 +44,13 @@ class AlcubierreDialogNavigationRender(
     }
 
     override fun render(state: Dialog?) {
-        if (currentState?.id == state?.id) return
+        if (currentState?.dialogId == state?.dialogId) return
         if (state != null) check(state is FragmentDialog) { "Unsupported dialog type $state" }
 
         val tempState = currentState
         // Если был старый диалог, его необходимо закрыть.
         if (tempState != null) {
-            fragmentManager.findFragmentByTag(tempState.id)
+            fragmentManager.findFragmentByTag(tempState.dialogId)
                 ?.let { it as DialogFragment }
                 ?.let { fragment ->
                     fragment.lifecycle.removeObserver(dialogObserver)
@@ -63,7 +63,7 @@ class AlcubierreDialogNavigationRender(
             fragmentManager.fragmentFactory.instantiate(classLoader, state.fragmentName)
                 .withDialogData(state)
                 .also { fragment -> fragment.lifecycle.addObserver(dialogObserver) }
-                .show(fragmentManager, state.id)
+                .show(fragmentManager, state.dialogId)
         }
         currentState = state
     }

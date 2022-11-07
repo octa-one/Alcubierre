@@ -5,28 +5,28 @@ import com.github.octaone.alcubierre.screen.FragmentCreator
 import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.screen.withScreenData
-import com.github.octaone.alcubierre.state.StackNavigationState
+import com.github.octaone.alcubierre.state.StackNavState
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 
 /**
- * Render для преобразования [StackNavigationState] в команды [FragmentManager].
+ * Render для преобразования [StackNavState] в команды [FragmentManager].
  */
-class AlcubierreStackNavigationRender(
+class AlcubierreStackNavRender(
     private val containerId: Int,
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
     private val transactionModifier: TransactionModifier
-) : Render<StackNavigationState> {
+) : NavRender<StackNavState> {
 
-    override var currentState: StackNavigationState = StackNavigationState.EMPTY
+    override var currentState: StackNavState = StackNavState.EMPTY
 
-    override fun restoreState(state: StackNavigationState) {
+    override fun restoreState(state: StackNavState) {
         currentState = state
     }
 
-    override fun render(state: StackNavigationState) {
+    override fun render(state: StackNavState) {
         val diff = diff(currentState, state)
         diff.forEach { action ->
             when (action) {
@@ -63,11 +63,11 @@ class AlcubierreStackNavigationRender(
                         val fragment = createFragment(screen)
                         transactionModifier.modify(this, screen, fragment)
                         if (screen.replace) {
-                            replace(containerId, fragment, screen.id)
+                            replace(containerId, fragment, screen.screenId)
                         } else {
-                            add(containerId, fragment, screen.id)
+                            add(containerId, fragment, screen.screenId)
                         }
-                        addToBackStack(screen.id)
+                        addToBackStack(screen.screenId)
                     }
                 }
                 else -> {
@@ -89,15 +89,15 @@ class AlcubierreStackNavigationRender(
      * Сравнение начинается с корня, при первом несовпадении
      * старый стек [prev] "попается" до этого экрана включительно и "пушится" новый стек из [next].
      */
-    private fun diff(prev: StackNavigationState, next: StackNavigationState): List<StackAction> = when {
+    private fun diff(prev: StackNavState, next: StackNavState): List<StackAction> = when {
         prev.chain.isEmpty() && next.chain.isEmpty() -> emptyList()
         prev.chain.isEmpty() -> listOf(Push(next.chain))
         next.chain.isEmpty() -> listOf(Pop(prev.chain.size))
         else -> {
             var result: List<StackAction>? = null
             for (i in 0 until maxOf(prev.chain.size, next.chain.size)) {
-                val p = prev.chain.getOrNull(i)?.id
-                val n = next.chain.getOrNull(i)?.id
+                val p = prev.chain.getOrNull(i)?.screenId
+                val n = next.chain.getOrNull(i)?.screenId
                 if (p == n) continue
                 result = when {
                     p == null -> listOf(

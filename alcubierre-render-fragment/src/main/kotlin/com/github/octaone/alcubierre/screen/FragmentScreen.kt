@@ -16,7 +16,7 @@ abstract class FragmentScreen(
         replace: Boolean = true
     ) : this(fragmentClass.java.name, replace)
 
-    override val id: String by lazy(LazyThreadSafetyMode.NONE) { fragmentName + hashCode() }
+    override val screenId: String by lazy(LazyThreadSafetyMode.NONE) { "${fragmentName}_${hashCode()}" }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

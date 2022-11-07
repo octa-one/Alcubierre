@@ -4,21 +4,21 @@ import com.github.octaone.alcubierre.action.Back
 import com.github.octaone.alcubierre.action.BackTo
 import com.github.octaone.alcubierre.action.BackToRoot
 import com.github.octaone.alcubierre.action.Forward
-import com.github.octaone.alcubierre.action.NavigationAction
+import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.Replace
 import com.github.octaone.alcubierre.action.ReplaceRoot
 import com.github.octaone.alcubierre.screen.Screen
-import com.github.octaone.alcubierre.state.StackNavigationState
+import com.github.octaone.alcubierre.state.StackNavState
 
 /**
- * [NavigationReducer], отвечающий за команды над конкретным стеком.
+ * [NavReducer], отвечающий за команды над конкретным стеком.
  */
-class AlcubierreStackNavigationReducer : NavigationReducer<StackNavigationState> {
+class AlcubierreStackNavReducer : NavReducer<StackNavState> {
 
     override fun reduce(
-        state: StackNavigationState,
-        action: NavigationAction
-    ): StackNavigationState =
+        state: StackNavState,
+        action: NavAction
+    ): StackNavState =
         when (action) {
             is Forward -> {
                 state.modifyChain { this + action.screens }
@@ -34,7 +34,7 @@ class AlcubierreStackNavigationReducer : NavigationReducer<StackNavigationState>
                 }
             }
             is BackTo -> {
-                val i = state.chain.indexOfLast { it.id == action.screenId }
+                val i = state.chain.indexOfLast { it.screenId == action.screenId }
                 if (i != -1) state.modifyChain { take(i + 1) }
                 else state
             }
@@ -49,6 +49,6 @@ class AlcubierreStackNavigationReducer : NavigationReducer<StackNavigationState>
             }
     }
 
-    private inline fun StackNavigationState.modifyChain(update: MutableList<Screen>.() -> List<Screen>): StackNavigationState =
+    private inline fun StackNavState.modifyChain(update: MutableList<Screen>.() -> List<Screen>): StackNavState =
         copy(chain = chain.toMutableList().update())
 }

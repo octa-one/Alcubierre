@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class RootSavedState(
-    val state: RootNavigationState,
-    val rendered: Map<Int, StackNavigationState>
+    val state: RootNavState,
+    val rendered: Map<Int, StackNavState>
 ) : Parcelable

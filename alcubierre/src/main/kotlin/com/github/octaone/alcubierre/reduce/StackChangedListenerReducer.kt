@@ -1,14 +1,14 @@
 package com.github.octaone.alcubierre.reduce
 
-import com.github.octaone.alcubierre.action.NavigationAction
-import com.github.octaone.alcubierre.state.RootNavigationState
+import com.github.octaone.alcubierre.action.NavAction
+import com.github.octaone.alcubierre.state.RootNavState
 
 class StackChangedListenerReducer(
-    private val delegate: NavigationReducer<RootNavigationState>,
+    private val delegate: NavReducer<RootNavState>,
     private val onStackChanged: (from: Int, to: Int) -> Unit
-): NavigationReducer<RootNavigationState> {
+): NavReducer<RootNavState> {
 
-    override fun reduce(state: RootNavigationState, action: NavigationAction): RootNavigationState {
+    override fun reduce(state: RootNavState, action: NavAction): RootNavState {
         val newState = delegate.reduce(state, action)
         if (state.currentStackId != newState.currentStackId) {
             onStackChanged(state.currentStackId, newState.currentStackId)
@@ -17,9 +17,9 @@ class StackChangedListenerReducer(
     }
 }
 
-fun NavigationReducer<RootNavigationState>.addOnStackChangedListener(
+fun NavReducer<RootNavState>.addOnStackChangedListener(
     onStackChanged: (from: Int, to: Int) -> Unit
-): NavigationReducer<RootNavigationState> =
+): NavReducer<RootNavState> =
     StackChangedListenerReducer(
         delegate = this,
         onStackChanged = onStackChanged

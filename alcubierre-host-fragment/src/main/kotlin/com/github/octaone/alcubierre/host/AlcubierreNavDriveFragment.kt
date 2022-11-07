@@ -9,34 +9,34 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
-import com.github.octaone.alcubierre.action.NavigationAction
+import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.back
 import com.github.octaone.alcubierre.render.modifier.TransactionModifier
-import com.github.octaone.alcubierre.state.RootNavigationState
+import com.github.octaone.alcubierre.state.RootNavState
 import androidx.lifecycle.Lifecycle
-import com.github.octaone.alcubierre.Alcubierre
-import com.github.octaone.alcubierre.AlcubierreHost
+import com.github.octaone.alcubierre.NavDrive
+import com.github.octaone.alcubierre.NavDriveOwner
 import com.github.octaone.alcubierre.fragment.host.R
-import com.github.octaone.alcubierre.reduce.AlcubierreRootNavigationReducer
-import com.github.octaone.alcubierre.render.AlcubierreRootNavigationRender
+import com.github.octaone.alcubierre.reduce.AlcubierreRootNavReducer
+import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
 
-class AlcubierreHostFragment : Fragment(), AlcubierreHost {
+class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
 
-    private val delegate = AlcubierreStandaloneHost()
+    private val delegate = AlcubierreNavDriveOwner()
 
     private var containerId: Int = -1
     private var restoredState: Bundle? = null
 
-    override val state: RootNavigationState get() = delegate.state
+    override val state: RootNavState get() = delegate.state
 
     fun initialize(
-        reducer: AlcubierreRootNavigationReducer,
-        initialState: RootNavigationState,
+        reducer: AlcubierreRootNavReducer,
+        initialState: RootNavState,
         transactionModifier: TransactionModifier
     ) {
         check(lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED))
 
-        val render = AlcubierreRootNavigationRender(
+        val render = AlcubierreRootNavRender(
             containerId = containerId,
             classLoader = requireContext().classLoader,
             fragmentManager = childFragmentManager,
@@ -52,7 +52,7 @@ class AlcubierreHostFragment : Fragment(), AlcubierreHost {
         restoredState = null
     }
 
-    override fun dispatch(action: NavigationAction) {
+    override fun dispatch(action: NavAction) {
         delegate.dispatch(action)
     }
 
@@ -60,7 +60,7 @@ class AlcubierreHostFragment : Fragment(), AlcubierreHost {
         super.onAttach(context)
         requireActivity().onBackPressedDispatcher.addCallback(this) { back() }
         parentFragmentManager.commit {
-            setPrimaryNavigationFragment(this@AlcubierreHostFragment)
+            setPrimaryNavigationFragment(this@AlcubierreNavDriveFragment)
         }
     }
 
@@ -92,7 +92,7 @@ class AlcubierreHostFragment : Fragment(), AlcubierreHost {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.setTag(R.id.alcubierre_view_tag, this as Alcubierre)
+        view.setTag(R.id.alcubierre_view_tag, this as NavDrive)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

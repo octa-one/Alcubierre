@@ -4,30 +4,30 @@ import com.github.octaone.alcubierre.render.modifier.EmptyModifier
 import com.github.octaone.alcubierre.render.modifier.TransactionModifier
 import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.state.RootSavedState
-import com.github.octaone.alcubierre.state.RootNavigationState
-import com.github.octaone.alcubierre.state.StackNavigationState
+import com.github.octaone.alcubierre.state.RootNavState
+import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.getNotNull
 import androidx.fragment.app.FragmentManager
 import kotlin.properties.Delegates
 
-class AlcubierreRootNavigationRender(
+class AlcubierreRootNavRender(
     private val containerId: Int,
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
     private val transactionModifier: TransactionModifier = EmptyModifier
 ) {
 
-    var currentState: RootNavigationState = RootNavigationState.EMPTY
+    var currentState: RootNavState = RootNavState.EMPTY
 
-    private val stackRenders = HashMap<Int, Render<StackNavigationState>>()
-    private var dialogRender: Render<Dialog?> by Delegates.notNull()
+    private val stackRenders = HashMap<Int, NavRender<StackNavState>>()
+    private var dialogRender: NavRender<Dialog?> by Delegates.notNull()
 
     internal fun setOnDialogDismissed(onDialogDismissed: () -> Unit) {
-        dialogRender = AlcubierreDialogNavigationRender(classLoader, fragmentManager, onDialogDismissed)
+        dialogRender = AlcubierreDialogNavRender(classLoader, fragmentManager, onDialogDismissed)
     }
 
-    private fun createStackRender(): Render<StackNavigationState> =
-        AlcubierreStackNavigationRender(containerId, classLoader, fragmentManager, transactionModifier)
+    private fun createStackRender(): NavRender<StackNavState> =
+        AlcubierreStackNavRender(containerId, classLoader, fragmentManager, transactionModifier)
 
     fun restoreState(state: RootSavedState) {
         dialogRender.restoreState(state.state.dialog)
@@ -43,7 +43,7 @@ class AlcubierreRootNavigationRender(
             rendered = stackRenders.mapValues { it.value.currentState }
         )
 
-    fun render(state: RootNavigationState) {
+    fun render(state: RootNavState) {
         // Применяем изменения состояния диалога.
         dialogRender.render(state.dialog)
 
@@ -60,26 +60,26 @@ class AlcubierreRootNavigationRender(
         val toStackState = state.stacks.getNotNull(toStackId)
 
         if (fromStackId == toStackId) {
-            // Если текущий стек не поменялся, то только вызываем render у соответствующего StackNavigationRender.
+            // Если текущий стек не поменялся, то только вызываем render у соответствующего StackNavRender.
             clearUnusedStacks(currentState, state)
 
             doRender(state)
         } else {
             // Если стек поменялся, то сохраняем старый стек и восстанавлвиаем новый.
-            // После восстановления стека вызываем render у соответствующего StackNavigationRender.
+            // После восстановления стека вызываем render у соответствующего StackNavRender.
             clearUnusedStacks(currentState, state)
             fromStackState.chain.firstOrNull()?.let { root ->
-                fragmentManager.saveBackStack(root.id)
+                fragmentManager.saveBackStack(root.screenId)
             }
             toStackState.chain.firstOrNull()?.let { root ->
-                fragmentManager.restoreBackStack(root.id)
+                fragmentManager.restoreBackStack(root.screenId)
             }
 
             doRender(state)
         }
     }
 
-    private fun doRender(newState: RootNavigationState) {
+    private fun doRender(newState: RootNavState) {
         val toStackId = newState.currentStackId
         val toStackState = newState.stacks.getNotNull(toStackId)
 
@@ -89,7 +89,7 @@ class AlcubierreRootNavigationRender(
         currentState = newState
     }
 
-    private fun isStacksEquals(oldState: RootNavigationState, newState: RootNavigationState): Boolean {
+    private fun isStacksEquals(oldState: RootNavState, newState: RootNavState): Boolean {
         if (oldState.currentStackId != newState.currentStackId) return false
         if (oldState.currentStackState != newState.currentStackState) return false
         return true
@@ -99,24 +99,23 @@ class AlcubierreRootNavigationRender(
      * Метод для поиска и очистки неактуальных стеков.
      * Например был стек авторизации, который потом заменился стеками фичей, чтобы не оставалось лишних фрагментов в FragmentManager, вызывается этот метод.
      */
-    private fun clearUnusedStacks(from: RootNavigationState, to: RootNavigationState) {
+    private fun clearUnusedStacks(from: RootNavState, to: RootNavState) {
         from.stacks.forEach { (stackId, stack) ->
             val toStack = to.stacks[stackId]
             if (toStack != null) {
                 // Если в [to] есть стек [stackId], проверяем root экран, потому что если он изменился,
                 // то с точки зрения FragmentManager это новый стек, а значит старый надо очистить.
                 stack.chain.firstOrNull()
-                    ?.takeIf { root -> root.id != toStack.chain.firstOrNull()?.id }
+                    ?.takeIf { root -> root.screenId != toStack.chain.firstOrNull()?.screenId }
                     ?.let { root ->
                         stackRenders[stackId] = createStackRender()
-                        // localRenders[stackId]?.currentState = StackNavigationState.EMPTY
-                        fragmentManager.clearBackStack(root.id)
+                        fragmentManager.clearBackStack(root.screenId)
                     }
             } else {
                 // Если в [to] нет стека [stackId], значит он больше не нужен в FragmentManager.
                 stackRenders.remove(stackId)
                 stack.chain.firstOrNull()?.let { root ->
-                    fragmentManager.clearBackStack(root.id)
+                    fragmentManager.clearBackStack(root.screenId)
                 }
             }
         }
