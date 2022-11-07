@@ -17,10 +17,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "alcubierre-root"
-include(":sample-alcubierre-host-fragment")
-include(":sample-alcubierre-standalone")
-
 include(":alcubierre")
 include(":alcubierre-host-fragment")
 include(":alcubierre-render-fragment")
-include(":alcubierre-render-compose")
+
+include(":sample-fragment")
+include(":sample-fragment-host-fragment")

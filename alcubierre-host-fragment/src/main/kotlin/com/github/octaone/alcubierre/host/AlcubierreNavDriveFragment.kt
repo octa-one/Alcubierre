@@ -18,21 +18,23 @@ import com.github.octaone.alcubierre.NavDrive
 import com.github.octaone.alcubierre.NavDriveOwner
 import com.github.octaone.alcubierre.fragment.host.R
 import com.github.octaone.alcubierre.reduce.AlcubierreRootNavReducer
+import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
+import com.github.octaone.alcubierre.render.modifier.EmptyModifier
 
 class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
 
     private val delegate = AlcubierreNavDriveOwner()
 
-    private var containerId: Int = -1
+    private var containerId: Int = View.NO_ID
     private var restoredState: Bundle? = null
 
     override val state: RootNavState get() = delegate.state
 
     fun initialize(
-        reducer: AlcubierreRootNavReducer,
+        reducer: NavReducer<RootNavState>,
         initialState: RootNavState,
-        transactionModifier: FragmentTransactionModifier
+        transactionModifier: FragmentTransactionModifier = EmptyModifier
     ) {
         check(lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED))
 

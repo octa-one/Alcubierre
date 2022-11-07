@@ -19,6 +19,8 @@ class NewStack(val stackId: Int, val screens: List<Screen>) : NavAction
 
 class SelectStack(val stackId: Int) : NavAction
 
+class ClearStack(val stackId: Int) : NavAction
+
 class BackTo(val screenId: String) : NavAction
 
 object BackToRoot : NavAction
@@ -51,6 +53,11 @@ fun NavDrive.newStack(stackId: Int, vararg screens: Screen) = dispatch(NewStack(
  * Выбор активного стека
  */
 fun NavDrive.selectStack(stackId: Int) = dispatch(SelectStack(stackId))
+
+/**
+ * Удаление стека
+ */
+fun NavDrive.clearStack(stackId: Int) = dispatch(ClearStack(stackId))
 
 /**
  * Переход назад к экрану [screenId]

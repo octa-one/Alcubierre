@@ -4,6 +4,7 @@ import com.github.octaone.alcubierre.action.ApplyState
 import com.github.octaone.alcubierre.action.Back
 import com.github.octaone.alcubierre.action.BackTo
 import com.github.octaone.alcubierre.action.BackToRoot
+import com.github.octaone.alcubierre.action.ClearStack
 import com.github.octaone.alcubierre.action.Forward
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.NewStack
@@ -31,6 +32,14 @@ class AlcubierreRootNavReducer(
         is SelectStack -> {
             check(state.stacks.containsKey(action.stackId))
             state.copy(currentStackId = action.stackId)
+        }
+        is ClearStack -> {
+            if (state.stacks.containsKey(action.stackId)) {
+                check(state.currentStackId != action.stackId)
+                state.copy(stacks = state.stacks.toMutableMap().apply { remove(action.stackId) })
+            } else {
+                state
+            }
         }
         is ApplyState -> {
             action.state
