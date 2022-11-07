@@ -30,8 +30,12 @@ class AlcubierreRootNavReducer(
             state.setStack(action.stackId, StackNavState(action.screens))
         }
         is SelectStack -> {
-            check(state.stacks.containsKey(action.stackId))
-            state.copy(currentStackId = action.stackId)
+            if (state.currentStackId == action.stackId) {
+                state
+            } else {
+                check(state.stacks.containsKey(action.stackId))
+                state.copy(currentStackId = action.stackId)
+            }
         }
         is ClearStack -> {
             if (state.stacks.containsKey(action.stackId)) {
