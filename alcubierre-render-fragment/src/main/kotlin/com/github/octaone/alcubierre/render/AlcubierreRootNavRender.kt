@@ -1,7 +1,7 @@
 package com.github.octaone.alcubierre.render
 
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
-import com.github.octaone.alcubierre.render.modifier.TransactionModifier
+import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.state.RootSavedState
 import com.github.octaone.alcubierre.state.RootNavState
@@ -14,7 +14,7 @@ class AlcubierreRootNavRender(
     private val containerId: Int,
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
-    private val transactionModifier: TransactionModifier = EmptyModifier
+    private val transactionModifier: FragmentTransactionModifier = EmptyModifier
 ) {
 
     var currentState: RootNavState = RootNavState.EMPTY

@@ -12,7 +12,7 @@ class AnimationModifier(
     @AnimatorRes @AnimRes private val exit: Int,
     @AnimatorRes @AnimRes private val popEnter: Int,
     @AnimatorRes @AnimRes private val popExit: Int
-) : TransactionModifier {
+) : FragmentTransactionModifier {
 
     constructor(): this(
         R.animator.alcubierre_default_enter_anim, R.animator.alcubierre_default_exit_anim,

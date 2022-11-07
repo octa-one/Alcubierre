@@ -1,6 +1,6 @@
 package com.github.octaone.alcubierre.render
 
-import com.github.octaone.alcubierre.render.modifier.TransactionModifier
+import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import com.github.octaone.alcubierre.screen.FragmentCreator
 import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.screen.Screen
@@ -17,7 +17,7 @@ class AlcubierreStackNavRender(
     private val containerId: Int,
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
-    private val transactionModifier: TransactionModifier
+    private val transactionModifier: FragmentTransactionModifier
 ) : NavRender<StackNavState> {
 
     override var currentState: StackNavState = StackNavState.EMPTY

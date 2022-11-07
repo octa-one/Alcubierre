@@ -4,7 +4,7 @@ import com.github.octaone.alcubierre.screen.FragmentScreen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 
-object EmptyModifier : TransactionModifier {
+object EmptyModifier : FragmentTransactionModifier {
 
     override fun modify(
         transaction: FragmentTransaction,

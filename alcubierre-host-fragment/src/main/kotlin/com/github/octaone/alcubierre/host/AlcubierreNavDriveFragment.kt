@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.back
-import com.github.octaone.alcubierre.render.modifier.TransactionModifier
+import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import com.github.octaone.alcubierre.state.RootNavState
 import androidx.lifecycle.Lifecycle
 import com.github.octaone.alcubierre.NavDrive
@@ -32,7 +32,7 @@ class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
     fun initialize(
         reducer: AlcubierreRootNavReducer,
         initialState: RootNavState,
-        transactionModifier: TransactionModifier
+        transactionModifier: FragmentTransactionModifier
     ) {
         check(lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED))
 
