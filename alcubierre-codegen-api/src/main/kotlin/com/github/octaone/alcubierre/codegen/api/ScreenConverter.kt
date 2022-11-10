@@ -1,6 +1,4 @@
-package com.github.octaone.alcubierre.codegen.base
-
-import com.github.octaone.alcubierre.screen.Screen
+package com.github.octaone.alcubierre.codegen.api
 
 interface ScreenConverter {
 
@@ -11,5 +9,5 @@ interface ScreenConverter {
      * @return наследник [FragmentScreen] с совпавшим [Deeplink]
      * @throws Exception при преобразовании плейсхолдеров из строк в типы конвертируемого объекта
      */
-    fun convert(from: Map<String, String>): Screen
+    fun convert(from: Map<String, String>): Any
 }

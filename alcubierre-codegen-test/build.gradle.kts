@@ -2,7 +2,7 @@ plugins {
     id(Conventions.ANDROID_LIBRARY)
     id(Conventions.PARCELIZE)
     id(Conventions.KSP)
-    id(Conventions.ALCUBIERRE_DEEPLINK)
+    id(Conventions.DEEPLINK_CODEGEN)
 }
 
 android {
@@ -10,12 +10,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.annotation)
-    implementation(libs.androidx.fragment)
-
     implementation(projects.alcubierre)
-    implementation(projects.alcubierreRenderFragment)
-    implementation(projects.alcubierreCodegen)
+    implementation(projects.alcubierreCodegenApi)
 
-    testImplementation(libs.junit)
+    ksp(projects.alcubierreCodegen)
+
+    implementation(libs.junit)
+    implementation(libs.kotlin.test)
 }

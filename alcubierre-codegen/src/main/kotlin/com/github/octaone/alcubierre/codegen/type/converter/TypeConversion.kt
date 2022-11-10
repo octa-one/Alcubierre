@@ -1,17 +1,16 @@
 package com.github.octaone.alcubierre.codegen.type.converter
 
+import com.github.octaone.alcubierre.codegen.processor.ConstructorParameter
 import com.squareup.kotlinpoet.BOOLEAN
 import com.squareup.kotlinpoet.BYTE
 import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.LONG
-import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.buildCodeBlock
-import com.github.octaone.alcubierre.codegen.processor.ConstructorParameter
 import java.math.BigDecimal
 
 /**
@@ -32,18 +31,9 @@ fun typeConversion(param: ConstructorParameter) = buildCodeBlock {
     }
 
     if (!param.isMarkedNullable && !param.hasDefault) {
-        add(" ?: %M(\"${param.placeholder}\", from)", MISSING_PARAMETER)
+        add("\n    ?: throw IllegalArgumentException(\"Параметр \$from отсутсвует в плейсхолдерах ${param.placeholder}\")")
     }
 }
-
-fun throwMissingParamException(name: String, placeholders: Map<String, String>): Nothing {
-    throw IllegalArgumentException("Параметр $name отсутсвует среди плейсхолдеров $placeholders")
-}
-
-private val MISSING_PARAMETER = MemberName(
-    "com.github.octaone.alcubierre.codegen.type.converter",
-    "throwMissingParamException"
-)
 
 private val DEFAULT_CONVERSIONS = mapOf(
     INT to ".toInt()",

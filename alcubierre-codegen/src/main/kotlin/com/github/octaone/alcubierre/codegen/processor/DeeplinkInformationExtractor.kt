@@ -7,8 +7,8 @@ import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSValueParameter
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.ksp.toClassName
-import com.github.octaone.alcubierre.codegen.type.Deeplink
-import com.github.octaone.alcubierre.codegen.type.DeeplinkParam
+import com.github.octaone.alcubierre.codegen.api.Deeplink
+import com.github.octaone.alcubierre.codegen.api.DeeplinkParam
 
 class DeeplinkInformationExtractor {
 

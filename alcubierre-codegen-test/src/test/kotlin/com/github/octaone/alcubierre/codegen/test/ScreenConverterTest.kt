@@ -1,6 +1,5 @@
 package com.github.octaone.alcubierre.codegen.test
 
-import com.github.octaone.alcubierre.codegen.test.EnumScreen.Mode
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.math.BigDecimal
@@ -48,7 +47,7 @@ class ScreenConverterTest {
     @Test
     fun `enum in params`() {
         assertEquals(
-            EnumScreen(Mode.A),
+            EnumScreen(EnumScreen.Mode.A),
             EnumScreen_Converter().convert(mapOf("mode" to "A"))
         )
     }

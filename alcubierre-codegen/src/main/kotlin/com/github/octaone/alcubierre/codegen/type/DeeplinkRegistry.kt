@@ -67,9 +67,7 @@ private fun String.toCamelCase() = split("[\\W_-]+".toRegex()).joinToString("") 
     s.replaceFirstChar { it.titlecase(Locale.US) }
 }
 private const val PACKAGE = "com.github.octaone.alcubierre"
-private const val BASE_PACKAGE = "$PACKAGE.codegen.base"
-val DEEPLINK_REGISTRY = ClassName(BASE_PACKAGE, "DeeplinkRegistry")
-val SCREEN_CONVERTER = ClassName(BASE_PACKAGE, "ScreenConverter")
+private const val API_PACKAGE = "$PACKAGE.codegen.api"
+val DEEPLINK_REGISTRY = ClassName(API_PACKAGE, "DeeplinkRegistry")
+val SCREEN_CONVERTER = ClassName(API_PACKAGE, "ScreenConverter")
 val SCREEN = ClassName("$PACKAGE.screen", "Screen")
-val FRAGMENT_SCREEN = ClassName("$PACKAGE.screen", "FragmentScreen")
-val VALID_SCREENS = arrayOf(SCREEN, FRAGMENT_SCREEN)

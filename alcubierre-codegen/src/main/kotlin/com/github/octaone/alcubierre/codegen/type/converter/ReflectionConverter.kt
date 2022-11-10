@@ -132,12 +132,5 @@ private fun generateBasicConstructor(
 
 private val DEFAULT_CONSTRUCTOR_MARKER_TYPE_BLOCK = CodeBlock.of(
     "%M",
-    MemberName("com.github.octaone.alcubierre.codegen.type.converter", "DEFAULT_CONSTRUCTOR_MARKER")
+    MemberName("com.github.octaone.alcubierre.codegen.api", "DEFAULT_CONSTRUCTOR_MARKER")
 )
-
-/**
- * маркер синтетического конструктора, поддерживающего default values
- */
-@JvmField
-val DEFAULT_CONSTRUCTOR_MARKER: Class<*> =
-    Class.forName("kotlin.jvm.internal.DefaultConstructorMarker")

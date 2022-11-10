@@ -11,6 +11,7 @@ inline fun <reified T : Parcelable> Bundle.getParcelableCompat(key: String) : T?
     getParcelableCompat(key, T::class.java)
 
 @PublishedApi
+@Suppress("DEPRECATION")
 internal fun <T : Parcelable> Bundle.getParcelableCompat(key: String, clazz: Class<T>) : T? =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getParcelable(key, clazz)

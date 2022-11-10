@@ -1,5 +1,8 @@
 package com.github.octaone.alcubierre.codegen.type.converter
 
+import com.github.octaone.alcubierre.codegen.processor.DeeplinkInformation
+import com.github.octaone.alcubierre.codegen.type.SCREEN_CONVERTER
+import com.squareup.kotlinpoet.ANY
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
@@ -8,9 +11,6 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.buildCodeBlock
-import com.github.octaone.alcubierre.codegen.processor.DeeplinkInformation
-import com.github.octaone.alcubierre.codegen.type.SCREEN
-import com.github.octaone.alcubierre.codegen.type.SCREEN_CONVERTER
 
 /**
  * Генерация конвертера из набора плейсхолдеров в объект экрана
@@ -28,7 +28,7 @@ fun generateConverter(info: DeeplinkInformation): TypeSpec {
         .addParameter("from", MAP.parameterizedBy(STRING, STRING))
         .addCode(generateConverterBody(info))
         .addKdoc("Конвертер для шаблонов\n${info.patterns.joinToString()}")
-        .returns(SCREEN)
+        .returns(ANY)
         .build()
 
     return TypeSpec

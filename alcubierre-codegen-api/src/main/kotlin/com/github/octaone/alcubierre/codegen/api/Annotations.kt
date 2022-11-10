@@ -1,4 +1,4 @@
-package com.github.octaone.alcubierre.codegen.type
+package com.github.octaone.alcubierre.codegen.api
 
 /**
  * Аннотация, позволяющая указать набор диплинков, по которым можно открыть экран приложения.

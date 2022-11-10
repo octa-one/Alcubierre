@@ -1,6 +1,11 @@
 package com.github.octaone.alcubierre.codegen.processor
 
+import com.github.octaone.alcubierre.codegen.api.Deeplink
+import com.github.octaone.alcubierre.codegen.type.SCREEN
+import com.github.octaone.alcubierre.codegen.type.converter.generateConverter
+import com.github.octaone.alcubierre.codegen.type.generateDeeplinkRegistry
 import com.google.devtools.ksp.KspExperimental
+import com.google.devtools.ksp.getAllSuperTypes
 import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.Resolver
@@ -14,12 +19,6 @@ import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
-import com.github.octaone.alcubierre.codegen.type.Deeplink
-import com.github.octaone.alcubierre.codegen.type.FRAGMENT_SCREEN
-import com.github.octaone.alcubierre.codegen.type.SCREEN
-import com.github.octaone.alcubierre.codegen.type.VALID_SCREENS
-import com.github.octaone.alcubierre.codegen.type.converter.generateConverter
-import com.github.octaone.alcubierre.codegen.type.generateDeeplinkRegistry
 
 class DeeplinkProcessor(
     private val environment: SymbolProcessorEnvironment
@@ -100,7 +99,7 @@ class DeeplinkProcessor(
 
     @OptIn(KotlinPoetKspPreview::class)
     private fun validateDeclaration(declaration: KSClassDeclaration) {
-        require(declaration.superTypes.any { it.toTypeName() in VALID_SCREENS }) {
+        require(declaration.getAllSuperTypes().any { it.toTypeName() == SCREEN }) {
             "Аннотация Deeplink может быть использована только на наследниках класса Screen"
         }
     }

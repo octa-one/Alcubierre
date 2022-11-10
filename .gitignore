@@ -52,6 +52,7 @@ gen-external-apklibs
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/**/misc
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -209,6 +210,7 @@ proguard/
 # NDK
 obj/
 
+<<<<<<< HEAD
 # IntelliJ IDEA
 /out/
 
@@ -270,3 +272,5 @@ hs_err_pid*
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/androidstudio,intellij,android
+
+.DS_Store

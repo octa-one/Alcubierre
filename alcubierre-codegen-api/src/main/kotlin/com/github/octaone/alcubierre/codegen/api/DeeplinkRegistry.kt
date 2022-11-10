@@ -1,4 +1,4 @@
-package com.github.octaone.alcubierre.codegen.base
+package com.github.octaone.alcubierre.codegen.api
 
 interface DeeplinkRegistry {
 

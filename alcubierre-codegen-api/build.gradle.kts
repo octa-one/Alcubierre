@@ -4,13 +4,5 @@ description = """
     """.trimIndent()
 
 plugins {
-    id(Conventions.ANDROID_LIBRARY)
-}
-
-android {
-    namespace = "com.github.octaone.alcubierre.codegen.base"
-}
-
-dependencies {
-    implementation(projects.alcubierre)
+    id(Conventions.KOTLIN_LIBRARY)
 }
