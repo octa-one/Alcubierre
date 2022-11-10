@@ -6,7 +6,6 @@ description = "Convention плагин для работы с диплинкам
 
 plugins {
     id("alcubierre.ksp-conventions")
-    id("com.joom.colonist.android")
 }
 
 commonAndroid {

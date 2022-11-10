@@ -2,6 +2,7 @@ plugins {
     id(Conventions.ANDROID_APPLICATION)
     id(Conventions.PARCELIZE)
     id(Conventions.DEEPLINK_CODEGEN)
+    id("com.joom.colonist.android")
 }
 
 android {
