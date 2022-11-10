@@ -15,7 +15,6 @@ class AlcubierreNavDriveOwner : NavDriveOwner {
 
     private var isReadyToProcess = false
     private var isStatePending = false
-    private var isStateSaved = false
 
     private var reducer: NavReducer<RootNavState> by Delegates.notNull()
     private var render: AlcubierreRootNavRender by Delegates.notNull()
@@ -32,8 +31,6 @@ class AlcubierreNavDriveOwner : NavDriveOwner {
         this.reducer = reducer
         this.render = render
         this.render.setOnDialogDismissed(::onDialogDismissed)
-
-        isStateSaved = false
 
         savedState?.getParcelableCompat<RootSavedState>(KEY_STATE)?.let { restored ->
             this.render.restoreState(restored)
@@ -56,13 +53,10 @@ class AlcubierreNavDriveOwner : NavDriveOwner {
     }
 
     override fun saveState(outState: Bundle) {
-        isStateSaved = true
         outState.putParcelable(KEY_STATE, render.saveState())
     }
 
     override fun dispatch(action: NavAction) {
-        if (isStateSaved) return
-
         currentState = reducer.reduce(state, action)
         if (isReadyToProcess) {
             render.render(currentState)
