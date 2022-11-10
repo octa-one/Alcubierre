@@ -9,11 +9,18 @@ activity = "1.6.0"
 fragment = "1.5.3"
 kotlin = "1.7.20"
 material = "1.7.0"
+kotlinpoet = "1.10.2"
+ksp = "1.7.20-1.0.7"
+asm = "9.2"
+colonist = "0.1.0-alpha20"
+junit = "4.13.2"
 
 [libraries]
 # gradle
 gradle-android-tools = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradle-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+gradle-colonist = { module = "com.joom.colonist:colonist-gradle-plugin", version.ref = "colonist" }
 
 # kotlin
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk7", version.ref = "kotlin" }
@@ -32,6 +39,17 @@ compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = 
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose_compiler" }
 compose-foundation = { module = "androidx.compose.foundation:foundation" }
 compose-runtime = { module = "androidx.compose.runtime:runtime" }
+
+# codegen
+kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
+kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }
+ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+asm-tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
+asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
+colonist-core = { module = "com.joom.colonist:colonist-core", version.ref = "colonist" }
+
+# test
+junit = { module = "junit:junit", version.ref = "junit" }
 
 [bundles]
 compose = [

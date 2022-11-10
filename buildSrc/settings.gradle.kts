@@ -1,4 +1,4 @@
-rootProject.name="alcubierre-conventions"
+rootProject.name = "alcubierre-conventions"
 
 pluginManagement {
     repositories {
