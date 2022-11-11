@@ -1,6 +1,6 @@
-import com.github.octaone.alcubierre.deeplink.DeeplinkUri
 import com.github.octaone.alcubierre.deeplink.DeeplinkTreeMatcher
 import com.github.octaone.alcubierre.deeplink.DeeplinkTreeRoot
+import com.github.octaone.alcubierre.deeplink.DeeplinkUri
 import com.github.octaone.alcubierre.deeplink.sortedByPlaceholders
 import org.junit.Assert
 import org.junit.Test

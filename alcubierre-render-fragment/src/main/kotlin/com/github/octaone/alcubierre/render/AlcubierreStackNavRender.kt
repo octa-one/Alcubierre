@@ -1,14 +1,14 @@
 package com.github.octaone.alcubierre.render
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
 import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import com.github.octaone.alcubierre.screen.FragmentCreator
 import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.screen.withScreenData
 import com.github.octaone.alcubierre.state.StackNavState
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.commit
 
 /**
  * Render для преобразования [StackNavState] в команды [FragmentManager].

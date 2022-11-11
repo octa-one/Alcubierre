@@ -1,9 +1,9 @@
 package com.github.octaone.alcubierre.codegen.processor
 
-import com.google.devtools.ksp.symbol.KSClassDeclaration
-import com.squareup.kotlinpoet.ClassName
 import com.github.octaone.alcubierre.codegen.api.Deeplink
 import com.github.octaone.alcubierre.codegen.api.DeeplinkParam
+import com.google.devtools.ksp.symbol.KSClassDeclaration
+import com.squareup.kotlinpoet.ClassName
 
 /**
  * Служебная информация по классу, помеченному аннотацией [Deeplink].

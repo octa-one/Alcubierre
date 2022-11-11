@@ -1,8 +1,8 @@
 package com.github.octaone.alcubierre
 
+import android.os.Bundle
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.state.RootNavState
-import android.os.Bundle
 
 /**
  * Базовый интерфейс для навигации.

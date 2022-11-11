@@ -1,11 +1,11 @@
 package com.github.octaone.alcubierre.codegen.type.converter
 
+import com.github.octaone.alcubierre.codegen.processor.ConstructorParameter
+import com.github.octaone.alcubierre.codegen.processor.DeeplinkInformation
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.buildCodeBlock
-import com.github.octaone.alcubierre.codegen.processor.ConstructorParameter
-import com.github.octaone.alcubierre.codegen.processor.DeeplinkInformation
 
 /**
  * Для дефолтных параметров, заполняемых из диплинка, используется битовая маска

@@ -1,13 +1,13 @@
 package com.github.octaone.alcubierre.render
 
+import androidx.fragment.app.FragmentManager
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
 import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import com.github.octaone.alcubierre.screen.Dialog
-import com.github.octaone.alcubierre.state.RootSavedState
 import com.github.octaone.alcubierre.state.RootNavState
+import com.github.octaone.alcubierre.state.RootSavedState
 import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.getNotNull
-import androidx.fragment.app.FragmentManager
 import kotlin.properties.Delegates
 
 class AlcubierreRootNavRender(

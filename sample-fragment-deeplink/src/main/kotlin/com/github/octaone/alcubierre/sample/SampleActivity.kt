@@ -1,25 +1,18 @@
 package com.github.octaone.alcubierre.sample
 
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.github.octaone.alcubierre.NavDrive
 import com.github.octaone.alcubierre.action.back
-import com.github.octaone.alcubierre.action.selectStack
-import com.github.octaone.alcubierre.codegen.SampleFragmentDeeplinkDeeplinkRegistry
 import com.github.octaone.alcubierre.host.AlcubierreNavDriveOwner
 import com.github.octaone.alcubierre.reduce.AlcubierreDefaultNavReducer
-import com.github.octaone.alcubierre.reduce.addOnStackChangedListener
 import com.github.octaone.alcubierre.reducer.DeeplinkReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
 import com.github.octaone.alcubierre.sample.databinding.ActivitySampleBinding
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
-import com.github.octaone.alcubierre.state.rootState
 import com.github.octaone.alcubierre.state.singleRootState
-import com.google.android.material.navigation.NavigationBarView
 
 class SampleActivity : AppCompatActivity() {
 

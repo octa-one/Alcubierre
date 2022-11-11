@@ -1,11 +1,11 @@
 package com.github.octaone.alcubierre.render.modifier
 
-import com.github.octaone.alcubierre.screen.FragmentScreen
 import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.github.octaone.alcubierre.fragment.R
+import com.github.octaone.alcubierre.screen.FragmentScreen
 
 class AnimationModifier(
     @AnimatorRes @AnimRes private val enter: Int,

@@ -1,14 +1,9 @@
 package com.github.octaone.alcubierre.sample.fragment
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks
 import com.github.octaone.alcubierre.action.back
 import com.github.octaone.alcubierre.action.backToRoot
 import com.github.octaone.alcubierre.action.clearStack

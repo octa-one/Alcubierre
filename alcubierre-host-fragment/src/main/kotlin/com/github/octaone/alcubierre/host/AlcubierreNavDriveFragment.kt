@@ -9,18 +9,17 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
-import com.github.octaone.alcubierre.action.NavAction
-import com.github.octaone.alcubierre.action.back
-import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
-import com.github.octaone.alcubierre.state.RootNavState
 import androidx.lifecycle.Lifecycle
 import com.github.octaone.alcubierre.NavDrive
 import com.github.octaone.alcubierre.NavDriveOwner
+import com.github.octaone.alcubierre.action.NavAction
+import com.github.octaone.alcubierre.action.back
 import com.github.octaone.alcubierre.fragment.host.R
-import com.github.octaone.alcubierre.reduce.AlcubierreRootNavReducer
 import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
+import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
+import com.github.octaone.alcubierre.state.RootNavState
 
 class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
 

@@ -1,5 +1,6 @@
 package com.github.octaone.alcubierre.codegen.type
 
+import com.github.octaone.alcubierre.codegen.processor.DeeplinkInformation
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.MAP
@@ -8,7 +9,6 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.buildCodeBlock
-import com.github.octaone.alcubierre.codegen.processor.DeeplinkInformation
 import java.util.Locale
 
 /**
