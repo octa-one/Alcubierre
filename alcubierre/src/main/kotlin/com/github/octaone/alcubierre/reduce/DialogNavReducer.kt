@@ -7,7 +7,7 @@ import com.github.octaone.alcubierre.action.ShowDialog
 import com.github.octaone.alcubierre.state.RootNavState
 
 /**
- * Reducer, отвечающий за операции с диалогом.
+ * Reducer responds for action with dialogs
  */
 class DialogNavReducer(
     private val origin: NavReducer<RootNavState>

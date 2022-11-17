@@ -3,7 +3,7 @@ package com.github.octaone.alcubierre.screen
 import androidx.fragment.app.Fragment
 
 /**
- * Расширение для [FragmentScreen], когда необходимо вручную создать фрагмент, например фрагмент из библиотеки.
+ * Extension for [FragmentScreen] for specific fragment creation (e.g. fragment from third-party library)
  */
 interface FragmentCreator {
 

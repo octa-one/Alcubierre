@@ -6,7 +6,7 @@ import com.github.octaone.alcubierre.util.getNotNull
 import kotlinx.parcelize.Parcelize
 
 /**
- * Состояние всей навигации в приложении (диалога и каждого стека).
+ * State of entire navigation of application (dialog and every stack)
  */
 @Parcelize
 data class RootNavState(

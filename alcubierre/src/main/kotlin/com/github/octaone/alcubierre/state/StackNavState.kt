@@ -5,7 +5,7 @@ import com.github.octaone.alcubierre.screen.Screen
 import kotlinx.parcelize.Parcelize
 
 /**
- * Состояние одного стека.
+ * State of single stack
  */
 @Parcelize
 data class StackNavState(

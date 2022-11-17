@@ -3,7 +3,7 @@ package com.github.octaone.alcubierre.render
 import com.github.octaone.alcubierre.screen.Screen
 
 /**
- * Операции, возможные со стеком.
+ * Stack operations
  */
 interface StackAction
 data class Pop(val count: Int) : StackAction

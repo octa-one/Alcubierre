@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import kotlin.reflect.KClass
 
 /**
- * Реализация [Screen] с использованием фрагментов.
+ * [Screen] implementation using fragments
  */
 abstract class FragmentScreen(
     val fragmentName: String,

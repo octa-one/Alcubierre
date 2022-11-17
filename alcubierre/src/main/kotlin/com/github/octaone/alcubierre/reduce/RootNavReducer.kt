@@ -16,7 +16,7 @@ import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.getNotNull
 
 /**
- * [NavReducer], отвечающий за команды со стеками и перенаправляющий остальные команды в нужный [stackReducer].
+ * [NavReducer] responds for commands with stacks and retranslate remaining command to proper [stackReducer]
  */
 class AlcubierreRootNavReducer(
     private val stackReducer: NavReducer<StackNavState> = AlcubierreStackNavReducer()

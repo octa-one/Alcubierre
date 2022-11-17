@@ -11,7 +11,7 @@ import com.github.octaone.alcubierre.screen.withScreenData
 import com.github.octaone.alcubierre.state.StackNavState
 
 /**
- * Render для преобразования [StackNavState] в команды [FragmentManager].
+ * Render for mappings of [StackNavState] to [FragmentManager]
  */
 class AlcubierreStackNavRender(
     private val containerId: Int,
@@ -42,7 +42,7 @@ class AlcubierreStackNavRender(
     }
 
     /**
-     * Выполняет popBackStack на число фрагментов [count].
+     * Perform popBackStack for [count] of fragments
      */
     private fun pop(count: Int) {
         val entryIndex = fragmentManager.backStackEntryCount - count
@@ -52,7 +52,7 @@ class AlcubierreStackNavRender(
     }
 
     /**
-     * Выполняет replace или add фрагментов из [screens].
+     * Perform replace or add operations for fragments in [screens]
      */
     private fun push(screens: List<Screen>) {
         screens.forEach { screen ->
@@ -85,9 +85,10 @@ class AlcubierreStackNavRender(
         }
 
     /**
-     * Метод для определения разницы двух стеков.
-     * Сравнение начинается с корня, при первом несовпадении
-     * старый стек [prev] "попается" до этого экрана включительно и "пушится" новый стек из [next].
+     * Мethod calculates diff of two stacks
+     * Comparison begins from the root
+     * When the first mismatch is detected the old stack [prev] is being popped to this mismatched screen including itself
+     * and new stack of [next] is being pushed
      */
     private fun diff(prev: StackNavState, next: StackNavState): List<StackAction> = when {
         prev.chain.isEmpty() && next.chain.isEmpty() -> emptyList()

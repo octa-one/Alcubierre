@@ -5,15 +5,15 @@ import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.state.RootNavState
 
 /**
- * Базовый интерфейс для навигации.
+ * Base interface of navigation
  *
- * Библиотека состоит из 3 основных классов:
- *  - Reducer: преобразует [RootNavState] в соответствии с [NavAction]
- *  - Render: передаёт команды в android framework (например в FragmentManager), чтобы отобразить актуальный [RootNavState]
- *  - AlcubierreHost: базовый класс навигации, который хранит в себе состояние экранов и являвется Render для [RootNavState]
+ * Library consists of 3 base classes:
+ *  - Reducer: maps [RootNavState] according to [NavAction]
+ *  - Render: translate commands to android framework (e.g. FragmentManager) for showing specific [RootNavState]
+ *  - AlcubierreHost: Base navigation class and Render for [RootNavState] which also stores screens state
  *
- * [state] - текущее состояние навигации.
- * [dispatch] - метод для применения [NavAction].
+ * [state] - current navigation state
+ * [dispatch] - method for [NavAction] application
  */
 interface NavDrive {
 
@@ -22,7 +22,7 @@ interface NavDrive {
 }
 
 /**
- * Базовый интерфейс для хоста навигации.
+ * Base interface of navigation host
  */
 interface NavDriveOwner : NavDrive {
 

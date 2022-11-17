@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import com.github.octaone.alcubierre.fragment.host.R
 
 /**
- * Расширение для поиска [Alcubierre] в иерархии фрагментов.
+ * Extension for searching [Alcubierre] in fragments hierarchy
  */
 fun Fragment.findNavDrive(): NavDrive {
     var findFragment: Fragment? = this
@@ -20,7 +20,7 @@ fun Fragment.findNavDrive(): NavDrive {
 }
 
 /**
- * Расширение для поиска [Alcubierre] в иерархии View.
+ * Extension for searching [Alcubierre] in View hierarchy
  */
 fun View.findNavDrive(): NavDrive {
     var view: View? = this
