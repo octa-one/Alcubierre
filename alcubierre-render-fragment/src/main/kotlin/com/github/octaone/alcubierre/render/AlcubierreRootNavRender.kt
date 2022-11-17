@@ -23,10 +23,10 @@ class AlcubierreRootNavRender(
     private var dialogRender: NavRender<Dialog?> by Delegates.notNull()
 
     fun render(state: RootNavState) {
-        // Применяем изменения состояния диалога.
+        // Apply dialog state changes
         dialogRender.render(state.dialog)
-
-        // Если текущий стек не поменялся, то можно пропустить рендер остальных стеков, потому что они всё равно не видны пользователю.
+        
+        // If current stack is not appeared so it is reasonable to skip remaining stacks render because of its invisibility for the user
         if (isStacksEquals(currentState, state)) {
             clearUnusedStacks(currentState, state)
             currentState = state
@@ -39,13 +39,13 @@ class AlcubierreRootNavRender(
         val toStackState = state.stacks.getNotNull(toStackId)
 
         if (fromStackId == toStackId) {
-            // Если текущий стек не поменялся, то только вызываем render у соответствующего StackNavRender.
+            // If current stack is not changed just call render of corresponding StackNavRender
             clearUnusedStacks(currentState, state)
 
             doRender(state)
         } else {
-            // Если стек поменялся, то сохраняем старый стек и восстанавлвиаем новый.
-            // После восстановления стека вызываем render у соответствующего StackNavRender.
+            // Save old stack and restore new one if stack is changed
+            // After restoring of stack call render of corresponding StackNavRender
             clearUnusedStacks(currentState, state)
             fromStackState.chain.firstOrNull()?.let { root ->
                 fragmentManager.saveBackStack(root.screenId)
@@ -96,15 +96,15 @@ class AlcubierreRootNavRender(
     }
 
     /**
-     * Метод для поиска и очистки неактуальных стеков.
-     * Например был стек авторизации, который потом заменился стеками фичей, чтобы не оставалось лишних фрагментов в FragmentManager, вызывается этот метод.
+     * Method for searching and cleaтing of old stacks
+     * This method is called to get rid of unneccessary fragments from FragmentManager in case of one stack was fully changed by another stack
      */
     private fun clearUnusedStacks(from: RootNavState, to: RootNavState) {
         from.stacks.forEach { (stackId, stack) ->
             val toStack = to.stacks[stackId]
             if (toStack != null) {
-                // Если в [to] есть стек [stackId], проверяем root экран, потому что если он изменился,
-                // то с точки зрения FragmentManager это новый стек, а значит старый надо очистить.
+                // If [to] contains stack with [stackId] need to check root screen.
+                // For FragmentManager it is a new stack so need to clear the old one
                 stack.chain.firstOrNull()
                     ?.takeIf { root -> root.screenId != toStack.chain.firstOrNull()?.screenId }
                     ?.let { root ->
@@ -112,7 +112,7 @@ class AlcubierreRootNavRender(
                         fragmentManager.clearBackStack(root.screenId)
                     }
             } else {
-                // Если в [to] нет стека [stackId], значит он больше не нужен в FragmentManager.
+                // If [to] doesn't contain [stackId] it is unneccessary to have it in FragmentManager
                 stackRenders.remove(stackId)
                 stack.chain.firstOrNull()?.let { root ->
                     fragmentManager.clearBackStack(root.screenId)

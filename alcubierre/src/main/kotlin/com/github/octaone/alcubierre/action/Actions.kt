@@ -30,61 +30,61 @@ object Back : NavAction
 class ApplyState(val state: RootNavState) : NavAction
 
 /**
- * Открытие следующего экрана [screens]
+ * Open next [screens]
  */
 fun NavDrive.forward(vararg screens: Screen) = dispatch(Forward(screens.toList()))
 
 /**
- * Замена текущего экрана на экран(ы) [screens]
+ * Replace current screen by new [screens]
  */
 fun NavDrive.replace(vararg screens: Screen) = dispatch(Replace(screens.toList()))
 
 /**
- * Замена всего стека с корневого экрана на экран(ы) [screens]
+ * Replace entire stack including root with [screens]
  */
 fun NavDrive.replaceRoot(vararg screens: Screen) = dispatch(ReplaceRoot(screens.toList()))
 
 /**
- * Добавление нового стека
+ * Add new stack with [stackId] and [screens]
  */
 fun NavDrive.newStack(stackId: Int, vararg screens: Screen) = dispatch(NewStack(stackId, screens.toList()))
 
 /**
- * Выбор активного стека
+ * Select active stack by [stackId]
  */
 fun NavDrive.selectStack(stackId: Int) = dispatch(SelectStack(stackId))
 
 /**
- * Удаление стека
+ * Clear stack by [stackId]
  */
 fun NavDrive.clearStack(stackId: Int) = dispatch(ClearStack(stackId))
 
 /**
- * Переход назад к экрану [screenId]
+ * Back to screen with [screenId]
  */
 fun NavDrive.backTo(screenId: String) = dispatch(BackTo(screenId))
 
 /**
- * Переход назад к корневого экрану стека
+ * Back to root screen
  */
 fun NavDrive.backToRoot() = dispatch(BackToRoot)
 
 /**
- * Переход назад
+ * Go back
  */
 fun NavDrive.back() = dispatch(Back)
 
 /**
- * Применение нового состония
+ * Apply new state [state]
  */
 fun NavDrive.applyState(state: RootNavState) = dispatch(ApplyState(state))
 
 /**
- * Показ диалога
+ * Show [dialog]
  */
 fun NavDrive.showDialog(dialog: Dialog) = dispatch(ShowDialog(dialog))
 
 /**
- * Скрытие диалога
+ * Dismiss dialog
  */
 fun NavDrive.dismissDialog() = dispatch(DismissDialog)

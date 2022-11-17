@@ -11,7 +11,7 @@ import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.state.StackNavState
 
 /**
- * [NavReducer], отвечающий за команды над конкретным стеком.
+ * [NavReducer] responds for commands with specific stack
  */
 class AlcubierreStackNavReducer : NavReducer<StackNavState> {
 

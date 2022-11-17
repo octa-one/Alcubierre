@@ -4,7 +4,7 @@ import androidx.fragment.app.DialogFragment
 import kotlin.reflect.KClass
 
 /**
- * Реализация [Dialog] с использованием фрагментов.
+ * [Dialog] implementation using fragments
  */
 abstract class FragmentDialog(
     val fragmentName: String

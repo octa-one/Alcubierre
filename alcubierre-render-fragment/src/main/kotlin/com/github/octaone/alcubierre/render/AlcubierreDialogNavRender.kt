@@ -9,9 +9,9 @@ import com.github.octaone.alcubierre.screen.FragmentDialog
 import com.github.octaone.alcubierre.screen.withDialogData
 
 /**
- * Render для преобразования состояния диалога в команды [FragmentManager].
+ * Render for mapping dialog state to [FragmentManager] commands
  *
- * @property onDismiss - колбек, чтобы сообщить о сворачивании диалога жестом не через библиотеку навигации.
+ * @property onDismiss - callback provides messages about dialog dismiss by gesture avoiding nav library
  */
 class AlcubierreDialogNavRender(
     private val classLoader: ClassLoader,
@@ -48,7 +48,7 @@ class AlcubierreDialogNavRender(
         if (state != null) check(state is FragmentDialog) { "Unsupported dialog type $state" }
 
         val tempState = currentState
-        // Если был старый диалог, его необходимо закрыть.
+        // Need to dismiss old dialog
         if (tempState != null) {
             fragmentManager.findFragmentByTag(tempState.dialogId)
                 ?.let { it as DialogFragment }
@@ -57,7 +57,7 @@ class AlcubierreDialogNavRender(
                     fragment.dismiss()
                 }
         }
-        // Если есть новый диалог, показываем его и подписываемся на закрытие.
+        // Show new dialog and subscribe for closing
         if (state != null) {
             state as FragmentDialog
             fragmentManager.fragmentFactory.instantiate(classLoader, state.fragmentName)
