@@ -27,11 +27,11 @@ class DeeplinkResolver {
         for (registry in colony.registries) converters += registry.screenConverters
     }
 
-    fun resolve(deeplink: Uri): Screen {
+    fun resolve(deeplink: Uri): Any {
         val uri = deeplink.toDeeplinkUri()
         val (pattern, placeholders) = requireNotNull(matcher.match(uri)) { "Для диплинка $uri не найден экран" }
         val converter = requireNotNull(converters[pattern]) { "У шаблона $pattern нет конвертера" }
-        return converter.convert(placeholders) as Screen
+        return converter.convert(placeholders)
     }
 
     private fun Uri.toDeeplinkUri() = DeeplinkUri(
