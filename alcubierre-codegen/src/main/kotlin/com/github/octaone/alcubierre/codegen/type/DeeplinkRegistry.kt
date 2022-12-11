@@ -71,3 +71,4 @@ private const val API_PACKAGE = "$PACKAGE.codegen.api"
 val DEEPLINK_REGISTRY = ClassName(API_PACKAGE, "DeeplinkRegistry")
 val SCREEN_CONVERTER = ClassName(API_PACKAGE, "ScreenConverter")
 val SCREEN = ClassName("$PACKAGE.screen", "Screen")
+val DIALOG = ClassName("$PACKAGE.screen", "Dialog")

@@ -1,6 +1,7 @@
 package com.github.octaone.alcubierre.codegen.processor
 
 import com.github.octaone.alcubierre.codegen.api.Deeplink
+import com.github.octaone.alcubierre.codegen.type.DIALOG
 import com.github.octaone.alcubierre.codegen.type.SCREEN
 import com.github.octaone.alcubierre.codegen.type.converter.generateConverter
 import com.github.octaone.alcubierre.codegen.type.generateDeeplinkRegistry
@@ -99,8 +100,11 @@ class DeeplinkProcessor(
 
     @OptIn(KotlinPoetKspPreview::class)
     private fun validateDeclaration(declaration: KSClassDeclaration) {
-        require(declaration.getAllSuperTypes().any { it.toTypeName() == SCREEN }) {
-            "Аннотация Deeplink может быть использована только на наследниках класса Screen"
+        require(declaration.getAllSuperTypes().any {
+            val typeName = it.toTypeName()
+            typeName == SCREEN || typeName == DIALOG
+        }) {
+            "Аннотация Deeplink может быть использована только на наследниках класса Screen или Dialog"
         }
     }
 }
