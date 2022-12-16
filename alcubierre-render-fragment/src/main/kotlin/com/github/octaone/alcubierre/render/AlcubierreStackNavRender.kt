@@ -1,5 +1,6 @@
 package com.github.octaone.alcubierre.render
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
@@ -7,6 +8,7 @@ import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import com.github.octaone.alcubierre.screen.FragmentCreator
 import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.screen.Screen
+import com.github.octaone.alcubierre.screen.ScreenId
 import com.github.octaone.alcubierre.screen.withScreenData
 import com.github.octaone.alcubierre.state.StackNavState
 
@@ -20,14 +22,10 @@ class AlcubierreStackNavRender(
     private val transactionModifier: FragmentTransactionModifier
 ) : NavRender<StackNavState> {
 
-    override var currentState: StackNavState = StackNavState.EMPTY
-
-    override fun restoreState(state: StackNavState) {
-        currentState = state
-    }
+    private var currentChain: List<ScreenId> = emptyList()
 
     override fun render(state: StackNavState) {
-        val diff = diff(currentState, state)
+        val diff = diff(currentChain, state.chain)
         diff.forEach { action ->
             when (action) {
                 is Pop -> {
@@ -38,8 +36,17 @@ class AlcubierreStackNavRender(
                 }
             }
         }
-        currentState = state
+        currentChain = state.chain.map { it.screenId }
     }
+
+    override fun saveState(outState: Bundle) {
+        outState.putStringArray(BUNDLE_KEY_STACK_STATE, currentChain.toTypedArray())
+    }
+
+    override fun restoreState(bundle: Bundle) {
+        currentChain = bundle.getStringArray(BUNDLE_KEY_STACK_STATE)?.toList().orEmpty()
+    }
+
 
     /**
      * Perform popBackStack for [count] of fragments
@@ -90,26 +97,26 @@ class AlcubierreStackNavRender(
      * When the first mismatch is detected the old stack [prev] is being popped to this mismatched screen including itself
      * and new stack of [next] is being pushed
      */
-    private fun diff(prev: StackNavState, next: StackNavState): List<StackAction> = when {
-        prev.chain.isEmpty() && next.chain.isEmpty() -> emptyList()
-        prev.chain.isEmpty() -> listOf(Push(next.chain))
-        next.chain.isEmpty() -> listOf(Pop(prev.chain.size))
+    private fun diff(prev: List<ScreenId>, next: List<Screen>): List<StackAction> = when {
+        prev.isEmpty() && next.isEmpty() -> emptyList()
+        prev.isEmpty() -> listOf(Push(next))
+        next.isEmpty() -> listOf(Pop(prev.size))
         else -> {
             var result: List<StackAction>? = null
-            for (i in 0 until maxOf(prev.chain.size, next.chain.size)) {
-                val p = prev.chain.getOrNull(i)?.screenId
-                val n = next.chain.getOrNull(i)?.screenId
+            for (i in 0 until maxOf(prev.size, next.size)) {
+                val p = prev.getOrNull(i)
+                val n = next.getOrNull(i)?.screenId
                 if (p == n) continue
                 result = when {
                     p == null -> listOf(
-                        Push(next.chain.subList(i, next.chain.size))
+                        Push(next.subList(i, next.size))
                     )
                     n == null -> listOf(
-                        Pop(prev.chain.size - i)
+                        Pop(prev.size - i)
                     )
                     else -> listOf(
-                        Pop(prev.chain.size - i),
-                        Push(next.chain.subList(i, next.chain.size))
+                        Pop(prev.size - i),
+                        Push(next.subList(i, next.size))
                     )
                 }
                 break
@@ -118,3 +125,5 @@ class AlcubierreStackNavRender(
         }
     }
 }
+
+private const val BUNDLE_KEY_STACK_STATE = "alc_stack_render_state"

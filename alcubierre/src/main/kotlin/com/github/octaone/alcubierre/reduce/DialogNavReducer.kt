@@ -4,6 +4,7 @@ import com.github.octaone.alcubierre.action.Back
 import com.github.octaone.alcubierre.action.DismissDialog
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.ShowDialog
+import com.github.octaone.alcubierre.state.DialogNavState
 import com.github.octaone.alcubierre.state.RootNavState
 
 /**
@@ -15,24 +16,24 @@ class DialogNavReducer(
 
     override fun reduce(state: RootNavState, action: NavAction) = when (action) {
         is ShowDialog -> {
-            state.copy(dialog = action.dialog)
+            state.copy(dialogState = DialogNavState(action.dialog))
         }
         is DismissDialog -> {
-            state.copy(dialog = null)
+            state.copy(dialogState = DialogNavState(null))
         }
         is Back -> { // Back сначала закрывает диалог, если он отображается.
-            if (state.dialog == null) {
+            if (state.currentDialog == null) {
                 origin.reduce(state, action)
             } else {
-                state.copy(dialog = null)
+                state.copy(dialogState = DialogNavState(null))
             }
         }
         else -> {
             // Остальные действия обрабатываются дальнейшей цепочкой редьюсеров, но диалог закрывается.
-            if (state.dialog == null) {
+            if (state.currentDialog == null) {
                 origin.reduce(state, action)
             } else {
-                origin.reduce(state.copy(dialog = null), action)
+                origin.reduce(state.copy(dialogState = DialogNavState(null)), action)
             }
         }
     }

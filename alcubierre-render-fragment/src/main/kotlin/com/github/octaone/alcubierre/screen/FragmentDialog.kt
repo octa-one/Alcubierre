@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
  */
 abstract class FragmentDialog(
     val fragmentName: String
-) : Dialog {
+) : Dialog, Extras by ExtrasLazyImpl() {
 
     constructor(
         fragmentClass: KClass<out DialogFragment>

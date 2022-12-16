@@ -5,6 +5,7 @@ import android.os.Parcelable
 /**
  * Base screen (specific destination for navigation)
  */
-interface Screen : Parcelable {
-    val screenId: String
+interface Screen : Parcelable, Extras {
+
+    val screenId: ScreenId
 }

@@ -5,6 +5,7 @@ import android.os.Parcelable
 /**
  * Base dialog
  */
-interface Dialog : Parcelable {
-    val dialogId: String
+interface Dialog : Parcelable, Extras {
+
+    val dialogId: ScreenId
 }

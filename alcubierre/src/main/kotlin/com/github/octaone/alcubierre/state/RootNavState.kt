@@ -10,18 +10,19 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class RootNavState(
-    val dialog: Dialog?,
-    val stacks: Map<Int, StackNavState>,
+    val dialogState: DialogNavState,
+    val stackStates: Map<Int, StackNavState>,
     val currentStackId: Int
 ): Parcelable {
 
-    val currentStackState: StackNavState get() = stacks.getNotNull(currentStackId)
+    val currentStackState: StackNavState get() = stackStates.getNotNull(currentStackId)
+    val currentDialog: Dialog? get() = dialogState.dialog
 
     companion object {
 
         val EMPTY = RootNavState(
-            dialog = null,
-            stacks = mapOf(-1 to StackNavState.EMPTY),
+            dialogState = DialogNavState(null),
+            stackStates = mapOf(-1 to StackNavState.EMPTY),
             currentStackId = -1
         )
     }

@@ -3,6 +3,7 @@ package com.github.octaone.alcubierre.action
 import com.github.octaone.alcubierre.NavDrive
 import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
+import com.github.octaone.alcubierre.screen.ScreenId
 import com.github.octaone.alcubierre.state.RootNavState
 
 class ShowDialog(val dialog: Dialog) : NavAction
@@ -21,7 +22,7 @@ class SelectStack(val stackId: Int) : NavAction
 
 class ClearStack(val stackId: Int) : NavAction
 
-class BackTo(val screenId: String) : NavAction
+class BackTo(val screenId: ScreenId) : NavAction
 
 object BackToRoot : NavAction
 
@@ -62,7 +63,7 @@ fun NavDrive.clearStack(stackId: Int) = dispatch(ClearStack(stackId))
 /**
  * Back to screen with [screenId]
  */
-fun NavDrive.backTo(screenId: String) = dispatch(BackTo(screenId))
+fun NavDrive.backTo(screenId: ScreenId) = dispatch(BackTo(screenId))
 
 /**
  * Back to root screen

@@ -52,7 +52,7 @@ class SampleActivity : AppCompatActivity() {
                         true
                     }
                     R.id.stack_2 -> {
-                        if (navDrive.state.stacks.containsKey(R.id.stack_2)) {
+                        if (navDrive.state.stackStates.containsKey(R.id.stack_2)) {
                             navDrive.selectStack(R.id.stack_2)
                             true
                         } else {
