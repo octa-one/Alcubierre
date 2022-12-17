@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import util.implementation
 import util.withVersionCatalog
 
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "11"
         freeCompilerArgs += listOf(
