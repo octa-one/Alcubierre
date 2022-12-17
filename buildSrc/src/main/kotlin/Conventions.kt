@@ -8,5 +8,4 @@ object Conventions {
     const val KOTLIN_LIBRARY = "alcubierre.kotlin-library-conventions"
     const val KSP = "alcubierre.ksp-conventions"
     const val DEEPLINK_CODEGEN = "alcubierre.codegen-conventions"
-    const val PARCELIZE = "kotlin-parcelize"
 }

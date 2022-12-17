@@ -1,8 +1,13 @@
 plugins {
     id(Conventions.ANDROID_LIBRARY)
-    id(Conventions.PARCELIZE)
+    id(Plugins.PARCELIZE)
 }
 
 android {
     namespace = "com.github.octaone.alcubierre"
+}
+
+dependencies {
+
+    lintPublish(projects.alcubierreLint)
 }
