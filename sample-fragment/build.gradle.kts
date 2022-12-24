@@ -1,6 +1,6 @@
 plugins {
     id(Conventions.ANDROID_APPLICATION)
-    id(Conventions.PARCELIZE)
+    id(Plugins.PARCELIZE)
 }
 
 android {
