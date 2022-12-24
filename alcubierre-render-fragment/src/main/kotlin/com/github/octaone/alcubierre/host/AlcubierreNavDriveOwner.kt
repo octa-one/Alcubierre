@@ -6,8 +6,8 @@ import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.applyState
 import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
+import com.github.octaone.alcubierre.state.DialogNavState
 import com.github.octaone.alcubierre.state.RootNavState
-import com.github.octaone.alcubierre.state.RootSavedState
 import com.github.octaone.alcubierre.util.getParcelableCompat
 import kotlin.properties.Delegates
 
@@ -32,9 +32,9 @@ class AlcubierreNavDriveOwner : NavDriveOwner {
         this.render = render
         this.render.setOnDialogDismissed(::onDialogDismissed)
 
-        savedState?.getParcelableCompat<RootSavedState>(KEY_STATE)?.let { restored ->
-            this.render.restoreState(restored)
-            currentState = restored.state
+        savedState?.getParcelableCompat<RootNavState>(BUNDLE_KEY_STATE)?.let { restoredState ->
+            currentState = restoredState
+            this.render.restoreState(savedState)
         } ?: run {
             applyState(initialState)
         }
@@ -53,7 +53,8 @@ class AlcubierreNavDriveOwner : NavDriveOwner {
     }
 
     override fun saveState(outState: Bundle) {
-        outState.putParcelable(KEY_STATE, render.saveState())
+        outState.putParcelable(BUNDLE_KEY_STATE, currentState)
+        render.saveState(outState)
     }
 
     override fun dispatch(action: NavAction) {
@@ -66,8 +67,8 @@ class AlcubierreNavDriveOwner : NavDriveOwner {
     }
 
     private fun onDialogDismissed() {
-        currentState = currentState.copy(dialog = null)
+        currentState = currentState.copy(dialogState = DialogNavState(null))
     }
 }
 
-private const val KEY_STATE = "state"
+private const val BUNDLE_KEY_STATE = "alc_state"

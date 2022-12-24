@@ -71,7 +71,7 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
     private fun RootNavState.toStackString() =
         buildString {
             appendLine("Stacks (* - current screen):")
-            stacks.forEach { (id, stack) ->
+            stackStates.forEach { (id, stack) ->
                 append(id)
                 append(" : ")
                 stack.chain.joinTo(this) { it.screenId.substringAfterLast('.') }
@@ -79,6 +79,6 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
                 appendLine()
             }
             append("Dialog: ")
-            appendLine(dialog?.dialogId?.substringAfterLast('.'))
+            appendLine(currentDialog?.dialogId?.substringAfterLast('.'))
         }
 }

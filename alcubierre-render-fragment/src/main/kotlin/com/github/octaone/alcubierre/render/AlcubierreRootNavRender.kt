@@ -1,13 +1,15 @@
 package com.github.octaone.alcubierre.render
 
+import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
 import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
-import com.github.octaone.alcubierre.screen.Dialog
+import com.github.octaone.alcubierre.screen.ScreenId
+import com.github.octaone.alcubierre.state.DialogNavState
 import com.github.octaone.alcubierre.state.RootNavState
-import com.github.octaone.alcubierre.state.RootSavedState
 import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.getNotNull
+import com.github.octaone.alcubierre.util.getParcelableArrayCompat
 import kotlin.properties.Delegates
 
 class AlcubierreRootNavRender(
@@ -15,62 +17,69 @@ class AlcubierreRootNavRender(
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
     private val transactionModifier: FragmentTransactionModifier = EmptyModifier
-) {
+) : NavRender<RootNavState> {
 
-    var currentState: RootNavState = RootNavState.EMPTY
+    private var currentStackId: Int = -1
+    private val stacks = HashMap<Int, RootIdAndStackRender>()
+    private var dialogRender: NavRender<DialogNavState> by Delegates.notNull()
 
-    private val stackRenders = HashMap<Int, NavRender<StackNavState>>()
-    private var dialogRender: NavRender<Dialog?> by Delegates.notNull()
-
-    fun render(state: RootNavState) {
+    override fun render(state: RootNavState) {
         // Apply dialog state changes
-        dialogRender.render(state.dialog)
-        
-        // If current stack is not appeared so it is reasonable to skip remaining stacks render because of its invisibility for the user
-        if (isStacksEquals(currentState, state)) {
-            clearUnusedStacks(currentState, state)
-            currentState = state
-            return
-        }
+        dialogRender.render(state.dialogState)
 
-        val fromStackId = currentState.currentStackId
-        val fromStackState = currentState.stacks.getNotNull(fromStackId)
+        val fromStackId = currentStackId
+        val fromStackRootId = stacks[fromStackId]?.rootId
         val toStackId = state.currentStackId
-        val toStackState = state.stacks.getNotNull(toStackId)
+        val toStackStateRootId = state.stackStates.getNotNull(toStackId).chain.firstOrNull()?.screenId
 
         if (fromStackId == toStackId) {
             // If current stack is not changed just call render of corresponding StackNavRender
-            clearUnusedStacks(currentState, state)
-
+            clearUnusedStacks(state)
             doRender(state)
         } else {
             // Save old stack and restore new one if stack is changed
             // After restoring of stack call render of corresponding StackNavRender
-            clearUnusedStacks(currentState, state)
-            fromStackState.chain.firstOrNull()?.let { root ->
-                fragmentManager.saveBackStack(root.screenId)
+            clearUnusedStacks(state)
+            fromStackRootId?.let { rootId ->
+                fragmentManager.saveBackStack(rootId)
             }
-            toStackState.chain.firstOrNull()?.let { root ->
-                fragmentManager.restoreBackStack(root.screenId)
+            toStackStateRootId?.let { rootId ->
+                fragmentManager.restoreBackStack(rootId)
             }
 
             doRender(state)
         }
     }
 
-    fun restoreState(state: RootSavedState) {
-        dialogRender.restoreState(state.state.dialog)
-        state.rendered.forEach { (id, stackState) ->
-            stackRenders[id] = createStackRender()
-                .also { render -> render.restoreState(stackState) }
+
+    override fun saveState(outState: Bundle) {
+        dialogRender.saveState(outState)
+        outState.putInt(BUNDLE_KEY_CURRENT_STACK, currentStackId)
+        val stacksIterator = stacks.iterator()
+        val stackBundles = Array(stacks.size) {
+            val stackEntry = stacksIterator.next()
+            Bundle().also { stackBundle ->
+                stackBundle.putInt(BUNDLE_KEY_STACK_ID, stackEntry.key)
+                stackBundle.putString(BUNDLE_KEY_STACK_ROOT, stackEntry.value.rootId)
+                stackEntry.value.render.saveState(stackBundle)
+            }
         }
+        outState.putParcelableArray(BUNDLE_KEY_STACK_STATE, stackBundles)
     }
 
-    fun saveState(): RootSavedState =
-        RootSavedState(
-            state = currentState,
-            rendered = stackRenders.mapValues { it.value.currentState }
-        )
+    override fun restoreState(bundle: Bundle) {
+        dialogRender.restoreState(bundle)
+        currentStackId = bundle.getInt(BUNDLE_KEY_CURRENT_STACK)
+
+        stacks.clear()
+        bundle.getParcelableArrayCompat<Bundle>(BUNDLE_KEY_STACK_STATE)?.forEach { stackBundle ->
+            val stackId = stackBundle.getInt(BUNDLE_KEY_STACK_ID)
+            stacks[stackId] = RootIdAndStackRender(
+                rootId = stackBundle.getString(BUNDLE_KEY_STACK_ROOT),
+                render = createStackRender().also { render -> render.restoreState(stackBundle) }
+            )
+        }
+    }
 
     internal fun setOnDialogDismissed(onDialogDismissed: () -> Unit) {
         dialogRender = AlcubierreDialogNavRender(classLoader, fragmentManager, onDialogDismissed)
@@ -81,43 +90,55 @@ class AlcubierreRootNavRender(
 
     private fun doRender(newState: RootNavState) {
         val toStackId = newState.currentStackId
-        val toStackState = newState.stacks.getNotNull(toStackId)
+        val toStackState = newState.stackStates.getNotNull(toStackId)
 
-        val render = stackRenders.getOrPut(toStackId) { createStackRender() }
+        val render = stacks[toStackId]?.render ?: createStackRender()
+
         render.render(toStackState)
 
-        currentState = newState
-    }
-
-    private fun isStacksEquals(oldState: RootNavState, newState: RootNavState): Boolean {
-        if (oldState.currentStackId != newState.currentStackId) return false
-        if (oldState.currentStackState != newState.currentStackState) return false
-        return true
+        stacks[toStackId] = RootIdAndStackRender(
+            rootId = toStackState.chain.firstOrNull()?.screenId,
+            render = render
+        )
+        currentStackId = toStackId
     }
 
     /**
-     * Method for searching and cleaтing of old stacks
-     * This method is called to get rid of unneccessary fragments from FragmentManager in case of one stack was fully changed by another stack
+     * Method for searching and clearing of old stacks
+     * This method is called to get rid of unnecessary fragments from FragmentManager in case of one stack was fully changed by another stack
      */
-    private fun clearUnusedStacks(from: RootNavState, to: RootNavState) {
-        from.stacks.forEach { (stackId, stack) ->
-            val toStack = to.stacks[stackId]
+    private fun clearUnusedStacks(newState: RootNavState) {
+        val stacksIterator = stacks.iterator()
+        // Iterate through stacks
+        while (stacksIterator.hasNext()) {
+            val (stackId, stack) = stacksIterator.next()
+            // Get new state of existing stack
+            val toStack = newState.stackStates[stackId]
             if (toStack != null) {
-                // If [to] contains stack with [stackId] need to check root screen.
-                // For FragmentManager it is a new stack so need to clear the old one
-                stack.chain.firstOrNull()
-                    ?.takeIf { root -> root.screenId != toStack.chain.firstOrNull()?.screenId }
-                    ?.let { root ->
-                        stackRenders[stackId] = createStackRender()
-                        fragmentManager.clearBackStack(root.screenId)
-                    }
+                val newRootId = toStack.chain.firstOrNull()?.screenId
+                // If [newState] contains stack with [stackId] need to check root screen.
+                // If the root screen has changed, we must recreate the stack.
+                if (stack.rootId != null && stack.rootId != newRootId) {
+                    stacks[stackId] = RootIdAndStackRender(newRootId, createStackRender())
+                    fragmentManager.clearBackStack(stack.rootId)
+                }
             } else {
-                // If [to] doesn't contain [stackId] it is unneccessary to have it in FragmentManager
-                stackRenders.remove(stackId)
-                stack.chain.firstOrNull()?.let { root ->
-                    fragmentManager.clearBackStack(root.screenId)
+                // If [newState] doesn't contain [stackId] it is unnecessary to have it in FragmentManager
+                stacksIterator.remove()
+                if (stack.rootId != null) {
+                    fragmentManager.clearBackStack(stack.rootId)
                 }
             }
         }
     }
+
+    private data class RootIdAndStackRender(
+        val rootId: ScreenId?,
+        val render: NavRender<StackNavState>
+    )
 }
+
+private const val BUNDLE_KEY_CURRENT_STACK = "alc_root_current_stack"
+private const val BUNDLE_KEY_STACK_ID = "alc_root_stack_id"
+private const val BUNDLE_KEY_STACK_ROOT = "alc_root_stack_root"
+private const val BUNDLE_KEY_STACK_STATE = "alc_root_stack_states"

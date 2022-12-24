@@ -54,7 +54,7 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
 
         binding.btnNewStack.setOnClickListener {
             val navDrive = findNavDrive()
-            if (navDrive.state.stacks.containsKey(R.id.stack_2)) {
+            if (navDrive.state.stackStates.containsKey(R.id.stack_2)) {
                 Toast.makeText(requireContext(), "Stack already exists", Toast.LENGTH_SHORT).show()
             } else {
                 findNavDrive().newStack(R.id.stack_2, SampleScreen(Counter.increment()))
@@ -76,7 +76,7 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
     private fun RootNavState.toStackString() =
         buildString {
             appendLine("Stacks (* - current screen):")
-            stacks.forEach { (id, stack) ->
+            stackStates.forEach { (id, stack) ->
                 append(
                     when (id) {
                         R.id.stack_0 -> "0"
@@ -90,6 +90,6 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
                 appendLine()
             }
             append("Dialog: ")
-            appendLine(dialog?.dialogId?.substringAfterLast('.'))
+            appendLine(currentDialog?.dialogId?.substringAfterLast('.'))
         }
 }

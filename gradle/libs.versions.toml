@@ -14,6 +14,8 @@ ksp = "1.7.20-1.0.8"
 asm = "9.2"
 colonist = "0.1.0-alpha20"
 junit = "4.13.2"
+lifecycle = "2.5.1"
+savedstate = "1.2.0"
 lint = "30.3.1"
 autoservice = "1.0.1"
 
@@ -34,6 +36,10 @@ androidx-annotation = { module = "androidx.annotation:annotation", version.ref =
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "core" }
 androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
+androidx-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common", version.ref = "lifecycle" }
+androidx-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "lifecycle" }
+androidx-savedstate = { module = "androidx.savedstate:savedstate-ktx", version.ref = "savedstate" }
 
 material = { module = "com.google.android.material:material", version.ref = "material" }
 

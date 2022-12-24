@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
 abstract class FragmentScreen(
     val fragmentName: String,
     val replace: Boolean = true
-) : Screen {
+) : Screen, Extras by ExtrasLazyImpl() {
 
     constructor(
         fragmentClass: KClass<out Fragment>,

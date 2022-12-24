@@ -33,14 +33,14 @@ class AlcubierreRootNavReducer(
             if (state.currentStackId == action.stackId) {
                 state
             } else {
-                check(state.stacks.containsKey(action.stackId))
+                check(state.stackStates.containsKey(action.stackId))
                 state.copy(currentStackId = action.stackId)
             }
         }
         is ClearStack -> {
-            if (state.stacks.containsKey(action.stackId)) {
+            if (state.stackStates.containsKey(action.stackId)) {
                 check(state.currentStackId != action.stackId)
-                state.copy(stacks = state.stacks.toMutableMap().apply { remove(action.stackId) })
+                state.copy(stackStates = state.stackStates.toMutableMap().apply { remove(action.stackId) })
             } else {
                 state
             }
@@ -54,8 +54,8 @@ class AlcubierreRootNavReducer(
     }
 
     private inline fun RootNavState.modifyStack(id: Int, update: StackNavState.() -> StackNavState): RootNavState =
-        setStack(id, stacks.getNotNull(id).update())
+        setStack(id, stackStates.getNotNull(id).update())
 
     private fun RootNavState.setStack(id: Int, stack: StackNavState): RootNavState =
-        copy(stacks = stacks.toMutableMap().apply { put(id, stack) })
+        copy(stackStates = stackStates.toMutableMap().apply { put(id, stack) })
 }
