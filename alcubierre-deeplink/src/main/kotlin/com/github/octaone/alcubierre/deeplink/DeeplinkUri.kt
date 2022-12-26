@@ -43,3 +43,6 @@ fun List<DeeplinkUri>.sortedByPlaceholders() = sortedWith { uri, other ->
 internal fun String.isPlaceholder() = startsWith('{') && endsWith('}')
 
 internal fun String.extractPlaceholder(): String = substring(1, length - 1)
+
+internal fun Map<String, String>.filterPlaceholders() = filter { it.value.isPlaceholder() }
+    .mapValues { it.value.extractPlaceholder() }
