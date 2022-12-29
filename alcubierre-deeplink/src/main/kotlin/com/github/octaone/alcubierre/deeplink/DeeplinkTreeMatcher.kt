@@ -12,16 +12,7 @@ class DeeplinkTreeMatcher(private val root: DeeplinkTreeRoot) {
 
     fun match(deeplink: DeeplinkUri): DeeplinkMatch? {
         val segments = with(deeplink) { buildList { add(scheme); add(host); addAll(pathSegments) } }
-        val match = treeMatch(root.node, segments) ?: return null
-
-        val queryParameters = mutableMapOf<String, String>()
-        // query параметры могут дублироваться, не поддерживаем
-        for (name in deeplink.queryParameterNames) {
-            val value = deeplink.getQueryParameter(name)
-            if (value != null) queryParameters[name] = URLDecoder.decode(value, "UTF-8")
-        }
-
-        return match.copy(placeholders = match.placeholders + queryParameters)
+        return treeMatch(root.node, deeplink, segments)
     }
 
     /**
@@ -32,6 +23,7 @@ class DeeplinkTreeMatcher(private val root: DeeplinkTreeRoot) {
      */
     private fun treeMatch(
         root: TreeNode,
+        deeplink: DeeplinkUri,
         deeplinkSegments: List<String>,
         segmentIndex: Int = 0,
         placeholders: MutableMap<String, String> = mutableMapOf()
@@ -54,13 +46,19 @@ class DeeplinkTreeMatcher(private val root: DeeplinkTreeRoot) {
 
                 if (segmentIndex + 1 < deeplinkSegments.size) {
                     // узел совпал с сегментом диплинка, но сравнили еще не все сегменты
-                    match = treeMatch(node, deeplinkSegments, segmentIndex + 1, localPlaceholders)
+                    match = treeMatch(node, deeplink, deeplinkSegments, segmentIndex + 1, localPlaceholders)
                 } else {
                     // если диплинк совпал полностью, то нужно проверить, является ли совпавший узел
                     // замыкающим в шаблоне, иначе получится, что диплинк совпал лишь с частью шаблона
                     val uri = node.matchingUri
                     if (uri != null) {
-                        match = DeeplinkMatch(uri.pattern, localPlaceholders)
+                        val queryParameters = mutableMapOf<String, String>()
+                        // сопоставляем плейсхолдеры из query шаблона со значениями из входящего диплинка
+                        for ((key, placeholder) in uri.query.filterPlaceholders()) {
+                            val value = deeplink.getQueryParameter(key)
+                            if (value != null) queryParameters[placeholder] = URLDecoder.decode(value, "UTF-8")
+                        }
+                        match = DeeplinkMatch(uri.pattern, localPlaceholders + queryParameters)
                     }
                 }
             }
@@ -81,6 +79,6 @@ class DeeplinkTreeMatcher(private val root: DeeplinkTreeRoot) {
 /**
  * Результат сопоставления диплинка с шаблоном.
  * @property matchedPattern шаблон диплинка, с которым произошло совпадение
- * @property placeholders плейсходеры из path, и все квери параметры
+ * @property placeholders плейсходеры из path и query
  */
 data class DeeplinkMatch(val matchedPattern: String, val placeholders: Map<String, String>)

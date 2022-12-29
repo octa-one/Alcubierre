@@ -20,9 +20,9 @@ class DeeplinkTreeMatcherTest {
 
     @Test
     fun `all query params goes into placeholders`() {
-        val matcher = matcher("scheme://host/path?from={place}&to={place1}")
+        val matcher = matcher("scheme://host/path?from={fromPlaceholder}&to=notPlaceholder")
         assertEquals(
-            mapOf("from" to "place", "to" to "place1"),
+            mapOf("fromPlaceholder" to "place"),
             matcher.match("scheme://host/path?from=place&to=place1")?.placeholders
         )
     }
