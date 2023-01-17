@@ -90,7 +90,8 @@ private fun generateReflector(
     add("val constructor = %T::class.java.getDeclaredConstructor(\n", targetClass)
     indent()
 
-    for (c in constructorParameters.map { it.className }) addStatement("%T::class.java,", c)
+    for (c in constructorParameters.map { it.className }) addStatement("%T::class.javaObjectType,", c)
+
 
     addStatement("Int::class.java,") // битовая маска
     add(DEFAULT_CONSTRUCTOR_MARKER_TYPE_BLOCK)

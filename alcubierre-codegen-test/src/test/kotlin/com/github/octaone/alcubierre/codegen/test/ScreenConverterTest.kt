@@ -79,8 +79,25 @@ class ScreenConverterTest {
     @Test
     fun `screen with nullable parameters`() {
         assertEquals(
-            NullableScreen(null),
+            NullableScreen(null, null, null, null, null, null, null, null),
             NullableScreen_Converter().convert(emptyMap())
+        )
+    }
+
+    @Test
+    fun `screen with nullable default parameters`() {
+        assertEquals(
+            NullableWithDefaultScreen(
+                a = "default",
+                b = 1,
+                c = 2,
+                d = 3,
+                e = 4,
+                f = 5f,
+                g = 6.0,
+                h = false
+            ),
+            NullableWithDefaultScreen_Converter().convert(mapOf())
         )
     }
 

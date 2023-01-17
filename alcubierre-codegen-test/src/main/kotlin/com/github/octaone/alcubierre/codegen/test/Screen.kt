@@ -49,9 +49,28 @@ data class ReflectionScreen(
     val bar: String?
 ) : TestScreen()
 
-@Deeplink("scheme://host/path/{name}")
+@Deeplink("scheme://host/path/{a}/{b}/{c}/{d}/{e}/{f}/{g}/{h}")
 data class NullableScreen(
-    val name: String?
+    val a: String?,
+    val b: Int?,
+    val c: Byte?,
+    val d: Long?,
+    val e: Short?,
+    val f: Float?,
+    val g: Double?,
+    val h: Boolean?
+) : TestScreen()
+
+@Deeplink("scheme://host/path/{a}/{b}/{c}/{d}/{e}/{f}/{g}/{h}")
+data class NullableWithDefaultScreen(
+    val a: String? = "default",
+    val b: Int? = 1,
+    val c: Byte? = 2,
+    val d: Long? = 3,
+    val e: Short? = 4,
+    val f: Float? = 5f,
+    val g: Double? = 6.0,
+    val h: Boolean? = false
 ) : TestScreen()
 
 @Deeplink(
