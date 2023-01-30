@@ -15,6 +15,7 @@ import com.github.octaone.alcubierre.sample.R
 import com.github.octaone.alcubierre.sample.SampleApplication
 import com.github.octaone.alcubierre.sample.databinding.Fmt0Binding
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
+import com.github.octaone.alcubierre.screen.deeplinkUri
 import com.github.octaone.alcubierre.screen.screenData
 import com.github.octaone.alcubierre.state.RootNavState
 
@@ -30,7 +31,7 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
         binding = Fmt0Binding.bind(view)
 
         with(binding) {
-            text.text = screen.someId.toString()
+            text.text = "${screen.someId}, uri: ${screen.deeplinkUri}"
             showStackState()
 
             btnBack.setOnClickListener {
