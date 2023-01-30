@@ -1,5 +1,5 @@
 [versions]
-agp = "7.4.0-rc01"
+agp = "7.4.0"
 annotation = "1.5.0"
 appcompat = "1.5.1"
 compose_bom = "2022.12.00"

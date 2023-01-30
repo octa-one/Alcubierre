@@ -1,7 +1,9 @@
-package com.github.octaone.alcubierre.deeplink;
+package com.github.octaone.alcubierre.deeplink
 
 import android.net.Uri
+import com.github.octaone.alcubierre.ExtrasKeys
 import com.github.octaone.alcubierre.codegen.api.ScreenConverter
+import com.github.octaone.alcubierre.screen.Extras
 import com.github.octaone.alcubierre.screen.Screen
 
 /**
@@ -31,7 +33,7 @@ class DeeplinkResolver {
         val uri = deeplink.toDeeplinkUri()
         val (pattern, placeholders) = requireNotNull(matcher.match(uri)) { "Для диплинка $uri не найден экран" }
         val converter = requireNotNull(converters[pattern]) { "У шаблона $pattern нет конвертера" }
-        return converter.convert(placeholders)
+        return converter.convert(placeholders).withDeeplinkExtra(deeplink)
     }
 
     private fun Uri.toDeeplinkUri() = DeeplinkUri(
@@ -41,4 +43,10 @@ class DeeplinkResolver {
         path = path,
         query = queryParameterNames.associateWith { requireNotNull(getQueryParameter(it)) }
     )
+
+    private fun Any.withDeeplinkExtra(deeplink: Uri): Any = apply {
+        if (this is Extras) {
+            extras.putParcelable(ExtrasKeys.DEEPLINK_URI, deeplink)
+        }
+    }
 }
