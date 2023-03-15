@@ -14,6 +14,7 @@ import com.github.octaone.alcubierre.action.SelectStack
 import com.github.octaone.alcubierre.state.RootNavState
 import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.getNotNull
+import com.github.octaone.alcubierre.util.toHashMap
 
 /**
  * [NavReducer] responds for commands with stacks and retranslate remaining command to proper [stackReducer]
@@ -40,7 +41,7 @@ class AlcubierreRootNavReducer(
         is ClearStack -> {
             if (state.stackStates.containsKey(action.stackId)) {
                 check(state.currentStackId != action.stackId)
-                state.copy(stackStates = state.stackStates.toMutableMap().apply { remove(action.stackId) })
+                state.copy(stackStates = state.stackStates.toHashMap().apply { remove(action.stackId) })
             } else {
                 state
             }
@@ -57,5 +58,5 @@ class AlcubierreRootNavReducer(
         setStack(id, stackStates.getNotNull(id).update())
 
     private fun RootNavState.setStack(id: Int, stack: StackNavState): RootNavState =
-        copy(stackStates = stackStates.toMutableMap().apply { put(id, stack) })
+        copy(stackStates = stackStates.toHashMap().apply { put(id, stack) })
 }

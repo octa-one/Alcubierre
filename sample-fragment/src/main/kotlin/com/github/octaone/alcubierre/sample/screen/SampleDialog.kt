@@ -6,5 +6,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class SampleDialog(
-    val someId: Int
+    val someId: Int,
+    override val priority: Int
 ) : FragmentDialog(SampleDialogFragment::class)

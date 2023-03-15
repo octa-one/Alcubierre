@@ -16,13 +16,13 @@ data class RootNavState(
 ): Parcelable {
 
     val currentStackState: StackNavState get() = stackStates.getNotNull(currentStackId)
-    val currentDialog: Dialog? get() = dialogState.dialog
+    val currentDialog: Dialog? get() = dialogState.queue.firstOrNull()
 
     companion object {
 
         val EMPTY = RootNavState(
-            dialogState = DialogNavState(null),
-            stackStates = mapOf(-1 to StackNavState.EMPTY),
+            dialogState = DialogNavState.EMPTY,
+            stackStates = hashMapOf(-1 to StackNavState.EMPTY),
             currentStackId = -1
         )
     }

@@ -1,6 +1,8 @@
 package com.github.octaone.alcubierre.screen
 
 import androidx.fragment.app.DialogFragment
+import com.github.octaone.alcubierre.screen.extra.LazyBundleExtras
+import com.github.octaone.alcubierre.screen.extra.ParcelableExtras
 import kotlin.reflect.KClass
 
 /**
@@ -8,13 +10,15 @@ import kotlin.reflect.KClass
  */
 abstract class FragmentDialog(
     val fragmentName: String
-) : Dialog, Extras by ExtrasLazyImpl() {
+) : Dialog, ParcelableExtras by LazyBundleExtras() {
+
+    override val dialogId: String by lazy(LazyThreadSafetyMode.NONE) { "${fragmentName}_${hashCode()}" }
+
+    override val priority: Int = 5
 
     constructor(
         fragmentClass: KClass<out DialogFragment>
     ) : this(fragmentClass.java.name)
-
-    override val dialogId: String by lazy(LazyThreadSafetyMode.NONE) { "${fragmentName}_${hashCode()}" }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
-import com.github.octaone.alcubierre.screen.Extras
 import com.github.octaone.alcubierre.screen.Screen
+import com.github.octaone.alcubierre.screen.extra.Extras
 
-@SuppressLint("ParcelCreator")
+@SuppressLint("ParcelCreator", "NonDataScreenClassRule")
 open class TestScreen : Screen, Parcelable by ParcelableStub, Extras by ExtrasStub {
 
     override val screenId: String = ""

@@ -1,6 +1,8 @@
 package com.github.octaone.alcubierre.screen
 
 import androidx.fragment.app.Fragment
+import com.github.octaone.alcubierre.screen.extra.LazyBundleExtras
+import com.github.octaone.alcubierre.screen.extra.ParcelableExtras
 import kotlin.reflect.KClass
 
 /**
@@ -9,14 +11,14 @@ import kotlin.reflect.KClass
 abstract class FragmentScreen(
     val fragmentName: String,
     val replace: Boolean = true
-) : Screen, Extras by ExtrasLazyImpl() {
+) : Screen, ParcelableExtras by LazyBundleExtras() {
+
+    override val screenId: String by lazy(LazyThreadSafetyMode.NONE) { "${fragmentName}_${hashCode()}" }
 
     constructor(
         fragmentClass: KClass<out Fragment>,
         replace: Boolean = true
     ) : this(fragmentClass.java.name, replace)
-
-    override val screenId: String by lazy(LazyThreadSafetyMode.NONE) { "${fragmentName}_${hashCode()}" }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

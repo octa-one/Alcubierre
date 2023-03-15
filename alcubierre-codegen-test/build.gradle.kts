@@ -1,7 +1,7 @@
 plugins {
     id(Conventions.ANDROID_LIBRARY)
     id(Plugins.PARCELIZE)
-    id(Conventions.KSP)
+    id(Plugins.KSP)
     id(Conventions.DEEPLINK_CODEGEN)
 }
 

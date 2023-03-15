@@ -51,7 +51,6 @@ class AlcubierreRootNavRender(
         }
     }
 
-
     override fun saveState(outState: Bundle) {
         dialogRender.saveState(outState)
         outState.putInt(BUNDLE_KEY_CURRENT_STACK, currentStackId)
