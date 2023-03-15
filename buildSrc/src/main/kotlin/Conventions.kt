@@ -6,6 +6,5 @@ object Conventions {
     const val KOTLIN_BASE = "alcubierre.kotlin-base-conventions"
     const val KOTLIN_ANDROID = "alcubierre.kotlin-android-conventions"
     const val KOTLIN_LIBRARY = "alcubierre.kotlin-library-conventions"
-    const val KSP = "alcubierre.ksp-conventions"
     const val DEEPLINK_CODEGEN = "alcubierre.codegen-conventions"
 }

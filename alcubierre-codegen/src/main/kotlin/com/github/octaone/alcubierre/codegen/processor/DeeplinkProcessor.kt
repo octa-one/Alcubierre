@@ -17,7 +17,6 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
 
@@ -62,7 +61,6 @@ class DeeplinkProcessor(
         extractor.extract(annotation, classDeclaration, constructorParameters)
     }
 
-    @OptIn(KotlinPoetKspPreview::class)
     private fun createScreenConverters(classInformation: List<DeeplinkInformation>) {
         for (info in classInformation) {
             val converter = generateConverter(info)
@@ -78,7 +76,6 @@ class DeeplinkProcessor(
         }
     }
 
-    @OptIn(KotlinPoetKspPreview::class)
     private fun createDeeplinkRegistry(classInformation: List<DeeplinkInformation>) {
         if (classInformation.toList().isEmpty()) return
         val registryBase = environment.options[REGISTRY_BASE_NAME_OPTION] ?: throw IllegalArgumentException(
@@ -98,7 +95,6 @@ class DeeplinkProcessor(
             .writeTo(codeGenerator, dependencies)
     }
 
-    @OptIn(KotlinPoetKspPreview::class)
     private fun validateDeclaration(declaration: KSClassDeclaration) {
         require(declaration.getAllSuperTypes().any {
             val typeName = it.toTypeName()

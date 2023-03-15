@@ -30,7 +30,7 @@ class RootStateBuilder {
     }
 
     fun build(): RootNavState =
-        RootNavState(DialogNavState(null), stacks, checkNotNull(stackId))
+        RootNavState(DialogNavState.EMPTY, stacks, checkNotNull(stackId))
 }
 
 fun rootState(builder: RootStateBuilder.() -> Unit): RootNavState =

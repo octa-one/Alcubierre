@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.alcubierreHostFragment)
     implementation(projects.alcubierreRenderFragment)
 
+    implementation(libs.kotlin.coroutines.android)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.core)

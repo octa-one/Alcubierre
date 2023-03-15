@@ -6,7 +6,7 @@ import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.applyState
 import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
-import com.github.octaone.alcubierre.state.DialogNavState
+import com.github.octaone.alcubierre.screen.extra.isShowing
 import com.github.octaone.alcubierre.state.RootNavState
 import com.github.octaone.alcubierre.util.getParcelableCompat
 import kotlin.properties.Delegates
@@ -67,7 +67,10 @@ class AlcubierreNavDriveOwner : NavDriveOwner {
     }
 
     private fun onDialogDismissed() {
-        currentState = currentState.copy(dialogState = DialogNavState(null))
+        val state = currentState
+        state.dialogState.queue.firstOrNull()?.isShowing = false
+        currentState = state.copy(dialogState = state.dialogState.copy(queue = state.dialogState.queue.drop(1)))
+        render.render(currentState)
     }
 }
 

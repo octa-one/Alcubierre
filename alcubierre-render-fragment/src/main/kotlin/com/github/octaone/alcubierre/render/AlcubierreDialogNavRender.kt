@@ -7,6 +7,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.github.octaone.alcubierre.screen.FragmentDialog
 import com.github.octaone.alcubierre.screen.ScreenId
+import com.github.octaone.alcubierre.screen.extra.isShowing
 import com.github.octaone.alcubierre.screen.withDialogData
 import com.github.octaone.alcubierre.state.DialogNavState
 
@@ -36,7 +37,7 @@ class AlcubierreDialogNavRender(
     }
 
     override fun render(state: DialogNavState) {
-        val newDialog = state.dialog
+        val newDialog = state.queue.firstOrNull()
         val newDialogId = newDialog?.dialogId
         if (currentDialogId == newDialogId) return
         if (newDialog != null) check(newDialog is FragmentDialog) { "Unsupported dialogState type $state" }
@@ -57,6 +58,8 @@ class AlcubierreDialogNavRender(
                 .withDialogData(newDialog)
                 .also { fragment -> fragment.lifecycle.addObserver(dialogObserver) }
                 .show(fragmentManager, newDialogId)
+
+            newDialog.isShowing = true
         }
         currentDialogId = newDialogId
     }

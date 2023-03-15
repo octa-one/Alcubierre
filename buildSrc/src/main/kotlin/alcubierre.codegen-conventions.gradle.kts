@@ -4,7 +4,7 @@ import util.implementation
 description = "Convention плагин для работы с диплинками в android модулях. Подключает кодогененрацию к модулю"
 
 plugins {
-    id("alcubierre.ksp-conventions")
+    id("com.google.devtools.ksp")
 }
 
 commonAndroid {

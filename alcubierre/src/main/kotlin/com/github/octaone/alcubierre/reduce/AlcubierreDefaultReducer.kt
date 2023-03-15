@@ -7,4 +7,4 @@ import com.github.octaone.alcubierre.state.RootNavState
  */
 @Suppress("FunctionName")
 fun AlcubierreDefaultNavReducer(): NavReducer<RootNavState> =
-    DialogNavReducer(AlcubierreRootNavReducer())
+    DialogRootNavReducer(AlcubierreRootNavReducer())

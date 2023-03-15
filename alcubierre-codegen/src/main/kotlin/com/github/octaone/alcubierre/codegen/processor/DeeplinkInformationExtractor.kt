@@ -13,7 +13,7 @@ import com.squareup.kotlinpoet.ksp.toTypeName
 
 class DeeplinkInformationExtractor {
 
-    @OptIn(KspExperimental::class, com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview::class)
+    @OptIn(KspExperimental::class)
     fun extract(
         annotation: Deeplink,
         classDeclaration: KSClassDeclaration,

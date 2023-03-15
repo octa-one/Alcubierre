@@ -18,8 +18,10 @@ import com.github.octaone.alcubierre.sample.R
 import com.github.octaone.alcubierre.sample.databinding.Fmt0Binding
 import com.github.octaone.alcubierre.sample.screen.SampleDialog
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
+import com.github.octaone.alcubierre.screen.extra.isShowing
 import com.github.octaone.alcubierre.screen.screenData
 import com.github.octaone.alcubierre.state.RootNavState
+import kotlin.random.Random
 
 class SampleFragment : Fragment(R.layout.fmt_0) {
 
@@ -58,18 +60,25 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
                 Toast.makeText(requireContext(), "Stack already exists", Toast.LENGTH_SHORT).show()
             } else {
                 findNavDrive().newStack(R.id.stack_2, SampleScreen(Counter.increment()))
-                binding.textState.text = findNavDrive().state.toStackString()
             }
         }
 
         binding.btnClearStack.setOnClickListener {
             findNavDrive().clearStack(R.id.stack_2)
-            binding.textState.text = findNavDrive().state.toStackString()
         }
 
         binding.btnShowDialog.setOnClickListener {
-            findNavDrive().showDialog(SampleDialog(Counter.increment()))
-            binding.textState.text = findNavDrive().state.toStackString()
+            findNavDrive().showDialog(SampleDialog(Counter.increment(), Random.nextInt(0, 10)))
+        }
+
+        binding.btnShowMultipleDialog.setOnClickListener {
+            repeat(3) {
+                findNavDrive().showDialog(SampleDialog(Counter.increment(), Random.nextInt(0, 10)))
+            }
+        }
+
+        parentFragmentManager.setFragmentResultListener("state", this) { _, _ ->
+            view.post { binding.textState.text = findNavDrive().state.toStackString() }
         }
     }
 
@@ -86,10 +95,13 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
                 )
                 append(" : ")
                 stack.chain.joinTo(this) { it.screenId.substringAfterLast('.') }
-                if (id == currentStackId) append(" *")
+                if (id == currentStackId) append("*")
                 appendLine()
             }
-            append("Dialog: ")
-            appendLine(currentDialog?.dialogId?.substringAfterLast('.'))
+            appendLine("Dialogs queue (* - visible dialog):")
+            dialogState.queue.joinTo(this) {
+                val shortId = it.dialogId.substringAfterLast('.')
+                if (it.isShowing) "$shortId(p=${it.priority})*" else "$shortId(p=${it.priority})"
+            }
         }
 }

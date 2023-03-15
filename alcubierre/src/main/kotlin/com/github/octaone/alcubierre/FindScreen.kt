@@ -1,7 +1,7 @@
 package com.github.octaone.alcubierre
 
 import com.github.octaone.alcubierre.screen.Screen
-import com.github.octaone.alcubierre.screen.tag
+import com.github.octaone.alcubierre.screen.extra.tag
 import com.github.octaone.alcubierre.state.RootNavState
 
 inline fun <reified S : Screen> RootNavState.findScreen(): S? =

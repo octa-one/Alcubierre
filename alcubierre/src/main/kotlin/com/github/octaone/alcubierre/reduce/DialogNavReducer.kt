@@ -1,40 +1,31 @@
 package com.github.octaone.alcubierre.reduce
 
-import com.github.octaone.alcubierre.action.Back
 import com.github.octaone.alcubierre.action.DismissDialog
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.ShowDialog
+import com.github.octaone.alcubierre.screen.extra.isShowing
 import com.github.octaone.alcubierre.state.DialogNavState
-import com.github.octaone.alcubierre.state.RootNavState
 
-/**
- * Reducer responds for action with dialogs
- */
-class DialogNavReducer(
-    private val origin: NavReducer<RootNavState>
-) : NavReducer<RootNavState> {
+class DialogNavReducer : NavReducer<DialogNavState> {
 
-    override fun reduce(state: RootNavState, action: NavAction) = when (action) {
+    override fun reduce(state: DialogNavState, action: NavAction): DialogNavState = when (action) {
         is ShowDialog -> {
-            state.copy(dialogState = DialogNavState(action.dialog))
+            if (state.queue.isEmpty()) {
+                state.copy(queue = listOf(action.dialog))
+            } else {
+                var insertIndex = state.queue.indexOfFirst { it.priority < action.dialog.priority && !it.isShowing}
+                if (insertIndex == -1) insertIndex = state.queue.size
+                state.copy(queue = state.queue.toMutableList().apply { add(insertIndex, action.dialog) })
+            }
         }
         is DismissDialog -> {
-            state.copy(dialogState = DialogNavState(null))
-        }
-        is Back -> { // Back сначала закрывает диалог, если он отображается.
-            if (state.currentDialog == null) {
-                origin.reduce(state, action)
+            if (state.queue.size <= 1) {
+                DialogNavState.EMPTY
             } else {
-                state.copy(dialogState = DialogNavState(null))
+                state.copy(queue = state.queue.drop(1))
             }
         }
-        else -> {
-            // Остальные действия обрабатываются дальнейшей цепочкой редьюсеров, но диалог закрывается.
-            if (state.currentDialog == null) {
-                origin.reduce(state, action)
-            } else {
-                origin.reduce(state.copy(dialogState = DialogNavState(null)), action)
-            }
-        }
+        else -> state
     }
 }
+

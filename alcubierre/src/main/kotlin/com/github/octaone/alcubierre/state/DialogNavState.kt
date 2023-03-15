@@ -12,5 +12,10 @@ import kotlinx.parcelize.TypeParceler
 @Parcelize
 @TypeParceler<Dialog, DialogParceler>
 data class DialogNavState(
-    val dialog: Dialog?
-) : Parcelable
+    val queue: List<Dialog>
+) : Parcelable {
+
+    companion object {
+        val EMPTY = DialogNavState(emptyList())
+    }
+}
