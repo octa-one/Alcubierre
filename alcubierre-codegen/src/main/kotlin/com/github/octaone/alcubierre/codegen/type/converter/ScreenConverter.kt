@@ -1,5 +1,6 @@
 package com.github.octaone.alcubierre.codegen.type.converter
 
+import com.github.octaone.alcubierre.codegen.api.PARAM_FROM
 import com.github.octaone.alcubierre.codegen.processor.DeeplinkInformation
 import com.github.octaone.alcubierre.codegen.type.SCREEN_CONVERTER
 import com.squareup.kotlinpoet.ANY
@@ -16,8 +17,8 @@ import com.squareup.kotlinpoet.buildCodeBlock
  * Генерация конвертера из набора плейсхолдеров в объект экрана
  * ```
  * class FeatureScreenConverter : ScreenConverter {
- *      override fun convert(from: Map<String, String>): Screen = FeatureScreen(
- *          id = from["ID"],
+ *      override fun convert(_from: Map<String, String>): Screen = FeatureScreen(
+ *          id = _from["ID"],
  *      )
  * }
  * ```
@@ -25,7 +26,7 @@ import com.squareup.kotlinpoet.buildCodeBlock
 fun generateConverter(info: DeeplinkInformation): TypeSpec {
     val converterFunction = FunSpec.builder("convert")
         .addModifiers(KModifier.OVERRIDE)
-        .addParameter("from", MAP.parameterizedBy(STRING, STRING))
+        .addParameter(PARAM_FROM, MAP.parameterizedBy(STRING, STRING))
         .addCode(generateConverterBody(info))
         .addKdoc("Конвертер для шаблонов\n${info.patterns.joinToString()}")
         .returns(ANY)
@@ -68,7 +69,7 @@ private fun generateConverterBody(info: DeeplinkInformation): CodeBlock {
             indent()
 
             for (param in paramWithPlaceholders) {
-                add("${param.name} = from[\"${param.placeholder}\"]")
+                add("${param.name} = $PARAM_FROM[\"${param.placeholder}\"]")
                 add(typeConversion(param))
                 addStatement(",")
             }
