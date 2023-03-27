@@ -9,6 +9,7 @@ import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSValueParameter
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.ksp.toClassName
+import com.squareup.kotlinpoet.ksp.toTypeName
 
 class DeeplinkInformationExtractor {
 
@@ -47,6 +48,8 @@ class DeeplinkInformationExtractor {
                 placeholder = null, // заполняется в цикле ниже
 
                 className = resolvedType.toClassName(),
+                type = resolvedType.toTypeName(),
+
                 isEnum = (resolvedType.declaration as KSClassDeclaration).classKind == ClassKind.ENUM_CLASS
             )
             paramAnnotationName to parameter
