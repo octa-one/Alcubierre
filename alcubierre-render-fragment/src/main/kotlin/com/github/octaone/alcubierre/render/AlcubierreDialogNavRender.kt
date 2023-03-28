@@ -7,7 +7,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.github.octaone.alcubierre.screen.FragmentDialog
 import com.github.octaone.alcubierre.screen.ScreenId
-import com.github.octaone.alcubierre.screen.extra.isShowing
+import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.screen.withDialogData
 import com.github.octaone.alcubierre.state.DialogNavState
 

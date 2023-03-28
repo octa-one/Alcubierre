@@ -19,7 +19,7 @@ import com.github.octaone.alcubierre.sample.SampleApplication
 import com.github.octaone.alcubierre.sample.databinding.Fmt0Binding
 import com.github.octaone.alcubierre.sample.screen.SampleDialog
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
-import com.github.octaone.alcubierre.screen.extra.isShowing
+import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.screen.screenData
 import com.github.octaone.alcubierre.state.RootNavState
 import kotlin.random.Random

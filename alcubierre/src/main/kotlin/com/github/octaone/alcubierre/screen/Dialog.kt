@@ -1,12 +1,12 @@
 package com.github.octaone.alcubierre.screen
 
 import android.os.Parcelable
-import com.github.octaone.alcubierre.screen.extra.ParcelableExtras
+import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 
 /**
  * Base dialog
  */
-interface Dialog : Parcelable, Comparable<Dialog>, ParcelableExtras {
+interface Dialog : Parcelable, Comparable<Dialog>, ExtrasContainer {
 
     val dialogId: ScreenId
 

@@ -1,8 +1,8 @@
 package com.github.octaone.alcubierre.screen
 
 import androidx.fragment.app.DialogFragment
-import com.github.octaone.alcubierre.screen.extra.LazyBundleExtras
-import com.github.octaone.alcubierre.screen.extra.ParcelableExtras
+import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
+import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
 import kotlin.reflect.KClass
 
 /**
@@ -10,7 +10,7 @@ import kotlin.reflect.KClass
  */
 abstract class FragmentDialog(
     val fragmentName: String
-) : Dialog, ParcelableExtras by LazyBundleExtras() {
+) : Dialog, ExtrasContainer by LazyExtrasContainer() {
 
     override val dialogId: String by lazy(LazyThreadSafetyMode.NONE) { "${fragmentName}_${hashCode()}" }
 

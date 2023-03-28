@@ -12,8 +12,8 @@ import com.github.octaone.alcubierre.sample.R
 import com.github.octaone.alcubierre.sample.SampleApplication
 import com.github.octaone.alcubierre.sample.databinding.Fmt0Binding
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
-import com.github.octaone.alcubierre.screen.extra.deeplinkUri
-import com.github.octaone.alcubierre.screen.extra.isShowing
+import com.github.octaone.alcubierre.screen.deeplinkUri
+import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.screen.screenData
 import com.github.octaone.alcubierre.state.RootNavState
 

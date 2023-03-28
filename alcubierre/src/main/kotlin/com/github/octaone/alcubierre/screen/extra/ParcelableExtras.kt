@@ -22,15 +22,15 @@ interface ParcelableExtras {
 
     fun getBoolean(key: String): Boolean
 
-    fun getString(key: String): String
+    fun getString(key: String): String?
 
     fun getInt(key: String): Int
 
-    fun <T : Parcelable> getParcelable(key: String, clazz: Class<T>): T
+    fun <T : Parcelable> getParcelable(key: String, clazz: Class<T>): T?
 
-    fun <T : Serializable> getSerializable(key: String, clazz: Class<T>): T
+    fun <T : Serializable> getSerializable(key: String, clazz: Class<T>): T?
 
-    fun saveExtras(): Bundle?
+    fun save(): Bundle
 
-    fun restoreExtras(bundle: Bundle)
+    fun restore(bundle: Bundle)
 }

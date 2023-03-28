@@ -3,7 +3,7 @@ package com.github.octaone.alcubierre.reduce
 import com.github.octaone.alcubierre.action.DismissDialog
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.ShowDialog
-import com.github.octaone.alcubierre.screen.extra.isShowing
+import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.state.DialogNavState
 
 class DialogNavReducer : NavReducer<DialogNavState> {
