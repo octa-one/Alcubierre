@@ -34,12 +34,12 @@ class AlcubierreRootNavRender(
 
         if (fromStackId == toStackId) {
             // If current stack is not changed just call render of corresponding StackNavRender
-            clearUnusedStacks(state)
+            clearUnusedStacks(fromStackId, state.stackStates)
             doRender(state)
         } else {
             // Save old stack and restore new one if stack is changed
             // After restoring of stack call render of corresponding StackNavRender
-            clearUnusedStacks(state)
+            clearUnusedStacks(fromStackId, state.stackStates)
             fromStackRootId?.let { rootId ->
                 fragmentManager.saveBackStack(rootId)
             }
@@ -74,7 +74,7 @@ class AlcubierreRootNavRender(
         bundle.getParcelableArrayCompat<Bundle>(BUNDLE_KEY_STACK_STATE)?.forEach { stackBundle ->
             val stackId = stackBundle.getInt(BUNDLE_KEY_STACK_ID)
             stacks[stackId] = RootIdAndStackRender(
-                rootId = stackBundle.getString(BUNDLE_KEY_STACK_ROOT),
+                rootId = stackBundle.getString(BUNDLE_KEY_STACK_ROOT)!!,
                 render = createStackRender().also { render -> render.restoreState(stackBundle) }
             )
         }
@@ -90,15 +90,16 @@ class AlcubierreRootNavRender(
     private fun doRender(newState: RootNavState) {
         val toStackId = newState.currentStackId
         val toStackState = newState.stackStates.getNotNull(toStackId)
+        if (toStackState.chain.isNotEmpty()) {
+            val render = stacks[toStackId]?.render ?: createStackRender()
 
-        val render = stacks[toStackId]?.render ?: createStackRender()
+            render.render(toStackState)
 
-        render.render(toStackState)
-
-        stacks[toStackId] = RootIdAndStackRender(
-            rootId = toStackState.chain.firstOrNull()?.screenId,
-            render = render
-        )
+            stacks[toStackId] = RootIdAndStackRender(
+                rootId = toStackState.chain[0].screenId,
+                render = render
+            )
+        }
         currentStackId = toStackId
     }
 
@@ -106,33 +107,30 @@ class AlcubierreRootNavRender(
      * Method for searching and clearing of old stacks
      * This method is called to get rid of unnecessary fragments from FragmentManager in case of one stack was fully changed by another stack
      */
-    private fun clearUnusedStacks(newState: RootNavState) {
+    private fun clearUnusedStacks(fromStackId: Int, toStackStates: Map<Int, StackNavState>) {
         val stacksIterator = stacks.iterator()
         // Iterate through stacks
         while (stacksIterator.hasNext()) {
-            val (stackId, stack) = stacksIterator.next()
+            val (stackId, rootIdAndRender) = stacksIterator.next()
             // Get new state of existing stack
-            val toStack = newState.stackStates[stackId]
-            if (toStack != null) {
-                val newRootId = toStack.chain.firstOrNull()?.screenId
-                // If [newState] contains stack with [stackId] need to check root screen.
-                // If the root screen has changed, we must recreate the stack.
-                if (stack.rootId != null && stack.rootId != newRootId) {
-                    stacks[stackId] = RootIdAndStackRender(newRootId, createStackRender())
-                    fragmentManager.clearBackStack(stack.rootId)
-                }
-            } else {
-                // If [newState] doesn't contain [stackId] it is unnecessary to have it in FragmentManager
+            val toStack = toStackStates[stackId]
+            if (toStack == null || toStack.chain.isEmpty() || toStack.chain[0].screenId != rootIdAndRender.rootId) {
                 stacksIterator.remove()
-                if (stack.rootId != null) {
-                    fragmentManager.clearBackStack(stack.rootId)
-                }
+                popOrClearBackStack(rootIdAndRender.rootId, isSameStack = stackId == fromStackId)
             }
         }
     }
 
+    private fun popOrClearBackStack(name: String, isSameStack: Boolean) {
+        if (isSameStack) {
+            fragmentManager.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        } else {
+            fragmentManager.clearBackStack(name)
+        }
+    }
+
     private data class RootIdAndStackRender(
-        val rootId: ScreenId?,
+        val rootId: ScreenId,
         val render: NavRender<StackNavState>
     )
 }
