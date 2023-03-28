@@ -60,7 +60,7 @@ class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireActivity().onBackPressedDispatcher.addCallback(this) { back() }
-        parentFragmentManager.commit {
+        parentFragmentManager.commit(allowStateLoss = true) {
             setPrimaryNavigationFragment(this@AlcubierreNavDriveFragment)
         }
     }
