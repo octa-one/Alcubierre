@@ -6,7 +6,7 @@ import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.applyState
 import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
-import com.github.octaone.alcubierre.screen.extra.isShowing
+import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.state.RootNavState
 import com.github.octaone.alcubierre.util.getParcelableCompat
 import kotlin.properties.Delegates

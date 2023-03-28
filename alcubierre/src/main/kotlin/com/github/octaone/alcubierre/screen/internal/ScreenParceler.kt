@@ -6,7 +6,7 @@ import android.os.Parcelable
 import androidx.core.os.ParcelCompat
 import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
-import com.github.octaone.alcubierre.screen.extra.ParcelableExtras
+import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 import kotlinx.parcelize.Parceler
 
 object ScreenParceler : Parceler<Screen> {
@@ -28,13 +28,13 @@ object DialogParceler : Parceler<Dialog> {
 }
 
 @SuppressLint("ParcelClassLoader")
-private fun <T> createGeneric(parcel: Parcel, clazz: Class<T>): T where T : Parcelable, T : ParcelableExtras {
+private fun <T> createGeneric(parcel: Parcel, clazz: Class<T>): T where T : Parcelable, T : ExtrasContainer {
     val screen = ParcelCompat.readParcelable(parcel, clazz.classLoader, clazz)!!
-    parcel.readBundle()?.let { extras -> screen.restoreExtras(extras) }
+    parcel.readBundle()?.let { extras -> screen.extras.restore(extras) }
     return screen
 }
 
-private fun <T> T.writeGeneric(parcel: Parcel, flags: Int) where T : Parcelable, T : ParcelableExtras {
+private fun <T> T.writeGeneric(parcel: Parcel, flags: Int) where T : Parcelable, T : ExtrasContainer {
     parcel.writeParcelable(this, flags)
-    parcel.writeBundle(saveExtras())
+    parcel.writeBundle(if (hasExtras()) extras.save() else null)
 }

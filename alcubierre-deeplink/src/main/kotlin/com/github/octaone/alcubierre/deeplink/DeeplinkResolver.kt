@@ -4,7 +4,7 @@ import android.net.Uri
 import com.github.octaone.alcubierre.ExtrasKeys
 import com.github.octaone.alcubierre.codegen.api.ScreenConverter
 import com.github.octaone.alcubierre.screen.Screen
-import com.github.octaone.alcubierre.screen.extra.ParcelableExtras
+import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 
 /**
  * Класс, собирает воедино [DeeplinkRegistry] со всех модулей
@@ -45,8 +45,8 @@ class DeeplinkResolver {
     )
 
     private fun Any.withDeeplinkExtra(deeplink: Uri): Any = apply {
-        if (this is ParcelableExtras) {
-            putParcelable(ExtrasKeys.DEEPLINK_URI, deeplink)
+        if (this is ExtrasContainer) {
+            extras.putParcelable(ExtrasKeys.DEEPLINK_URI, deeplink)
         }
     }
 }

@@ -52,9 +52,7 @@ class AlcubierreStackNavRender(
      * Perform popBackStack for [count] of fragments
      */
     private fun pop(count: Int) {
-        val entryIndex = fragmentManager.backStackEntryCount - count
-        if (entryIndex !in 0 until fragmentManager.backStackEntryCount) return
-        val entryName = fragmentManager.getBackStackEntryAt(entryIndex).name
+        val entryName = currentChain[currentChain.size - count]
         fragmentManager.popBackStack(entryName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
