@@ -1,6 +1,7 @@
 package com.github.octaone.alcubierre.action
 
 import com.github.octaone.alcubierre.NavDrive
+import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.screen.ScreenId
@@ -29,6 +30,7 @@ object BackToRoot : NavAction
 object Back : NavAction
 
 class ApplyState(val state: RootNavState) : NavAction
+class Batch(val actions: List<NavAction>) : NavAction
 
 /**
  * Open next [screens]
@@ -89,3 +91,10 @@ fun NavDrive.showDialog(dialog: Dialog) = dispatch(ShowDialog(dialog))
  * Dismiss dialog
  */
 fun NavDrive.dismissDialog() = dispatch(DismissDialog)
+
+/**
+ * Batch multiple actions
+ */
+fun NavDrive.batch(block: NavDrive.() -> Unit) {
+    dispatch(Batch(NavDriveBatchRecorder(state).apply(block).actions))
+}
