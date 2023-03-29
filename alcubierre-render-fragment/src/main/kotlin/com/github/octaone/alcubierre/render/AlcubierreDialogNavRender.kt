@@ -2,9 +2,11 @@ package com.github.octaone.alcubierre.render
 
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.github.octaone.alcubierre.screen.FragmentCreator
 import com.github.octaone.alcubierre.screen.FragmentDialog
 import com.github.octaone.alcubierre.screen.ScreenId
 import com.github.octaone.alcubierre.screen.isShowing
@@ -54,10 +56,9 @@ class AlcubierreDialogNavRender(
         // Show new dialog and subscribe for closing
         if (newDialog != null) {
             newDialog as FragmentDialog
-            fragmentManager.fragmentFactory.instantiate(classLoader, newDialog.fragmentName)
-                .withDialogData(newDialog)
-                .also { fragment -> fragment.lifecycle.addObserver(dialogObserver) }
-                .show(fragmentManager, newDialogId)
+            val fragment = (createFragment(newDialog) as DialogFragment).withDialogData(newDialog)
+            fragment.lifecycle.addObserver(dialogObserver)
+            fragment.show(fragmentManager, newDialogId)
 
             newDialog.isShowing = true
         }
@@ -78,6 +79,13 @@ class AlcubierreDialogNavRender(
                 .addObserver(dialogObserver)
         }
     }
+
+    private fun createFragment(dialog: FragmentDialog): Fragment =
+        if (dialog is FragmentCreator) {
+            dialog.create()
+        } else {
+            fragmentManager.fragmentFactory.instantiate(classLoader, dialog.fragmentName)
+        }
 }
 
 private const val BUNDLE_KEY_DIALOG_STATE = "alc_dialog_render_state"

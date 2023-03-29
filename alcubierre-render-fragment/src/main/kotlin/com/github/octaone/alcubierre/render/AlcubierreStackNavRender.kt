@@ -65,7 +65,7 @@ class AlcubierreStackNavRender(
                 is FragmentScreen -> {
                     fragmentManager.commit {
                         setReorderingAllowed(true)
-                        val fragment = createFragment(screen)
+                        val fragment = createFragment(screen).withScreenData(screen)
                         transactionModifier.modify(this, screen, fragment)
                         if (screen.replace) {
                             replace(containerId, fragment, screen.screenId)
@@ -86,7 +86,7 @@ class AlcubierreStackNavRender(
         if (screen is FragmentCreator) {
             screen.create()
         } else {
-            fragmentManager.fragmentFactory.instantiate(classLoader, screen.fragmentName).withScreenData(screen)
+            fragmentManager.fragmentFactory.instantiate(classLoader, screen.fragmentName)
         }
 
     /**
