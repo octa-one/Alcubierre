@@ -20,8 +20,7 @@ internal fun Fragment.withScreenData(screen: FragmentScreen): Fragment =
         arguments = Bundle().apply { putParcelable(ARG_SCREEN, screen) }
     }
 
-internal fun Fragment.withDialogData(dialog: FragmentDialog): DialogFragment {
-    this as DialogFragment
+internal fun DialogFragment.withDialogData(dialog: FragmentDialog): DialogFragment {
     arguments = Bundle().apply { putParcelable(ARG_DIALOG, dialog) }
     return this
 }

@@ -14,7 +14,6 @@ import com.github.octaone.alcubierre.action.SelectStack
 import com.github.octaone.alcubierre.state.RootNavState
 import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.getNotNull
-import com.github.octaone.alcubierre.util.toHashMap
 
 /**
  * [NavReducer] responds for commands with stacks and retranslate remaining command to proper [stackReducer]
@@ -25,10 +24,10 @@ class AlcubierreRootNavReducer(
 
     override fun reduce(state: RootNavState, action: NavAction) = when (action) {
         is Forward, is Back, is Replace, is BackToRoot, is ReplaceRoot, is BackTo -> {
-            state.modifyStack(state.currentStackId) { stackReducer.reduce(this, action) }
+            state.updateStack(state.currentStackId) { stackReducer.reduce(this, action) }
         }
         is NewStack -> {
-            state.setStack(action.stackId, StackNavState(action.screens))
+            state.applyStacks { put(action.stackId, StackNavState(action.screens)) }
         }
         is SelectStack -> {
             if (state.currentStackId == action.stackId) {
@@ -41,7 +40,7 @@ class AlcubierreRootNavReducer(
         is ClearStack -> {
             if (state.stackStates.containsKey(action.stackId)) {
                 check(state.currentStackId != action.stackId)
-                state.copy(stackStates = state.stackStates.toHashMap().apply { remove(action.stackId) })
+                state.applyStacks { remove(action.stackId) }
             } else {
                 state
             }
@@ -54,9 +53,9 @@ class AlcubierreRootNavReducer(
         }
     }
 
-    private inline fun RootNavState.modifyStack(id: Int, update: StackNavState.() -> StackNavState): RootNavState =
-        setStack(id, stackStates.getNotNull(id).update())
+    private inline fun RootNavState.updateStack(id: Int, update: StackNavState.() -> StackNavState): RootNavState =
+        applyStacks { put(id, stackStates.getNotNull(id).update()) }
 
-    private fun RootNavState.setStack(id: Int, stack: StackNavState): RootNavState =
-        copy(stackStates = stackStates.toHashMap().apply { put(id, stack) })
+    private inline fun RootNavState.applyStacks(update: MutableMap<Int, StackNavState>.() -> Unit): RootNavState =
+        copy(stackStates = HashMap(stackStates).apply(update))
 }
