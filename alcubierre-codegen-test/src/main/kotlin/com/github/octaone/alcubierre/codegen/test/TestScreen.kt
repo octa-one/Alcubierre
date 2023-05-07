@@ -1,21 +1,21 @@
 package com.github.octaone.alcubierre.codegen.test
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import com.github.octaone.alcubierre.screen.Screen
-import com.github.octaone.alcubierre.screen.extra.Extras
+import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
+import com.github.octaone.alcubierre.screen.extra.ParcelableExtras
 
 @SuppressLint("ParcelCreator", "NonDataScreenClassRule")
-open class TestScreen : Screen, Parcelable by ParcelableStub, Extras by ExtrasStub {
+open class TestScreen : Screen, Parcelable by ParcelableStub, ExtrasContainer by ExtrasContainerStub {
 
     override val screenId: String = ""
 }
 
-private object ExtrasStub : Extras {
+private object ExtrasContainerStub : ExtrasContainer {
 
-    override val extras: Bundle get() = Bundle.EMPTY
+    override val extras: ParcelableExtras get() = throw UnsupportedOperationException()
 
     override fun hasExtras(): Boolean = false
 }

@@ -15,13 +15,17 @@ inline fun <reified T : FragmentDialog> DialogFragment.dialogData(): Lazy<T> =
         requireNotNull(requireArguments().getParcelableCompat(ARG_DIALOG))
     }
 
-internal fun Fragment.withScreenData(screen: FragmentScreen): Fragment =
-    apply {
-        arguments = Bundle().apply { putParcelable(ARG_SCREEN, screen) }
-    }
+internal fun Fragment.withScreenData(screen: FragmentScreen): Fragment {
+    val bundle = arguments ?: Bundle()
+    bundle.putParcelable(ARG_SCREEN, screen)
+    arguments = bundle
+    return this
+}
 
 internal fun DialogFragment.withDialogData(dialog: FragmentDialog): DialogFragment {
-    arguments = Bundle().apply { putParcelable(ARG_DIALOG, dialog) }
+    val bundle = arguments ?: Bundle()
+    bundle.putParcelable(ARG_DIALOG, dialog)
+    arguments = bundle
     return this
 }
 
