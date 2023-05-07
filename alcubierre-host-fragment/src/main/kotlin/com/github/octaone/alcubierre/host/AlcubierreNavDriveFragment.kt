@@ -10,11 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
-import com.github.octaone.alcubierre.NavDrive
 import com.github.octaone.alcubierre.NavDriveOwner
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.back
-import com.github.octaone.alcubierre.fragment.host.R
 import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
@@ -91,19 +89,9 @@ class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
         return FragmentContainerView(requireContext()).apply { id = containerId }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        view.setTag(R.id.alcubierre_view_tag, this as NavDrive)
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         saveState(outState)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        requireView().setTag(R.id.alcubierre_view_tag, null)
     }
 
     companion object {

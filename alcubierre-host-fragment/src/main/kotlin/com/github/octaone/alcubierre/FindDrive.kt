@@ -2,7 +2,7 @@ package com.github.octaone.alcubierre
 
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.github.octaone.alcubierre.fragment.host.R
+import androidx.fragment.app.findFragment
 
 /**
  * Extension for searching [Alcubierre] in fragments hierarchy
@@ -16,23 +16,18 @@ fun Fragment.findNavDrive(): NavDrive {
         }
         findFragment = findFragment.parentFragment
     }
-    throw IllegalStateException("NavDrive not found")
+    navDriveNotFoundError()
 }
 
 /**
  * Extension for searching [Alcubierre] in View hierarchy
  */
 fun View.findNavDrive(): NavDrive {
-    var view: View? = this
+    val fragment = runCatching { findFragment<Fragment>() }
+        .getOrElse { navDriveNotFoundError() }
 
-    while (view != null) {
-        val tag = view.getTag(R.id.alcubierre_view_tag)
-        if (tag is NavDrive) {
-            return tag
-        } else {
-            view = view.parent as? View
-        }
-    }
-
-    throw IllegalStateException("NavDrive not found")
+    return fragment.findNavDrive()
 }
+
+private fun navDriveNotFoundError(): Nothing =
+    throw IllegalStateException("NavDrive not found")
