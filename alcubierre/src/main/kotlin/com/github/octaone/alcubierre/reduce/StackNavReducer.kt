@@ -34,7 +34,7 @@ class AlcubierreStackNavReducer : NavReducer<StackNavState> {
                 }
             }
             is BackTo -> {
-                val i = state.chain.indexOfLast { it.screenId == action.screenId }
+                val i = state.chain.indexOfLast { it.screenId == action.screen.screenId }
                 if (i != -1) state.modifyChain { take(i + 1) }
                 else state
             }

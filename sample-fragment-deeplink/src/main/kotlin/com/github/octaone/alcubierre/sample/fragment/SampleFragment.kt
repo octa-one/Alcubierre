@@ -57,13 +57,13 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
             stackStates.forEach { (id, stack) ->
                 append(id)
                 append(" : ")
-                stack.chain.joinTo(this) { it.screenId.substringAfterLast('.') }
+                stack.chain.joinTo(this) { it.screenId.takeLast(4) }
                 if (id == currentStackId) append("*")
                 appendLine()
             }
             appendLine("Dialogs queue (* - visible dialog):")
             dialogState.queue.joinTo(this) {
-                val shortId = it.dialogId.substringAfterLast('.')
+                val shortId = it.dialogId.takeLast(4)
                 if (it.isShowing) "$shortId(p=${it.priority})*" else "$shortId(p=${it.priority})"
             }
         }

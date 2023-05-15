@@ -8,10 +8,7 @@ import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 import com.github.octaone.alcubierre.screen.extra.ParcelableExtras
 
 @SuppressLint("ParcelCreator", "NonDataScreenClassRule")
-open class TestScreen : Screen, Parcelable by ParcelableStub, ExtrasContainer by ExtrasContainerStub {
-
-    override val screenId: String = ""
-}
+open class TestScreen : Screen(), Parcelable by ParcelableStub, ExtrasContainer by ExtrasContainerStub
 
 private object ExtrasContainerStub : ExtrasContainer {
 

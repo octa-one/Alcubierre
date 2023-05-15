@@ -2,11 +2,13 @@ package com.github.octaone.alcubierre.screen
 
 import android.os.Parcelable
 import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
+import java.util.UUID
 
 /**
  * Base screen (specific destination for navigation)
  */
-interface Screen : Parcelable, ExtrasContainer {
+abstract class Screen : Parcelable, ExtrasContainer {
 
-    val screenId: ScreenId
+    var screenId: String = UUID.randomUUID().toString()
+        internal set
 }

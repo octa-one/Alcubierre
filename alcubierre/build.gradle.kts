@@ -9,5 +9,5 @@ android {
 
 dependencies {
     implementation(libs.androidx.core)
-    lintPublish(projects.alcubierreLint)
+    implementation(libs.kotlin.coroutines)
 }

@@ -2,7 +2,10 @@ package com.github.octaone.alcubierre
 
 import android.os.Bundle
 import com.github.octaone.alcubierre.action.NavAction
+import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.state.RootNavState
+import kotlinx.coroutines.flow.StateFlow
+import kotlin.reflect.KClass
 
 /**
  * Base interface of navigation
@@ -18,6 +21,7 @@ import com.github.octaone.alcubierre.state.RootNavState
 interface NavDrive {
 
     val state: RootNavState
+
     fun dispatch(action: NavAction)
 }
 
@@ -26,9 +30,17 @@ interface NavDrive {
  */
 interface NavDriveOwner : NavDrive {
 
-    fun onResume()
+    val stateFlow: StateFlow<RootNavState>
 
-    fun onPause()
+    fun initialize(
+        reducer: NavReducer<RootNavState>,
+        initialState: RootNavState,
+        extras: Map<KClass<*>, Any> = emptyMap()
+    )
+
+    fun requestDismissDialog()
 
     fun saveState(outState: Bundle)
+
+    fun restoreState(savedState: Bundle?)
 }

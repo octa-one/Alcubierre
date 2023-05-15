@@ -8,7 +8,6 @@ import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import com.github.octaone.alcubierre.screen.FragmentCreator
 import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.screen.Screen
-import com.github.octaone.alcubierre.screen.ScreenId
 import com.github.octaone.alcubierre.screen.withScreenData
 import com.github.octaone.alcubierre.state.StackNavState
 
@@ -20,9 +19,9 @@ class AlcubierreStackNavRender(
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
     private val transactionModifier: FragmentTransactionModifier
-) : NavRender<StackNavState> {
+) : FragmentNavRender<StackNavState> {
 
-    private var currentChain: List<ScreenId> = emptyList()
+    private var currentChain: List<String> = emptyList()
 
     override fun render(state: StackNavState) {
         val diff = diff(currentChain, state.chain)
@@ -43,8 +42,9 @@ class AlcubierreStackNavRender(
         outState.putStringArray(BUNDLE_KEY_STACK_STATE, currentChain.toTypedArray())
     }
 
-    override fun restoreState(bundle: Bundle) {
-        currentChain = bundle.getStringArray(BUNDLE_KEY_STACK_STATE)?.toList().orEmpty()
+    override fun restoreState(savedState: Bundle?) {
+        savedState ?: return
+        currentChain = savedState.getStringArray(BUNDLE_KEY_STACK_STATE)?.toList().orEmpty()
     }
 
 
@@ -95,7 +95,7 @@ class AlcubierreStackNavRender(
      * When the first mismatch is detected the old stack [prev] is being popped to this mismatched screen including itself
      * and new stack of [next] is being pushed
      */
-    private fun diff(prev: List<ScreenId>, next: List<Screen>): List<StackAction> = when {
+    private fun diff(prev: List<String>, next: List<Screen>): List<StackAction> = when {
         prev.isEmpty() && next.isEmpty() -> emptyList()
         prev.isEmpty() -> listOf(Push(next))
         next.isEmpty() -> listOf(Pop(prev.size))

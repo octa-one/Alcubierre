@@ -10,9 +10,7 @@ import kotlin.reflect.KClass
  */
 abstract class FragmentDialog(
     val fragmentName: String
-) : Dialog, ExtrasContainer by LazyExtrasContainer() {
-
-    override val dialogId: String by lazy(LazyThreadSafetyMode.NONE) { "${fragmentName}_${hashCode()}" }
+) : Dialog(), ExtrasContainer by LazyExtrasContainer() {
 
     override val priority: Int = 5
 
