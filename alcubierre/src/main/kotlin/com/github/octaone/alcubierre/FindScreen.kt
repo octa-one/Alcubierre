@@ -3,12 +3,14 @@ package com.github.octaone.alcubierre
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.screen.tag
 import com.github.octaone.alcubierre.state.RootNavState
+import kotlin.reflect.KClass
 
-inline fun <reified S : Screen> RootNavState.findScreen(): S? =
-    currentStackState.chain.lastOrNull { it is S } as S?
+@Suppress("UNCHECKED_CAST")
+fun <S : Screen> RootNavState.findScreenByClass(kClass: KClass<S>): S? =
+    currentStackState.chain.lastOrNull { kClass.isInstance(it) } as S?
 
-fun RootNavState.findScreenById(id: String): Screen? =
-    currentStackState.chain.lastOrNull { it.screenId == id }
+inline fun <reified S : Screen> RootNavState.findScreenByClass(): S? =
+    findScreenByClass(S::class)
 
 fun RootNavState.findScreenByTag(tag: String): Screen? =
     currentStackState.chain.lastOrNull { it.tag == tag }

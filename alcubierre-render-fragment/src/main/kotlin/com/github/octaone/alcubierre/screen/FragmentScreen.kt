@@ -11,9 +11,7 @@ import kotlin.reflect.KClass
 abstract class FragmentScreen(
     val fragmentName: String,
     val replace: Boolean = true
-) : Screen, ExtrasContainer by LazyExtrasContainer() {
-
-    override val screenId: String by lazy(LazyThreadSafetyMode.NONE) { "${fragmentName}_${hashCode()}" }
+) : Screen(), ExtrasContainer by LazyExtrasContainer() {
 
     constructor(
         fragmentClass: KClass<out Fragment>,

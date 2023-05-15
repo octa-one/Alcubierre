@@ -3,7 +3,7 @@ package com.github.octaone.alcubierre.sample
 import android.app.Application
 import android.content.Context
 import com.github.octaone.alcubierre.NavDrive
-import com.github.octaone.alcubierre.host.AlcubierreNavDriveOwner
+import com.github.octaone.alcubierre.owner.AlcubierreNavDriveOwner
 
 class SampleApplication : Application() {
 

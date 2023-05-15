@@ -8,7 +8,6 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.github.octaone.alcubierre.screen.FragmentCreator
 import com.github.octaone.alcubierre.screen.FragmentDialog
-import com.github.octaone.alcubierre.screen.ScreenId
 import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.screen.withDialogData
 import com.github.octaone.alcubierre.state.DialogNavState
@@ -22,9 +21,9 @@ class AlcubierreDialogNavRender(
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
     private val onDismiss: () -> Unit
-) : NavRender<DialogNavState> {
+) : FragmentNavRender<DialogNavState> {
 
-    private var currentDialogId: ScreenId? = null
+    private var currentDialogId: String? = null
 
     private val dialogObserver = object : DefaultLifecycleObserver {
 
@@ -69,8 +68,9 @@ class AlcubierreDialogNavRender(
         outState.putString(BUNDLE_KEY_DIALOG_STATE, currentDialogId)
     }
 
-    override fun restoreState(bundle: Bundle) {
-        val restoredDialogId = bundle.getString(BUNDLE_KEY_DIALOG_STATE)
+    override fun restoreState(savedState: Bundle?) {
+        savedState ?: return
+        val restoredDialogId = savedState.getString(BUNDLE_KEY_DIALOG_STATE)
         currentDialogId = restoredDialogId
         if (restoredDialogId != null) {
             fragmentManager.findFragmentByTag(restoredDialogId)

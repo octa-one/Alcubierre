@@ -13,11 +13,15 @@ import androidx.lifecycle.Lifecycle
 import com.github.octaone.alcubierre.NavDriveOwner
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.back
+import com.github.octaone.alcubierre.owner.AlcubierreNavDriveOwner
 import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
-import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
+import com.github.octaone.alcubierre.render.renderFrom
 import com.github.octaone.alcubierre.state.RootNavState
+import com.github.octaone.alcubierre.util.getAndCast
+import kotlinx.coroutines.flow.StateFlow
+import kotlin.reflect.KClass
 
 class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
 
@@ -26,33 +30,37 @@ class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
     private var containerId: Int = View.NO_ID
     private var restoredState: Bundle? = null
 
+    override val stateFlow: StateFlow<RootNavState> get() = delegate.stateFlow
+
     override val state: RootNavState get() = delegate.state
 
-    fun initialize(
-        reducer: NavReducer<RootNavState>,
-        initialState: RootNavState,
-        transactionModifier: FragmentTransactionModifier = EmptyModifier
-    ) {
+    override fun initialize(reducer: NavReducer<RootNavState>, initialState: RootNavState, extras: Map<KClass<*>, Any>) {
         check(lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED))
 
         val render = AlcubierreRootNavRender(
             containerId = containerId,
             classLoader = requireContext().classLoader,
             fragmentManager = childFragmentManager,
-            transactionModifier = transactionModifier
+            navDriveOwner = this,
+            transactionModifier = extras.getAndCast() ?: EmptyModifier
         )
 
         delegate.initialize(
-            initialState = initialState,
             reducer = reducer,
-            render = render,
-            savedState = restoredState
+            initialState = initialState,
         )
+        delegate.restoreState(restoredState)
         restoredState = null
+
+        render.renderFrom(delegate.stateFlow, lifecycle)
     }
 
     override fun dispatch(action: NavAction) {
         delegate.dispatch(action)
+    }
+
+    override fun requestDismissDialog() {
+        delegate.requestDismissDialog()
     }
 
     override fun onAttach(context: Context) {
@@ -63,19 +71,12 @@ class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        delegate.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        delegate.onPause()
-    }
-
     override fun saveState(outState: Bundle) {
-        outState.putInt(KEY_CONTAINER_ID, containerId)
-        delegate.saveState(outState)
+        throw UnsupportedOperationException()
+    }
+
+    override fun restoreState(savedState: Bundle?) {
+        throw UnsupportedOperationException()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +92,8 @@ class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        saveState(outState)
+        outState.putInt(KEY_CONTAINER_ID, containerId)
+        delegate.saveState(outState)
     }
 
     companion object {

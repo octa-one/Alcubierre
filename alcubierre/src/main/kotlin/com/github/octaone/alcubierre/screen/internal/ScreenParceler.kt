@@ -11,19 +11,25 @@ import kotlinx.parcelize.Parceler
 
 object ScreenParceler : Parceler<Screen> {
 
-    override fun create(parcel: Parcel): Screen = createGeneric(parcel, Screen::class.java)
+    override fun create(parcel: Parcel): Screen =
+        createGeneric(parcel, Screen::class.java)
+            .apply { screenId = parcel.readString()!! }
 
     override fun Screen.write(parcel: Parcel, flags: Int) {
         writeGeneric(parcel, flags)
+        parcel.writeString(screenId)
     }
 }
 
 object DialogParceler : Parceler<Dialog> {
 
-    override fun create(parcel: Parcel): Dialog = createGeneric(parcel, Dialog::class.java)
+    override fun create(parcel: Parcel): Dialog =
+        createGeneric(parcel, Dialog::class.java)
+            .apply { dialogId = parcel.readString()!! }
 
     override fun Dialog.write(parcel: Parcel, flags: Int) {
         writeGeneric(parcel, flags)
+        parcel.writeString(dialogId)
     }
 }
 

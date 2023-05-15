@@ -3,11 +3,11 @@ package com.github.octaone.alcubierre.render
 import android.os.Bundle
 import android.os.Parcelable
 
-interface NavRender<T : Parcelable?> {
+interface FragmentNavRender<T : Parcelable?> {
 
     fun render(state: T)
 
     fun saveState(outState: Bundle)
 
-    fun restoreState(bundle: Bundle)
+    fun restoreState(savedState: Bundle?)
 }

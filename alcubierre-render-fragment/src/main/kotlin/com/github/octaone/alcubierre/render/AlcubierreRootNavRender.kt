@@ -2,26 +2,27 @@ package com.github.octaone.alcubierre.render
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
+import com.github.octaone.alcubierre.NavDriveOwner
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
 import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
-import com.github.octaone.alcubierre.screen.ScreenId
 import com.github.octaone.alcubierre.state.DialogNavState
 import com.github.octaone.alcubierre.state.RootNavState
 import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.getNotNull
 import com.github.octaone.alcubierre.util.getParcelableArrayCompat
-import kotlin.properties.Delegates
 
 class AlcubierreRootNavRender(
     private val containerId: Int,
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
+    private val navDriveOwner: NavDriveOwner,
     private val transactionModifier: FragmentTransactionModifier = EmptyModifier
-) : NavRender<RootNavState> {
+) : FragmentNavRender<RootNavState> {
 
     private var currentStackId: Int = -1
     private val stacks = HashMap<Int, RootIdAndStackRender>()
-    private var dialogRender: NavRender<DialogNavState> by Delegates.notNull()
+    private var dialogRender: FragmentNavRender<DialogNavState> =
+        AlcubierreDialogNavRender(classLoader, fragmentManager, navDriveOwner::requestDismissDialog)
 
     override fun render(state: RootNavState) {
         // Apply dialog state changes
@@ -66,12 +67,13 @@ class AlcubierreRootNavRender(
         outState.putParcelableArray(BUNDLE_KEY_STACK_STATE, stackBundles)
     }
 
-    override fun restoreState(bundle: Bundle) {
-        dialogRender.restoreState(bundle)
-        currentStackId = bundle.getInt(BUNDLE_KEY_CURRENT_STACK)
+    override fun restoreState(savedState: Bundle?) {
+        savedState ?: return
+        dialogRender.restoreState(savedState)
+        currentStackId = savedState.getInt(BUNDLE_KEY_CURRENT_STACK)
 
         stacks.clear()
-        bundle.getParcelableArrayCompat<Bundle>(BUNDLE_KEY_STACK_STATE)?.forEach { stackBundle ->
+        savedState.getParcelableArrayCompat<Bundle>(BUNDLE_KEY_STACK_STATE)?.forEach { stackBundle ->
             val stackId = stackBundle.getInt(BUNDLE_KEY_STACK_ID)
             stacks[stackId] = RootIdAndStackRender(
                 rootId = stackBundle.getString(BUNDLE_KEY_STACK_ROOT)!!,
@@ -80,11 +82,7 @@ class AlcubierreRootNavRender(
         }
     }
 
-    internal fun setOnDialogDismissed(onDialogDismissed: () -> Unit) {
-        dialogRender = AlcubierreDialogNavRender(classLoader, fragmentManager, onDialogDismissed)
-    }
-
-    private fun createStackRender(): NavRender<StackNavState> =
+    private fun createStackRender(): FragmentNavRender<StackNavState> =
         AlcubierreStackNavRender(containerId, classLoader, fragmentManager, transactionModifier)
 
     private fun doRender(newState: RootNavState) {
@@ -130,8 +128,8 @@ class AlcubierreRootNavRender(
     }
 
     private data class RootIdAndStackRender(
-        val rootId: ScreenId,
-        val render: NavRender<StackNavState>
+        val rootId: String,
+        val render: FragmentNavRender<StackNavState>
     )
 }
 
