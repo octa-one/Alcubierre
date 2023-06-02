@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.github.octaone.alcubierre.NavDrive
+import com.github.octaone.alcubierre.FragmentNavDrive
 import com.github.octaone.alcubierre.action.back
 import com.github.octaone.alcubierre.action.backToRoot
 import com.github.octaone.alcubierre.action.clearStack
@@ -19,6 +19,8 @@ import com.github.octaone.alcubierre.sample.SampleApplication
 import com.github.octaone.alcubierre.sample.databinding.Fmt0Binding
 import com.github.octaone.alcubierre.sample.screen.SampleDialog
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
+import com.github.octaone.alcubierre.screen.FragmentDialog
+import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.screen.screenData
 import com.github.octaone.alcubierre.state.RootNavState
@@ -26,7 +28,8 @@ import kotlin.random.Random
 
 class SampleFragment : Fragment(R.layout.fmt_0) {
 
-    private val navDrive: NavDrive get() = SampleApplication.from(requireContext()).navDrive
+    private val navDrive: FragmentNavDrive
+        get() = SampleApplication.from(requireContext()).navDrive
     private val screen: SampleScreen by screenData()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,7 +87,7 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
         }
     }
 
-    private fun RootNavState.toStackString() =
+    private fun RootNavState<FragmentScreen, FragmentDialog>.toStackString() =
         buildString {
             appendLine("Stacks (* - current screen):")
             stackStates.forEach { (id, stack) ->

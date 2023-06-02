@@ -2,13 +2,14 @@ package com.github.octaone.alcubierre.sample
 
 import android.app.Application
 import android.content.Context
-import com.github.octaone.alcubierre.NavDrive
+import com.github.octaone.alcubierre.FragmentNavDrive
+import com.github.octaone.alcubierre.FragmentNavDriveOwner
 import com.github.octaone.alcubierre.owner.AlcubierreNavDriveOwner
 
 class SampleApplication : Application() {
 
-    lateinit var navDriveOwner: AlcubierreNavDriveOwner
-    val navDrive: NavDrive get() = navDriveOwner
+    lateinit var navDriveOwner: FragmentNavDriveOwner
+    val navDrive: FragmentNavDrive get() = navDriveOwner
 
     override fun onCreate() {
         super.onCreate()

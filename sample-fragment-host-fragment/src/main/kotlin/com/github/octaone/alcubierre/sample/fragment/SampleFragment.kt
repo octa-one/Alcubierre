@@ -18,6 +18,8 @@ import com.github.octaone.alcubierre.sample.R
 import com.github.octaone.alcubierre.sample.databinding.Fmt0Binding
 import com.github.octaone.alcubierre.sample.screen.SampleDialog
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
+import com.github.octaone.alcubierre.screen.FragmentDialog
+import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.screen.screenData
 import com.github.octaone.alcubierre.state.RootNavState
@@ -82,7 +84,7 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
         }
     }
 
-    private fun RootNavState.toStackString() =
+    private fun RootNavState<FragmentScreen, FragmentDialog>.toStackString() =
         buildString {
             appendLine("Stacks (* - current screen):")
             stackStates.forEach { (id, stack) ->

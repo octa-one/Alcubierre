@@ -3,9 +3,9 @@ package com.github.octaone.alcubierre.sample
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import com.github.octaone.alcubierre.NavDrive
+import com.github.octaone.alcubierre.FragmentNavDrive
+import com.github.octaone.alcubierre.FragmentNavDriveOwner
 import com.github.octaone.alcubierre.action.back
-import com.github.octaone.alcubierre.owner.AlcubierreNavDriveOwner
 import com.github.octaone.alcubierre.reduce.AlcubierreDefaultNavReducer
 import com.github.octaone.alcubierre.reducer.DeeplinkReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
@@ -17,8 +17,10 @@ import com.github.octaone.alcubierre.state.singleRootState
 
 class SampleActivity : AppCompatActivity() {
 
-    private val navDriveOwner: AlcubierreNavDriveOwner get() = SampleApplication.from(this).navDriveOwner
-    private val navDrive: NavDrive get() = SampleApplication.from(this).navDrive
+    private val navDriveOwner: FragmentNavDriveOwner
+        get() = SampleApplication.from(this).navDriveOwner
+    private val navDrive: FragmentNavDrive
+        get() = SampleApplication.from(this).navDrive
 
     private val render by lazy(LazyThreadSafetyMode.NONE) {
         AlcubierreRootNavRender(

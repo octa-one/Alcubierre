@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
-import com.github.octaone.alcubierre.NavDriveOwner
+import com.github.octaone.alcubierre.FragmentNavDriveOwner
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.back
 import com.github.octaone.alcubierre.owner.AlcubierreNavDriveOwner
@@ -18,23 +18,30 @@ import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
 import com.github.octaone.alcubierre.render.renderFrom
+import com.github.octaone.alcubierre.screen.FragmentDialog
+import com.github.octaone.alcubierre.screen.FragmentScreen
+import com.github.octaone.alcubierre.state.AnyRootNavState
 import com.github.octaone.alcubierre.state.RootNavState
 import com.github.octaone.alcubierre.util.getAndCast
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.reflect.KClass
 
-class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
+class AlcubierreNavDriveFragment : Fragment(), FragmentNavDriveOwner {
 
-    private val delegate = AlcubierreNavDriveOwner()
+    private val delegate = AlcubierreNavDriveOwner<FragmentScreen, FragmentDialog>()
 
     private var containerId: Int = View.NO_ID
     private var restoredState: Bundle? = null
 
-    override val stateFlow: StateFlow<RootNavState> get() = delegate.stateFlow
+    override val stateFlow: StateFlow<RootNavState<FragmentScreen, FragmentDialog>> get() = delegate.stateFlow
 
-    override val state: RootNavState get() = delegate.state
+    override val state: RootNavState<FragmentScreen, FragmentDialog> get() = delegate.state
 
-    override fun initialize(reducer: NavReducer<RootNavState>, initialState: RootNavState, extras: Map<KClass<*>, Any>) {
+    override fun initialize(
+        reducer: NavReducer<AnyRootNavState>,
+        initialState: RootNavState<FragmentScreen, FragmentDialog>,
+        extras: Map<KClass<*>, Any>
+    ) {
         check(lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED))
 
         val render = AlcubierreRootNavRender(
@@ -55,7 +62,7 @@ class AlcubierreNavDriveFragment : Fragment(), NavDriveOwner {
         render.renderFrom(delegate.stateFlow, lifecycle)
     }
 
-    override fun dispatch(action: NavAction) {
+    override fun dispatch(action: NavAction<FragmentScreen, FragmentDialog>) {
         delegate.dispatch(action)
     }
 

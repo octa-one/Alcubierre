@@ -5,94 +5,95 @@ import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.state.RootNavState
 
-class ShowDialog(val dialog: Dialog) : NavAction
+class ShowDialog<S : Screen, D : Dialog>(val dialog: D) : NavAction<S, D>
 
-object DismissDialog : NavAction
+object DismissDialog : NavAction<Nothing, Nothing>
 
-class Forward(val screens: List<Screen>) : NavAction
+class Forward<S : Screen, D : Dialog>(val screens: List<S>) : NavAction<S, D>
 
-class Replace(val screens: List<Screen>) : NavAction
+class Replace<S : Screen, D : Dialog>(val screens: List<S>) : NavAction<S, D>
 
-class ReplaceRoot(val screens: List<Screen>) : NavAction
+class ReplaceRoot<S : Screen, D : Dialog>(val screens: List<S>) : NavAction<S, D>
 
-class NewStack(val stackId: Int, val screens: List<Screen>) : NavAction
+class NewStack<S : Screen, D : Dialog>(val stackId: Int, val screens: List<S>) : NavAction<S, D>
 
-class SelectStack(val stackId: Int) : NavAction
+class SelectStack<S : Screen, D : Dialog>(val stackId: Int) : NavAction<S, D>
 
-class ClearStack(val stackId: Int) : NavAction
+class ClearStack<S : Screen, D : Dialog>(val stackId: Int) : NavAction<S, D>
 
-class BackTo(val screen: Screen) : NavAction
+class BackTo<S : Screen, D : Dialog>(val screen: S) : NavAction<S, D>
 
-object BackToRoot : NavAction
+object BackToRoot : NavAction<Nothing, Nothing>
 
-object Back : NavAction
+object Back : NavAction<Nothing, Nothing>
 
-class ApplyState(val state: RootNavState) : NavAction
-class Batch(val actions: List<NavAction>) : NavAction
+class ApplyState<S : Screen, D : Dialog>(val state: RootNavState<S, D>) : NavAction<S, D>
+
+class Batch<S : Screen, D : Dialog>(val actions: List<NavAction<S, D>>) : NavAction<S, D>
 
 /**
  * Open next [screens]
  */
-fun NavDrive.forward(vararg screens: Screen) = dispatch(Forward(screens.toList()))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.forward(vararg screens: S) = dispatch(Forward<S, D>(screens.toList()))
 
 /**
  * Replace current screen by new [screens]
  */
-fun NavDrive.replace(vararg screens: Screen) = dispatch(Replace(screens.toList()))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.replace(vararg screens: S) = dispatch(Replace<S, D>(screens.toList()))
 
 /**
  * Replace entire stack including root with [screens]
  */
-fun NavDrive.replaceRoot(vararg screens: Screen) = dispatch(ReplaceRoot(screens.toList()))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.replaceRoot(vararg screens: S) = dispatch(ReplaceRoot<S, D>(screens.toList()))
 
 /**
  * Add new stack with [stackId] and [screens]
  */
-fun NavDrive.newStack(stackId: Int, vararg screens: Screen) = dispatch(NewStack(stackId, screens.toList()))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.newStack(stackId: Int, vararg screens: S) = dispatch(NewStack<S, D>(stackId, screens.toList()))
 
 /**
  * Select active stack by [stackId]
  */
-fun NavDrive.selectStack(stackId: Int) = dispatch(SelectStack(stackId))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.selectStack(stackId: Int) = dispatch(SelectStack<S, D>(stackId))
 
 /**
  * Clear stack by [stackId]
  */
-fun NavDrive.clearStack(stackId: Int) = dispatch(ClearStack(stackId))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.clearStack(stackId: Int) = dispatch(ClearStack<S, D>(stackId))
 
 /**
  * Back to [screen]
  */
-fun NavDrive.backTo(screen: Screen) = dispatch(BackTo(screen))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.backTo(screen: S) = dispatch(BackTo<S, D>(screen))
 
 /**
  * Back to root screen
  */
-fun NavDrive.backToRoot() = dispatch(BackToRoot)
+fun <S : Screen, D : Dialog> NavDrive<S, D>.backToRoot() = dispatch(BackToRoot)
 
 /**
  * Go back
  */
-fun NavDrive.back() = dispatch(Back)
+fun <S : Screen, D : Dialog> NavDrive<S, D>.back() = dispatch(Back)
 
 /**
  * Apply new state [state]
  */
-fun NavDrive.applyState(state: RootNavState) = dispatch(ApplyState(state))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.applyState(state: RootNavState<S, D>) = dispatch(ApplyState(state))
 
 /**
  * Show [dialog]
  */
-fun NavDrive.showDialog(dialog: Dialog) = dispatch(ShowDialog(dialog))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.showDialog(dialog: D) = dispatch(ShowDialog(dialog))
 
 /**
  * Dismiss dialog
  */
-fun NavDrive.dismissDialog() = dispatch(DismissDialog)
+fun <S : Screen, D : Dialog> NavDrive<S, D>.dismissDialog() = dispatch(DismissDialog)
 
 /**
  * Batch multiple actions
  */
-fun NavDrive.batch(block: NavDrive.() -> Unit) {
+fun <S : Screen, D : Dialog>  NavDrive<S, D>.batch(block: NavDrive<S, D>.() -> Unit) {
     dispatch(Batch(NavDriveBatchRecorder(state).apply(block).actions))
 }

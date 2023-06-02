@@ -1,24 +1,24 @@
 package com.github.octaone.alcubierre.reduce
 
+import com.github.octaone.alcubierre.action.AnyNavAction
 import com.github.octaone.alcubierre.action.Back
 import com.github.octaone.alcubierre.action.BackTo
 import com.github.octaone.alcubierre.action.BackToRoot
 import com.github.octaone.alcubierre.action.Forward
-import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.Replace
 import com.github.octaone.alcubierre.action.ReplaceRoot
 import com.github.octaone.alcubierre.screen.Screen
-import com.github.octaone.alcubierre.state.StackNavState
+import com.github.octaone.alcubierre.state.AnyStackNavState
 
 /**
  * [NavReducer] responds for commands with specific stack
  */
-class AlcubierreStackNavReducer : NavReducer<StackNavState> {
+class AlcubierreStackNavReducer : NavReducer<AnyStackNavState> {
 
     override fun reduce(
-        state: StackNavState,
-        action: NavAction
-    ): StackNavState =
+        state: AnyStackNavState,
+        action: AnyNavAction
+    ): AnyStackNavState =
         when (action) {
             is Forward -> {
                 state.modifyChain { this + action.screens }
@@ -49,6 +49,6 @@ class AlcubierreStackNavReducer : NavReducer<StackNavState> {
             }
     }
 
-    private inline fun StackNavState.modifyChain(update: MutableList<Screen>.() -> List<Screen>): StackNavState =
+    private inline fun AnyStackNavState.modifyChain(update: MutableList<Screen>.() -> List<Screen>): AnyStackNavState =
         copy(chain = chain.toMutableList().update())
 }

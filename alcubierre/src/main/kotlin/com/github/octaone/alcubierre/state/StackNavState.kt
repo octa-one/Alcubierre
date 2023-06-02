@@ -11,11 +11,11 @@ import kotlinx.parcelize.TypeParceler
  */
 @Parcelize
 @TypeParceler<Screen, ScreenParceler>
-data class StackNavState(
-    val chain: List<Screen>
+data class StackNavState<out S : Screen>(
+    val chain: List<S>
 ): Parcelable {
 
     companion object {
-        val EMPTY = StackNavState(emptyList())
+        val EMPTY = StackNavState<Nothing>(emptyList())
     }
 }
