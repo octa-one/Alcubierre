@@ -34,37 +34,37 @@ class Batch<S : Screen, D : Dialog>(val actions: List<NavAction<S, D>>) : NavAct
 /**
  * Open next [screens]
  */
-fun <S : Screen, D : Dialog> NavDrive<S, D>.forward(vararg screens: S) = dispatch(Forward<S, D>(screens.toList()))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.forward(vararg screens: S) = dispatch(Forward(screens.toList()))
 
 /**
  * Replace current screen by new [screens]
  */
-fun <S : Screen, D : Dialog> NavDrive<S, D>.replace(vararg screens: S) = dispatch(Replace<S, D>(screens.toList()))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.replace(vararg screens: S) = dispatch(Replace(screens.toList()))
 
 /**
  * Replace entire stack including root with [screens]
  */
-fun <S : Screen, D : Dialog> NavDrive<S, D>.replaceRoot(vararg screens: S) = dispatch(ReplaceRoot<S, D>(screens.toList()))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.replaceRoot(vararg screens: S) = dispatch(ReplaceRoot(screens.toList()))
 
 /**
  * Add new stack with [stackId] and [screens]
  */
-fun <S : Screen, D : Dialog> NavDrive<S, D>.newStack(stackId: Int, vararg screens: S) = dispatch(NewStack<S, D>(stackId, screens.toList()))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.newStack(stackId: Int, vararg screens: S) = dispatch(NewStack(stackId, screens.toList()))
 
 /**
  * Select active stack by [stackId]
  */
-fun <S : Screen, D : Dialog> NavDrive<S, D>.selectStack(stackId: Int) = dispatch(SelectStack<S, D>(stackId))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.selectStack(stackId: Int) = dispatch(SelectStack(stackId))
 
 /**
  * Clear stack by [stackId]
  */
-fun <S : Screen, D : Dialog> NavDrive<S, D>.clearStack(stackId: Int) = dispatch(ClearStack<S, D>(stackId))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.clearStack(stackId: Int) = dispatch(ClearStack(stackId))
 
 /**
  * Back to [screen]
  */
-fun <S : Screen, D : Dialog> NavDrive<S, D>.backTo(screen: S) = dispatch(BackTo<S, D>(screen))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.backTo(screen: S) = dispatch(BackTo(screen))
 
 /**
  * Back to root screen
