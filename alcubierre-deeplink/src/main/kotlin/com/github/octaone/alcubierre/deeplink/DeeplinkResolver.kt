@@ -21,7 +21,7 @@ class DeeplinkResolver {
 
         val patterns = colony.registries
             .flatMap { it.screenConverters.keys }
-            .map { Uri.parse(it).toDeeplinkUri() }
+            .map { Uri.parse(it).toDeeplinkUri() } // todo: вот тут надо просовывать дефолты из сгенерированного класса
             .sortedByPlaceholders()
 
         matcher = DeeplinkTreeMatcher(DeeplinkTreeRoot(patterns))
@@ -36,12 +36,13 @@ class DeeplinkResolver {
         return converter.convert(placeholders).withDeeplinkExtra(deeplink)
     }
 
-    private fun Uri.toDeeplinkUri() = DeeplinkUri(
+    private fun Uri.toDeeplinkUri(defaults: Map<String, String> = emptyMap()) = DeeplinkUri(
         pattern = toString(),
         scheme = requireNotNull(scheme),
         host = requireNotNull(host),
         path = path,
-        query = queryParameterNames.associateWith { requireNotNull(getQueryParameter(it)) }
+        query = queryParameterNames.associateWith { requireNotNull(getQueryParameter(it)) },
+        defaults = defaults
     )
 
     private fun Any.withDeeplinkExtra(deeplink: Uri): Any = apply {

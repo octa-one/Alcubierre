@@ -11,6 +11,13 @@ fun matcher(
 
 fun root(vararg uris: String) = DeeplinkTreeRoot(uris.map(DeeplinkUri::parse).sortedByPlaceholders())
 
+fun matcher(
+    link: String, defaults: Map<String, String>
+): DeeplinkTreeMatcher {
+    val uri = DeeplinkUri.parse(link).copy(defaults = defaults)
+    return DeeplinkTreeMatcher(DeeplinkTreeRoot(listOf(uri)))
+}
+
 fun DeeplinkTreeMatcher.match(string: String) = match(DeeplinkUri.parse(string))
 
 // в реальном коде диплинк будет парситься через android.net.Uri, который недоступен в unit тестах

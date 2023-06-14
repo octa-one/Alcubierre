@@ -5,10 +5,9 @@ data class DeeplinkUri(
     val scheme: String,
     val host: String,
     val path: String?,
-    val query: Map<String, String> = emptyMap()
+    val query: Map<String, String> = emptyMap(),
+    val defaults: Map<String, String> = emptyMap()
 ) {
-    val queryParameterNames = query.keys
-
     val pathSegments = path?.split("/").orEmpty()
 
     init {

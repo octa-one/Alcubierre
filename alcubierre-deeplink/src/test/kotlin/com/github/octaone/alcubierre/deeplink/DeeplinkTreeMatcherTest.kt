@@ -102,4 +102,12 @@ class DeeplinkTreeMatcherTest {
             matcher.match("scheme://path/1/2?from=from&to=to")?.placeholders
         )
     }
+    @Test
+    fun `default param in path`() {
+        val matcher = matcher("scheme://path/{id}", defaults = mapOf("id" to "1"))
+        val match = matcher.match("scheme://path")
+
+        assertEquals(mapOf("id" to "1"), match?.placeholders)
+        assertEquals("scheme://path/{id}", match?.matchedPattern)
+    }
 }

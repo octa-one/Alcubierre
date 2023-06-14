@@ -33,7 +33,7 @@ class DeeplinkTreeMatcher(private val root: DeeplinkTreeRoot) {
 
         do {
             val node = root.childrenList.getOrNull(nodeIndex) ?: return null
-            val segment = deeplinkSegments[segmentIndex]
+            val segment = deeplinkSegments.getOrNull(segmentIndex) ?: node.defaultPlaceholderValue
 
             if (equals(node, segment)) {
                 var localPlaceholders = placeholders
@@ -44,7 +44,7 @@ class DeeplinkTreeMatcher(private val root: DeeplinkTreeRoot) {
                     localPlaceholders[node.placeholderValue] = URLDecoder.decode(segment, "UTF-8")
                 }
 
-                if (segmentIndex + 1 < deeplinkSegments.size) {
+                if (segmentIndex + 1 < deeplinkSegments.size || node.childrenPlaceholdersCount > 0) {
                     // узел совпал с сегментом диплинка, но сравнили еще не все сегменты
                     match = treeMatch(node, deeplink, deeplinkSegments, segmentIndex + 1, localPlaceholders)
                 } else {
@@ -70,7 +70,8 @@ class DeeplinkTreeMatcher(private val root: DeeplinkTreeRoot) {
         return null
     }
 
-    private fun equals(node: TreeNode, deeplinkSegment: String): Boolean = when {
+    private fun equals(node: TreeNode, deeplinkSegment: String?): Boolean = when {
+        deeplinkSegment == null -> false
         node.isPlaceholder -> true
         else -> node.value.contentEquals(deeplinkSegment, true)
     }

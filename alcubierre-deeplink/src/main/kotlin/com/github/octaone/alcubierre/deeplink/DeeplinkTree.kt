@@ -34,6 +34,7 @@ class DeeplinkTreeRoot(uris: List<DeeplinkUri>) {
 
         uri.pathSegments.forEach { pathSegment ->
             node = node.addIfAbsent(TreeNode(pathSegment))
+            node.defaultPlaceholderValue = uri.defaults[pathSegment.extractPlaceholder()]
             validateAmbiguousPlaceholder(node)
         }
 
@@ -87,6 +88,11 @@ data class TreeNode(val value: String) {
      * Содержимое фигурных скобок для узла, у которого [isPlaceholder] true
      */
     val placeholderValue by lazy(LazyThreadSafetyMode.NONE) { value.extractPlaceholder() }
+
+    /**
+     * Дефолтное значение плейсходера (в классе может быть объявлено)
+     */
+    var defaultPlaceholderValue: String? = null
 
     /**
      * Количество дочерних узлов, являющихся плейсхолдерами
