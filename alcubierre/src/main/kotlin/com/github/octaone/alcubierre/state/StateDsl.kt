@@ -13,7 +13,7 @@ class StackStateBuilder<S : Screen>  {
     }
 
     fun build(): StackNavState<S> =
-        StackNavState<S>(screens.toList())
+        StackNavState(screens.toList())
 }
 
 class RootStateBuilder<S : Screen, D : Dialog>  {
@@ -31,7 +31,7 @@ class RootStateBuilder<S : Screen, D : Dialog>  {
     }
 
     fun build(): RootNavState<S, D> =
-        RootNavState<S, D>(DialogNavState.EMPTY, stacks, checkNotNull(stackId))
+        RootNavState(DialogNavState.EMPTY, stacks, checkNotNull(stackId))
 }
 
 fun <S : Screen, D : Dialog> rootState(builder: RootStateBuilder<S, D>.() -> Unit): RootNavState<S, D> =

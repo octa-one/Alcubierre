@@ -17,6 +17,7 @@ data class RootNavState<out S : Screen, out D : Dialog>(
 ): Parcelable {
 
     val currentStackState: StackNavState<S> get() = stackStates.getNotNull(currentStackId)
+    val currentScreen: S? get() = currentStackState.chain.lastOrNull()
     val currentDialog: D? get() = dialogState.queue.firstOrNull()
 
     companion object {

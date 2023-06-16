@@ -8,7 +8,7 @@ import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import com.github.octaone.alcubierre.screen.FragmentDialog
 import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.state.DialogNavState
-import com.github.octaone.alcubierre.state.RootNavState
+import com.github.octaone.alcubierre.state.FragmentRootNavState
 import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.getNotNull
 import com.github.octaone.alcubierre.util.getParcelableArrayCompat
@@ -19,14 +19,14 @@ class AlcubierreRootNavRender(
     private val fragmentManager: FragmentManager,
     private val navDriveOwner: FragmentNavDriveOwner,
     private val transactionModifier: FragmentTransactionModifier = EmptyModifier
-) : FragmentNavRender<RootNavState<FragmentScreen, FragmentDialog>> {
+) : FragmentNavRender<FragmentRootNavState> {
 
     private var currentStackId: Int = -1
     private val stacks = HashMap<Int, RootIdAndStackRender>()
     private var dialogRender: FragmentNavRender<DialogNavState<FragmentDialog>> =
         AlcubierreDialogNavRender(classLoader, fragmentManager, navDriveOwner::requestDismissDialog)
 
-    override fun render(state: RootNavState<FragmentScreen, FragmentDialog>) {
+    override fun render(state: FragmentRootNavState) {
         // Apply dialog state changes
         dialogRender.render(state.dialogState)
 
@@ -87,7 +87,7 @@ class AlcubierreRootNavRender(
     private fun createStackRender(): FragmentNavRender<StackNavState<FragmentScreen>> =
         AlcubierreStackNavRender(containerId, classLoader, fragmentManager, transactionModifier)
 
-    private fun doRender(newState: RootNavState<FragmentScreen, FragmentDialog>) {
+    private fun doRender(newState: FragmentRootNavState) {
         val toStackId = newState.currentStackId
         val toStackState = newState.stackStates.getNotNull(toStackId)
         if (toStackState.chain.isNotEmpty()) {

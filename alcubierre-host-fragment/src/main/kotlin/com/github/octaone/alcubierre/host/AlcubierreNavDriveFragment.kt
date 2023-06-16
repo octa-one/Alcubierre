@@ -21,7 +21,7 @@ import com.github.octaone.alcubierre.render.renderFrom
 import com.github.octaone.alcubierre.screen.FragmentDialog
 import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.state.AnyRootNavState
-import com.github.octaone.alcubierre.state.RootNavState
+import com.github.octaone.alcubierre.state.FragmentRootNavState
 import com.github.octaone.alcubierre.util.getAndCast
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.reflect.KClass
@@ -33,13 +33,15 @@ class AlcubierreNavDriveFragment : Fragment(), FragmentNavDriveOwner {
     private var containerId: Int = View.NO_ID
     private var restoredState: Bundle? = null
 
-    override val stateFlow: StateFlow<RootNavState<FragmentScreen, FragmentDialog>> get() = delegate.stateFlow
+    private var render: AlcubierreRootNavRender? = null
 
-    override val state: RootNavState<FragmentScreen, FragmentDialog> get() = delegate.state
+    override val stateFlow: StateFlow<FragmentRootNavState> get() = delegate.stateFlow
+
+    override val state: FragmentRootNavState get() = delegate.state
 
     override fun initialize(
         reducer: NavReducer<AnyRootNavState>,
-        initialState: RootNavState<FragmentScreen, FragmentDialog>,
+        initialState: FragmentRootNavState,
         extras: Map<KClass<*>, Any>
     ) {
         check(lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED))
@@ -51,12 +53,16 @@ class AlcubierreNavDriveFragment : Fragment(), FragmentNavDriveOwner {
             navDriveOwner = this,
             transactionModifier = extras.getAndCast() ?: EmptyModifier
         )
+        this.render = render
 
         delegate.initialize(
             reducer = reducer,
             initialState = initialState,
         )
-        delegate.restoreState(restoredState)
+        restoredState?.let { state ->
+            delegate.restoreState(state)
+            render.restoreState(state)
+        }
         restoredState = null
 
         render.renderFrom(delegate.stateFlow, lifecycle)
@@ -100,7 +106,10 @@ class AlcubierreNavDriveFragment : Fragment(), FragmentNavDriveOwner {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(KEY_CONTAINER_ID, containerId)
-        delegate.saveState(outState)
+        render?.let { render ->
+            delegate.saveState(outState)
+            render.saveState(outState)
+        }
     }
 
     companion object {
