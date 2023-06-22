@@ -7,7 +7,6 @@ import androidx.fragment.app.commit
 import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import com.github.octaone.alcubierre.screen.FragmentCreator
 import com.github.octaone.alcubierre.screen.FragmentScreen
-import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.screen.withScreenData
 import com.github.octaone.alcubierre.state.StackNavState
 
@@ -19,11 +18,11 @@ class AlcubierreStackNavRender(
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
     private val transactionModifier: FragmentTransactionModifier
-) : FragmentNavRender<StackNavState> {
+) : FragmentNavRender<StackNavState<FragmentScreen>> {
 
     private var currentChain: List<String> = emptyList()
 
-    override fun render(state: StackNavState) {
+    override fun render(state: StackNavState<FragmentScreen>) {
         val diff = diff(currentChain, state.chain)
         diff.forEach { action ->
             when (action) {
@@ -47,7 +46,6 @@ class AlcubierreStackNavRender(
         currentChain = savedState.getStringArray(BUNDLE_KEY_STACK_STATE)?.toList().orEmpty()
     }
 
-
     /**
      * Perform popBackStack for [count] of fragments
      */
@@ -59,25 +57,18 @@ class AlcubierreStackNavRender(
     /**
      * Perform replace or add operations for fragments in [screens]
      */
-    private fun push(screens: List<Screen>) {
+    private fun push(screens: List<FragmentScreen>) {
         screens.forEach { screen ->
-            when (screen) {
-                is FragmentScreen -> {
-                    fragmentManager.commit {
-                        setReorderingAllowed(true)
-                        val fragment = createFragment(screen).withScreenData(screen)
-                        transactionModifier.modify(this, screen, fragment)
-                        if (screen.replace) {
-                            replace(containerId, fragment, screen.screenId)
-                        } else {
-                            add(containerId, fragment, screen.screenId)
-                        }
-                        addToBackStack(screen.screenId)
-                    }
+            fragmentManager.commit {
+                setReorderingAllowed(true)
+                val fragment = createFragment(screen).withScreenData(screen)
+                transactionModifier.modify(this, screen, fragment)
+                if (screen.replace) {
+                    replace(containerId, fragment, screen.screenId)
+                } else {
+                    add(containerId, fragment, screen.screenId)
                 }
-                else -> {
-                    throw IllegalArgumentException("Unsupported screen type $screen")
-                }
+                addToBackStack(screen.screenId)
             }
         }
     }
@@ -95,7 +86,7 @@ class AlcubierreStackNavRender(
      * When the first mismatch is detected the old stack [prev] is being popped to this mismatched screen including itself
      * and new stack of [next] is being pushed
      */
-    private fun diff(prev: List<String>, next: List<Screen>): List<StackAction> = when {
+    private fun diff(prev: List<String>, next: List<FragmentScreen>): List<StackAction> = when {
         prev.isEmpty() && next.isEmpty() -> emptyList()
         prev.isEmpty() -> listOf(Push(next))
         next.isEmpty() -> listOf(Pop(prev.size))

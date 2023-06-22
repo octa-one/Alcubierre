@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.octaone.alcubierre.NavDrive
+import com.github.octaone.alcubierre.FragmentNavDrive
 import com.github.octaone.alcubierre.action.dismissDialog
 import com.github.octaone.alcubierre.sample.R
 import com.github.octaone.alcubierre.sample.SampleApplication
@@ -16,7 +16,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SampleDialogFragment : BottomSheetDialogFragment() {
 
-    private val navDrive: NavDrive get() = SampleApplication.from(requireContext()).navDrive
+    private val navDrive: FragmentNavDrive
+        get() = SampleApplication.from(requireContext()).navDrive
     private val dialog : SampleDialog by dialogData()
 
     override fun onCreate(savedInstanceState: Bundle?) {

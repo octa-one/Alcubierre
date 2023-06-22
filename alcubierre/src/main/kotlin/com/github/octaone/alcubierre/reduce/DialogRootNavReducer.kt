@@ -1,21 +1,22 @@
 package com.github.octaone.alcubierre.reduce
 
+import com.github.octaone.alcubierre.action.AnyNavAction
 import com.github.octaone.alcubierre.action.Back
 import com.github.octaone.alcubierre.action.DismissDialog
-import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.ShowDialog
+import com.github.octaone.alcubierre.state.AnyDialogNavState
+import com.github.octaone.alcubierre.state.AnyRootNavState
 import com.github.octaone.alcubierre.state.DialogNavState
-import com.github.octaone.alcubierre.state.RootNavState
 
 /**
  * Reducer responds for action with dialogs
  */
 class DialogRootNavReducer(
-    private val origin: NavReducer<RootNavState>,
-    private val dialogReducer: NavReducer<DialogNavState> = DialogNavReducer()
-) : NavReducer<RootNavState> {
+    private val origin: NavReducer<AnyRootNavState>,
+    private val dialogReducer: NavReducer<AnyDialogNavState> = DialogNavReducer()
+) : NavReducer<AnyRootNavState> {
 
-    override fun reduce(state: RootNavState, action: NavAction) = when (action) {
+    override fun reduce(state: AnyRootNavState, action: AnyNavAction) = when (action) {
         is ShowDialog, DismissDialog -> {
             state.copy(dialogState = dialogReducer.reduce(state.dialogState, action))
         }

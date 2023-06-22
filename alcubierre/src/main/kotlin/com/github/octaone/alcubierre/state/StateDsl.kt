@@ -1,43 +1,44 @@
 package com.github.octaone.alcubierre.state
 
+import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
 import kotlin.collections.set
 
-class StackStateBuilder {
+class StackStateBuilder<S : Screen>  {
 
-    private val screens = mutableListOf<Screen>()
+    private val screens = mutableListOf<S>()
 
-    fun screen(screen: Screen) {
+    fun screen(screen: S) {
         screens.add(screen)
     }
 
-    fun build(): StackNavState =
+    fun build(): StackNavState<S> =
         StackNavState(screens.toList())
 }
 
-class RootStateBuilder {
+class RootStateBuilder<S : Screen, D : Dialog>  {
 
-    private val stacks = HashMap<Int, StackNavState>()
+    private val stacks = HashMap<Int, StackNavState<S>>()
     private var stackId: Int? = null
 
-    fun stack(id: Int, builder: StackStateBuilder.() -> Unit) {
+    fun stack(id: Int, builder: StackStateBuilder<S>.() -> Unit) {
         if (stackId == null) stackId = id
-        stacks[id] = StackStateBuilder().apply(builder).build()
+        stacks[id] = StackStateBuilder<S>().apply(builder).build()
     }
 
     fun selectStack(id: Int) {
         stackId = id
     }
 
-    fun build(): RootNavState =
+    fun build(): RootNavState<S, D> =
         RootNavState(DialogNavState.EMPTY, stacks, checkNotNull(stackId))
 }
 
-fun rootState(builder: RootStateBuilder.() -> Unit): RootNavState =
-    RootStateBuilder().apply(builder).build()
+fun <S : Screen, D : Dialog> rootState(builder: RootStateBuilder<S, D>.() -> Unit): RootNavState<S, D> =
+    RootStateBuilder<S, D>().apply(builder).build()
 
-fun singleRootState(builder: StackStateBuilder.() -> Unit): RootNavState =
-    RootStateBuilder()
+fun <S : Screen, D : Dialog> singleRootState(builder: StackStateBuilder<S>.() -> Unit): RootNavState<S, D> =
+    RootStateBuilder<S, D>()
         .apply { stack(SINGLE_STACK_ID, builder) }
         .build()
 

@@ -6,11 +6,11 @@ import com.github.octaone.alcubierre.state.RootNavState
 import kotlin.reflect.KClass
 
 @Suppress("UNCHECKED_CAST")
-fun <S : Screen> RootNavState.findScreenByClass(kClass: KClass<S>): S? =
-    currentStackState.chain.lastOrNull { kClass.isInstance(it) } as S?
+fun <T : Screen> RootNavState<*, *>.findScreenByClass(kClass: KClass<T>): T? =
+    currentStackState.chain.lastOrNull { kClass.isInstance(it) } as T?
 
-inline fun <reified S : Screen> RootNavState.findScreenByClass(): S? =
-    findScreenByClass(S::class)
+inline fun <reified T : Screen> RootNavState<*, *>.findScreenByClass(): T? =
+    findScreenByClass(T::class)
 
-fun RootNavState.findScreenByTag(tag: String): Screen? =
+fun <S : Screen> RootNavState<S, *>.findScreenByTag(tag: String): S? =
     currentStackState.chain.lastOrNull { it.tag == tag }

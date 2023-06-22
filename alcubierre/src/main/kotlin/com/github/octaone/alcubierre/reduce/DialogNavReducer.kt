@@ -1,14 +1,15 @@
 package com.github.octaone.alcubierre.reduce
 
+import com.github.octaone.alcubierre.action.AnyNavAction
 import com.github.octaone.alcubierre.action.DismissDialog
-import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.ShowDialog
 import com.github.octaone.alcubierre.screen.isShowing
+import com.github.octaone.alcubierre.state.AnyDialogNavState
 import com.github.octaone.alcubierre.state.DialogNavState
 
-class DialogNavReducer : NavReducer<DialogNavState> {
+class DialogNavReducer : NavReducer<AnyDialogNavState> {
 
-    override fun reduce(state: DialogNavState, action: NavAction): DialogNavState = when (action) {
+    override fun reduce(state: AnyDialogNavState, action: AnyNavAction): AnyDialogNavState = when (action) {
         is ShowDialog -> {
             if (state.queue.isEmpty()) {
                 state.copy(queue = listOf(action.dialog))

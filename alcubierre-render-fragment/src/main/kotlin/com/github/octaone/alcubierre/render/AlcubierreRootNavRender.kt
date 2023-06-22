@@ -2,11 +2,13 @@ package com.github.octaone.alcubierre.render
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
-import com.github.octaone.alcubierre.NavDriveOwner
+import com.github.octaone.alcubierre.FragmentNavDriveOwner
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
 import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
+import com.github.octaone.alcubierre.screen.FragmentDialog
+import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.state.DialogNavState
-import com.github.octaone.alcubierre.state.RootNavState
+import com.github.octaone.alcubierre.state.FragmentRootNavState
 import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.getNotNull
 import com.github.octaone.alcubierre.util.getParcelableArrayCompat
@@ -15,16 +17,16 @@ class AlcubierreRootNavRender(
     private val containerId: Int,
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
-    private val navDriveOwner: NavDriveOwner,
+    private val navDriveOwner: FragmentNavDriveOwner,
     private val transactionModifier: FragmentTransactionModifier = EmptyModifier
-) : FragmentNavRender<RootNavState> {
+) : FragmentNavRender<FragmentRootNavState> {
 
     private var currentStackId: Int = -1
     private val stacks = HashMap<Int, RootIdAndStackRender>()
-    private var dialogRender: FragmentNavRender<DialogNavState> =
+    private var dialogRender: FragmentNavRender<DialogNavState<FragmentDialog>> =
         AlcubierreDialogNavRender(classLoader, fragmentManager, navDriveOwner::requestDismissDialog)
 
-    override fun render(state: RootNavState) {
+    override fun render(state: FragmentRootNavState) {
         // Apply dialog state changes
         dialogRender.render(state.dialogState)
 
@@ -82,10 +84,10 @@ class AlcubierreRootNavRender(
         }
     }
 
-    private fun createStackRender(): FragmentNavRender<StackNavState> =
+    private fun createStackRender(): FragmentNavRender<StackNavState<FragmentScreen>> =
         AlcubierreStackNavRender(containerId, classLoader, fragmentManager, transactionModifier)
 
-    private fun doRender(newState: RootNavState) {
+    private fun doRender(newState: FragmentRootNavState) {
         val toStackId = newState.currentStackId
         val toStackState = newState.stackStates.getNotNull(toStackId)
         if (toStackState.chain.isNotEmpty()) {
@@ -105,7 +107,7 @@ class AlcubierreRootNavRender(
      * Method for searching and clearing of old stacks
      * This method is called to get rid of unnecessary fragments from FragmentManager in case of one stack was fully changed by another stack
      */
-    private fun clearUnusedStacks(fromStackId: Int, toStackStates: Map<Int, StackNavState>) {
+    private fun clearUnusedStacks(fromStackId: Int, toStackStates: Map<Int, StackNavState<FragmentScreen>>) {
         val stacksIterator = stacks.iterator()
         // Iterate through stacks
         while (stacksIterator.hasNext()) {
@@ -129,7 +131,7 @@ class AlcubierreRootNavRender(
 
     private data class RootIdAndStackRender(
         val rootId: String,
-        val render: FragmentNavRender<StackNavState>
+        val render: FragmentNavRender<StackNavState<FragmentScreen>>
     )
 }
 

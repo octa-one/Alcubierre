@@ -2,7 +2,6 @@ package com.github.octaone.alcubierre.render
 
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -21,7 +20,7 @@ class AlcubierreDialogNavRender(
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
     private val onDismiss: () -> Unit
-) : FragmentNavRender<DialogNavState> {
+) : FragmentNavRender<DialogNavState<FragmentDialog>> {
 
     private var currentDialogId: String? = null
 
@@ -37,11 +36,10 @@ class AlcubierreDialogNavRender(
         }
     }
 
-    override fun render(state: DialogNavState) {
+    override fun render(state: DialogNavState<FragmentDialog>) {
         val newDialog = state.queue.firstOrNull()
         val newDialogId = newDialog?.dialogId
         if (currentDialogId == newDialogId) return
-        if (newDialog != null) check(newDialog is FragmentDialog) { "Unsupported dialogState type $state" }
 
         // Need to dismiss old dialogState
         if (currentDialogId != null) {
@@ -54,8 +52,7 @@ class AlcubierreDialogNavRender(
         }
         // Show new dialog and subscribe for closing
         if (newDialog != null) {
-            newDialog as FragmentDialog
-            val fragment = (createFragment(newDialog) as DialogFragment).withDialogData(newDialog)
+            val fragment = createFragment(newDialog).withDialogData(newDialog)
             fragment.lifecycle.addObserver(dialogObserver)
             fragment.show(fragmentManager, newDialogId)
 
@@ -80,12 +77,14 @@ class AlcubierreDialogNavRender(
         }
     }
 
-    private fun createFragment(dialog: FragmentDialog): Fragment =
-        if (dialog is FragmentCreator) {
+    private fun createFragment(dialog: FragmentDialog): DialogFragment {
+        val fragment = if (dialog is FragmentCreator) {
             dialog.create()
         } else {
             fragmentManager.fragmentFactory.instantiate(classLoader, dialog.fragmentName)
         }
+        return fragment as DialogFragment
+    }
 }
 
 private const val BUNDLE_KEY_DIALOG_STATE = "alc_dialog_render_state"

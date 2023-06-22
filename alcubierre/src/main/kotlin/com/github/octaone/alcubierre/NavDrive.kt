@@ -3,6 +3,9 @@ package com.github.octaone.alcubierre
 import android.os.Bundle
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.reduce.NavReducer
+import com.github.octaone.alcubierre.screen.Dialog
+import com.github.octaone.alcubierre.screen.Screen
+import com.github.octaone.alcubierre.state.AnyRootNavState
 import com.github.octaone.alcubierre.state.RootNavState
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.reflect.KClass
@@ -18,23 +21,23 @@ import kotlin.reflect.KClass
  * [state] - current navigation state
  * [dispatch] - method for [NavAction] application
  */
-interface NavDrive {
+interface NavDrive<S : Screen, D : Dialog> {
 
-    val state: RootNavState
+    val state: RootNavState<S, D>
 
-    fun dispatch(action: NavAction)
+    fun dispatch(action: NavAction<S, D>)
 }
 
 /**
  * Base interface of navigation host
  */
-interface NavDriveOwner : NavDrive {
+interface NavDriveOwner<S : Screen, D : Dialog> : NavDrive<S, D> {
 
-    val stateFlow: StateFlow<RootNavState>
+    val stateFlow: StateFlow<RootNavState<S, D>>
 
     fun initialize(
-        reducer: NavReducer<RootNavState>,
-        initialState: RootNavState,
+        reducer: NavReducer<AnyRootNavState>,
+        initialState: RootNavState<S, D>,
         extras: Map<KClass<*>, Any> = emptyMap()
     )
 

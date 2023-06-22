@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.github.octaone.alcubierre.NavDrive
+import com.github.octaone.alcubierre.FragmentNavDrive
 import com.github.octaone.alcubierre.action.selectStack
 import com.github.octaone.alcubierre.host.AlcubierreNavDriveFragment
 import com.github.octaone.alcubierre.reduce.AlcubierreDefaultNavReducer
@@ -22,7 +22,7 @@ class SampleActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navDriveOwner = binding.container.getFragment<AlcubierreNavDriveFragment>()
-        val navDrive: NavDrive = navDriveOwner
+        val navDrive: FragmentNavDrive = navDriveOwner
 
         val onItemSelectedListener = object : NavigationBarView.OnItemSelectedListener {
 
