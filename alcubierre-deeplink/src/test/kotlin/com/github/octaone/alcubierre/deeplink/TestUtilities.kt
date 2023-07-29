@@ -1,4 +1,5 @@
-import com.github.octaone.alcubierre.deeplink.DeeplinkTreeMatcher
+
+import com.github.octaone.alcubierre.deeplink.DeeplinkMatcher
 import com.github.octaone.alcubierre.deeplink.DeeplinkTreeRoot
 import com.github.octaone.alcubierre.deeplink.DeeplinkUri
 import com.github.octaone.alcubierre.deeplink.sortedByPlaceholders
@@ -7,11 +8,11 @@ import org.junit.Test
 
 fun matcher(
     vararg links: String
-) = DeeplinkTreeMatcher(root(*links))
+) = DeeplinkMatcher(links.map(DeeplinkUri::parse).sortedByPlaceholders())
 
 fun root(vararg uris: String) = DeeplinkTreeRoot(uris.map(DeeplinkUri::parse).sortedByPlaceholders())
 
-fun DeeplinkTreeMatcher.match(string: String) = match(DeeplinkUri.parse(string))
+fun DeeplinkMatcher.match(string: String) = match(DeeplinkUri.parse(string))
 
 // в реальном коде диплинк будет парситься через android.net.Uri, который недоступен в unit тестах
 // поэтому тут написана собственная, урезанная, реализация

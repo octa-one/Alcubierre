@@ -9,7 +9,7 @@ data class DeeplinkUri(
 ) {
     val queryParameterNames = query.keys
 
-    val pathSegments = path?.split("/").orEmpty()
+    val pathSegments = path?.split("/").orEmpty().filter(String::isNotEmpty)
 
     init {
         require(scheme.isNotBlank() && host.isNotBlank()) { "Указан пустой scheme/host" }

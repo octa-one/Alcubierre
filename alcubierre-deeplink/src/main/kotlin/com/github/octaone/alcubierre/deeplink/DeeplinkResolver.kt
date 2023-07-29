@@ -12,7 +12,7 @@ import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
  */
 class DeeplinkResolver {
 
-    private val matcher: DeeplinkTreeMatcher
+    private val matcher: DeeplinkMatcher
 
     private val converters = mutableMapOf<String, ScreenConverter>()
 
@@ -24,7 +24,7 @@ class DeeplinkResolver {
             .map { Uri.parse(it).toDeeplinkUri() }
             .sortedByPlaceholders()
 
-        matcher = DeeplinkTreeMatcher(DeeplinkTreeRoot(patterns))
+        matcher = DeeplinkMatcher(patterns)
 
         for (registry in colony.registries) converters += registry.screenConverters
     }
