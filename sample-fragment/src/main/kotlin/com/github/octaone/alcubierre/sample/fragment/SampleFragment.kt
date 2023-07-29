@@ -19,11 +19,9 @@ import com.github.octaone.alcubierre.sample.SampleApplication
 import com.github.octaone.alcubierre.sample.databinding.Fmt0Binding
 import com.github.octaone.alcubierre.sample.screen.SampleDialog
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
-import com.github.octaone.alcubierre.screen.FragmentDialog
-import com.github.octaone.alcubierre.screen.FragmentScreen
 import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.screen.screenData
-import com.github.octaone.alcubierre.state.RootNavState
+import com.github.octaone.alcubierre.state.FragmentRootNavState
 import kotlin.random.Random
 
 class SampleFragment : Fragment(R.layout.fmt_0) {
@@ -87,7 +85,7 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
         }
     }
 
-    private fun RootNavState<FragmentScreen, FragmentDialog>.toStackString() =
+    private fun FragmentRootNavState.toStackString() =
         buildString {
             appendLine("Stacks (* - current screen):")
             stackStates.forEach { (id, stack) ->

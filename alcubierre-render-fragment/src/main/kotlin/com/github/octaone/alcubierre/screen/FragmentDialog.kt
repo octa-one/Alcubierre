@@ -22,9 +22,9 @@ abstract class FragmentDialog(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as FragmentScreen
+        other as FragmentDialog
 
-        if (fragmentName != other.fragmentName) return false
+        if (dialogId != other.dialogId) return false
 
         return true
     }

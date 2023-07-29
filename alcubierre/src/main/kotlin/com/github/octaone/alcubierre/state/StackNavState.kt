@@ -4,15 +4,14 @@ import android.os.Parcelable
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.screen.internal.ScreenParceler
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.TypeParceler
+import kotlinx.parcelize.WriteWith
 
 /**
  * State of single stack
  */
 @Parcelize
-@TypeParceler<Screen, ScreenParceler>
 data class StackNavState<out S : Screen>(
-    val chain: List<S>
+    val chain: List<@WriteWith<ScreenParceler> S>
 ): Parcelable {
 
     companion object {
