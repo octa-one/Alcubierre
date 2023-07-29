@@ -24,7 +24,7 @@ abstract class FragmentScreen(
 
         other as FragmentScreen
 
-        if (fragmentName != other.fragmentName) return false
+        if (screenId != other.screenId) return false
 
         return true
     }
