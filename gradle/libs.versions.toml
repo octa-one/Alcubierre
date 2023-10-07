@@ -1,24 +1,24 @@
 [versions]
-agp = "7.4.2"
-annotation = "1.6.0"
+agp = "8.1.2"
+annotation = "1.7.0"
 appcompat = "1.6.1"
-compose_bom = "2023.06.01"
-compose_compiler = "1.5.1"
-core = "1.10.1"
-activity = "1.7.2"
-fragment = "1.6.0"
-kotlin = "1.9.0"
-coroutines = "1.7.1"
-material = "1.9.0"
-kotlinpoet = "1.13.2"
-ksp = "1.9.0-1.0.11"
-asm = "9.4"
-colonist = "0.1.0-alpha21"
+compose_bom = "2023.10.00"
+compose_compiler = "1.5.3"
+core = "1.12.0"
+activity = "1.8.0"
+fragment = "1.6.1"
+kotlin = "1.9.10"
+coroutines = "1.7.3"
+material = "1.10.0"
+kotlinpoet = "1.14.2"
+ksp = "1.9.10-1.0.13"
+asm = "9.6"
+colonist = "0.1.0-alpha22"
 junit = "4.13.2"
-lifecycle = "2.6.1"
+lifecycle = "2.6.2"
 savedstate = "1.2.1"
-lint = "31.1.0"
-autoservice = "1.0.1"
+lint = "31.1.2"
+autoservice = "1.1.1"
 
 [libraries]
 # gradle
@@ -55,6 +55,7 @@ compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref 
 compose-foundation = { module = "androidx.compose.foundation:foundation" }
 compose-runtime = { module = "androidx.compose.runtime:runtime" }
 compose-ui = { module = "androidx.compose.ui:ui" }
+compose-material = { module = "androidx.compose.material:material" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
 
 # codegen
@@ -81,5 +82,6 @@ compose = [
     "compose-foundation",
     "compose-runtime",
     "compose-ui",
+    "compose-material",
     "compose-material3"
 ]
