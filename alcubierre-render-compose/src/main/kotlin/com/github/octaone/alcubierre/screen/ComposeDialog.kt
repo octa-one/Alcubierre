@@ -7,11 +7,13 @@ import com.github.octaone.alcubierre.lifecycle.ScreenLifecycleOwnerImpl
 import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
 
-abstract class ComposeScreen : Screen(), ExtrasContainer by LazyExtrasContainer() {
+abstract class ComposeDialog : Dialog(), ExtrasContainer by LazyExtrasContainer() {
 
     val lifecycleOwner: ScreenLifecycleOwner by lazy(LazyThreadSafetyMode.NONE) {
-        ScreenLifecycleOwnerImpl(screenId, getSavedStateDefaultArguments())
+        ScreenLifecycleOwnerImpl(dialogId, getSavedStateDefaultArguments())
     }
+
+    override val priority: Int = 5
 
     open fun getSavedStateDefaultArguments(): Bundle? = null
 
@@ -22,9 +24,9 @@ abstract class ComposeScreen : Screen(), ExtrasContainer by LazyExtrasContainer(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as ComposeScreen
+        other as ComposeDialog
 
-        if (screenId != other.screenId) return false
+        if (dialogId != other.dialogId) return false
 
         return true
     }
