@@ -15,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import com.github.octaone.alcubierre.ComposeNavDriveOwner
 import com.github.octaone.alcubierre.lifecycle.LifecycleHandler
+import com.github.octaone.alcubierre.render.internal.ScreenSnapshotMutationPolicy
 import com.github.octaone.alcubierre.state.ComposeRootNavState
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -33,7 +34,11 @@ fun AlcubierreRender(navDriveOwner: ComposeNavDriveOwner) {
     }
 
     val currentScreen by remember {
-        derivedStateOf { composeState.currentStackState.chain.lastOrNull() }
+        derivedStateOf(
+            policy = ScreenSnapshotMutationPolicy
+        ) {
+            composeState.currentStackState.chain.lastOrNull()
+        }
     }
     currentScreen?.let { screen ->
         val parentLifecycle = LocalLifecycleOwner.current

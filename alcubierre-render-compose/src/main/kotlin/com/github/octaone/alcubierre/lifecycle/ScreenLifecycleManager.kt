@@ -8,7 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistryOwner
 
-interface ScreenLifecycleOwner :
+interface ScreenLifecycleManager :
     LifecycleOwner,
     ViewModelStoreOwner,
     SavedStateRegistryOwner,
