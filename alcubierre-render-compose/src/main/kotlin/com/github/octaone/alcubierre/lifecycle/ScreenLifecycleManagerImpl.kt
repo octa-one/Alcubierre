@@ -25,10 +25,10 @@ import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 
-class ScreenLifecycleOwnerImpl(
+class ScreenLifecycleManagerImpl(
     override val id: String,
     private val defaultArguments: Bundle?
-) : ScreenLifecycleOwner {
+) : ScreenLifecycleManager {
 
     override var parentLifecycleState: Lifecycle.State = Lifecycle.State.INITIALIZED
         set(state) {
@@ -95,7 +95,7 @@ class ScreenLifecycleOwnerImpl(
 }
 
 @Composable
-internal fun ScreenLifecycleOwner.LifecycleHandler(parentLifecycle: Lifecycle) {
+internal fun ScreenLifecycleManager.LifecycleHandler(parentLifecycle: Lifecycle) {
     val savedState = rememberSaveable(key = "$id:bundle") { Bundle() }
     val context = LocalContext.current
     setApplication(context.applicationContext as Application)

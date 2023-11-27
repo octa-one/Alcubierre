@@ -17,17 +17,4 @@ abstract class FragmentScreen(
         fragmentClass: KClass<out Fragment>,
         replace: Boolean = true
     ) : this(fragmentClass.java.name, replace)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as FragmentScreen
-
-        if (screenId != other.screenId) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int = fragmentName.hashCode()
 }

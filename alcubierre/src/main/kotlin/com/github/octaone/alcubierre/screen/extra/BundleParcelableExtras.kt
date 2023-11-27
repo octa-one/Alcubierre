@@ -55,6 +55,6 @@ class BundleParcelableExtras : ParcelableExtras {
     override fun save(): Bundle = bundle
 
     override fun restore(bundle: Bundle) {
-        bundle.putAll(bundle)
+        this.bundle.putAll(bundle)
     }
 }
