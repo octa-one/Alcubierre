@@ -1,0 +1,5 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Alcubierre" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="Theme.Alcubierre" parent="Base.Theme.Alcubierre" />
+</resources>
