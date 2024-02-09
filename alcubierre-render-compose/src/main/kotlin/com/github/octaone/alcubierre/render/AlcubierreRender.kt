@@ -1,29 +1,39 @@
 package com.github.octaone.alcubierre.render
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.produceState
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.SaveableStateHolder
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSavedStateRegistryOwner
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import com.github.octaone.alcubierre.ComposeNavDriveOwner
 import com.github.octaone.alcubierre.lifecycle.LifecycleHandler
-import com.github.octaone.alcubierre.render.internal.ScreenSnapshotMutationPolicy
+import com.github.octaone.alcubierre.render.internal.ScreenTransitionScope
+import com.github.octaone.alcubierre.screen.ComposeScreen
 import com.github.octaone.alcubierre.state.ComposeRootNavState
 
-@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun AlcubierreRender(navDriveOwner: ComposeNavDriveOwner) {
+fun AlcubierreRender(
+    navDriveOwner: ComposeNavDriveOwner,
+    addTransition: ScreenTransitionScope.() -> ContentTransform = NONE_TRANSITION,
+    removeTransition: ScreenTransitionScope.() -> ContentTransform = NONE_TRANSITION,
+    dialogRender: DialogRender
+) {
 
     val stateHolder: SaveableStateHolder = rememberSaveableStateHolder()
 
+    @SuppressLint("StateFlowValueCalledInComposition")
     val composeState by produceState(initialValue = navDriveOwner.stateFlow.value) {
         var previousState: ComposeRootNavState? = null
         navDriveOwner.stateFlow.collect { currentState ->
@@ -33,28 +43,101 @@ fun AlcubierreRender(navDriveOwner: ComposeNavDriveOwner) {
         }
     }
 
-    val currentScreen by remember {
-        derivedStateOf(
-            policy = ScreenSnapshotMutationPolicy
-        ) {
-            composeState.currentStackState.chain.lastOrNull()
-        }
+    CurrentScreen(
+        composeState = composeState,
+        stateHolder = stateHolder,
+        addTransition = addTransition,
+        removeTransition = removeTransition
+    )
+
+    key(composeState.currentDialog) {
+        CurrentDialog(
+            composeState = composeState,
+            dialogRender = dialogRender,
+            onDismissRequest = navDriveOwner::requestDismissDialog
+        )
     }
-    currentScreen?.let { screen ->
-        val parentLifecycle = LocalLifecycleOwner.current
-        CompositionLocalProvider(
-            LocalLifecycleOwner provides screen.lifecycleOwner,
-            LocalViewModelStoreOwner provides screen.lifecycleOwner,
-            LocalSavedStateRegistryOwner provides screen.lifecycleOwner,
-        ) {
-            stateHolder.SaveableStateProvider(key = screen.screenId) {
-                screen.lifecycleOwner.LifecycleHandler(parentLifecycle.lifecycle)
-                screen.Content()
+}
+
+@Composable
+private fun CurrentScreen(
+    composeState: ComposeRootNavState,
+    stateHolder: SaveableStateHolder,
+    addTransition: ScreenTransitionScope.() -> ContentTransform,
+    removeTransition: ScreenTransitionScope.() -> ContentTransform,
+) {
+    val parentLifecycle = LocalLifecycleOwner.current
+
+    if (addTransition === NONE_TRANSITION && removeTransition === NONE_TRANSITION) {
+        composeState.currentScreen?.let { targetScreen ->
+            ContentWithProviders(targetScreen, parentLifecycle, stateHolder)
+        }
+    } else {
+        AnimatedContent(
+            targetState = composeState,
+            contentKey = { state -> state.currentScreen?.screenId },
+            transitionSpec = {
+                val initialStateScreen = initialState.currentScreen
+                val targetStateScreen = targetState.currentScreen
+                val transitionScope = ScreenTransitionScope(initialStateScreen, targetStateScreen)
+
+                val initialStateScreenId = initialStateScreen?.screenId
+                if (initialStateScreenId == null) {
+                    addTransition.invoke(transitionScope)
+                } else {
+                    var isScreenRemoved = true
+                    stacksLoop@ for (stackState in targetState.stackStates.values) {
+                        val chain = stackState.chain
+                        for (i in chain.indices) {
+                            if (chain[i].screenId == initialStateScreenId) {
+                                isScreenRemoved = false
+                                break@stacksLoop
+                            }
+                        }
+                    }
+                    if (isScreenRemoved) {
+                        removeTransition.invoke(transitionScope)
+                    } else {
+                        addTransition.invoke(transitionScope)
+                    }
+                }
+            },
+            label = "NavScreenTransition"
+        ) { targetState ->
+            targetState.currentScreen?.let { targetScreen ->
+                ContentWithProviders(targetScreen, parentLifecycle, stateHolder)
             }
         }
     }
+}
 
-    // TODO Dialogs
+@Composable
+private fun CurrentDialog(
+    composeState: ComposeRootNavState,
+    dialogRender: DialogRender,
+    onDismissRequest: () -> Unit
+) {
+    composeState.currentDialog?.let { targetDialog ->
+        dialogRender.Content(onDismissRequest, targetDialog)
+    }
+}
+
+@Composable
+private fun ContentWithProviders(
+    targetScreen: ComposeScreen,
+    parentLifecycle: LifecycleOwner,
+    stateHolder: SaveableStateHolder
+) {
+    CompositionLocalProvider(
+        LocalLifecycleOwner provides targetScreen.lifecycleOwner,
+        LocalViewModelStoreOwner provides targetScreen.lifecycleOwner,
+        LocalSavedStateRegistryOwner provides targetScreen.lifecycleOwner,
+    ) {
+        stateHolder.SaveableStateProvider(key = targetScreen.screenId) {
+            targetScreen.lifecycleOwner.LifecycleHandler(parentLifecycle.lifecycle)
+            targetScreen.Content()
+        }
+    }
 }
 
 private fun disposeUnusedScreens(
@@ -96,4 +179,8 @@ private fun disposeUnusedScreens(
             }
         }
     }
+}
+
+private val NONE_TRANSITION: ScreenTransitionScope.() -> ContentTransform = {
+    ContentTransform(EnterTransition.None, ExitTransition.None, 0f, null)
 }
