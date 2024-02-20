@@ -76,6 +76,8 @@ class ScreenLifecycleManagerImpl(
     }
 
     override fun updateLifecycleState(state: Lifecycle.State) {
+        if (lifecycleRegistry.currentState == Lifecycle.State.INITIALIZED && state == Lifecycle.State.DESTROYED) return
+
         val actualState = state.coerceAtMost(parentLifecycleState)
         lifecycleRegistry.currentState = actualState
     }

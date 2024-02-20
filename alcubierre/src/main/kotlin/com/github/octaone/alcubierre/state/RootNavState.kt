@@ -4,6 +4,7 @@ import android.os.Parcelable
 import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.util.getNotNull
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -16,9 +17,14 @@ data class RootNavState<out S : Screen, out D : Dialog>(
     val currentStackId: Int
 ): Parcelable {
 
-    val currentStackState: StackNavState<S> get() = stackStates.getNotNull(currentStackId)
-    val currentScreen: S? get() = currentStackState.chain.lastOrNull()
-    val currentDialog: D? get() = dialogState.queue.firstOrNull()
+    @IgnoredOnParcel
+    val currentStackState: StackNavState<S> = stackStates.getNotNull(currentStackId)
+
+    @IgnoredOnParcel
+    val currentScreen: S? = currentStackState.chain.lastOrNull()
+
+    @IgnoredOnParcel
+    val currentDialog: D? = dialogState.queue.firstOrNull()
 
     companion object {
 

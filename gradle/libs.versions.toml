@@ -1,23 +1,23 @@
 [versions]
-agp = "8.1.2"
-annotation = "1.7.0"
+agp = "8.2.2"
+annotation = "1.7.1"
 appcompat = "1.6.1"
-compose_bom = "2023.10.00"
-compose_compiler = "1.5.3"
+compose_bom = "2024.02.00"
+compose_compiler = "1.5.9"
 core = "1.12.0"
-activity = "1.8.0"
-fragment = "1.6.1"
-kotlin = "1.9.10"
+activity = "1.8.2"
+fragment = "1.6.2"
+kotlin = "1.9.22"
 coroutines = "1.7.3"
-material = "1.10.0"
+material = "1.11.0"
 kotlinpoet = "1.14.2"
-ksp = "1.9.10-1.0.13"
+ksp = "1.9.22-1.0.16"
 asm = "9.6"
 colonist = "0.1.0-alpha22"
 junit = "4.13.2"
-lifecycle = "2.6.2"
+lifecycle = "2.7.0"
 savedstate = "1.2.1"
-lint = "31.1.2"
+lint = "31.2.2"
 autoservice = "1.1.1"
 
 [libraries]
@@ -57,6 +57,7 @@ compose-runtime = { module = "androidx.compose.runtime:runtime" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-material = { module = "androidx.compose.material:material" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
+compose-animation = { module = "androidx.compose.animation:animation" }
 
 # codegen
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
@@ -83,5 +84,6 @@ compose = [
     "compose-runtime",
     "compose-ui",
     "compose-material",
-    "compose-material3"
+    "compose-material3",
+    "compose-animation"
 ]
