@@ -27,8 +27,7 @@ import com.github.octaone.alcubierre.state.ComposeRootNavState
 fun AlcubierreRender(
     navDriveOwner: ComposeNavDriveOwner,
     addTransition: ScreenTransitionScope.() -> ContentTransform = NONE_TRANSITION,
-    removeTransition: ScreenTransitionScope.() -> ContentTransform = NONE_TRANSITION,
-    dialogRender: DialogRender
+    removeTransition: ScreenTransitionScope.() -> ContentTransform = NONE_TRANSITION
 ) {
 
     val stateHolder: SaveableStateHolder = rememberSaveableStateHolder()
@@ -50,13 +49,10 @@ fun AlcubierreRender(
         removeTransition = removeTransition
     )
 
-    key(composeState.currentDialog) {
-        CurrentDialog(
-            composeState = composeState,
-            dialogRender = dialogRender,
-            onDismissRequest = navDriveOwner::requestDismissDialog
-        )
-    }
+    CurrentDialog(
+        composeState = composeState,
+        onDismissRequest = navDriveOwner::requestDismissDialog
+    )
 }
 
 @Composable
@@ -114,11 +110,12 @@ private fun CurrentScreen(
 @Composable
 private fun CurrentDialog(
     composeState: ComposeRootNavState,
-    dialogRender: DialogRender,
     onDismissRequest: () -> Unit
 ) {
-    composeState.currentDialog?.let { targetDialog ->
-        dialogRender.Content(onDismissRequest, targetDialog)
+    composeState.currentDialog?.let { dialog ->
+        key(dialog.dialogId) {
+            dialog.Content(onDismissRequest)
+        }
     }
 }
 

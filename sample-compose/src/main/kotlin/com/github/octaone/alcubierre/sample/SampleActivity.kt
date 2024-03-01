@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.github.octaone.alcubierre.sample
 
 import android.os.Bundle
@@ -14,9 +12,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.CompositionLocalProvider
@@ -106,13 +102,6 @@ class SampleActivity : AppCompatActivity() {
                             removeTransition = {
                                 slideInVertically { height -> -height } + fadeIn() togetherWith
                                         slideOutVertically { height -> height } + fadeOut()
-                            },
-                            dialogRender = { onDismissRequest, dialog ->
-                                ModalBottomSheet(
-                                    onDismissRequest = onDismissRequest
-                                ) {
-                                    dialog.Content()
-                                }
                             }
                         )
                     }

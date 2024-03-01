@@ -20,5 +20,5 @@ abstract class ComposeDialog : Dialog(), ExtrasContainer by LazyExtrasContainer(
     open fun getSavedStateDefaultArguments(): Bundle? = null
 
     @Composable
-    abstract fun Content()
+    abstract fun Content(onDismissRequest: () -> Unit)
 }
