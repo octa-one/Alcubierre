@@ -3,6 +3,8 @@ package com.github.octaone.alcubierre.sample.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -23,26 +25,31 @@ data class SampleDialog(
     override val priority: Int
 ) : ComposeDialog() {
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun Content() {
-        val navDrive = LocalNavDrive.current
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 32.dp)
+    override fun Content(onDismissRequest: () -> Unit) {
+        ModalBottomSheet(
+            onDismissRequest = onDismissRequest
         ) {
-            Text(text = "$someId (p=$priority)")
-            TextButton(
-                modifier = MaxWidthModifier,
-                onClick = remember {{ navDrive.dismissDialog() }}
+            val navDrive = LocalNavDrive.current
+            Column(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 32.dp)
             ) {
-                Text(text = "Dismiss")
-            }
-            TextButton(
-                modifier = MaxWidthModifier,
-                onClick = remember {{
-                    navDrive.showDialog(SampleDialog(Counter.increment(), Random.nextInt(0, 10)))
-                }}
-            ) {
-                Text(text = "Show one more dialog")
+                Text(text = "$someId (p=$priority)")
+                TextButton(
+                    modifier = MaxWidthModifier,
+                    onClick = remember {{ navDrive.dismissDialog() }}
+                ) {
+                    Text(text = "Dismiss")
+                }
+                TextButton(
+                    modifier = MaxWidthModifier,
+                    onClick = remember {{
+                        navDrive.showDialog(SampleDialog(Counter.increment(), Random.nextInt(0, 10)))
+                    }}
+                ) {
+                    Text(text = "Show one more dialog")
+                }
             }
         }
     }

@@ -120,7 +120,7 @@ internal fun ScreenLifecycleManager.LifecycleHandler(parentLifecycle: Lifecycle)
 
             parentLifecycleState = owner.lifecycle.currentState
         }
-        val observer = LifecycleEventObserver { owner, event ->
+        val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_STOP -> {
                     performSave(savedState)
