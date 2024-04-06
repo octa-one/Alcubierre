@@ -21,9 +21,14 @@ class RootStateBuilder<S : Screen, D : Dialog>  {
     private val stacks = HashMap<Int, StackNavState<S>>()
     private var stackId: Int? = null
 
-    fun stack(id: Int, builder: StackStateBuilder<S>.() -> Unit) {
+    inline fun stack(id: Int, builder: StackStateBuilder<S>.() -> Unit) {
+        stack(id, StackStateBuilder<S>().apply(builder).build())
+    }
+
+    @PublishedApi
+    internal fun stack(id: Int, state: StackNavState<S>) {
         if (stackId == null) stackId = id
-        stacks[id] = StackStateBuilder<S>().apply(builder).build()
+        stacks[id] = state
     }
 
     fun selectStack(id: Int) {
@@ -34,12 +39,16 @@ class RootStateBuilder<S : Screen, D : Dialog>  {
         RootNavState(DialogNavState.EMPTY, stacks, checkNotNull(stackId))
 }
 
-fun <S : Screen, D : Dialog> rootState(builder: RootStateBuilder<S, D>.() -> Unit): RootNavState<S, D> =
+inline fun <S : Screen, D : Dialog> rootState(builder: RootStateBuilder<S, D>.() -> Unit): RootNavState<S, D> =
     RootStateBuilder<S, D>().apply(builder).build()
 
-fun <S : Screen, D : Dialog> singleRootState(builder: StackStateBuilder<S>.() -> Unit): RootNavState<S, D> =
+inline fun <S : Screen, D : Dialog> singleStackRootState(
+    stackId: Int = SINGLE_STACK_ID,
+    builder: StackStateBuilder<S>.() -> Unit
+): RootNavState<S, D> =
     RootStateBuilder<S, D>()
-        .apply { stack(SINGLE_STACK_ID, builder) }
+        .apply { stack(stackId, builder) }
         .build()
 
+@PublishedApi
 internal const val SINGLE_STACK_ID = 100

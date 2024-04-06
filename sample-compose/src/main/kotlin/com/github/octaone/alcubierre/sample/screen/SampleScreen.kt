@@ -37,18 +37,19 @@ import com.github.octaone.alcubierre.action.showDialog
 import com.github.octaone.alcubierre.sample.Counter
 import com.github.octaone.alcubierre.sample.Tab
 import com.github.octaone.alcubierre.screen.ComposeScreen
+import com.github.octaone.alcubierre.screen.ComposeScreenContent
 import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.state.ComposeRootNavState
 import kotlinx.parcelize.Parcelize
 import kotlin.random.Random
 
 @Parcelize
-data class SampleScreen(
+class SampleScreen(
     val someId: Int
-) : ComposeScreen() {
+) : ComposeScreen(), ComposeScreenContent<SampleScreen> {
 
     @Composable
-    override fun Content() {
+    override fun SampleScreen.Content() {
 
         val navDrive = LocalNavDrive.current
         var text by rememberSaveable { mutableStateOf("") }
@@ -141,10 +142,10 @@ private val MaxWidthModifier = Modifier.fillMaxWidth()
 private fun ComposeRootNavState.toStackString() =
     buildString {
         appendLine("Stacks (* - current screen):")
-        stackStates.forEach { (id, stack) ->
+        stackStates.forEach { (id, stackState) ->
             append(id)
             append(" : ")
-            stack.chain.joinTo(this) { it.screenId.takeLast(4) }
+            stackState.stack.joinTo(this) { it.screenId.takeLast(4) }
             if (id == currentStackId) append("*")
             appendLine()
         }

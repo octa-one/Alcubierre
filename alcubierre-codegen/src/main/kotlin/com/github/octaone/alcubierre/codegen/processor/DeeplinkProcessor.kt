@@ -1,12 +1,10 @@
 package com.github.octaone.alcubierre.codegen.processor
 
 import com.github.octaone.alcubierre.codegen.api.Deeplink
-import com.github.octaone.alcubierre.codegen.type.DIALOG
-import com.github.octaone.alcubierre.codegen.type.SCREEN
+import com.github.octaone.alcubierre.codegen.type.KNOWN_TYPES
 import com.github.octaone.alcubierre.codegen.type.converter.generateConverter
 import com.github.octaone.alcubierre.codegen.type.generateDeeplinkRegistry
 import com.google.devtools.ksp.KspExperimental
-import com.google.devtools.ksp.getAllSuperTypes
 import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.Resolver
@@ -15,8 +13,9 @@ import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.symbol.ClassKind
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
-import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
 
@@ -26,12 +25,17 @@ class DeeplinkProcessor(
 
     private val codeGenerator = environment.codeGenerator
 
+    private val allowedTypes = environment.options[ARG_ALLOWED_TYPES]
+        ?.split(',')
+        ?.mapTo(mutableSetOf()) { ClassName.bestGuess(it.trim()) }
+        .orEmpty()
+
     private val extractor = DeeplinkInformationExtractor()
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val annotatedClasses = resolver
-            .getSymbolsWithAnnotation(requireNotNull(Deeplink::class.qualifiedName))
-            .filterIsInstance<KSClassDeclaration>() // аннотация Deeplink имеет @Target = class
+            .getSymbolsWithAnnotation(Deeplink::class.qualifiedName!!)
+            .filterIsInstance<KSClassDeclaration>() // Deeplink target = class
             .onEach(::validateDeclaration)
             .toList()
 
@@ -46,20 +50,21 @@ class DeeplinkProcessor(
     @OptIn(KspExperimental::class)
     private fun collectClassInformation(
         annotatedClasses: List<KSClassDeclaration>
-    ) = annotatedClasses.flatMap { classDeclaration ->
-        val constructorParameters = if (classDeclaration.classKind != ClassKind.OBJECT) {
-            requireNotNull(classDeclaration.primaryConstructor) {
-                "Классы, помеченные аннотацией ${Deeplink::class.simpleName} обязаны иметь primary конструктор"
-            }.parameters
-        } else {
-            emptyList()
+    ): List<DeeplinkInformation> =
+        annotatedClasses.flatMap { classDeclaration ->
+            val constructorParameters = if (classDeclaration.classKind != ClassKind.OBJECT) {
+                requireNotNull(classDeclaration.primaryConstructor) {
+                    "Classes marked with ${${Deeplink::class.simpleName}} must have a primary constructor."
+                }.parameters
+            } else {
+                emptyList()
+            }
+
+            val annotation = classDeclaration.getAnnotationsByType(Deeplink::class).first()
+            require(annotation.patterns.isNotEmpty()) { "Deeplink does not contain the patterns." }
+
+            extractor.extract(annotation, classDeclaration, constructorParameters)
         }
-
-        val annotation = classDeclaration.getAnnotationsByType(Deeplink::class).first()
-        if (annotation.patterns.isEmpty()) throw IllegalArgumentException("В аннотации Deeplink не заполнен параметр patterns")
-
-        extractor.extract(annotation, classDeclaration, constructorParameters)
-    }
 
     private fun createScreenConverters(classInformation: List<DeeplinkInformation>) {
         for (info in classInformation) {
@@ -70,7 +75,6 @@ class DeeplinkProcessor(
             )
             FileSpec.builder(info.screenConverter.packageName, requireNotNull(converter.name))
                 .addType(converter)
-                .addAnnotation(SUPPRESSIONS)
                 .build()
                 .writeTo(codeGenerator, dependencies)
         }
@@ -78,9 +82,8 @@ class DeeplinkProcessor(
 
     private fun createDeeplinkRegistry(classInformation: List<DeeplinkInformation>) {
         if (classInformation.toList().isEmpty()) return
-        val registryBase = environment.options[REGISTRY_BASE_NAME_OPTION] ?: throw IllegalArgumentException(
-            "Не указан параметр $REGISTRY_BASE_NAME_OPTION, необходимый для кодогенерации диплинков. " +
-                "Убедитесь, что к модулю подключен convention plugin навигации"
+        val registryBase = environment.options[ARG_REGISTRY_BASE_NAME] ?: throw IllegalArgumentException(
+            "$ARG_REGISTRY_BASE_NAME is not specified. Make sure that the convention navigation plugin is applied to the module."
         )
         val registry = generateDeeplinkRegistry(registryBase, classInformation)
 
@@ -88,38 +91,26 @@ class DeeplinkProcessor(
             aggregating = true,
             sources = classInformation.map { requireNotNull(it.classDeclaration.containingFile) }.toTypedArray()
         )
-        FileSpec.builder("com.github.octaone.alcubierre.codegen", requireNotNull(registry.name))
+        FileSpec.builder("inv.library.navigation.codegen", requireNotNull(registry.name))
             .addType(registry)
-            .addAnnotation(SUPPRESSIONS)
             .build()
             .writeTo(codeGenerator, dependencies)
     }
 
+    @Suppress("ReturnCount")
     private fun validateDeclaration(declaration: KSClassDeclaration) {
-        require(declaration.getAllSuperTypes().any {
-            val typeName = it.toTypeName()
-            typeName == SCREEN || typeName == DIALOG
-        }) {
-            "Аннотация Deeplink может быть использована только на наследниках класса Screen или Dialog"
+        for (type in declaration.superTypes) {
+            val typeName = type.toTypeName()
+            if (typeName !is ClassName) continue
+
+            if (KNOWN_TYPES.contains(typeName)) return
+            if (allowedTypes.contains(typeName)) return
         }
+
+        error("${declaration.toClassName().simpleName}: Deeplink annotation can only be used on: ${(KNOWN_TYPES + allowedTypes).joinToString { it.simpleName }}"
+        )
     }
 }
 
-private const val REGISTRY_BASE_NAME_OPTION = "deeplink.registry.base.name"
-
-private val SUPPRESS_NAMES = arrayOf(
-    "Formatting",
-    "ClassName",
-    "UNNECESSARY_NOT_NULL_ASSERTION",
-    "SpacingAroundParens",
-    "NoBlankLineBeforeRbrace",
-    "UnsafeCallOnNullableType",
-)
-
-private val SUPPRESSIONS = AnnotationSpec.builder(Suppress::class)
-    .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
-    .addMember(
-        SUPPRESS_NAMES.indices.joinToString { "%S" },
-        *SUPPRESS_NAMES
-    )
-    .build()
+private const val ARG_ALLOWED_TYPES = "alcubierre.allowedTypes"
+private const val ARG_REGISTRY_BASE_NAME = "alcubierre.registryBaseName"

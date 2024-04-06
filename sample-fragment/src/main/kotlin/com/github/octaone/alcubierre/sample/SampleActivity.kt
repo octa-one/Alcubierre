@@ -9,8 +9,11 @@ import com.github.octaone.alcubierre.FragmentNavDrive
 import com.github.octaone.alcubierre.FragmentNavDriveOwner
 import com.github.octaone.alcubierre.action.back
 import com.github.octaone.alcubierre.action.selectStack
-import com.github.octaone.alcubierre.reduce.AlcubierreDefaultNavReducer
-import com.github.octaone.alcubierre.reduce.addOnStackChangedListener
+import com.github.octaone.alcubierre.reduce.BatchRootNavReducer
+import com.github.octaone.alcubierre.reduce.DialogRootNavReducer
+import com.github.octaone.alcubierre.reduce.ScreenRootNavReducer
+import com.github.octaone.alcubierre.reduce.StackChangedListenerReducer
+import com.github.octaone.alcubierre.reduce.builder.reducerLinkedListOf
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
 import com.github.octaone.alcubierre.render.renderFrom
@@ -80,12 +83,17 @@ class SampleActivity : AppCompatActivity() {
             }
         }
 
-        val reducer = AlcubierreDefaultNavReducer()
-            .addOnStackChangedListener { _, to ->
+        val reducer = reducerLinkedListOf(
+            StackChangedListenerReducer { _, to ->
                 onItemSelectedListener.isEnabled = false
                 binding.bottomNavigation.selectedItemId = to
                 onItemSelectedListener.isEnabled = true
-            }
+
+            },
+            BatchRootNavReducer(),
+            DialogRootNavReducer(),
+            ScreenRootNavReducer()
+        )
 
         navDriveOwner.initialize(
             reducer = reducer,

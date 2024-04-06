@@ -10,6 +10,7 @@ android {
 dependencies {
     implementation(projects.alcubierre)
     implementation(projects.alcubierreCodegenApi)
+    api(projects.alcubierreCondition)
 
     implementation(libs.colonist.core)
 

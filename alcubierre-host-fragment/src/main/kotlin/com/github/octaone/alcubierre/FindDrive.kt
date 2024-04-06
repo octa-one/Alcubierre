@@ -3,8 +3,6 @@ package com.github.octaone.alcubierre
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
-import com.github.octaone.alcubierre.screen.FragmentDialog
-import com.github.octaone.alcubierre.screen.FragmentScreen
 
 /**
  * Extension for searching [Alcubierre] in fragments hierarchy

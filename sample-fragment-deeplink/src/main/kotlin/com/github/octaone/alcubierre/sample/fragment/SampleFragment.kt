@@ -42,6 +42,11 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
             btnForward.setOnClickListener {
                 navDrive.forward("myapp://sample?id=${Counter.increment()}")
             }
+
+            btnForwardConditional.setOnClickListener {
+                navDrive.forward("myapp://sample/condition?id=${Counter.increment()}")
+            }
+
             btnNewRoot.setOnClickListener {
                 navDrive.replaceRoot(SampleScreen(Counter.increment()))
             }
@@ -55,10 +60,10 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
     private fun FragmentRootNavState.toStackString() =
         buildString {
             appendLine("Stacks (* - current screen):")
-            stackStates.forEach { (id, stack) ->
+            stackStates.forEach { (id, stackState) ->
                 append(id)
                 append(" : ")
-                stack.chain.joinTo(this) { it.screenId.takeLast(4) }
+                stackState.stack.joinTo(this) { it.screenId.takeLast(4) }
                 if (id == currentStackId) append("*")
                 appendLine()
             }

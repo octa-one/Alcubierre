@@ -6,14 +6,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.octaone.alcubierre.FragmentNavDrive
 import com.github.octaone.alcubierre.FragmentNavDriveOwner
 import com.github.octaone.alcubierre.action.back
-import com.github.octaone.alcubierre.reduce.AlcubierreDefaultNavReducer
+import com.github.octaone.alcubierre.condition.DefaultNavConditionFactory
+import com.github.octaone.alcubierre.condition.reducer.ConditionReducer
+import com.github.octaone.alcubierre.reduce.BatchRootNavReducer
+import com.github.octaone.alcubierre.reduce.DialogRootNavReducer
+import com.github.octaone.alcubierre.reduce.ScreenRootNavReducer
+import com.github.octaone.alcubierre.reduce.builder.reducerLinkedListOf
 import com.github.octaone.alcubierre.reducer.DeeplinkReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
 import com.github.octaone.alcubierre.render.renderFrom
 import com.github.octaone.alcubierre.sample.databinding.ActivitySampleBinding
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
-import com.github.octaone.alcubierre.state.singleRootState
+import com.github.octaone.alcubierre.state.singleStackRootState
 
 class SampleActivity : AppCompatActivity() {
 
@@ -45,8 +50,14 @@ class SampleActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
         navDriveOwner.initialize(
-            reducer = DeeplinkReducer(AlcubierreDefaultNavReducer()),
-            initialState = singleRootState {
+            reducer = reducerLinkedListOf(
+                BatchRootNavReducer(),
+                DeeplinkReducer(onResolveFailed = {}),
+                ConditionReducer(DefaultNavConditionFactory()),
+                DialogRootNavReducer(),
+                ScreenRootNavReducer()
+            ),
+            initialState = singleStackRootState {
                 screen(SampleScreen(Counter.increment()))
             }
         )

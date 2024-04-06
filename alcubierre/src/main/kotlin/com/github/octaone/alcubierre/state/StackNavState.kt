@@ -11,7 +11,7 @@ import kotlinx.parcelize.WriteWith
  */
 @Parcelize
 data class StackNavState<out S : Screen>(
-    val chain: List<@WriteWith<ScreenParceler> S>
+    val stack: List<@WriteWith<ScreenParceler> S>
 ): Parcelable {
 
     override fun equals(other: Any?): Boolean {
@@ -20,9 +20,9 @@ data class StackNavState<out S : Screen>(
 
         other as StackNavState<*>
 
-        if (chain.size != other.chain.size) return false
-        for (i in chain.indices) {
-            if (chain[i].screenId != other.chain[i].screenId) return false
+        if (stack.size != other.stack.size) return false
+        for (i in stack.indices) {
+            if (stack[i].screenId != other.stack[i].screenId) return false
         }
 
         return true
@@ -30,7 +30,7 @@ data class StackNavState<out S : Screen>(
 
     override fun hashCode(): Int {
         var result = 1
-        for (i in chain.indices) result = 31 * result + chain[i].screenId.hashCode()
+        for (i in stack.indices) result = 31 * result + stack[i].screenId.hashCode()
         return result
     }
 

@@ -12,9 +12,8 @@ import com.github.octaone.alcubierre.state.DialogNavState
  * Reducer responds for action with dialogs
  */
 class DialogRootNavReducer(
-    private val origin: NavReducer<AnyRootNavState>,
     private val dialogReducer: NavReducer<AnyDialogNavState> = DialogNavReducer()
-) : NavReducer<AnyRootNavState> {
+) : LinkedNavReducer<AnyRootNavState>() {
 
     override fun reduce(state: AnyRootNavState, action: AnyNavAction) = when (action) {
         is ShowDialog, DismissDialog -> {
@@ -22,7 +21,7 @@ class DialogRootNavReducer(
         }
         is Back -> { // Back сначала закрывает диалог, если он отображается.
             if (state.dialogState.queue.isEmpty()) {
-                origin.reduce(state, action)
+                next.reduce(state, action)
             } else {
                 state.copy(dialogState = dialogReducer.reduce(state.dialogState, DismissDialog))
             }
@@ -30,9 +29,9 @@ class DialogRootNavReducer(
         else -> {
             // Остальные действия обрабатываются дальнейшей цепочкой редьюсеров, но диалог закрывается.
             if (state.dialogState.queue.isEmpty()) {
-                origin.reduce(state, action)
+                next.reduce(state, action)
             } else {
-                origin.reduce(state.copy(dialogState = DialogNavState.EMPTY), action)
+                next.reduce(state.copy(dialogState = DialogNavState.EMPTY), action)
             }
         }
     }

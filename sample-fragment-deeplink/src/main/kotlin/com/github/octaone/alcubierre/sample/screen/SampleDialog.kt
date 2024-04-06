@@ -7,4 +7,4 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Deeplink("myapp://dialog")
-object SampleDialog : FragmentDialog(SampleDialogFragment::class)
+class SampleDialog : FragmentDialog(SampleDialogFragment::class)

@@ -18,7 +18,7 @@ commonAndroid {
 }
 
 ksp {
-    arg("deeplink.registry.base.name", project.path)
+    arg("alcubierre.registryBaseName", project.path)
 }
 
 dependencies {

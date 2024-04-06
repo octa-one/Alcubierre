@@ -5,4 +5,4 @@ import com.github.octaone.alcubierre.screen.Screen
 
 interface NavAction<out S : Screen, out D : Dialog>
 
-typealias AnyNavAction = NavAction<*, *>
+typealias AnyNavAction = NavAction<Screen, Dialog>

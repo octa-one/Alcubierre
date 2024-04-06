@@ -23,7 +23,7 @@ class AlcubierreStackNavRender(
     private var currentChain: List<String> = emptyList()
 
     override fun render(state: StackNavState<FragmentScreen>) {
-        val diff = diff(currentChain, state.chain)
+        val diff = diff(currentChain, state.stack)
         diff.forEach { action ->
             when (action) {
                 is Pop -> {
@@ -34,7 +34,7 @@ class AlcubierreStackNavRender(
                 }
             }
         }
-        currentChain = state.chain.map { it.screenId }
+        currentChain = state.stack.map { it.screenId }
     }
 
     override fun saveState(outState: Bundle) {

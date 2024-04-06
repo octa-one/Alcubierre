@@ -10,7 +10,7 @@ import kotlin.Array
 import java.lang.reflect.Array as ReflectArray
 
 fun <T : Parcelable> Bundle.getParcelableCompat(key: String, clazz: Class<T>) : T? =
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         getParcelable(key, clazz)
     } else {
         val parcelable = getParcelable<T>(key)
@@ -21,7 +21,7 @@ inline fun <reified T : Parcelable> Bundle.getParcelableCompat(key: String) : T?
     getParcelableCompat(key, T::class.java)
 
 fun <T : Parcelable> Bundle.getParcelableArrayCompat(key: String, clazz: Class<T>) : Array<T>? =
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         getParcelableArray(key, clazz)
     } else {
         getParcelableArray(key)?.let { rawArray ->
@@ -35,7 +35,7 @@ inline fun <reified T : Parcelable> Bundle.getParcelableArrayCompat(key: String)
     getParcelableArrayCompat(key, T::class.java)
 
 fun <T : Serializable> Bundle.getSerializableCompat(key: String, clazz: Class<T>) : T? =
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         getSerializable(key, clazz)
     } else {
         val serializable = getSerializable(key)
