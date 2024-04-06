@@ -25,7 +25,10 @@ import com.github.octaone.alcubierre.LocalNavDrive
 import com.github.octaone.alcubierre.action.back
 import com.github.octaone.alcubierre.action.selectStack
 import com.github.octaone.alcubierre.owner.AlcubierreNavDriveOwner
-import com.github.octaone.alcubierre.reduce.AlcubierreDefaultNavReducer
+import com.github.octaone.alcubierre.reduce.BatchRootNavReducer
+import com.github.octaone.alcubierre.reduce.DialogRootNavReducer
+import com.github.octaone.alcubierre.reduce.ScreenRootNavReducer
+import com.github.octaone.alcubierre.reduce.builder.reducerLinkedListOf
 import com.github.octaone.alcubierre.render.AlcubierreRender
 import com.github.octaone.alcubierre.render.NavDriveOwnerSaver
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
@@ -42,7 +45,11 @@ class SampleActivity : AppCompatActivity() {
             val navDriveOwner = remember {
                 AlcubierreNavDriveOwner<ComposeScreen, ComposeDialog>().also { owner ->
                     owner.initialize(
-                        reducer = AlcubierreDefaultNavReducer(),
+                        reducer = reducerLinkedListOf(
+                            BatchRootNavReducer(),
+                            DialogRootNavReducer(),
+                            ScreenRootNavReducer()
+                        ),
                         initialState = rootState {
                             stack(Tab.TAB_0.id) {
                                 screen(SampleScreen(Counter.increment()))

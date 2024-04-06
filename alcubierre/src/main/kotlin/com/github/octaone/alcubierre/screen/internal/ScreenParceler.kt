@@ -1,12 +1,11 @@
 package com.github.octaone.alcubierre.screen.internal
 
-import android.annotation.SuppressLint
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.core.os.ParcelCompat
 import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
+import com.github.octaone.alcubierre.util.readParcelableCompat
 import kotlinx.parcelize.Parceler
 
 object ScreenParceler : Parceler<Screen> {
@@ -33,10 +32,9 @@ object DialogParceler : Parceler<Dialog> {
     }
 }
 
-@SuppressLint("ParcelClassLoader")
-private fun <T> createGeneric(parcel: Parcel, clazz: Class<T>): T where T : Parcelable, T : ExtrasContainer {
-    val screen = ParcelCompat.readParcelable(parcel, clazz.classLoader, clazz)!!
-    parcel.readBundle()?.let { extras -> screen.extras.restore(extras) }
+private fun <T> createGeneric(parcel: Parcel, cl: Class<T>): T where T : Parcelable, T : ExtrasContainer {
+    val screen = parcel.readParcelableCompat(cl.classLoader, cl)!!
+    parcel.readBundle(cl.classLoader)?.let { extras -> screen.extras.restore(extras) }
     return screen
 }
 

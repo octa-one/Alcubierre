@@ -33,7 +33,7 @@ class AlcubierreRootNavRender(
         val fromStackId = currentStackId
         val fromStackRootId = stacks[fromStackId]?.rootId
         val toStackId = state.currentStackId
-        val toStackStateRootId = state.stackStates.getNotNull(toStackId).chain.firstOrNull()?.screenId
+        val toStackStateRootId = state.stackStates.getNotNull(toStackId).stack.firstOrNull()?.screenId
 
         if (fromStackId == toStackId) {
             // If current stack is not changed just call render of corresponding StackNavRender
@@ -90,13 +90,13 @@ class AlcubierreRootNavRender(
     private fun doRender(newState: FragmentRootNavState) {
         val toStackId = newState.currentStackId
         val toStackState = newState.stackStates.getNotNull(toStackId)
-        if (toStackState.chain.isNotEmpty()) {
+        if (toStackState.stack.isNotEmpty()) {
             val render = stacks[toStackId]?.render ?: createStackRender()
 
             render.render(toStackState)
 
             stacks[toStackId] = RootIdAndStackRender(
-                rootId = toStackState.chain[0].screenId,
+                rootId = toStackState.stack[0].screenId,
                 render = render
             )
         }
@@ -113,8 +113,8 @@ class AlcubierreRootNavRender(
         while (stacksIterator.hasNext()) {
             val (stackId, rootIdAndRender) = stacksIterator.next()
             // Get new state of existing stack
-            val toStack = toStackStates[stackId]
-            if (toStack == null || toStack.chain.isEmpty() || toStack.chain[0].screenId != rootIdAndRender.rootId) {
+            val toStackState = toStackStates[stackId]
+            if (toStackState == null || toStackState.stack.isEmpty() || toStackState.stack[0].screenId != rootIdAndRender.rootId) {
                 stacksIterator.remove()
                 popOrClearBackStack(rootIdAndRender.rootId, isSameStack = stackId == fromStackId)
             }

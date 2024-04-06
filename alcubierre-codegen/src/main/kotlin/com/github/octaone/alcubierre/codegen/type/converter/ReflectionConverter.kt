@@ -42,19 +42,19 @@ fun generateReflectionConverter(info: DeeplinkInformation) = buildCodeBlock {
     addStatement("var mask = -1\n") // 0xffffffff
 
     for ((param, placeholder) in paramToPlaceholder) {
-        add("val ${param.name} = ${PARAM_FROM}[\"$placeholder\"]")
+        add("val ${param.name} = $PARAM_FROM[\"$placeholder\"]")
         add(typeConversion(param))
         add("\n")
 
         if (param.hasDefault) {
             val propertySet = (1 shl placeholderIndexes.getValue(placeholder)).inv()
             maskAllSet = maskAllSet and propertySet
-            addStatement(
-                "if (${param.name} != null) mask = mask and 0x%1L.toInt()\n",
+            add(
+                "if (${param.name} != null) mask = mask and 0x%1L.toInt()\n\n",
                 Integer.toHexString(propertySet)
             )
         } else {
-            addStatement("")
+            add("\n")
         }
     }
 
@@ -91,37 +91,49 @@ private fun generateReflector(
     add("val constructor = %T::class.java.getDeclaredConstructor(\n", targetClass)
     indent()
 
-    for (p in constructorParameters) {
+    for (param in constructorParameters) {
         val statement = when {
-            p.type.copy(nullable = false).isPrimitive -> {
-                if (p.type.isNullable) "%T::class.javaObjectType" else "%T::class.javaPrimitiveType"
-            }
+            param.type.isPrimitive && param.type.isNullable -> "%T::class.javaObjectType"
             else -> "%T::class.java"
         }
-        addStatement("$statement,", p.className)
+        add("$statement,\n", param.className)
     }
 
-    addStatement("Int::class.javaPrimitiveType,") // битовая маска
+    add("Int::class.java,\n")
     add(DEFAULT_CONSTRUCTOR_MARKER_TYPE_BLOCK)
+    add("\n")
 
     unindent()
-    addStatement("\n)")
+    add(")")
 
-    add("constructor.newInstance")
+    add("\n")
 
-    val names = buildList {
-        constructorParameters.mapTo(this) { param ->
-            buildString {
-                append(if (param.placeholder != null) param.name else null)
-                val type = param.type
-                if (type.isPrimitive) append(" ?: ${type.defaultPrimitiveValue()}")
+    add("constructor.newInstance(\n")
+    indent()
+
+    for (param in constructorParameters) {
+        if (param.type.isPrimitive) {
+            if (param.placeholder != null) {
+                add(param.name)
+                add(" ?: ")
+            }
+            add(param.type.defaultPrimitiveValue())
+        } else {
+            if (param.placeholder != null) {
+                add(param.name)
+            } else {
+                add("null")
             }
         }
-        add("mask")
-        add(null)
+        add(",\n")
     }
+    add("mask,\n")
+    add("null\n")
 
-    addStatement(names.joinToString(separator = ",\n", prefix = "(", postfix = ")"))
+    unindent()
+    add(")")
+
+    add("\n")
     endControlFlow()
 }
 

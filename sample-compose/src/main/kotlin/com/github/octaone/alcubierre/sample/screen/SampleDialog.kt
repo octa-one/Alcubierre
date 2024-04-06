@@ -7,6 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -16,6 +17,9 @@ import com.github.octaone.alcubierre.action.dismissDialog
 import com.github.octaone.alcubierre.action.showDialog
 import com.github.octaone.alcubierre.sample.Counter
 import com.github.octaone.alcubierre.screen.ComposeDialog
+import com.github.octaone.alcubierre.screen.ComposeDialogContent
+import com.github.octaone.alcubierre.screen.HideRequest
+import com.github.octaone.alcubierre.screen.HideRequestedEffect
 import kotlinx.parcelize.Parcelize
 import kotlin.random.Random
 
@@ -23,12 +27,16 @@ import kotlin.random.Random
 data class SampleDialog(
     val someId: Int,
     override val priority: Int
-) : ComposeDialog() {
+) : ComposeDialog(), ComposeDialogContent<SampleDialog> {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun Content(onDismissRequest: () -> Unit) {
+    override fun SampleDialog.Content(hideRequest: HideRequest, onDismissRequest: () -> Unit) {
+        val sheetState = rememberModalBottomSheetState()
+        HideRequestedEffect(hideRequest) { sheetState.hide() }
+
         ModalBottomSheet(
+            sheetState = sheetState,
             onDismissRequest = onDismissRequest
         ) {
             val navDrive = LocalNavDrive.current

@@ -5,31 +5,31 @@ import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.state.RootNavState
 
-class ShowDialog<S : Screen, D : Dialog>(val dialog: D) : NavAction<S, D>
+data class ShowDialog<S : Screen, D : Dialog>(val dialog: D) : NavAction<S, D>
 
-object DismissDialog : NavAction<Nothing, Nothing>
+data object DismissDialog : NavAction<Nothing, Nothing>
 
-class Forward<S : Screen, D : Dialog>(val screens: List<S>) : NavAction<S, D>
+data class Forward<S : Screen, D : Dialog>(val screens: List<S>) : NavAction<S, D>
 
-class Replace<S : Screen, D : Dialog>(val screens: List<S>) : NavAction<S, D>
+data class Replace<S : Screen, D : Dialog>(val screens: List<S>) : NavAction<S, D>
 
-class ReplaceRoot<S : Screen, D : Dialog>(val screens: List<S>) : NavAction<S, D>
+data class ReplaceRoot<S : Screen, D : Dialog>(val screens: List<S>) : NavAction<S, D>
 
-class NewStack<S : Screen, D : Dialog>(val stackId: Int, val screens: List<S>) : NavAction<S, D>
+data class NewStack<S : Screen, D : Dialog>(val stackId: Int, val screens: List<S>) : NavAction<S, D>
 
-class SelectStack<S : Screen, D : Dialog>(val stackId: Int) : NavAction<S, D>
+data class SelectStack<S : Screen, D : Dialog>(val stackId: Int) : NavAction<S, D>
 
-class ClearStack<S : Screen, D : Dialog>(val stackId: Int) : NavAction<S, D>
+data class ClearStack<S : Screen, D : Dialog>(val stackId: Int) : NavAction<S, D>
 
-class BackTo<S : Screen, D : Dialog>(val screen: S) : NavAction<S, D>
+data class BackTo<S : Screen, D : Dialog>(val screen: S, val inclusive: Boolean) : NavAction<S, D>
 
-object BackToRoot : NavAction<Nothing, Nothing>
+data object BackToRoot : NavAction<Nothing, Nothing>
 
-object Back : NavAction<Nothing, Nothing>
+data object Back : NavAction<Nothing, Nothing>
 
-class ApplyState<S : Screen, D : Dialog>(val state: RootNavState<S, D>) : NavAction<S, D>
+data class ApplyState<S : Screen, D : Dialog>(val state: RootNavState<S, D>) : NavAction<S, D>
 
-class Batch<S : Screen, D : Dialog>(val actions: List<NavAction<S, D>>) : NavAction<S, D>
+data class Batch<S : Screen, D : Dialog>(val actions: List<NavAction<S, D>>) : NavAction<S, D>
 
 /**
  * Open next [screens]
@@ -64,7 +64,7 @@ fun <S : Screen, D : Dialog> NavDrive<S, D>.clearStack(stackId: Int) = dispatch(
 /**
  * Back to [screen]
  */
-fun <S : Screen, D : Dialog> NavDrive<S, D>.backTo(screen: S) = dispatch(BackTo(screen))
+fun <S : Screen, D : Dialog> NavDrive<S, D>.backTo(screen: S, inclusive: Boolean = false) = dispatch(BackTo(screen, inclusive))
 
 /**
  * Back to root screen

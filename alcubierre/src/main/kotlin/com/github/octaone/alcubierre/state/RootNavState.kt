@@ -21,7 +21,7 @@ data class RootNavState<out S : Screen, out D : Dialog>(
     val currentStackState: StackNavState<S> = stackStates.getNotNull(currentStackId)
 
     @IgnoredOnParcel
-    val currentScreen: S? = currentStackState.chain.lastOrNull()
+    val currentScreen: S? = currentStackState.stack.lastOrNull()
 
     @IgnoredOnParcel
     val currentDialog: D? = dialogState.queue.firstOrNull()

@@ -88,7 +88,7 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
     private fun FragmentRootNavState.toStackString() =
         buildString {
             appendLine("Stacks (* - current screen):")
-            stackStates.forEach { (id, stack) ->
+            stackStates.forEach { (id, stackState) ->
                 append(
                     when (id) {
                         R.id.stack_0 -> "0"
@@ -97,7 +97,7 @@ class SampleFragment : Fragment(R.layout.fmt_0) {
                     }
                 )
                 append(" : ")
-                stack.chain.joinTo(this) { it.screenId.takeLast(4) }
+                stackState.stack.joinTo(this) { it.screenId.takeLast(4) }
                 if (id == currentStackId) append("*")
                 appendLine()
             }

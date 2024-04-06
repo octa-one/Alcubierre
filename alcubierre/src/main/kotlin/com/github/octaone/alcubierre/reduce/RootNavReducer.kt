@@ -19,9 +19,9 @@ import com.github.octaone.alcubierre.util.getNotNull
 /**
  * [NavReducer] responds for commands with stacks and retranslate remaining command to proper [stackReducer]
  */
-class AlcubierreRootNavReducer(
+class ScreenRootNavReducer(
     private val stackReducer: NavReducer<AnyStackNavState> = AlcubierreStackNavReducer()
-) : NavReducer<AnyRootNavState> {
+) : LinkedNavReducer<AnyRootNavState>() {
 
     override fun reduce(state: AnyRootNavState, action: AnyNavAction) = when (action) {
         is Forward, is Back, is Replace, is BackToRoot, is ReplaceRoot, is BackTo -> {

@@ -70,5 +70,11 @@ private const val PACKAGE = "com.github.octaone.alcubierre"
 private const val API_PACKAGE = "$PACKAGE.codegen.api"
 val DEEPLINK_REGISTRY = ClassName(API_PACKAGE, "DeeplinkRegistry")
 val SCREEN_CONVERTER = ClassName(API_PACKAGE, "ScreenConverter")
-val SCREEN = ClassName("$PACKAGE.screen", "Screen")
-val DIALOG = ClassName("$PACKAGE.screen", "Dialog")
+
+val FRAGMENT_SCREEN = ClassName("$PACKAGE.screen", "FragmentScreen")
+val FRAGMENT_DIALOG = ClassName("$PACKAGE.screen", "FragmentDialog")
+val COMPOSE_SCREEN = ClassName("$PACKAGE.screen", "ComposeScreen")
+val COMPOSE_DIALOG = ClassName("$PACKAGE.screen", "ComposeDialog")
+val CONDITIONAL_TARGET = ClassName("$PACKAGE.condition", "ConditionalTarget")
+
+val KNOWN_TYPES = arrayOf(FRAGMENT_SCREEN, FRAGMENT_DIALOG, COMPOSE_SCREEN, COMPOSE_DIALOG, CONDITIONAL_TARGET)

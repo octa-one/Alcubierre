@@ -21,34 +21,34 @@ class AlcubierreStackNavReducer : NavReducer<AnyStackNavState> {
     ): AnyStackNavState =
         when (action) {
             is Forward -> {
-                state.modifyChain { this + action.screens }
+                state.modifyStack { this + action.screens }
             }
             is Replace -> {
-                state.modifyChain { dropLast(1) + action.screens }
+                state.modifyStack { dropLast(1) + action.screens }
             }
             is Back -> {
-                if (state.chain.size > 1) {
-                    state.modifyChain { dropLast(1) }
+                if (state.stack.size > 1) {
+                    state.modifyStack { dropLast(1) }
                 } else {
                     state
                 }
             }
             is BackTo -> {
-                val i = state.chain.indexOfLast { it.screenId == action.screen.screenId }
-                if (i != -1) state.modifyChain { take(i + 1) }
+                val i = state.stack.indexOfLast { it.screenId == action.screen.screenId }
+                if (i != -1) state.modifyStack { take(if (action.inclusive) i else i + 1) }
                 else state
             }
             is BackToRoot -> {
-                state.modifyChain { listOfNotNull(firstOrNull()) }
+                state.modifyStack { listOfNotNull(firstOrNull()) }
             }
             is ReplaceRoot -> {
-                state.copy(chain = action.screens)
+                state.copy(stack = action.screens)
             }
             else -> {
                 state
             }
     }
 
-    private inline fun AnyStackNavState.modifyChain(update: MutableList<Screen>.() -> List<Screen>): AnyStackNavState =
-        copy(chain = chain.toMutableList().update())
+    private inline fun AnyStackNavState.modifyStack(update: MutableList<Screen>.() -> List<Screen>): AnyStackNavState =
+        copy(stack = stack.toMutableList().update())
 }

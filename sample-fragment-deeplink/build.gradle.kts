@@ -13,6 +13,7 @@ dependencies {
     implementation(projects.alcubierre)
     implementation(projects.alcubierreRenderFragment)
     implementation(projects.alcubierreDeeplink)
+    implementation(projects.alcubierreCondition)
 
     implementation(libs.kotlin.coroutines.android)
     implementation(libs.androidx.appcompat)

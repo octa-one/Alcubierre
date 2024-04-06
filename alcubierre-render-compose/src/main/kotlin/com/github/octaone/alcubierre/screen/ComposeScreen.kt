@@ -1,22 +1,36 @@
+@file:Suppress("LeakingThis")
+
 package com.github.octaone.alcubierre.screen
 
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import com.github.octaone.alcubierre.lifecycle.ScreenLifecycleManager
-import com.github.octaone.alcubierre.lifecycle.ScreenLifecycleManagerImpl
 import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
+import kotlin.reflect.KClass
 
 @Stable
-abstract class ComposeScreen : Screen(), ExtrasContainer by LazyExtrasContainer() {
+abstract class ComposeScreen(
+    val composeContentName: String,
+    val composeContentClass: Class<out ComposeScreenContent<*>>?
+) : Screen(), ExtrasContainer by LazyExtrasContainer() {
 
-    val lifecycleOwner: ScreenLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
-        ScreenLifecycleManagerImpl(screenId, getSavedStateDefaultArguments())
+    constructor() : this("", null) { require(this is ComposeScreenContent<*>) }
+    constructor(contentName: String) : this(contentName, null)
+    constructor(contentClass: KClass<out ComposeScreenContent<*>>) : this(contentClass.java.name, contentClass.java)
+
+    internal var content: ComposeScreenContent<*>? = null
+
+    val lifecycleManager: ScreenLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
+        ScreenLifecycleManager(screenId, getSavedStateDefaultArguments())
     }
 
     open fun getSavedStateDefaultArguments(): Bundle? = null
+}
+
+interface ComposeScreenContent<S : ComposeScreen> {
 
     @Composable
-    abstract fun Content()
+    fun S.Content()
 }
