@@ -1,5 +1,6 @@
 plugins {
-    id(Conventions.ANDROID_LIBRARY)
+    alias(libs.plugins.buildlogic.android.library)
+    alias(libs.plugins.buildlogic.publish)
 }
 
 android {
@@ -8,5 +9,5 @@ android {
 
 dependencies {
     implementation(libs.androidx.fragment)
-    implementation(projects.alcubierre)
+    implementation(projects.alcubierreBase)
 }

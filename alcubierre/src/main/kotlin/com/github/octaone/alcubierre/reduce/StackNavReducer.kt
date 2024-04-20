@@ -9,6 +9,7 @@ import com.github.octaone.alcubierre.action.Replace
 import com.github.octaone.alcubierre.action.ReplaceRoot
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.state.AnyStackNavState
+import com.github.octaone.alcubierre.util.optimizeReadOnlyList
 
 /**
  * [NavReducer] responds for commands with specific stack
@@ -21,25 +22,38 @@ class AlcubierreStackNavReducer : NavReducer<AnyStackNavState> {
     ): AnyStackNavState =
         when (action) {
             is Forward -> {
-                state.modifyStack { this + action.screens }
+                state.modifyStack { addAll(action.screens) }
             }
             is Replace -> {
-                state.modifyStack { dropLast(1) + action.screens }
+                state.modifyStack {
+                    removeAt(lastIndex)
+                    addAll(action.screens)
+                }
             }
             is Back -> {
                 if (state.stack.size > 1) {
-                    state.modifyStack { dropLast(1) }
+                    state.modifyStack { removeAt(lastIndex) }
                 } else {
                     state
                 }
             }
             is BackTo -> {
                 val i = state.stack.indexOfLast { it.screenId == action.screen.screenId }
-                if (i != -1) state.modifyStack { take(if (action.inclusive) i else i + 1) }
-                else state
+                if (i != -1) {
+                    state.modifyStack {
+                        repeat(lastIndex - i) { removeAt(lastIndex) }
+                        if (action.inclusive) removeAt(lastIndex)
+                    }
+                } else {
+                    state
+                }
             }
             is BackToRoot -> {
-                state.modifyStack { listOfNotNull(firstOrNull()) }
+                state.modifyStack {
+                    val root = getOrNull(0)
+                    clear()
+                    if (root != null) add(root)
+                }
             }
             is ReplaceRoot -> {
                 state.copy(stack = action.screens)
@@ -49,6 +63,6 @@ class AlcubierreStackNavReducer : NavReducer<AnyStackNavState> {
             }
     }
 
-    private inline fun AnyStackNavState.modifyStack(update: MutableList<Screen>.() -> List<Screen>): AnyStackNavState =
-        copy(stack = stack.toMutableList().update())
+    private inline fun AnyStackNavState.modifyStack(update: MutableList<Screen>.() -> Unit): AnyStackNavState =
+        copy(stack = stack.toMutableList().apply(update).optimizeReadOnlyList())
 }

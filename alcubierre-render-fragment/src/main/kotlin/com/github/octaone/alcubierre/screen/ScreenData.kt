@@ -1,9 +1,12 @@
+@file:OptIn(AlcubierreInternalApi::class)
+
 package com.github.octaone.alcubierre.screen
 
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import com.github.octaone.alcubierre.util.getParcelableCompat
+import com.github.octaone.alcubierre.annotation.AlcubierreInternalApi
+import com.github.octaone.alcubierre.base.util.getParcelableCompat
 
 inline fun <reified T : FragmentScreen> Fragment.screenData(): Lazy<T> =
     lazy(mode = LazyThreadSafetyMode.NONE) {

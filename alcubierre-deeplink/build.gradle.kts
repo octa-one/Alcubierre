@@ -1,6 +1,7 @@
 plugins {
-    id(Conventions.ANDROID_LIBRARY)
-    id("com.joom.colonist.android")
+    alias(libs.plugins.buildlogic.android.library)
+    alias(libs.plugins.buildlogic.android.test)
+    alias(libs.plugins.buildlogic.publish)
 }
 
 android {
@@ -11,8 +12,6 @@ dependencies {
     implementation(projects.alcubierre)
     implementation(projects.alcubierreCodegenApi)
     api(projects.alcubierreCondition)
-
-    implementation(libs.colonist.core)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)

@@ -9,14 +9,15 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.buildCodeBlock
 
 /**
- * Для дефолтных параметров, заполняемых из диплинка, используется битовая маска
- * если параметр был получен из полученных плейсхолдеров, и параметр != null,
- * то в проставляем бит, с позицией, равной позиции в конструкторе, в 0. Позицию считаем с конца
+ * A bitmask is used for default parameters filled from the deeplink.
+ * If the parameter was obtained from the received placeholders, and the parameter != null,
+ * then the bit with position equals to the position in the constructor is set to 0.
+ * The position is counted from the end.
  *
- * Если все нужные параметры != null, то можем вызвать конструктор напрямую,
- * иначе - вызваем конструктор через reflection
+ * If all necessary parameters != null, we can call the constructor directly,
+ * otherwise we call the constructor with reflection.
  *
- * Для класса Screen(val a: String = "S", val b: Int = 1)
+ * Generated for class Screen(val a: String = "S", val b: Int = 1)
  * ```
  * var mask = -1
  *
@@ -26,7 +27,7 @@ import com.squareup.kotlinpoet.buildCodeBlock
  * val b = _from["b"]?.toInt()
  * if (b != null) mask = mask and 0xfffffffd.toInt()
  * ```
- *  далее см. [generateReflector]
+ *  see [generateReflector]
  */
 fun generateReflectionConverter(info: DeeplinkInformation) = buildCodeBlock {
     val paramToPlaceholder = info.constructorParams
@@ -62,7 +63,7 @@ fun generateReflectionConverter(info: DeeplinkInformation) = buildCodeBlock {
 }
 
 /**
- * Для класса Screen(val a: String = "S", val b: Int = 1)
+ * Generated for class Screen(val a: String = "S", val b: Int = 1)
  *
  * ```
  *  return if (mask == 0xfffffffc.toInt()) {
@@ -147,7 +148,7 @@ private fun generateBasicConstructor(
 
     for (param in params.filter { it.placeholder != null }) {
         add("${param.name} = ${param.name}")
-        if (!param.isMarkedNullable) add("!!")
+        if (!param.isMarkedNullable && param.hasDefault) add("!!")
         addStatement(",")
     }
 

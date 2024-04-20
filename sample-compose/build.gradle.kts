@@ -1,7 +1,7 @@
 plugins {
-    id(Conventions.ANDROID_APPLICATION)
-    id(Conventions.COMPOSE)
-    id(Plugins.PARCELIZE)
+    alias(libs.plugins.buildlogic.android.app)
+    alias(libs.plugins.buildlogic.compose)
+    id(libs.plugins.kotlin.parcelize.get().pluginId)
 }
 
 android {

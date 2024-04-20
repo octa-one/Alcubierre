@@ -1,8 +1,7 @@
 plugins {
-    id(Conventions.ANDROID_APPLICATION)
-    id(Plugins.PARCELIZE)
-    id(Conventions.DEEPLINK_CODEGEN)
-    id(Plugins.COLONIST)
+    alias(libs.plugins.buildlogic.android.app)
+    id(libs.plugins.kotlin.parcelize.get().pluginId)
+    alias(libs.plugins.alcubierre.deeplink.colonist)
 }
 
 android {

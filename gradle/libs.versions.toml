@@ -1,11 +1,11 @@
 [versions]
-agp = "8.3.0"
+agp = "8.3.2"
 annotation = "1.7.1"
 appcompat = "1.6.1"
-compose_bom = "2024.04.00"
-compose_compiler = "1.5.11"
-core = "1.12.0"
-activity = "1.8.2"
+compose-bom = "2024.04.01"
+compose-compiler = "1.5.12"
+core = "1.13.0"
+activity = "1.9.0"
 fragment = "1.6.2"
 kotlin = "1.9.23"
 coroutines = "1.8.0"
@@ -17,8 +17,9 @@ colonist = "0.1.0-alpha22"
 junit = "4.13.2"
 lifecycle = "2.7.0"
 savedstate = "1.2.1"
-lint = "31.3.1"
 autoservice = "1.1.1"
+vkompose = "0.4.2"
+null = "null"
 
 [libraries]
 # gradle
@@ -32,6 +33,9 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
+kotlin-sam = { module = "org.jetbrains.kotlin:kotlin-sam-with-receiver", version.ref = "kotlin" }
 
 # androidx
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -50,11 +54,12 @@ androidx-savedstate = { module = "androidx.savedstate:savedstate-ktx", version.r
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
 # compose
-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose_compiler" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 compose-foundation = { module = "androidx.compose.foundation:foundation" }
 compose-runtime = { module = "androidx.compose.runtime:runtime" }
 compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-material = { module = "androidx.compose.material:material" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
 compose-animation = { module = "androidx.compose.animation:animation" }
@@ -65,18 +70,36 @@ kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlin
 ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 asm-tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
 asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
+colonist-gradle = { module = "com.joom.colonist:colonist-gradle-plugin", version.ref = "colonist" }
 colonist-core = { module = "com.joom.colonist:colonist-core", version.ref = "colonist" }
-
-# lint
-lint = { module = "com.android.tools.lint:lint", version.ref = "lint" }
-lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "lint" }
-lint-checks = { module = "com.android.tools.lint:lint-checks", version.ref = "lint" }
-lint-tests = { module = "com.android.tools.lint:lint-tests", version.ref = "lint" }
-autoservice = { module = "com.google.auto.service:auto-service", version.ref = "autoservice" }
-autoservice-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoservice" }
 
 # test
 junit = { module = "junit:junit", version.ref = "junit" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+android-test = { id = "com.android.test", version.ref = "agp" }
+colonist = { id = "com.joom.colonist.android", version.ref = "colonist" }
+kotlin-parcelize = { id = "kotlin-parcelize", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-sam = { id = "org.jetbrains.kotlin.plugin.sam.with.receiver", version.ref = "kotlin" }
+vk-recompose-highlighter = { id = "com.vk.recompose-highlighter", version.ref = "vkompose" }
+vk-recompose-checker = { id = "com.vk.composable-skippability-checker", version.ref = "vkompose" }
+
+buildlogic-android-app = { id = "buildlogic.android-app", version.ref = "null" }
+buildlogic-android-library = { id = "buildlogic.android-library", version.ref = "null" }
+buildlogic-android-test = { id = "buildlogic.android-test", version.ref = "null" }
+buildlogic-compose = { id = "buildlogic.compose", version.ref = "null" }
+buildlogic-compose-runtime = { id = "buildlogic.compose-runtime", version.ref = "null" }
+buildlogic-kotlin-library = { id = "buildlogic.kotlin-jvm", version.ref = "null" }
+buildlogic-kotlin-test = { id = "buildlogic.kotlin-test", version.ref = "null" }
+buildlogic-publish = { id = "buildlogic.publish", version.ref = "null" }
+
+alcubierre-deeplink-base = { id = "alcubierre-deeplink-gradle-base", version.ref = "null" }
+alcubierre-deeplink-colonist = { id = "alcubierre-deeplink-gradle-colonist", version.ref = "null" }
 
 [bundles]
 compose = [

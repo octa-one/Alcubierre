@@ -38,7 +38,6 @@ import com.github.octaone.alcubierre.sample.Counter
 import com.github.octaone.alcubierre.sample.Tab
 import com.github.octaone.alcubierre.screen.ComposeScreen
 import com.github.octaone.alcubierre.screen.ComposeScreenContent
-import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.state.ComposeRootNavState
 import kotlinx.parcelize.Parcelize
 import kotlin.random.Random

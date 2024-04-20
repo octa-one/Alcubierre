@@ -1,5 +1,6 @@
 plugins {
-    id(Conventions.ANDROID_LIBRARY)
+    alias(libs.plugins.buildlogic.android.library)
+    alias(libs.plugins.buildlogic.publish)
 }
 
 android {
