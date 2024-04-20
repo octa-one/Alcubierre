@@ -14,7 +14,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.buildCodeBlock
 
 /**
- * Генерация конвертера из набора плейсхолдеров в объект экрана
+ * Generating a converter from a set of placeholders to a screen instance.
  * ```
  * class FeatureScreenConverter : ScreenConverter {
  *      override fun convert(_from: Map<String, String>): Screen = FeatureScreen(
@@ -28,7 +28,7 @@ fun generateConverter(info: DeeplinkInformation): TypeSpec {
         .addModifiers(KModifier.OVERRIDE)
         .addParameter(PARAM_FROM, MAP.parameterizedBy(STRING, STRING))
         .addCode(generateConverterBody(info))
-        .addKdoc("Конвертер для шаблонов\n${info.patterns.joinToString()}")
+        .addKdoc("Converter for templates\n${info.patterns.joinToString()}")
         .returns(ANY)
         .build()
 
@@ -41,11 +41,11 @@ fun generateConverter(info: DeeplinkInformation): TypeSpec {
 
 private fun generateConverterBody(info: DeeplinkInformation): CodeBlock {
 
-    // если аннотацией помечен object, то просто возвращаем этот object
+    // If an object is annotated with an annotation, we simply return that object
     if (info.targetIsObject) return CodeBlock.of("return %T", info.targetClass)
 
-    // чтобы создать объект, нужно заполнить все поля конструктора (кроме тех, что имеют дефолтные значения)
-    // это значит, что все такие параметры должны быть объявлены среди плейсхолдеров
+    // to create an object, all fields of the constructor must be filled in (except those with default values)
+    // this means that all such parameters must be declared in placeholders
     for (param in info.constructorParams) {
         if (!param.hasDefault) {
             requireNotNull(param.placeholder) {

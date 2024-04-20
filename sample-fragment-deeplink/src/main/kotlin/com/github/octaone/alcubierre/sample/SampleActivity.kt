@@ -8,6 +8,7 @@ import com.github.octaone.alcubierre.FragmentNavDriveOwner
 import com.github.octaone.alcubierre.action.back
 import com.github.octaone.alcubierre.condition.DefaultNavConditionFactory
 import com.github.octaone.alcubierre.condition.reducer.ConditionReducer
+import com.github.octaone.alcubierre.deeplink.DefaultDeeplinkResolver
 import com.github.octaone.alcubierre.reduce.BatchRootNavReducer
 import com.github.octaone.alcubierre.reduce.DialogRootNavReducer
 import com.github.octaone.alcubierre.reduce.ScreenRootNavReducer
@@ -52,7 +53,10 @@ class SampleActivity : AppCompatActivity() {
         navDriveOwner.initialize(
             reducer = reducerLinkedListOf(
                 BatchRootNavReducer(),
-                DeeplinkReducer(onResolveFailed = {}),
+                DeeplinkReducer(
+                    resolver = DefaultDeeplinkResolver(DeeplinkRegistryCollector().registries),
+                    onResolveFailed = {}
+                ),
                 ConditionReducer(DefaultNavConditionFactory()),
                 DialogRootNavReducer(),
                 ScreenRootNavReducer()

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-fun <T : Parcelable?> FragmentNavRender<T>.renderFrom(stateFlow: StateFlow<T>, lifecycle: Lifecycle) {
+fun <T : Parcelable> FragmentNavRender<T>.renderFrom(stateFlow: StateFlow<T>, lifecycle: Lifecycle) {
     val lifecycleScope = lifecycle.coroutineScope
     var lastState: T? = null
     stateFlow

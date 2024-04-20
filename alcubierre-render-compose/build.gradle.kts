@@ -1,6 +1,7 @@
 plugins {
-    id(Conventions.ANDROID_LIBRARY)
-    id(Conventions.COMPOSE)
+    alias(libs.plugins.buildlogic.android.library)
+    alias(libs.plugins.buildlogic.compose)
+    alias(libs.plugins.buildlogic.publish)
 }
 
 android {
@@ -8,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.alcubierre)
+    implementation(projects.alcubierreBase)
 
     implementation(libs.androidx.lifecycle.common)
     implementation(libs.androidx.lifecycle.runtime)

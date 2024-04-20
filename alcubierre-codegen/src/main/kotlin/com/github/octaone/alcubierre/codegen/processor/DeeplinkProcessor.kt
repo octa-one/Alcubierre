@@ -54,7 +54,7 @@ class DeeplinkProcessor(
         annotatedClasses.flatMap { classDeclaration ->
             val constructorParameters = if (classDeclaration.classKind != ClassKind.OBJECT) {
                 requireNotNull(classDeclaration.primaryConstructor) {
-                    "Classes marked with ${${Deeplink::class.simpleName}} must have a primary constructor."
+                    "Classes marked with ${Deeplink::class.simpleName} must have a primary constructor."
                 }.parameters
             } else {
                 emptyList()
@@ -91,7 +91,7 @@ class DeeplinkProcessor(
             aggregating = true,
             sources = classInformation.map { requireNotNull(it.classDeclaration.containingFile) }.toTypedArray()
         )
-        FileSpec.builder("inv.library.navigation.codegen", requireNotNull(registry.name))
+        FileSpec.builder("alcubierre.codegen", requireNotNull(registry.name))
             .addType(registry)
             .build()
             .writeTo(codeGenerator, dependencies)

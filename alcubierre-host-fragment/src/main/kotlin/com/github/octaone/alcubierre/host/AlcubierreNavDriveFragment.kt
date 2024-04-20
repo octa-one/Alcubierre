@@ -1,3 +1,5 @@
+@file:OptIn(AlcubierreInternalApi::class)
+
 package com.github.octaone.alcubierre.host
 
 import android.content.Context
@@ -13,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import com.github.octaone.alcubierre.FragmentNavDriveOwner
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.back
+import com.github.octaone.alcubierre.annotation.AlcubierreInternalApi
 import com.github.octaone.alcubierre.owner.AlcubierreNavDriveOwner
 import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender

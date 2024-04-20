@@ -5,7 +5,7 @@ import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.state.RootNavState
 
-class NavDriveBatchRecorder<S : Screen, D : Dialog> (
+internal class NavDriveBatchRecorder<S : Screen, D : Dialog> (
     initialState: RootNavState<S, D>
 ) : NavDrive<S, D> {
 

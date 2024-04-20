@@ -23,7 +23,6 @@ import androidx.compose.ui.platform.LocalSavedStateRegistryOwner
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import com.github.octaone.alcubierre.ComposeNavDriveOwner
 import com.github.octaone.alcubierre.lifecycle.LifecycleHandler
-import com.github.octaone.alcubierre.lifecycle.LocalScreenLifecycleOwner
 import com.github.octaone.alcubierre.render.internal.DialogRootNavStateProjection
 import com.github.octaone.alcubierre.render.internal.ImmutableSaveableStateHolder
 import com.github.octaone.alcubierre.render.internal.ScreenRootNavStateProjection
@@ -148,7 +147,6 @@ private fun CurrentScreen(
         val parentLifecycle = LocalLifecycleOwner.current.lifecycle
         CompositionLocalProvider(
             LocalLifecycleOwner provides screen.lifecycleManager,
-            LocalScreenLifecycleOwner provides screen.lifecycleManager,
             LocalViewModelStoreOwner provides screen.lifecycleManager,
             LocalSavedStateRegistryOwner provides screen.lifecycleManager
         ) {

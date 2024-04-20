@@ -14,10 +14,9 @@ import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.state.AnyRootNavState
 
 class DeeplinkReducer(
+    private val resolver: DeeplinkResolver,
     private val onResolveFailed: (Uri) -> Unit
 ) : LinkedNavReducer<AnyRootNavState>() {
-
-    private val resolver = DeeplinkResolver()
 
     override fun reduce(state: AnyRootNavState, action: AnyNavAction): AnyRootNavState =
         when (action) {

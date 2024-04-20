@@ -1,6 +1,6 @@
 plugins {
-    id(Conventions.ANDROID_LIBRARY)
-    id(Plugins.PARCELIZE)
+    alias(libs.plugins.buildlogic.android.library)
+    id(libs.plugins.kotlin.parcelize.get().pluginId)
 }
 
 android {
@@ -8,5 +8,6 @@ android {
 }
 
 dependencies {
+    api(projects.alcubierreBase)
     implementation(libs.kotlin.coroutines)
 }

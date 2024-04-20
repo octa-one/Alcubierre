@@ -1,3 +1,5 @@
+@file:OptIn(AlcubierreInternalApi::class)
+
 package com.github.octaone.alcubierre.render
 
 import android.os.Bundle
@@ -5,9 +7,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.github.octaone.alcubierre.annotation.AlcubierreInternalApi
+import com.github.octaone.alcubierre.base.util.getParcelableCompat
+import com.github.octaone.alcubierre.screen.ARG_DIALOG
 import com.github.octaone.alcubierre.screen.FragmentCreator
 import com.github.octaone.alcubierre.screen.FragmentDialog
-import com.github.octaone.alcubierre.screen.isShowing
 import com.github.octaone.alcubierre.screen.withDialogData
 import com.github.octaone.alcubierre.state.DialogNavState
 
@@ -29,6 +33,7 @@ class AlcubierreDialogNavRender(
         override fun onStop(owner: LifecycleOwner) {
             val dialogFragment = owner as DialogFragment
             if (!dialogFragment.requireDialog().isShowing) {
+                dialogFragment.setIsNotShowing()
                 dialogFragment.lifecycle.removeObserver(this)
                 currentDialogId = null
                 onDismiss()
@@ -46,6 +51,7 @@ class AlcubierreDialogNavRender(
             fragmentManager.findFragmentByTag(currentDialogId)
                 ?.let { it as DialogFragment }
                 ?.let { fragment ->
+                    fragment.setIsNotShowing()
                     fragment.lifecycle.removeObserver(dialogObserver)
                     fragment.dismiss()
                 }
@@ -84,6 +90,10 @@ class AlcubierreDialogNavRender(
             fragmentManager.fragmentFactory.instantiate(classLoader, dialog.fragmentName)
         }
         return fragment as DialogFragment
+    }
+
+    private fun DialogFragment.setIsNotShowing() {
+        requireArguments().getParcelableCompat<FragmentDialog>(ARG_DIALOG)!!.isShowing = false
     }
 }
 

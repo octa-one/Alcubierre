@@ -3,9 +3,10 @@ package com.github.octaone.alcubierre.reduce
 import com.github.octaone.alcubierre.action.AnyNavAction
 import com.github.octaone.alcubierre.action.DismissDialog
 import com.github.octaone.alcubierre.action.ShowDialog
-import com.github.octaone.alcubierre.screen.isShowing
+import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.state.AnyDialogNavState
 import com.github.octaone.alcubierre.state.DialogNavState
+import com.github.octaone.alcubierre.util.optimizeReadOnlyList
 
 class DialogNavReducer : NavReducer<AnyDialogNavState> {
 
@@ -16,17 +17,19 @@ class DialogNavReducer : NavReducer<AnyDialogNavState> {
             } else {
                 var insertIndex = state.queue.indexOfFirst { it.priority < action.dialog.priority && !it.isShowing}
                 if (insertIndex == -1) insertIndex = state.queue.size
-                state.copy(queue = state.queue.toMutableList().apply { add(insertIndex, action.dialog) })
+                state.modifyQueue { add(insertIndex, action.dialog) }
             }
         }
         is DismissDialog -> {
             if (state.queue.size <= 1) {
                 DialogNavState.EMPTY
             } else {
-                state.copy(queue = state.queue.drop(1))
+                state.modifyQueue { removeAt(0) }
             }
         }
         else -> state
     }
-}
 
+    private inline fun AnyDialogNavState.modifyQueue(update: MutableList<Dialog>.() -> Unit): AnyDialogNavState =
+        copy(queue = queue.toMutableList().apply(update).optimizeReadOnlyList())
+}

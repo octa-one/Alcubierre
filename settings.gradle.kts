@@ -17,7 +17,11 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "alcubierre-root"
+
+includeBuild("gradle-plugins")
+
 include(":alcubierre")
+include(":alcubierre-base")
 include(":alcubierre-host-fragment")
 include(":alcubierre-render-fragment")
 include(":alcubierre-render-compose")

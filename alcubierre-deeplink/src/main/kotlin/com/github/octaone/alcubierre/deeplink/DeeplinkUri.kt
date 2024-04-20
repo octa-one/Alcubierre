@@ -1,5 +1,7 @@
 package com.github.octaone.alcubierre.deeplink
 
+import android.net.Uri
+
 data class DeeplinkUri(
     val pattern: String,
     val scheme: String,
@@ -7,7 +9,6 @@ data class DeeplinkUri(
     val path: String?,
     val query: Map<String, String> = emptyMap()
 ) {
-    val queryParameterNames = query.keys
 
     val pathSegments = path?.split("/").orEmpty().filter(String::isNotEmpty)
 
@@ -18,7 +19,19 @@ data class DeeplinkUri(
 
     fun getQueryParameter(name: String) = query[name]
 
-    companion object
+    companion object {
+
+        fun parse(uri: Uri): DeeplinkUri =
+            DeeplinkUri(
+                pattern = uri.toString(),
+                scheme = requireNotNull(uri.scheme),
+                host = requireNotNull(uri.host),
+                path = uri.path,
+                query = uri.queryParameterNames.associateWith { uri.getQueryParameter(it)!! }
+            )
+
+        fun parse(uri: String): DeeplinkUri = parse(Uri.parse(uri))
+    }
 }
 
 /**

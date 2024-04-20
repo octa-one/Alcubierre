@@ -1,3 +1,5 @@
+@file:OptIn(AlcubierreInternalApi::class)
+
 package com.github.octaone.alcubierre.reduce
 
 import com.github.octaone.alcubierre.action.AnyNavAction
@@ -11,10 +13,12 @@ import com.github.octaone.alcubierre.action.NewStack
 import com.github.octaone.alcubierre.action.Replace
 import com.github.octaone.alcubierre.action.ReplaceRoot
 import com.github.octaone.alcubierre.action.SelectStack
+import com.github.octaone.alcubierre.annotation.AlcubierreInternalApi
+import com.github.octaone.alcubierre.base.util.getNotNull
 import com.github.octaone.alcubierre.state.AnyRootNavState
 import com.github.octaone.alcubierre.state.AnyStackNavState
 import com.github.octaone.alcubierre.state.StackNavState
-import com.github.octaone.alcubierre.util.getNotNull
+import com.github.octaone.alcubierre.util.optimizeReadOnlyMap
 
 /**
  * [NavReducer] responds for commands with stacks and retranslate remaining command to proper [stackReducer]
@@ -25,10 +29,10 @@ class ScreenRootNavReducer(
 
     override fun reduce(state: AnyRootNavState, action: AnyNavAction) = when (action) {
         is Forward, is Back, is Replace, is BackToRoot, is ReplaceRoot, is BackTo -> {
-            state.updateStack(state.currentStackId) { stackReducer.reduce(this, action) }
+            state.modifyStack(state.currentStackId) { stackReducer.reduce(this, action) }
         }
         is NewStack -> {
-            state.applyStacks { put(action.stackId, StackNavState(action.screens)) }
+            state.modifyStacks { put(action.stackId, StackNavState(action.screens)) }
         }
         is SelectStack -> {
             if (state.currentStackId == action.stackId) {
@@ -41,7 +45,7 @@ class ScreenRootNavReducer(
         is ClearStack -> {
             if (state.stackStates.containsKey(action.stackId)) {
                 check(state.currentStackId != action.stackId)
-                state.applyStacks { remove(action.stackId) }
+                state.modifyStacks { remove(action.stackId) }
             } else {
                 state
             }
@@ -54,9 +58,9 @@ class ScreenRootNavReducer(
         }
     }
 
-    private inline fun AnyRootNavState.updateStack(id: Int, update: AnyStackNavState.() -> AnyStackNavState): AnyRootNavState =
-        applyStacks { put(id, stackStates.getNotNull(id).update()) }
+    private inline fun AnyRootNavState.modifyStack(id: Int, update: AnyStackNavState.() -> AnyStackNavState): AnyRootNavState =
+        modifyStacks { put(id, stackStates.getNotNull(id).update()) }
 
-    private inline fun AnyRootNavState.applyStacks(update: MutableMap<Int, AnyStackNavState>.() -> Unit): AnyRootNavState =
-        copy(stackStates = HashMap(stackStates).apply(update))
+    private inline fun AnyRootNavState.modifyStacks(update: MutableMap<Int, AnyStackNavState>.() -> Unit): AnyRootNavState =
+        copy(stackStates = HashMap(stackStates).apply(update).optimizeReadOnlyMap())
 }
