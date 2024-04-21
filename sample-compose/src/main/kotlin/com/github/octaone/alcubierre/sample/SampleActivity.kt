@@ -35,14 +35,11 @@ import com.github.octaone.alcubierre.sample.screen.SampleScreen
 import com.github.octaone.alcubierre.screen.ComposeDialog
 import com.github.octaone.alcubierre.screen.ComposeScreen
 import com.github.octaone.alcubierre.state.rootState
-import com.vk.recompose.highlighter.RecomposeHighlighterConfig
 
 class SampleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        RecomposeHighlighterConfig.isEnabled = false
 
         setContent {
             val navDriveOwner = remember {

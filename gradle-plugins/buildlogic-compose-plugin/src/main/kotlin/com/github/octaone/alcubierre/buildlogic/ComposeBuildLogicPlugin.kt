@@ -13,7 +13,6 @@ class ComposeBuildLogicPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply("com.vk.recompose-highlighter")
                 apply("com.vk.composable-skippability-checker")
             }
 

@@ -5,6 +5,7 @@ package com.github.octaone.alcubierre.screen
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import com.github.octaone.alcubierre.lifecycle.DefaultScreenLifecycleManager
 import com.github.octaone.alcubierre.lifecycle.ScreenLifecycleManager
 import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
@@ -22,8 +23,8 @@ abstract class ComposeScreen(
 
     internal var content: ComposeScreenContent<*>? = null
 
-    val lifecycleManager: ScreenLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
-        ScreenLifecycleManager(screenId, getSavedStateDefaultArguments())
+    open val lifecycleManager: ScreenLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
+        DefaultScreenLifecycleManager(screenId, getSavedStateDefaultArguments())
     }
 
     open fun getSavedStateDefaultArguments(): Bundle? = null

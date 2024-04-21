@@ -5,6 +5,7 @@ package com.github.octaone.alcubierre.screen
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import com.github.octaone.alcubierre.lifecycle.DefaultDialogLifecycleManager
 import com.github.octaone.alcubierre.lifecycle.DialogLifecycleManager
 import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
@@ -22,8 +23,8 @@ abstract class ComposeDialog(
 
     internal var content: ComposeDialogContent<*>? = null
 
-    val lifecycleManager: DialogLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
-        DialogLifecycleManager(dialogId, getSavedStateDefaultArguments())
+    open val lifecycleManager: DialogLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
+        DefaultDialogLifecycleManager(dialogId, getSavedStateDefaultArguments())
     }
 
     override val priority: Int = 5

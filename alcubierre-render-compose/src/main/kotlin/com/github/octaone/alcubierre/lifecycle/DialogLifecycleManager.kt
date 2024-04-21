@@ -2,6 +2,9 @@ package com.github.octaone.alcubierre.lifecycle
 
 import android.app.Application
 import android.os.Bundle
+import androidx.compose.runtime.ProvidedValue
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalSavedStateRegistryOwner
 import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
@@ -19,14 +22,15 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.enableSavedStateHandles
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.MutableCreationExtras
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 
-class DialogLifecycleManager(
+class DefaultDialogLifecycleManager(
     override val key: String,
     private val defaultArguments: Bundle?
-) : LifecycleManager,
+) : DialogLifecycleManager,
     LifecycleOwner,
     ViewModelStoreOwner,
     SavedStateRegistryOwner,
@@ -52,6 +56,14 @@ class DialogLifecycleManager(
         }
     }
 
+    override val providedValues: Array<ProvidedValue<*>> by lazy(LazyThreadSafetyMode.NONE) {
+        arrayOf(
+            LocalLifecycleOwner provides this,
+            LocalViewModelStoreOwner provides this,
+            LocalSavedStateRegistryOwner provides this
+        )
+    }
+
     init {
         lifecycleRegistry.addObserver(object : DefaultLifecycleObserver {
             override fun onStop(owner: LifecycleOwner) {
@@ -74,7 +86,7 @@ class DialogLifecycleManager(
         this.savedState = savedState
     }
 
-    fun onRemoved() {
+    override fun onRemoved() {
         if (lifecycle.currentState == State.INITIALIZED) return // Nothing to do, the screen wasn't even created.
 
         lifecycleRegistry.currentState = State.DESTROYED
