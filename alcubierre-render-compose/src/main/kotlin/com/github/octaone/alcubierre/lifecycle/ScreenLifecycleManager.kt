@@ -2,6 +2,9 @@ package com.github.octaone.alcubierre.lifecycle
 
 import android.app.Application
 import android.os.Bundle
+import androidx.compose.runtime.ProvidedValue
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalSavedStateRegistryOwner
 import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
@@ -19,14 +22,15 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.enableSavedStateHandles
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.MutableCreationExtras
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 
-class ScreenLifecycleManager(
+class DefaultScreenLifecycleManager(
     override val key: String,
     private val defaultArguments: Bundle?
-) : LifecycleManager,
+) : ScreenLifecycleManager,
     ScreenLifecycleOwner,
     ViewModelStoreOwner,
     SavedStateRegistryOwner,
@@ -55,6 +59,14 @@ class ScreenLifecycleManager(
         }
     }
 
+    override val providedValues: Array<ProvidedValue<*>> by lazy(LazyThreadSafetyMode.NONE) {
+        arrayOf(
+            LocalLifecycleOwner provides this,
+            LocalViewModelStoreOwner provides this,
+            LocalSavedStateRegistryOwner provides this
+        )
+    }
+
     init {
         lifecycleRegistry.addObserver(object : DefaultLifecycleObserver {
             override fun onStop(owner: LifecycleOwner) {
@@ -77,13 +89,13 @@ class ScreenLifecycleManager(
         this.savedState = savedState
     }
 
-    fun onStacked() {
+    override fun onStacked() {
         // The screen moved to the backstack.
         isResuming = false
         lifecycleRegistry.currentState = State.CREATED
     }
 
-    fun onRemoved() {
+    override fun onRemoved() {
         if (lifecycle.currentState == State.INITIALIZED) return // Nothing to do, the screen wasn't even created.
 
         // Do not move to the DESTROYED state until the transition is completed.
@@ -117,13 +129,13 @@ class ScreenLifecycleManager(
         lifecycleRegistry.currentState = state
     }
 
-    fun onEnterTransitionFinished() {
+    override fun onEnterTransitionFinished() {
         if (!isResuming) return
         // Trying to move to the RESUMED state, but not higher than the parent state.
         lifecycleRegistry.currentState = minOf(State.RESUMED, parentLifecycleState)
     }
 
-    fun onExitTransitionFinished() {
+    override fun onExitTransitionFinished() {
         if (!isFinishing) return
         lifecycleRegistry.currentState = State.DESTROYED
         application = null

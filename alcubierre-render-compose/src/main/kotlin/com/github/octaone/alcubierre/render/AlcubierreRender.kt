@@ -19,8 +19,6 @@ import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.node.Ref
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.platform.LocalSavedStateRegistryOwner
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import com.github.octaone.alcubierre.ComposeNavDriveOwner
 import com.github.octaone.alcubierre.lifecycle.LifecycleHandler
 import com.github.octaone.alcubierre.render.internal.DialogRootNavStateProjection
@@ -145,11 +143,7 @@ private fun CurrentScreen(
     currentStateProjection.state.currentScreen?.let { screen ->
         val content = screen.getContent(LocalContext.current.classLoader)
         val parentLifecycle = LocalLifecycleOwner.current.lifecycle
-        CompositionLocalProvider(
-            LocalLifecycleOwner provides screen.lifecycleManager,
-            LocalViewModelStoreOwner provides screen.lifecycleManager,
-            LocalSavedStateRegistryOwner provides screen.lifecycleManager
-        ) {
+        CompositionLocalProvider(*screen.lifecycleManager.providedValues) {
             stateHolder.SaveableStateProvider(screen.screenId) {
                 screen.lifecycleManager.LifecycleHandler(parentLifecycle)
                 content.Content(screen)
@@ -169,11 +163,7 @@ private fun CurrentDialog(
 
             val content = dialog.getContent(LocalContext.current.classLoader)
             val parentLifecycle = LocalLifecycleOwner.current.lifecycle
-            CompositionLocalProvider(
-                LocalLifecycleOwner provides dialog.lifecycleManager,
-                LocalViewModelStoreOwner provides dialog.lifecycleManager,
-                LocalSavedStateRegistryOwner provides dialog.lifecycleManager
-            ) {
+            CompositionLocalProvider(*dialog.lifecycleManager.providedValues) {
                 stateHolder.SaveableStateProvider(dialog.dialogId) {
                     dialog.lifecycleManager.LifecycleHandler(parentLifecycle)
                     content.Content(dialog, onDismissRequest)

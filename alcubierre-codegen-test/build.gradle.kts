@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.alcubierre.deeplink.colonist)
     id(libs.plugins.kotlin.parcelize.get().pluginId)
     id(libs.plugins.ksp.get().pluginId)
-    alias(libs.plugins.buildlogic.publish)
 }
 
 android {
