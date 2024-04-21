@@ -16,7 +16,7 @@ import com.github.octaone.alcubierre.state.DialogNavState
 import com.github.octaone.alcubierre.state.FragmentRootNavState
 import com.github.octaone.alcubierre.state.StackNavState
 
-class AlcubierreRootNavRender(
+public class AlcubierreRootNavRender(
     private val containerId: Int,
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
@@ -26,7 +26,7 @@ class AlcubierreRootNavRender(
 
     private var currentStackId: Int = -1
     private val stacks = HashMap<Int, RootIdAndStackRender>()
-    private var dialogRender: FragmentNavRender<DialogNavState<FragmentDialog>> =
+    private val dialogRender: FragmentNavRender<DialogNavState<FragmentDialog>> =
         AlcubierreDialogNavRender(classLoader, fragmentManager, navDriveOwner::requestDismissDialog)
 
     override fun render(state: FragmentRootNavState) {

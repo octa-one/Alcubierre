@@ -12,26 +12,26 @@ import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
 import kotlin.reflect.KClass
 
 @Stable
-abstract class ComposeScreen(
-    val composeContentName: String,
-    val composeContentClass: Class<out ComposeScreenContent<*>>?
+public abstract class ComposeScreen(
+    public val composeContentName: String,
+    public val composeContentClass: Class<out ComposeScreenContent<*>>?
 ) : Screen(), ExtrasContainer by LazyExtrasContainer() {
 
-    constructor() : this("", null) { require(this is ComposeScreenContent<*>) }
-    constructor(contentName: String) : this(contentName, null)
-    constructor(contentClass: KClass<out ComposeScreenContent<*>>) : this(contentClass.java.name, contentClass.java)
+    public constructor() : this("", null) { require(this is ComposeScreenContent<*>) }
+    public constructor(contentName: String) : this(contentName, null)
+    public constructor(contentClass: KClass<out ComposeScreenContent<*>>) : this(contentClass.java.name, contentClass.java)
 
     internal var content: ComposeScreenContent<*>? = null
 
-    open val lifecycleManager: ScreenLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
+    public open val lifecycleManager: ScreenLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
         DefaultScreenLifecycleManager(screenId, getSavedStateDefaultArguments())
     }
 
-    open fun getSavedStateDefaultArguments(): Bundle? = null
+    public open fun getSavedStateDefaultArguments(): Bundle? = null
 }
 
-interface ComposeScreenContent<S : ComposeScreen> {
+public interface ComposeScreenContent<S : ComposeScreen> {
 
     @Composable
-    fun S.Content()
+    public fun S.Content()
 }

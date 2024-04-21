@@ -32,27 +32,6 @@ internal fun LifecycleManager.LifecycleHandler(parentLifecycle: Lifecycle) {
                  * attached and next call of [registerSavedStateProvider] after recreating Activity
                  * on the same instance causing the crash.
                  */
-                /**
-                 * Instance of the screen isn't recreated during config changes so skip this event
-                 * to avoid crash while accessing to ViewModel with SavedStateHandle, because after
-                 * ON_DESTROY, [androidx.lifecycle.SavedStateHandleController] is marked as not
-                 * attached and next call of [registerSavedStateProvider] after recreating Activity
-                 * on the same instance causing the crash.
-                 */
-                /**
-                 * Instance of the screen isn't recreated during config changes so skip this event
-                 * to avoid crash while accessing to ViewModel with SavedStateHandle, because after
-                 * ON_DESTROY, [androidx.lifecycle.SavedStateHandleController] is marked as not
-                 * attached and next call of [registerSavedStateProvider] after recreating Activity
-                 * on the same instance causing the crash.
-                 */
-                /**
-                 * Instance of the screen isn't recreated during config changes so skip this event
-                 * to avoid crash while accessing to ViewModel with SavedStateHandle, because after
-                 * ON_DESTROY, [androidx.lifecycle.SavedStateHandleController] is marked as not
-                 * attached and next call of [registerSavedStateProvider] after recreating Activity
-                 * on the same instance causing the crash.
-                 */
                 return@LifecycleEventObserver
             }
 

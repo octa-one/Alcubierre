@@ -27,7 +27,7 @@ import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 
-class DefaultScreenLifecycleManager(
+public class DefaultScreenLifecycleManager(
     override val key: String,
     private val defaultArguments: Bundle?
 ) : ScreenLifecycleManager,

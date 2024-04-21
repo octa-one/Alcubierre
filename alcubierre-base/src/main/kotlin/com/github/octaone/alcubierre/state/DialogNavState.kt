@@ -10,7 +10,7 @@ import kotlinx.parcelize.WriteWith
  * State of dialogs
  */
 @Parcelize
-data class DialogNavState<out D : Dialog>(
+public data class DialogNavState<out D : Dialog>(
     val queue: List<@WriteWith<DialogParceler> D>
 ) : Parcelable {
 
@@ -34,7 +34,7 @@ data class DialogNavState<out D : Dialog>(
         return result
     }
 
-    companion object {
-        val EMPTY = DialogNavState<Nothing>(emptyList())
+    public companion object {
+        public val EMPTY: DialogNavState<Nothing> = DialogNavState(emptyList())
     }
 }

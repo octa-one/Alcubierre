@@ -18,16 +18,16 @@ dependencyResolutionManagement {
 
 rootProject.name = "alcubierre-root"
 
-includeBuild("gradle-plugins")
+includeBuild("build-logic")
 
 include(":alcubierre")
 include(":alcubierre-base")
 include(":alcubierre-host-fragment")
 include(":alcubierre-render-fragment")
 include(":alcubierre-render-compose")
-include(":alcubierre-codegen")
-include(":alcubierre-codegen-api")
-include(":alcubierre-codegen-test")
+include(":alcubierre-deeplink-processor")
+include(":alcubierre-deeplink-processor-api")
+include(":alcubierre-deeplink-processor-test")
 include(":alcubierre-deeplink")
 include(":alcubierre-condition")
 

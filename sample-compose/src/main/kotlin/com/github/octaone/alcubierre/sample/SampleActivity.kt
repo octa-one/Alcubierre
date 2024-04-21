@@ -29,7 +29,7 @@ import com.github.octaone.alcubierre.reduce.BatchRootNavReducer
 import com.github.octaone.alcubierre.reduce.DialogRootNavReducer
 import com.github.octaone.alcubierre.reduce.ScreenRootNavReducer
 import com.github.octaone.alcubierre.reduce.builder.reducerLinkedListOf
-import com.github.octaone.alcubierre.render.AlcubierreRender
+import com.github.octaone.alcubierre.render.AlcubierreAnimatedRender
 import com.github.octaone.alcubierre.render.NavDriveOwnerSaver
 import com.github.octaone.alcubierre.sample.screen.SampleScreen
 import com.github.octaone.alcubierre.screen.ComposeDialog
@@ -100,7 +100,7 @@ class SampleActivity : AppCompatActivity() {
                     ) {
                         NavDriveOwnerSaver(navDriveOwner)
                         BackHandler { navDriveOwner.back() }
-                        AlcubierreRender(
+                        AlcubierreAnimatedRender(
                             navDriveOwner = navDriveOwner,
                             addTransition = {
                                 slideInVertically { height -> height } + fadeIn() togetherWith

@@ -27,7 +27,7 @@ import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 
-class DefaultDialogLifecycleManager(
+public class DefaultDialogLifecycleManager(
     override val key: String,
     private val defaultArguments: Bundle?
 ) : DialogLifecycleManager,

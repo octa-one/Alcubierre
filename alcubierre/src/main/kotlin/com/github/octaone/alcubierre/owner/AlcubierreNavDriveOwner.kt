@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.reflect.KClass
 
-class AlcubierreNavDriveOwner<S : Screen, D : Dialog> : NavDriveOwner<S, D> {
+public class AlcubierreNavDriveOwner<S : Screen, D : Dialog> : NavDriveOwner<S, D> {
 
     private lateinit var reducer: NavReducer<AnyRootNavState>
 

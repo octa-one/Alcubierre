@@ -5,7 +5,7 @@ import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 /**
  * A simple extension to associate a screen or dialog with a string as a tag.
  */
-var ExtrasContainer.tag: String?
+public var ExtrasContainer.tag: String?
     get() = if (hasExtras()) {
         extras.getString(TAG)
     } else {

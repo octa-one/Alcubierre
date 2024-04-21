@@ -1,5 +1,6 @@
-import com.github.octaone.alcubierre.deeplink.DeeplinkUri
-import com.github.octaone.alcubierre.deeplink.sortedByPlaceholders
+package com.github.octaone.alcubierre.deeplink
+
+import com.github.octaone.alcubierre.deeplink.util.sortedByPlaceholders
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -36,7 +37,7 @@ class UriPatternCompareTest {
             "app://host/{path}/{p}/{x}",
         )
 
-        val actual = links.map(DeeplinkUri::parse)
+        val actual = links.map(::parseDeeplinkForTest)
             .sortedByPlaceholders()
             .map(DeeplinkUri::pattern)
 

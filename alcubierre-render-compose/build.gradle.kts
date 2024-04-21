@@ -6,6 +6,10 @@ plugins {
 
 android {
     namespace = "com.github.octaone.alcubierre.compose"
+
+    defaultConfig {
+        consumerProguardFiles("proguard/rules.pro")
+    }
 }
 
 dependencies {

@@ -5,28 +5,28 @@ import android.os.Bundle
 import androidx.compose.runtime.ProvidedValue
 import androidx.lifecycle.Lifecycle
 
-interface LifecycleManager {
+public interface LifecycleManager {
 
-    val key: String
+    public val key: String
 
-    val providedValues: Array<ProvidedValue<*>>
+    public val providedValues: Array<ProvidedValue<*>>
 
-    fun initialize(application: Application, savedState: Bundle)
+    public fun initialize(application: Application, savedState: Bundle)
 
-    fun onLaunched(parentLifecycleState: Lifecycle.State)
+    public fun onLaunched(parentLifecycleState: Lifecycle.State)
 
-    fun onRemoved()
+    public fun onRemoved()
 
-    fun onParentLifecycleStateChanged(state: Lifecycle.State)
+    public fun onParentLifecycleStateChanged(state: Lifecycle.State)
 }
 
-interface ScreenLifecycleManager : LifecycleManager {
+public interface ScreenLifecycleManager : LifecycleManager {
 
-    fun onStacked()
+    public fun onStacked()
 
-    fun onEnterTransitionFinished()
+    public fun onEnterTransitionFinished()
 
-    fun onExitTransitionFinished()
+    public fun onExitTransitionFinished()
 }
 
-typealias DialogLifecycleManager = LifecycleManager
+public typealias DialogLifecycleManager = LifecycleManager

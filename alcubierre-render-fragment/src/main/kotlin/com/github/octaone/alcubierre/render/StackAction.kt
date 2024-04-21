@@ -5,6 +5,8 @@ import com.github.octaone.alcubierre.screen.FragmentScreen
 /**
  * Stack operations
  */
-interface StackAction
-data class Pop(val count: Int) : StackAction
-data class Push(val screens: List<FragmentScreen>) : StackAction
+internal interface StackAction
+
+internal data class Pop(val count: Int) : StackAction
+
+internal data class Push(val screens: List<FragmentScreen>) : StackAction

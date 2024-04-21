@@ -14,7 +14,7 @@ import com.github.octaone.alcubierre.util.optimizeReadOnlyList
 /**
  * [NavReducer] responds for commands with specific stack
  */
-class AlcubierreStackNavReducer : NavReducer<AnyStackNavState> {
+public class AlcubierreStackNavReducer : NavReducer<AnyStackNavState> {
 
     override fun reduce(
         state: AnyStackNavState,

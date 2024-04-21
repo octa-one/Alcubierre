@@ -1,23 +1,25 @@
 package com.github.octaone.alcubierre.screen
 
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import kotlinx.coroutines.sync.Semaphore
 
 @Stable
-class HideRequest {
+public class HideRequest {
 
-    val shouldBeHidden = mutableStateOf(false)
+    private val _shouldBeHidden = mutableStateOf(false)
+    public val shouldBeHidden: State<Boolean> get() = _shouldBeHidden
 
     private val hideSemaphore = Semaphore(1, 1)
 
-    fun markHidden() {
+    public fun markHidden() {
         hideSemaphore.release()
     }
 
     internal suspend fun hideAndAwaitHidden() {
-        shouldBeHidden.value = true
+        _shouldBeHidden.value = true
         hideSemaphore.acquire()
-        shouldBeHidden.value = false
+        _shouldBeHidden.value = false
     }
 }

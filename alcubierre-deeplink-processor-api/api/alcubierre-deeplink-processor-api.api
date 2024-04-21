@@ -1,0 +1,28 @@
+public abstract interface annotation class com/github/octaone/alcubierre/deeplink/processor/api/Deeplink : java/lang/annotation/Annotation {
+	public abstract fun pattern ()Ljava/lang/String;
+}
+
+public abstract interface annotation class com/github/octaone/alcubierre/deeplink/processor/api/Deeplink$Container : java/lang/annotation/Annotation {
+	public abstract fun value ()[Lcom/github/octaone/alcubierre/deeplink/processor/api/Deeplink;
+}
+
+public abstract interface annotation class com/github/octaone/alcubierre/deeplink/processor/api/DeeplinkParam : java/lang/annotation/Annotation {
+	public abstract fun name ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/octaone/alcubierre/deeplink/processor/api/DeeplinkRegistry {
+	public abstract fun getScreenConverters ()Ljava/util/Map;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/processor/api/DefaultConstructorMarkerKt {
+	public static final fun get_DEFAULT_CONSTRUCTOR_MARKER ()Ljava/lang/Class;
+}
+
+public abstract interface class com/github/octaone/alcubierre/deeplink/processor/api/ScreenConverter {
+	public abstract fun convert (Ljava/util/Map;)Ljava/lang/Object;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/processor/api/ScreenConverterKt {
+	public static final field PARAM_FROM Ljava/lang/String;
+}
+

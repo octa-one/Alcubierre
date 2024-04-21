@@ -1,6 +1,6 @@
 package com.github.octaone.alcubierre.sample
 
-import com.github.octaone.alcubierre.codegen.api.DeeplinkRegistry
+import com.github.octaone.alcubierre.deeplink.processor.api.DeeplinkRegistry
 import com.joom.colonist.AcceptSettlersViaCallback
 import com.joom.colonist.Colonist
 import com.joom.colonist.Colony

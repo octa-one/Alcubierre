@@ -1,8 +1,8 @@
 package com.github.octaone.alcubierre.screen.extra
 
-interface ExtrasContainer {
+public interface ExtrasContainer {
 
-    val extras: ParcelableExtras
+    public val extras: ParcelableExtras
 
-    fun hasExtras(): Boolean
+    public fun hasExtras(): Boolean
 }

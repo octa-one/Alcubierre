@@ -11,7 +11,7 @@ import kotlin.Array
 import java.lang.reflect.Array as ReflectArray
 
 @AlcubierreInternalApi
-fun <T : Parcelable> Bundle.getParcelableCompat(key: String, clazz: Class<T>) : T? =
+public fun <T : Parcelable> Bundle.getParcelableCompat(key: String, clazz: Class<T>) : T? =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         getParcelable(key, clazz)
     } else {
@@ -20,11 +20,11 @@ fun <T : Parcelable> Bundle.getParcelableCompat(key: String, clazz: Class<T>) : 
     }
 
 @AlcubierreInternalApi
-inline fun <reified T : Parcelable> Bundle.getParcelableCompat(key: String) : T? =
+public inline fun <reified T : Parcelable> Bundle.getParcelableCompat(key: String) : T? =
     getParcelableCompat(key, T::class.java)
 
 @AlcubierreInternalApi
-fun <T : Parcelable> Bundle.getParcelableArrayCompat(key: String, clazz: Class<T>) : Array<T>? =
+public fun <T : Parcelable> Bundle.getParcelableArrayCompat(key: String, clazz: Class<T>) : Array<T>? =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         getParcelableArray(key, clazz)
     } else {
@@ -36,11 +36,11 @@ fun <T : Parcelable> Bundle.getParcelableArrayCompat(key: String, clazz: Class<T
     }
 
 @AlcubierreInternalApi
-inline fun <reified T : Parcelable> Bundle.getParcelableArrayCompat(key: String) : Array<T>? =
+public inline fun <reified T : Parcelable> Bundle.getParcelableArrayCompat(key: String) : Array<T>? =
     getParcelableArrayCompat(key, T::class.java)
 
 @AlcubierreInternalApi
-fun <T : Serializable> Bundle.getSerializableCompat(key: String, clazz: Class<T>) : T? =
+public fun <T : Serializable> Bundle.getSerializableCompat(key: String, clazz: Class<T>) : T? =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         getSerializable(key, clazz)
     } else {
@@ -49,5 +49,5 @@ fun <T : Serializable> Bundle.getSerializableCompat(key: String, clazz: Class<T>
     }
 
 @AlcubierreInternalApi
-inline fun <reified T : Serializable> Bundle.getSerializableCompat(key: String) : T? =
+public inline fun <reified T : Serializable> Bundle.getSerializableCompat(key: String) : T? =
     getSerializableCompat(key, T::class.java)

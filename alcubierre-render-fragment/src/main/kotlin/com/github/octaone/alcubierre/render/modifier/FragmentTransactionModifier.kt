@@ -4,9 +4,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.github.octaone.alcubierre.screen.FragmentScreen
 
-interface FragmentTransactionModifier {
+public interface FragmentTransactionModifier {
 
-    fun modify(
+    public fun modify(
         transaction: FragmentTransaction,
         screen: FragmentScreen,
         fragment: Fragment

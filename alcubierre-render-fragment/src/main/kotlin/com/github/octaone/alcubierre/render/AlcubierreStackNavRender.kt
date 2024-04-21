@@ -13,17 +13,17 @@ import com.github.octaone.alcubierre.state.StackNavState
 /**
  * Render for mappings of [StackNavState] to [FragmentManager]
  */
-class AlcubierreStackNavRender(
+public class AlcubierreStackNavRender(
     private val containerId: Int,
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
     private val transactionModifier: FragmentTransactionModifier
 ) : FragmentNavRender<StackNavState<FragmentScreen>> {
 
-    private var currentChain: List<String> = emptyList()
+    private var currentStack: List<String> = emptyList()
 
     override fun render(state: StackNavState<FragmentScreen>) {
-        val diff = diff(currentChain, state.stack)
+        val diff = diff(currentStack, state.stack)
         diff.forEach { action ->
             when (action) {
                 is Pop -> {
@@ -34,28 +34,28 @@ class AlcubierreStackNavRender(
                 }
             }
         }
-        currentChain = state.stack.map { it.screenId }
+        currentStack = state.stack.map { it.screenId }
     }
 
     override fun saveState(outState: Bundle) {
-        outState.putStringArray(BUNDLE_KEY_STACK_STATE, currentChain.toTypedArray())
+        outState.putStringArray(BUNDLE_KEY_STACK_STATE, currentStack.toTypedArray())
     }
 
     override fun restoreState(savedState: Bundle?) {
         savedState ?: return
-        currentChain = savedState.getStringArray(BUNDLE_KEY_STACK_STATE)?.toList().orEmpty()
+        currentStack = savedState.getStringArray(BUNDLE_KEY_STACK_STATE)?.toList().orEmpty()
     }
 
     /**
-     * Perform popBackStack for [count] of fragments
+     * Perform popBackStack [count] times.
      */
     private fun pop(count: Int) {
-        val entryName = currentChain[currentChain.size - count]
+        val entryName = currentStack[currentStack.size - count]
         fragmentManager.popBackStack(entryName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
     /**
-     * Perform replace or add operations for fragments in [screens]
+     * Perform replace or add operations for fragments in [screens].
      */
     private fun push(screens: List<FragmentScreen>) {
         screens.forEach { screen ->

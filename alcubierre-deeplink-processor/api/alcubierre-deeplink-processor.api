@@ -1,0 +1,86 @@
+public final class com/github/octaone/alcubierre/deeplink/processor/ConstructorParameter {
+	public fun <init> (ZZLjava/lang/String;Ljava/lang/String;Lcom/squareup/kotlinpoet/ClassName;Lcom/squareup/kotlinpoet/TypeName;Z)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Lcom/squareup/kotlinpoet/ClassName;
+	public final fun component6 ()Lcom/squareup/kotlinpoet/TypeName;
+	public final fun component7 ()Z
+	public final fun copy (ZZLjava/lang/String;Ljava/lang/String;Lcom/squareup/kotlinpoet/ClassName;Lcom/squareup/kotlinpoet/TypeName;Z)Lcom/github/octaone/alcubierre/deeplink/processor/ConstructorParameter;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/deeplink/processor/ConstructorParameter;ZZLjava/lang/String;Ljava/lang/String;Lcom/squareup/kotlinpoet/ClassName;Lcom/squareup/kotlinpoet/TypeName;ZILjava/lang/Object;)Lcom/github/octaone/alcubierre/deeplink/processor/ConstructorParameter;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClassName ()Lcom/squareup/kotlinpoet/ClassName;
+	public final fun getHasDefault ()Z
+	public final fun getName ()Ljava/lang/String;
+	public final fun getPlaceholder ()Ljava/lang/String;
+	public final fun getType ()Lcom/squareup/kotlinpoet/TypeName;
+	public fun hashCode ()I
+	public final fun isEnum ()Z
+	public final fun isMarkedNullable ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/processor/DeeplinkInformation {
+	public fun <init> (Lcom/google/devtools/ksp/symbol/KSClassDeclaration;Lcom/squareup/kotlinpoet/ClassName;Lcom/squareup/kotlinpoet/ClassName;Ljava/util/List;Ljava/util/List;ZLjava/util/List;)V
+	public final fun component1 ()Lcom/google/devtools/ksp/symbol/KSClassDeclaration;
+	public final fun component2 ()Lcom/squareup/kotlinpoet/ClassName;
+	public final fun component3 ()Lcom/squareup/kotlinpoet/ClassName;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Z
+	public final fun component7 ()Ljava/util/List;
+	public final fun copy (Lcom/google/devtools/ksp/symbol/KSClassDeclaration;Lcom/squareup/kotlinpoet/ClassName;Lcom/squareup/kotlinpoet/ClassName;Ljava/util/List;Ljava/util/List;ZLjava/util/List;)Lcom/github/octaone/alcubierre/deeplink/processor/DeeplinkInformation;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/deeplink/processor/DeeplinkInformation;Lcom/google/devtools/ksp/symbol/KSClassDeclaration;Lcom/squareup/kotlinpoet/ClassName;Lcom/squareup/kotlinpoet/ClassName;Ljava/util/List;Ljava/util/List;ZLjava/util/List;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/deeplink/processor/DeeplinkInformation;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClassDeclaration ()Lcom/google/devtools/ksp/symbol/KSClassDeclaration;
+	public final fun getConstructorParams ()Ljava/util/List;
+	public final fun getPatterns ()Ljava/util/List;
+	public final fun getPlaceholders ()Ljava/util/List;
+	public final fun getScreenConverter ()Lcom/squareup/kotlinpoet/ClassName;
+	public final fun getTargetClass ()Lcom/squareup/kotlinpoet/ClassName;
+	public final fun getTargetIsObject ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/processor/DeeplinkInformationExtractor {
+	public fun <init> ()V
+	public final fun extract (Ljava/util/List;Lcom/google/devtools/ksp/symbol/KSClassDeclaration;Ljava/util/List;)Ljava/util/List;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/processor/DeeplinkProcessor : com/google/devtools/ksp/processing/SymbolProcessor {
+	public fun <init> (Lcom/google/devtools/ksp/processing/SymbolProcessorEnvironment;)V
+	public fun process (Lcom/google/devtools/ksp/processing/Resolver;)Ljava/util/List;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/processor/DeeplinkProcessorProvider : com/google/devtools/ksp/processing/SymbolProcessorProvider {
+	public fun <init> ()V
+	public fun create (Lcom/google/devtools/ksp/processing/SymbolProcessorEnvironment;)Lcom/github/octaone/alcubierre/deeplink/processor/DeeplinkProcessor;
+	public synthetic fun create (Lcom/google/devtools/ksp/processing/SymbolProcessorEnvironment;)Lcom/google/devtools/ksp/processing/SymbolProcessor;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/type/DeeplinkRegistryKt {
+	public static final fun generateDeeplinkRegistry (Ljava/lang/String;Ljava/util/List;)Lcom/squareup/kotlinpoet/TypeSpec;
+	public static final fun getCOMPOSE_DIALOG ()Lcom/squareup/kotlinpoet/ClassName;
+	public static final fun getCOMPOSE_SCREEN ()Lcom/squareup/kotlinpoet/ClassName;
+	public static final fun getCONDITIONAL_TARGET ()Lcom/squareup/kotlinpoet/ClassName;
+	public static final fun getDEEPLINK_REGISTRY ()Lcom/squareup/kotlinpoet/ClassName;
+	public static final fun getFRAGMENT_DIALOG ()Lcom/squareup/kotlinpoet/ClassName;
+	public static final fun getFRAGMENT_SCREEN ()Lcom/squareup/kotlinpoet/ClassName;
+	public static final fun getKNOWN_TYPES ()[Lcom/squareup/kotlinpoet/ClassName;
+	public static final fun getSCREEN_CONVERTER ()Lcom/squareup/kotlinpoet/ClassName;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/type/converter/ReflectionConverterKt {
+	public static final fun generateReflectionConverter (Lcom/github/octaone/alcubierre/deeplink/processor/DeeplinkInformation;)Lcom/squareup/kotlinpoet/CodeBlock;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/type/converter/ScreenConverterKt {
+	public static final fun generateConverter (Lcom/github/octaone/alcubierre/deeplink/processor/DeeplinkInformation;)Lcom/squareup/kotlinpoet/TypeSpec;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/type/converter/TypeConversionKt {
+	public static final fun typeConversion (Lcom/github/octaone/alcubierre/deeplink/processor/ConstructorParameter;)Lcom/squareup/kotlinpoet/CodeBlock;
+}
+

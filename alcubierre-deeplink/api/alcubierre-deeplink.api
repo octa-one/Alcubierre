@@ -1,0 +1,78 @@
+public final class com/github/octaone/alcubierre/action/DeeplinkForward : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (Landroid/net/Uri;)V
+	public final fun getDeeplink ()Landroid/net/Uri;
+}
+
+public final class com/github/octaone/alcubierre/action/DeeplinkForwardKt {
+	public static final fun forward (Lcom/github/octaone/alcubierre/NavDrive;Landroid/net/Uri;)V
+	public static final fun forward (Lcom/github/octaone/alcubierre/NavDrive;Ljava/lang/String;)V
+}
+
+public final class com/github/octaone/alcubierre/deeplink/DeeplinkMatch {
+	public fun <init> (Ljava/lang/String;Ljava/util/Map;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/util/Map;)Lcom/github/octaone/alcubierre/deeplink/DeeplinkMatch;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/deeplink/DeeplinkMatch;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/deeplink/DeeplinkMatch;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMatchedPattern ()Ljava/lang/String;
+	public final fun getPlaceholders ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/octaone/alcubierre/deeplink/DeeplinkMatcher {
+	public abstract fun match (Lcom/github/octaone/alcubierre/deeplink/DeeplinkUri;)Lcom/github/octaone/alcubierre/deeplink/DeeplinkMatch;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/DeeplinkMatcherKt {
+	public static final fun DeeplinkMatcher (Ljava/util/List;)Lcom/github/octaone/alcubierre/deeplink/DeeplinkMatcher;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/DeeplinkResolver {
+	public fun <init> (Lcom/github/octaone/alcubierre/deeplink/DeeplinkMatcher;Ljava/util/Map;)V
+	public final fun resolve-IoAF18A (Landroid/net/Uri;)Ljava/lang/Object;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/DeeplinkUri {
+	public static final field Companion Lcom/github/octaone/alcubierre/deeplink/DeeplinkUri$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Lcom/github/octaone/alcubierre/deeplink/DeeplinkUri;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/deeplink/DeeplinkUri;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/deeplink/DeeplinkUri;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHost ()Ljava/lang/String;
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getPathSegments ()Ljava/util/List;
+	public final fun getPattern ()Ljava/lang/String;
+	public final fun getQuery ()Ljava/util/Map;
+	public final fun getScheme ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/DeeplinkUri$Companion {
+	public final fun parse (Landroid/net/Uri;)Lcom/github/octaone/alcubierre/deeplink/DeeplinkUri;
+	public final fun parse (Ljava/lang/String;)Lcom/github/octaone/alcubierre/deeplink/DeeplinkUri;
+}
+
+public final class com/github/octaone/alcubierre/deeplink/DefaultDeeplinkResolverKt {
+	public static final fun DefaultDeeplinkResolver (Ljava/util/List;)Lcom/github/octaone/alcubierre/deeplink/DeeplinkResolver;
+}
+
+public final class com/github/octaone/alcubierre/reducer/DeeplinkReducer : com/github/octaone/alcubierre/reduce/LinkedNavReducer {
+	public fun <init> (Lcom/github/octaone/alcubierre/deeplink/DeeplinkResolver;Lkotlin/jvm/functions/Function1;)V
+	public fun reduce (Lcom/github/octaone/alcubierre/state/RootNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+}
+
+public final class com/github/octaone/alcubierre/screen/ExtrasDeeplinkKt {
+	public static final fun getDeeplinkUri (Lcom/github/octaone/alcubierre/screen/extra/ExtrasContainer;)Landroid/net/Uri;
+	public static final fun isFromDeeplink (Lcom/github/octaone/alcubierre/screen/extra/ExtrasContainer;)Z
+}
+

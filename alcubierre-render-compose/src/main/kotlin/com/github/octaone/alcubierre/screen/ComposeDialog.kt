@@ -12,34 +12,34 @@ import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
 import kotlin.reflect.KClass
 
 @Stable
-abstract class ComposeDialog(
-    val composeContentName: String,
-    val composeContentClass: Class<out ComposeDialogContent<*>>?
+public abstract class ComposeDialog(
+    public val composeContentName: String,
+    public val composeContentClass: Class<out ComposeDialogContent<*>>?
 ) : Dialog(), ExtrasContainer by LazyExtrasContainer() {
 
-    constructor() : this("", null) { require(this is ComposeDialogContent<*>) }
-    constructor(contentName: String) : this(contentName, null)
-    constructor(contentClass: KClass<out ComposeDialogContent<*>>) : this(contentClass.java.name, contentClass.java)
+    public constructor() : this("", null) { require(this is ComposeDialogContent<*>) }
+    public constructor(contentName: String) : this(contentName, null)
+    public constructor(contentClass: KClass<out ComposeDialogContent<*>>) : this(contentClass.java.name, contentClass.java)
 
     internal var content: ComposeDialogContent<*>? = null
 
-    open val lifecycleManager: DialogLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
+    internal val hideRequest = HideRequest()
+
+    public open val lifecycleManager: DialogLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
         DefaultDialogLifecycleManager(dialogId, getSavedStateDefaultArguments())
     }
 
     override val priority: Int = 5
 
-    open fun getSavedStateDefaultArguments(): Bundle? = null
+    public open fun getSavedStateDefaultArguments(): Bundle? = null
 
-    internal val hideRequest = HideRequest()
-
-    suspend fun hide() {
+    public suspend fun hide() {
         hideRequest.hideAndAwaitHidden()
     }
 }
 
-interface ComposeDialogContent<S : ComposeDialog> {
+public interface ComposeDialogContent<S : ComposeDialog> {
 
     @Composable
-    fun S.Content(hideRequest: HideRequest, onDismissRequest: () -> Unit)
+    public fun S.Content(hideRequest: HideRequest, onDismissRequest: () -> Unit)
 }

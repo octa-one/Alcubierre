@@ -1,0 +1,79 @@
+public final class com/github/octaone/alcubierre/render/AlcubierreDialogNavRender : com/github/octaone/alcubierre/render/FragmentNavRender {
+	public fun <init> (Ljava/lang/ClassLoader;Landroidx/fragment/app/FragmentManager;Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun render (Landroid/os/Parcelable;)V
+	public fun render (Lcom/github/octaone/alcubierre/state/DialogNavState;)V
+	public fun restoreState (Landroid/os/Bundle;)V
+	public fun saveState (Landroid/os/Bundle;)V
+}
+
+public final class com/github/octaone/alcubierre/render/AlcubierreRootNavRender : com/github/octaone/alcubierre/render/FragmentNavRender {
+	public fun <init> (ILjava/lang/ClassLoader;Landroidx/fragment/app/FragmentManager;Lcom/github/octaone/alcubierre/NavDriveOwner;Lcom/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier;)V
+	public synthetic fun <init> (ILjava/lang/ClassLoader;Landroidx/fragment/app/FragmentManager;Lcom/github/octaone/alcubierre/NavDriveOwner;Lcom/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun render (Landroid/os/Parcelable;)V
+	public fun render (Lcom/github/octaone/alcubierre/state/RootNavState;)V
+	public fun restoreState (Landroid/os/Bundle;)V
+	public fun saveState (Landroid/os/Bundle;)V
+}
+
+public final class com/github/octaone/alcubierre/render/AlcubierreStackNavRender : com/github/octaone/alcubierre/render/FragmentNavRender {
+	public fun <init> (ILjava/lang/ClassLoader;Landroidx/fragment/app/FragmentManager;Lcom/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier;)V
+	public synthetic fun render (Landroid/os/Parcelable;)V
+	public fun render (Lcom/github/octaone/alcubierre/state/StackNavState;)V
+	public fun restoreState (Landroid/os/Bundle;)V
+	public fun saveState (Landroid/os/Bundle;)V
+}
+
+public abstract interface class com/github/octaone/alcubierre/render/FragmentNavRender {
+	public abstract fun render (Landroid/os/Parcelable;)V
+	public abstract fun restoreState (Landroid/os/Bundle;)V
+	public abstract fun saveState (Landroid/os/Bundle;)V
+}
+
+public final class com/github/octaone/alcubierre/render/RenderFromFlowKt {
+	public static final fun renderFrom (Lcom/github/octaone/alcubierre/render/FragmentNavRender;Lkotlinx/coroutines/flow/StateFlow;Landroidx/lifecycle/Lifecycle;)V
+}
+
+public final class com/github/octaone/alcubierre/render/modifier/AnimationModifier : com/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier {
+	public fun <init> ()V
+	public fun <init> (IIII)V
+	public fun modify (Landroidx/fragment/app/FragmentTransaction;Lcom/github/octaone/alcubierre/screen/FragmentScreen;Landroidx/fragment/app/Fragment;)Landroidx/fragment/app/FragmentTransaction;
+}
+
+public final class com/github/octaone/alcubierre/render/modifier/EmptyModifier : com/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier {
+	public static final field INSTANCE Lcom/github/octaone/alcubierre/render/modifier/EmptyModifier;
+	public fun modify (Landroidx/fragment/app/FragmentTransaction;Lcom/github/octaone/alcubierre/screen/FragmentScreen;Landroidx/fragment/app/Fragment;)Landroidx/fragment/app/FragmentTransaction;
+}
+
+public abstract interface class com/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier {
+	public abstract fun modify (Landroidx/fragment/app/FragmentTransaction;Lcom/github/octaone/alcubierre/screen/FragmentScreen;Landroidx/fragment/app/Fragment;)Landroidx/fragment/app/FragmentTransaction;
+}
+
+public abstract interface class com/github/octaone/alcubierre/screen/FragmentCreator {
+	public abstract fun create ()Landroidx/fragment/app/Fragment;
+}
+
+public abstract class com/github/octaone/alcubierre/screen/FragmentDialog : com/github/octaone/alcubierre/screen/Dialog, com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
+	public final fun getFragmentName ()Ljava/lang/String;
+	public fun getPriority ()I
+	public fun hasExtras ()Z
+}
+
+public abstract class com/github/octaone/alcubierre/screen/FragmentScreen : com/github/octaone/alcubierre/screen/Screen, com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
+	public fun <init> (Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkotlin/reflect/KClass;Z)V
+	public synthetic fun <init> (Lkotlin/reflect/KClass;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
+	public final fun getFragmentName ()Ljava/lang/String;
+	public final fun getReplace ()Z
+	public fun hasExtras ()Z
+}
+
+public final class com/github/octaone/alcubierre/screen/ScreenDataKt {
+	public static final field ARG_DIALOG Ljava/lang/String;
+	public static final field ARG_SCREEN Ljava/lang/String;
+}
+

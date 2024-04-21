@@ -29,7 +29,7 @@ import com.github.octaone.alcubierre.util.getAndCast
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.reflect.KClass
 
-class AlcubierreNavDriveFragment : Fragment(), FragmentNavDriveOwner {
+public class AlcubierreNavDriveFragment : Fragment(), FragmentNavDriveOwner {
 
     private val delegate = AlcubierreNavDriveOwner<FragmentScreen, FragmentDialog>()
 
@@ -115,7 +115,7 @@ class AlcubierreNavDriveFragment : Fragment(), FragmentNavDriveOwner {
         }
     }
 
-    companion object {
+    private companion object {
 
         private const val KEY_CONTAINER_ID = "alcubierre_container"
     }

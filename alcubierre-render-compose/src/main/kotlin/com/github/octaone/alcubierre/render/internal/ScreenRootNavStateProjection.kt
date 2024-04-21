@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import com.github.octaone.alcubierre.state.ComposeRootNavState
 
 @Immutable
-class ScreenRootNavStateProjection(
+internal class ScreenRootNavStateProjection(
     val state: ComposeRootNavState
 ) {
 

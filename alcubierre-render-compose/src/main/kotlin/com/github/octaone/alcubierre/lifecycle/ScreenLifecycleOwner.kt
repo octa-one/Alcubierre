@@ -5,14 +5,14 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.LifecycleOwner
 
-interface ScreenLifecycleOwner : LifecycleOwner {
+public interface ScreenLifecycleOwner : LifecycleOwner {
 
-    val isFinishing: Boolean
+    public val isFinishing: Boolean
 }
 
-object LocalScreenLifecycleOwner {
+public object LocalScreenLifecycleOwner {
 
-    val current: ScreenLifecycleOwner
+    public val current: ScreenLifecycleOwner
         @ReadOnlyComposable
         @Composable
         get() = requireNotNull(LocalLifecycleOwner.current as? ScreenLifecycleOwner) { "No ScreenLifecycleOwner provided" }

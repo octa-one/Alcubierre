@@ -7,18 +7,18 @@ import com.github.octaone.alcubierre.annotation.AlcubierreInternalApi
 import com.github.octaone.alcubierre.reduce.LinkedNavReducer
 import com.github.octaone.alcubierre.reduce.NavReducer
 
-class ReducerLinkedListBuilder<S> @PublishedApi internal constructor() {
+public class ReducerLinkedListBuilder<S> @PublishedApi internal constructor() {
 
     private val head = HeadNavReducer<S>()
     private var last: LinkedNavReducer<S> = head
 
-    fun add(reducer: LinkedNavReducer<S>) {
+    public fun add(reducer: LinkedNavReducer<S>) {
         reducer.head = head
         last.next = reducer
         last = reducer
     }
 
-    fun build(): LinkedNavReducer<S> {
+    public fun build(): LinkedNavReducer<S> {
         last.next = TailReducer()
         return head
     }

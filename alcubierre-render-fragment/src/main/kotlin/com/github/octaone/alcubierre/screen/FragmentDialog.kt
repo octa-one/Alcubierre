@@ -8,13 +8,13 @@ import kotlin.reflect.KClass
 /**
  * [Dialog] implementation using fragments
  */
-abstract class FragmentDialog(
-    val fragmentName: String
+public abstract class FragmentDialog(
+    public val fragmentName: String
 ) : Dialog(), ExtrasContainer by LazyExtrasContainer() {
 
     override val priority: Int = 5
 
-    constructor(
+    public constructor(
         fragmentClass: KClass<out DialogFragment>
     ) : this(fragmentClass.java.name)
 }

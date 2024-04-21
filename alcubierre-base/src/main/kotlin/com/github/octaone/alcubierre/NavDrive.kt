@@ -21,12 +21,12 @@ import kotlin.reflect.KClass
  * [state] - current navigation state
  * [dispatch] - method for [NavAction] application
  */
-interface NavDrive<S : Screen, D : Dialog> {
+public interface NavDrive<S : Screen, D : Dialog> {
 
     /**
      * Current navigation state.
      */
-    val state: RootNavState<S, D>
+    public val state: RootNavState<S, D>
 
     /**
      * Dispatch new navigation action.
@@ -40,18 +40,18 @@ interface NavDrive<S : Screen, D : Dialog> {
      * But you can alter this behavior by implementing custom lifecycle-aware NavDriveOwner
      * or NavDrive extensions, eg 'forwardDisallowStateLoss'.
      */
-    fun dispatch(action: NavAction<S, D>)
+    public fun dispatch(action: NavAction<S, D>)
 }
 
 /**
  * Base interface of navigation owner.
  */
-interface NavDriveOwner<S : Screen, D : Dialog> : NavDrive<S, D> {
+public interface NavDriveOwner<S : Screen, D : Dialog> : NavDrive<S, D> {
 
     /**
      * Observable navigation state.
      */
-    val stateFlow: StateFlow<RootNavState<S, D>>
+    public val stateFlow: StateFlow<RootNavState<S, D>>
 
     /**
      * NavDriveOwner initialization. Should be called before any [dispatch] methods.
@@ -59,7 +59,7 @@ interface NavDriveOwner<S : Screen, D : Dialog> : NavDrive<S, D> {
      * @param initialState Initial state of navigation. Will be shown if there is no restored state.
      * @param extras Map with additional parameters. Supported parameters depend on specific implementation.
      */
-    fun initialize(
+    public fun initialize(
         reducer: NavReducer<AnyRootNavState>,
         initialState: RootNavState<S, D>,
         extras: Map<KClass<*>, Any> = emptyMap()
@@ -70,15 +70,15 @@ interface NavDriveOwner<S : Screen, D : Dialog> : NavDrive<S, D> {
      * This method will be invoked when the dialog is dismissed by user interaction and not by changing NavDrive state.
      * Implementations should update their state without any interceptions.
      */
-    fun requestDismissDialog()
+    public fun requestDismissDialog()
 
     /**
      * Saving current NavDrive state.
      */
-    fun saveState(outState: Bundle)
+    public fun saveState(outState: Bundle)
 
     /**
      * Restoring saved NavDrive state.
      */
-    fun restoreState(savedState: Bundle?)
+    public fun restoreState(savedState: Bundle?)
 }
