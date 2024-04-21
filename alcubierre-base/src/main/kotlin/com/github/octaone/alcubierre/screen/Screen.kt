@@ -8,8 +8,8 @@ import java.util.UUID
 /**
  * Base screen (specific destination for navigation)
  */
-abstract class Screen : Parcelable, ExtrasContainer {
+public abstract class Screen : Parcelable, ExtrasContainer {
 
-    var screenId: String = UUID.randomUUID().toString()
+    public var screenId: String = UUID.randomUUID().toString()
         @AlcubierreInternalApi set
 }

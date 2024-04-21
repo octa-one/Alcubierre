@@ -14,7 +14,7 @@ import com.github.octaone.alcubierre.ComposeNavDriveOwner
 
 @Composable
 @NonRestartableComposable
-fun NavDriveOwnerSaver(navDriveOwner: ComposeNavDriveOwner) {
+public fun NavDriveOwnerSaver(navDriveOwner: ComposeNavDriveOwner) {
     val ownerSavedState = rememberSaveable { Bundle() }
     val lifecycleOwner by rememberUpdatedState(LocalLifecycleOwner.current)
     DisposableEffect(lifecycleOwner) {

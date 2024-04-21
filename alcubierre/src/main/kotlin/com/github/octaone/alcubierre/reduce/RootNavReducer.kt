@@ -23,11 +23,11 @@ import com.github.octaone.alcubierre.util.optimizeReadOnlyMap
 /**
  * [NavReducer] responds for commands with stacks and retranslate remaining command to proper [stackReducer]
  */
-class ScreenRootNavReducer(
+public class ScreenRootNavReducer(
     private val stackReducer: NavReducer<AnyStackNavState> = AlcubierreStackNavReducer()
 ) : LinkedNavReducer<AnyRootNavState>() {
 
-    override fun reduce(state: AnyRootNavState, action: AnyNavAction) = when (action) {
+    override fun reduce(state: AnyRootNavState, action: AnyNavAction): AnyRootNavState = when (action) {
         is Forward, is Back, is Replace, is BackToRoot, is ReplaceRoot, is BackTo -> {
             state.modifyStack(state.currentStackId) { stackReducer.reduce(this, action) }
         }

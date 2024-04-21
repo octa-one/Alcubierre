@@ -19,6 +19,8 @@ lifecycle = "2.7.0"
 savedstate = "1.2.1"
 autoservice = "1.1.1"
 vkompose = "0.4.2"
+binary-validator = "0.15.0-Beta.2"
+
 null = "null"
 
 [libraries]
@@ -27,6 +29,7 @@ gradle-android-tools = { module = "com.android.tools.build:gradle", version.ref 
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 gradle-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 gradle-colonist = { module = "com.joom.colonist:colonist-gradle-plugin", version.ref = "colonist" }
+gradle-binary-validator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "binary-validator" }
 
 # kotlin
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
@@ -88,6 +91,7 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-sam = { id = "org.jetbrains.kotlin.plugin.sam.with.receiver", version.ref = "kotlin" }
 vk-recompose-highlighter = { id = "com.vk.recompose-highlighter", version.ref = "vkompose" }
 vk-recompose-checker = { id = "com.vk.composable-skippability-checker", version.ref = "vkompose" }
+binary-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-validator" }
 
 buildlogic-android-app = { id = "buildlogic.android-app", version.ref = "null" }
 buildlogic-android-library = { id = "buildlogic.android-library", version.ref = "null" }
@@ -97,9 +101,6 @@ buildlogic-compose-runtime = { id = "buildlogic.compose-runtime", version.ref = 
 buildlogic-kotlin-library = { id = "buildlogic.kotlin-jvm", version.ref = "null" }
 buildlogic-kotlin-test = { id = "buildlogic.kotlin-test", version.ref = "null" }
 buildlogic-publish = { id = "buildlogic.publish", version.ref = "null" }
-
-alcubierre-deeplink-base = { id = "alcubierre-deeplink-gradle-base", version.ref = "null" }
-alcubierre-deeplink-colonist = { id = "alcubierre-deeplink-gradle-colonist", version.ref = "null" }
 
 [bundles]
 compose = [

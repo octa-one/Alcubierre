@@ -3,8 +3,8 @@ package com.github.octaone.alcubierre.deeplink.internal
 import com.github.octaone.alcubierre.deeplink.DeeplinkMatch
 import com.github.octaone.alcubierre.deeplink.DeeplinkMatcher
 import com.github.octaone.alcubierre.deeplink.DeeplinkUri
-import com.github.octaone.alcubierre.deeplink.extractPlaceholder
-import com.github.octaone.alcubierre.deeplink.isPlaceholder
+import com.github.octaone.alcubierre.deeplink.util.extractPlaceholder
+import com.github.octaone.alcubierre.deeplink.util.isPlaceholder
 import java.net.URLDecoder
 
 /**
@@ -55,7 +55,7 @@ internal class TrieDeeplinkMatcher(uris: List<DeeplinkUri>) : DeeplinkMatcher {
             if (!v.isPlaceholder()) continue
 
             val placeholder = v.extractPlaceholder()
-            val value = deeplink.getQueryParameter(k)
+            val value = deeplink.query[k]
             if (value != null) {
                 if (placeholders == null) {
                     placeholders = mutableMapOf()

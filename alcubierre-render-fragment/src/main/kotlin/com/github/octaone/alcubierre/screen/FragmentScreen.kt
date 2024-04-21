@@ -8,12 +8,12 @@ import kotlin.reflect.KClass
 /**
  * [Screen] implementation using fragments
  */
-abstract class FragmentScreen(
-    val fragmentName: String,
-    val replace: Boolean = true
+public abstract class FragmentScreen(
+    public val fragmentName: String,
+    public val replace: Boolean = true
 ) : Screen(), ExtrasContainer by LazyExtrasContainer() {
 
-    constructor(
+    public constructor(
         fragmentClass: KClass<out Fragment>,
         replace: Boolean = true
     ) : this(fragmentClass.java.name, replace)

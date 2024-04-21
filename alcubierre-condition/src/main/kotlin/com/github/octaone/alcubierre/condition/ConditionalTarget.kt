@@ -4,9 +4,9 @@ import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
 import kotlin.reflect.KClass
 
-abstract class ConditionalTarget(
-    val conditionClass: Class<out NavCondition>
+public abstract class ConditionalTarget(
+    public val conditionClass: Class<out NavCondition>
 ) : ExtrasContainer by LazyExtrasContainer() {
 
-    constructor(conditionClass: KClass<out NavCondition>) : this(conditionClass.java)
+    public constructor(conditionClass: KClass<out NavCondition>) : this(conditionClass.java)
 }

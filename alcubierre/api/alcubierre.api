@@ -1,0 +1,213 @@
+public final class com/github/octaone/alcubierre/action/ActionsKt {
+	public static final fun applyState (Lcom/github/octaone/alcubierre/NavDrive;Lcom/github/octaone/alcubierre/state/RootNavState;)V
+	public static final fun back (Lcom/github/octaone/alcubierre/NavDrive;)V
+	public static final fun backTo (Lcom/github/octaone/alcubierre/NavDrive;Lcom/github/octaone/alcubierre/screen/Screen;Z)V
+	public static synthetic fun backTo$default (Lcom/github/octaone/alcubierre/NavDrive;Lcom/github/octaone/alcubierre/screen/Screen;ZILjava/lang/Object;)V
+	public static final fun backToRoot (Lcom/github/octaone/alcubierre/NavDrive;)V
+	public static final fun batch (Lcom/github/octaone/alcubierre/NavDrive;Lkotlin/jvm/functions/Function1;)V
+	public static final fun clearStack (Lcom/github/octaone/alcubierre/NavDrive;I)V
+	public static final fun dismissDialog (Lcom/github/octaone/alcubierre/NavDrive;)V
+	public static final fun forward (Lcom/github/octaone/alcubierre/NavDrive;[Lcom/github/octaone/alcubierre/screen/Screen;)V
+	public static final fun newStack (Lcom/github/octaone/alcubierre/NavDrive;I[Lcom/github/octaone/alcubierre/screen/Screen;)V
+	public static final fun replace (Lcom/github/octaone/alcubierre/NavDrive;[Lcom/github/octaone/alcubierre/screen/Screen;)V
+	public static final fun replaceRoot (Lcom/github/octaone/alcubierre/NavDrive;[Lcom/github/octaone/alcubierre/screen/Screen;)V
+	public static final fun selectStack (Lcom/github/octaone/alcubierre/NavDrive;I)V
+	public static final fun showDialog (Lcom/github/octaone/alcubierre/NavDrive;Lcom/github/octaone/alcubierre/screen/Dialog;)V
+}
+
+public final class com/github/octaone/alcubierre/action/ApplyState : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (Lcom/github/octaone/alcubierre/state/RootNavState;)V
+	public final fun component1 ()Lcom/github/octaone/alcubierre/state/RootNavState;
+	public final fun copy (Lcom/github/octaone/alcubierre/state/RootNavState;)Lcom/github/octaone/alcubierre/action/ApplyState;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/action/ApplyState;Lcom/github/octaone/alcubierre/state/RootNavState;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/action/ApplyState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getState ()Lcom/github/octaone/alcubierre/state/RootNavState;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/Back : com/github/octaone/alcubierre/action/NavAction {
+	public static final field INSTANCE Lcom/github/octaone/alcubierre/action/Back;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/BackTo : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (Lcom/github/octaone/alcubierre/screen/Screen;Z)V
+	public final fun component1 ()Lcom/github/octaone/alcubierre/screen/Screen;
+	public final fun component2 ()Z
+	public final fun copy (Lcom/github/octaone/alcubierre/screen/Screen;Z)Lcom/github/octaone/alcubierre/action/BackTo;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/action/BackTo;Lcom/github/octaone/alcubierre/screen/Screen;ZILjava/lang/Object;)Lcom/github/octaone/alcubierre/action/BackTo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getInclusive ()Z
+	public final fun getScreen ()Lcom/github/octaone/alcubierre/screen/Screen;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/BackToRoot : com/github/octaone/alcubierre/action/NavAction {
+	public static final field INSTANCE Lcom/github/octaone/alcubierre/action/BackToRoot;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/Batch : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/github/octaone/alcubierre/action/Batch;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/action/Batch;Ljava/util/List;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/action/Batch;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getActions ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/ClearStack : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lcom/github/octaone/alcubierre/action/ClearStack;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/action/ClearStack;IILjava/lang/Object;)Lcom/github/octaone/alcubierre/action/ClearStack;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getStackId ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/DismissDialog : com/github/octaone/alcubierre/action/NavAction {
+	public static final field INSTANCE Lcom/github/octaone/alcubierre/action/DismissDialog;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/FindScreenKt {
+	public static final fun findScreenByClass (Lcom/github/octaone/alcubierre/state/RootNavState;Lkotlin/reflect/KClass;)Lcom/github/octaone/alcubierre/screen/Screen;
+	public static final fun findScreenByTag (Lcom/github/octaone/alcubierre/state/RootNavState;Ljava/lang/String;)Lcom/github/octaone/alcubierre/screen/Screen;
+}
+
+public final class com/github/octaone/alcubierre/action/Forward : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/github/octaone/alcubierre/action/Forward;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/action/Forward;Ljava/util/List;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/action/Forward;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getScreens ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/NewStack : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (ILjava/util/List;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (ILjava/util/List;)Lcom/github/octaone/alcubierre/action/NewStack;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/action/NewStack;ILjava/util/List;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/action/NewStack;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getScreens ()Ljava/util/List;
+	public final fun getStackId ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/Replace : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/github/octaone/alcubierre/action/Replace;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/action/Replace;Ljava/util/List;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/action/Replace;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getScreens ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/ReplaceRoot : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/github/octaone/alcubierre/action/ReplaceRoot;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/action/ReplaceRoot;Ljava/util/List;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/action/ReplaceRoot;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getScreens ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/SelectStack : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lcom/github/octaone/alcubierre/action/SelectStack;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/action/SelectStack;IILjava/lang/Object;)Lcom/github/octaone/alcubierre/action/SelectStack;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getStackId ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/action/ShowDialog : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (Lcom/github/octaone/alcubierre/screen/Dialog;)V
+	public final fun component1 ()Lcom/github/octaone/alcubierre/screen/Dialog;
+	public final fun copy (Lcom/github/octaone/alcubierre/screen/Dialog;)Lcom/github/octaone/alcubierre/action/ShowDialog;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/action/ShowDialog;Lcom/github/octaone/alcubierre/screen/Dialog;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/action/ShowDialog;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDialog ()Lcom/github/octaone/alcubierre/screen/Dialog;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/owner/AlcubierreNavDriveOwner : com/github/octaone/alcubierre/NavDriveOwner {
+	public fun <init> ()V
+	public fun dispatch (Lcom/github/octaone/alcubierre/action/NavAction;)V
+	public fun getState ()Lcom/github/octaone/alcubierre/state/RootNavState;
+	public fun getStateFlow ()Lkotlinx/coroutines/flow/StateFlow;
+	public fun initialize (Lcom/github/octaone/alcubierre/reduce/NavReducer;Lcom/github/octaone/alcubierre/state/RootNavState;Ljava/util/Map;)V
+	public fun requestDismissDialog ()V
+	public fun restoreState (Landroid/os/Bundle;)V
+	public fun saveState (Landroid/os/Bundle;)V
+}
+
+public final class com/github/octaone/alcubierre/reduce/AlcubierreStackNavReducer : com/github/octaone/alcubierre/reduce/NavReducer {
+	public fun <init> ()V
+	public fun reduce (Lcom/github/octaone/alcubierre/state/StackNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/StackNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+}
+
+public final class com/github/octaone/alcubierre/reduce/BatchRootNavReducer : com/github/octaone/alcubierre/reduce/LinkedNavReducer {
+	public fun <init> ()V
+	public fun reduce (Lcom/github/octaone/alcubierre/state/RootNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+}
+
+public final class com/github/octaone/alcubierre/reduce/DialogNavReducer : com/github/octaone/alcubierre/reduce/NavReducer {
+	public fun <init> ()V
+	public fun reduce (Lcom/github/octaone/alcubierre/state/DialogNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/DialogNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+}
+
+public final class com/github/octaone/alcubierre/reduce/DialogRootNavReducer : com/github/octaone/alcubierre/reduce/LinkedNavReducer {
+	public fun <init> ()V
+	public fun <init> (Lcom/github/octaone/alcubierre/reduce/NavReducer;Z)V
+	public synthetic fun <init> (Lcom/github/octaone/alcubierre/reduce/NavReducer;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun reduce (Lcom/github/octaone/alcubierre/state/RootNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+}
+
+public final class com/github/octaone/alcubierre/reduce/ScreenRootNavReducer : com/github/octaone/alcubierre/reduce/LinkedNavReducer {
+	public fun <init> ()V
+	public fun <init> (Lcom/github/octaone/alcubierre/reduce/NavReducer;)V
+	public synthetic fun <init> (Lcom/github/octaone/alcubierre/reduce/NavReducer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun reduce (Lcom/github/octaone/alcubierre/state/RootNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+}
+
+public final class com/github/octaone/alcubierre/reduce/StackChangedListenerReducer : com/github/octaone/alcubierre/reduce/LinkedNavReducer {
+	public fun <init> (Lkotlin/jvm/functions/Function2;)V
+	public fun reduce (Lcom/github/octaone/alcubierre/state/RootNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+}
+
+public final class com/github/octaone/alcubierre/screen/TagKt {
+	public static final fun getTag (Lcom/github/octaone/alcubierre/screen/extra/ExtrasContainer;)Ljava/lang/String;
+	public static final fun setTag (Lcom/github/octaone/alcubierre/screen/extra/ExtrasContainer;Ljava/lang/String;)V
+}
+

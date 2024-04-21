@@ -4,7 +4,7 @@ import com.github.octaone.alcubierre.annotation.AlcubierreInternalApi
 import kotlin.reflect.KClass
 
 @AlcubierreInternalApi
-inline fun <reified V : Any> Map<KClass<*>, *>.getAndCast(): V? = get(V::class) as? V
+public inline fun <reified V : Any> Map<KClass<*>, *>.getAndCast(): V? = get(V::class) as? V
 
 internal fun <K, V> Map<K, V>.optimizeReadOnlyMap() = when (size) {
     0 -> emptyMap()

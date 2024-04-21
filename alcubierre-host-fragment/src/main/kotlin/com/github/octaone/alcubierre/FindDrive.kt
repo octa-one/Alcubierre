@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 
 /**
- * Extension for searching [Alcubierre] in fragments hierarchy
+ * Extension for searching [NavDrive] in fragments hierarchy.
  */
-fun Fragment.findNavDrive(): FragmentNavDrive {
+public fun Fragment.findNavDrive(): FragmentNavDrive {
     var findFragment: Fragment? = this
     while (findFragment != null) {
         val primaryNavFragment = findFragment.parentFragmentManager.primaryNavigationFragment
@@ -21,9 +21,9 @@ fun Fragment.findNavDrive(): FragmentNavDrive {
 }
 
 /**
- * Extension for searching [Alcubierre] in View hierarchy
+ * Extension for searching [NavDrive] in View hierarchy.
  */
-fun View.findNavDrive(): FragmentNavDrive {
+public fun View.findNavDrive(): FragmentNavDrive {
     val fragment = runCatching { findFragment<Fragment>() }
         .getOrElse { navDriveNotFoundError() }
 

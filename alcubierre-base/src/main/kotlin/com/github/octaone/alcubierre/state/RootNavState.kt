@@ -13,7 +13,7 @@ import kotlinx.parcelize.Parcelize
  * State of entire navigation of application (dialogs and every stack).
  */
 @Parcelize
-data class RootNavState<out S : Screen, out D : Dialog>(
+public data class RootNavState<out S : Screen, out D : Dialog>(
     val dialogState: DialogNavState<D>,
     val stackStates: Map<Int, StackNavState<S>>,
     val currentStackId: Int
@@ -25,9 +25,9 @@ data class RootNavState<out S : Screen, out D : Dialog>(
 
     val currentDialog: D? get() = dialogState.queue.firstOrNull()
 
-    companion object {
+    public companion object {
 
-        val EMPTY = RootNavState(
+        public val EMPTY: RootNavState<Nothing, Nothing> = RootNavState(
             dialogState = DialogNavState.EMPTY,
             stackStates = hashMapOf(-1 to StackNavState.EMPTY),
             currentStackId = -1

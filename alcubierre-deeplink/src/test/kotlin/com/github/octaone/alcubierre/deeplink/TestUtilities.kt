@@ -1,22 +1,15 @@
+package com.github.octaone.alcubierre.deeplink
 
-import com.github.octaone.alcubierre.deeplink.DeeplinkMatcher
-import com.github.octaone.alcubierre.deeplink.DeeplinkTreeRoot
-import com.github.octaone.alcubierre.deeplink.DeeplinkUri
-import com.github.octaone.alcubierre.deeplink.sortedByPlaceholders
 import org.junit.Assert
 import org.junit.Test
 
-fun matcher(
-    vararg links: String
-) = DeeplinkMatcher(links.map(DeeplinkUri::parse).sortedByPlaceholders())
+fun matcher(vararg links: String) =
+    DeeplinkMatcher(links.map(::parseDeeplinkForTest).sortedByPlaceholders())
 
-fun root(vararg uris: String) = DeeplinkTreeRoot(uris.map(DeeplinkUri::parse).sortedByPlaceholders())
+fun DeeplinkMatcher.match(string: String) = match(parseDeeplinkForTest(string))
 
-fun DeeplinkMatcher.match(string: String) = match(DeeplinkUri.parse(string))
-
-// в реальном коде диплинк будет парситься через android.net.Uri, который недоступен в unit тестах
-// поэтому тут написана собственная, урезанная, реализация
-fun DeeplinkUri.Companion.parse(value: String): DeeplinkUri {
+// Simple version of android.net.Uri::parse, because we can't use Android classes in tests.
+internal fun parseDeeplinkForTest(value: String): DeeplinkUri {
     val pattern = if (value.contains('?')) value else "$value?"
 
     val (scheme, hostPathQuery, queryString) = pattern.split("://", "?")
@@ -46,7 +39,7 @@ class DeeplinkUriParserTest {
                 "path/details",
                 mapOf("from" to "f", "to" to "t")
             ),
-            DeeplinkUri.parse(pattern)
+            parseDeeplinkForTest(pattern)
         )
     }
 }

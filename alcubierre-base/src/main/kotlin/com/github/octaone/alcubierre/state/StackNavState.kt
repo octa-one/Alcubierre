@@ -10,7 +10,7 @@ import kotlinx.parcelize.WriteWith
  * State of single stack
  */
 @Parcelize
-data class StackNavState<out S : Screen>(
+public data class StackNavState<out S : Screen>(
     val stack: List<@WriteWith<ScreenParceler> S>
 ): Parcelable {
 
@@ -34,7 +34,7 @@ data class StackNavState<out S : Screen>(
         return result
     }
 
-    companion object {
-        val EMPTY = StackNavState<Nothing>(emptyList())
+    public companion object {
+        public val EMPTY: StackNavState<Nothing> = StackNavState<Nothing>(emptyList())
     }
 }

@@ -8,7 +8,7 @@ import com.github.octaone.alcubierre.state.AnyDialogNavState
 import com.github.octaone.alcubierre.state.DialogNavState
 import com.github.octaone.alcubierre.util.optimizeReadOnlyList
 
-class DialogNavReducer : NavReducer<AnyDialogNavState> {
+public class DialogNavReducer : NavReducer<AnyDialogNavState> {
 
     override fun reduce(state: AnyDialogNavState, action: AnyNavAction): AnyDialogNavState = when (action) {
         is ShowDialog -> {

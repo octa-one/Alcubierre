@@ -1,0 +1,42 @@
+public abstract class com/github/octaone/alcubierre/condition/ConditionalTarget : com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
+	public fun <init> (Ljava/lang/Class;)V
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public final fun getConditionClass ()Ljava/lang/Class;
+	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
+	public fun hasExtras ()Z
+}
+
+public final class com/github/octaone/alcubierre/condition/DefaultNavConditionFactory : com/github/octaone/alcubierre/condition/NavConditionFactory {
+	public fun <init> ()V
+	public fun create (Ljava/lang/Class;)Lcom/github/octaone/alcubierre/condition/NavCondition;
+}
+
+public abstract interface class com/github/octaone/alcubierre/condition/NavCondition {
+	public abstract fun resolve (Lcom/github/octaone/alcubierre/condition/ConditionalTarget;Lcom/github/octaone/alcubierre/state/RootNavState;)Lcom/github/octaone/alcubierre/action/NavAction;
+}
+
+public abstract interface class com/github/octaone/alcubierre/condition/NavConditionFactory {
+	public abstract fun create (Ljava/lang/Class;)Lcom/github/octaone/alcubierre/condition/NavCondition;
+}
+
+public final class com/github/octaone/alcubierre/condition/action/ResolveCondition : com/github/octaone/alcubierre/action/NavAction {
+	public fun <init> (Lcom/github/octaone/alcubierre/condition/ConditionalTarget;)V
+	public final fun component1 ()Lcom/github/octaone/alcubierre/condition/ConditionalTarget;
+	public final fun copy (Lcom/github/octaone/alcubierre/condition/ConditionalTarget;)Lcom/github/octaone/alcubierre/condition/action/ResolveCondition;
+	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/condition/action/ResolveCondition;Lcom/github/octaone/alcubierre/condition/ConditionalTarget;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/condition/action/ResolveCondition;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getConditionalTarget ()Lcom/github/octaone/alcubierre/condition/ConditionalTarget;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/octaone/alcubierre/condition/action/ResolveConditionKt {
+	public static final fun resolveCondition (Lcom/github/octaone/alcubierre/NavDrive;Lcom/github/octaone/alcubierre/condition/ConditionalTarget;)V
+}
+
+public final class com/github/octaone/alcubierre/condition/reducer/ConditionReducer : com/github/octaone/alcubierre/reduce/LinkedNavReducer {
+	public fun <init> (Lcom/github/octaone/alcubierre/condition/NavConditionFactory;)V
+	public fun reduce (Lcom/github/octaone/alcubierre/state/RootNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+}
+

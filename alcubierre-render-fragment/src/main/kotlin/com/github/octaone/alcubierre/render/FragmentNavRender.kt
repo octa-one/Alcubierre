@@ -9,20 +9,20 @@ import android.os.Parcelable
  * Renders have their own state, because host state can not be rendered immediately.
  * For example, the states will be different when the application is in the background.
  */
-interface FragmentNavRender<T : Parcelable> {
+public interface FragmentNavRender<T : Parcelable> {
 
     /**
      * Render functions. Issuing commands to FragmentManager to represent [state].
      */
-    fun render(state: T)
+    public fun render(state: T)
 
     /**
      * Saving current render's state.
      */
-    fun saveState(outState: Bundle)
+    public fun saveState(outState: Bundle)
 
     /**
      * Restoring last render's state from "savedInstanceState" bundle.
      */
-    fun restoreState(savedState: Bundle?)
+    public fun restoreState(savedState: Bundle?)
 }

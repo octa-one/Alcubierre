@@ -11,12 +11,12 @@ import com.github.octaone.alcubierre.state.DialogNavState
 /**
  * Reducer responds for action with dialogs
  */
-class DialogRootNavReducer(
+public class DialogRootNavReducer(
     private val dialogReducer: NavReducer<AnyDialogNavState> = DialogNavReducer(),
     private val closeDialogsOnActions: Boolean = true
 ) : LinkedNavReducer<AnyRootNavState>() {
 
-    override fun reduce(state: AnyRootNavState, action: AnyNavAction) = when (action) {
+    override fun reduce(state: AnyRootNavState, action: AnyNavAction): AnyRootNavState = when (action) {
         is ShowDialog, DismissDialog -> {
             state.copy(dialogState = dialogReducer.reduce(state.dialogState, action))
         }

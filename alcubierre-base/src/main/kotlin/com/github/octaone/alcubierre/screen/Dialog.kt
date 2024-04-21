@@ -9,15 +9,15 @@ import java.util.UUID
 /**
  * Base dialog
  */
-abstract class Dialog : Parcelable, Comparable<Dialog>, ExtrasContainer {
+public abstract class Dialog : Parcelable, Comparable<Dialog>, ExtrasContainer {
 
     @get:IntRange(0, Long.MAX_VALUE)
-    abstract val priority: Int
+    public abstract val priority: Int
 
-    var isShowing: Boolean = false
+    public var isShowing: Boolean = false
         @AlcubierreInternalApi set
 
-    var dialogId: String = UUID.randomUUID().toString()
+    public var dialogId: String = UUID.randomUUID().toString()
         @AlcubierreInternalApi set
 
     override fun compareTo(other: Dialog): Int = priority.compareTo(other.priority)

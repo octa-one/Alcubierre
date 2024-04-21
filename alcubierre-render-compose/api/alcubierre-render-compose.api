@@ -1,0 +1,136 @@
+public final class com/github/octaone/alcubierre/LocalNavDriveProviderKt {
+	public static final fun getLocalNavDrive ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public final class com/github/octaone/alcubierre/lifecycle/DefaultDialogLifecycleManager : androidx/lifecycle/HasDefaultViewModelProviderFactory, androidx/lifecycle/LifecycleOwner, androidx/lifecycle/ViewModelStoreOwner, androidx/savedstate/SavedStateRegistryOwner, com/github/octaone/alcubierre/lifecycle/LifecycleManager {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;Landroid/os/Bundle;)V
+	public fun getDefaultViewModelCreationExtras ()Landroidx/lifecycle/viewmodel/CreationExtras;
+	public fun getDefaultViewModelProviderFactory ()Landroidx/lifecycle/ViewModelProvider$Factory;
+	public fun getKey ()Ljava/lang/String;
+	public fun getLifecycle ()Landroidx/lifecycle/Lifecycle;
+	public fun getProvidedValues ()[Landroidx/compose/runtime/ProvidedValue;
+	public fun getSavedStateRegistry ()Landroidx/savedstate/SavedStateRegistry;
+	public fun getViewModelStore ()Landroidx/lifecycle/ViewModelStore;
+	public fun initialize (Landroid/app/Application;Landroid/os/Bundle;)V
+	public fun onLaunched (Landroidx/lifecycle/Lifecycle$State;)V
+	public fun onParentLifecycleStateChanged (Landroidx/lifecycle/Lifecycle$State;)V
+	public fun onRemoved ()V
+}
+
+public final class com/github/octaone/alcubierre/lifecycle/DefaultScreenLifecycleManager : androidx/lifecycle/HasDefaultViewModelProviderFactory, androidx/lifecycle/ViewModelStoreOwner, androidx/savedstate/SavedStateRegistryOwner, com/github/octaone/alcubierre/lifecycle/ScreenLifecycleManager, com/github/octaone/alcubierre/lifecycle/ScreenLifecycleOwner {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;Landroid/os/Bundle;)V
+	public fun getDefaultViewModelCreationExtras ()Landroidx/lifecycle/viewmodel/CreationExtras;
+	public fun getDefaultViewModelProviderFactory ()Landroidx/lifecycle/ViewModelProvider$Factory;
+	public fun getKey ()Ljava/lang/String;
+	public fun getLifecycle ()Landroidx/lifecycle/Lifecycle;
+	public fun getProvidedValues ()[Landroidx/compose/runtime/ProvidedValue;
+	public fun getSavedStateRegistry ()Landroidx/savedstate/SavedStateRegistry;
+	public fun getViewModelStore ()Landroidx/lifecycle/ViewModelStore;
+	public fun initialize (Landroid/app/Application;Landroid/os/Bundle;)V
+	public fun isFinishing ()Z
+	public fun onEnterTransitionFinished ()V
+	public fun onExitTransitionFinished ()V
+	public fun onLaunched (Landroidx/lifecycle/Lifecycle$State;)V
+	public fun onParentLifecycleStateChanged (Landroidx/lifecycle/Lifecycle$State;)V
+	public fun onRemoved ()V
+	public fun onStacked ()V
+}
+
+public abstract interface class com/github/octaone/alcubierre/lifecycle/LifecycleManager {
+	public abstract fun getKey ()Ljava/lang/String;
+	public abstract fun getProvidedValues ()[Landroidx/compose/runtime/ProvidedValue;
+	public abstract fun initialize (Landroid/app/Application;Landroid/os/Bundle;)V
+	public abstract fun onLaunched (Landroidx/lifecycle/Lifecycle$State;)V
+	public abstract fun onParentLifecycleStateChanged (Landroidx/lifecycle/Lifecycle$State;)V
+	public abstract fun onRemoved ()V
+}
+
+public final class com/github/octaone/alcubierre/lifecycle/LocalScreenLifecycleOwner {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/github/octaone/alcubierre/lifecycle/LocalScreenLifecycleOwner;
+	public final fun getCurrent (Landroidx/compose/runtime/Composer;I)Lcom/github/octaone/alcubierre/lifecycle/ScreenLifecycleOwner;
+}
+
+public abstract interface class com/github/octaone/alcubierre/lifecycle/ScreenLifecycleManager : com/github/octaone/alcubierre/lifecycle/LifecycleManager {
+	public abstract fun onEnterTransitionFinished ()V
+	public abstract fun onExitTransitionFinished ()V
+	public abstract fun onStacked ()V
+}
+
+public abstract interface class com/github/octaone/alcubierre/lifecycle/ScreenLifecycleOwner : androidx/lifecycle/LifecycleOwner {
+	public abstract fun isFinishing ()Z
+}
+
+public final class com/github/octaone/alcubierre/render/AlcubierreRenderKt {
+	public static final fun AlcubierreAnimatedRender (Lcom/github/octaone/alcubierre/NavDriveOwner;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)V
+	public static final fun AlcubierreAnimatedRender (Lcom/github/octaone/alcubierre/NavDriveOwner;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)V
+	public static final fun AlcubierreCrossfadeRender (Lcom/github/octaone/alcubierre/NavDriveOwner;Landroidx/compose/animation/core/FiniteAnimationSpec;Landroidx/compose/runtime/Composer;II)V
+	public static final fun AlcubierreRender (Lcom/github/octaone/alcubierre/NavDriveOwner;Landroidx/compose/runtime/Composer;I)V
+}
+
+public final class com/github/octaone/alcubierre/render/NavDriveOwnerSaverKt {
+	public static final fun NavDriveOwnerSaver (Lcom/github/octaone/alcubierre/NavDriveOwner;Landroidx/compose/runtime/Composer;I)V
+}
+
+public final class com/github/octaone/alcubierre/render/ScreenTransitionScope {
+	public static final field $stable I
+	public fun <init> (Lcom/github/octaone/alcubierre/screen/ComposeScreen;Lcom/github/octaone/alcubierre/screen/ComposeScreen;)V
+	public final fun getInitialScreen ()Lcom/github/octaone/alcubierre/screen/ComposeScreen;
+	public final fun getTargetScreen ()Lcom/github/octaone/alcubierre/screen/ComposeScreen;
+}
+
+public abstract class com/github/octaone/alcubierre/screen/ComposeDialog : com/github/octaone/alcubierre/screen/Dialog, com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Class;)V
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public final fun getComposeContentClass ()Ljava/lang/Class;
+	public final fun getComposeContentName ()Ljava/lang/String;
+	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
+	public fun getLifecycleManager ()Lcom/github/octaone/alcubierre/lifecycle/LifecycleManager;
+	public fun getPriority ()I
+	public fun getSavedStateDefaultArguments ()Landroid/os/Bundle;
+	public fun hasExtras ()Z
+	public final fun hide (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class com/github/octaone/alcubierre/screen/ComposeDialogContent {
+	public abstract fun Content (Lcom/github/octaone/alcubierre/screen/ComposeDialog;Lcom/github/octaone/alcubierre/screen/HideRequest;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;I)V
+}
+
+public abstract class com/github/octaone/alcubierre/screen/ComposeScreen : com/github/octaone/alcubierre/screen/Screen, com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Class;)V
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public final fun getComposeContentClass ()Ljava/lang/Class;
+	public final fun getComposeContentName ()Ljava/lang/String;
+	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
+	public fun getLifecycleManager ()Lcom/github/octaone/alcubierre/lifecycle/ScreenLifecycleManager;
+	public fun getSavedStateDefaultArguments ()Landroid/os/Bundle;
+	public fun hasExtras ()Z
+}
+
+public abstract interface class com/github/octaone/alcubierre/screen/ComposeScreenContent {
+	public abstract fun Content (Lcom/github/octaone/alcubierre/screen/ComposeScreen;Landroidx/compose/runtime/Composer;I)V
+}
+
+public final class com/github/octaone/alcubierre/screen/HideRequest {
+	public static final field $stable I
+	public fun <init> ()V
+	public final fun getShouldBeHidden ()Landroidx/compose/runtime/State;
+	public final fun markHidden ()V
+}
+
+public final class com/github/octaone/alcubierre/screen/HideRequestedEffectKt {
+	public static final fun HideRequestedEffect (Lcom/github/octaone/alcubierre/screen/HideRequest;Lcom/github/octaone/alcubierre/screen/ImmutableSuspendFunction;Landroidx/compose/runtime/Composer;I)V
+}
+
+public abstract interface class com/github/octaone/alcubierre/screen/ImmutableSuspendFunction {
+	public abstract fun invoke (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+

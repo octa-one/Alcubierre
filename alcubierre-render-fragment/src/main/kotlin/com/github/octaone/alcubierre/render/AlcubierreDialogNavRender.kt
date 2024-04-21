@@ -20,7 +20,7 @@ import com.github.octaone.alcubierre.state.DialogNavState
  *
  * @property onDismiss - callback provides messages about dialogState dismiss by gesture avoiding reducers
  */
-class AlcubierreDialogNavRender(
+public class AlcubierreDialogNavRender(
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
     private val onDismiss: () -> Unit

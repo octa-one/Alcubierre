@@ -3,7 +3,7 @@ package com.github.octaone.alcubierre.reduce
 import com.github.octaone.alcubierre.action.AnyNavAction
 import com.github.octaone.alcubierre.state.AnyRootNavState
 
-class StackChangedListenerReducer(
+public class StackChangedListenerReducer(
     private val onStackChanged: (from: Int, to: Int) -> Unit
 ): LinkedNavReducer<AnyRootNavState>() {
 

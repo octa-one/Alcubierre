@@ -6,12 +6,16 @@ plugins {
 
 android {
     namespace = "com.github.octaone.alcubierre.deeplink"
+
+    defaultConfig {
+        consumerProguardFiles("proguard/rules.pro")
+    }
 }
 
 dependencies {
     implementation(projects.alcubierre)
-    implementation(projects.alcubierreCodegenApi)
-    api(projects.alcubierreCondition)
+    api(projects.alcubierreDeeplinkProcessorApi)
+    implementation(projects.alcubierreCondition)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)

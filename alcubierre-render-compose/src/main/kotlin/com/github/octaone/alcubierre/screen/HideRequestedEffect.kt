@@ -6,13 +6,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 
 @Immutable
-fun interface ImmutableSuspendFunction {
+public fun interface ImmutableSuspendFunction {
 
-    suspend operator fun invoke()
+    public suspend operator fun invoke()
 }
 
 @Composable
-fun HideRequestedEffect(
+public fun HideRequestedEffect(
     hideRequest: HideRequest,
     hideAction: ImmutableSuspendFunction
 ) {

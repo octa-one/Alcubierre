@@ -6,4 +6,15 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.vk.recompose.checker) apply false
+    alias(libs.plugins.binary.validator) apply false
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath(libs.gradle.colonist)
+    }
 }

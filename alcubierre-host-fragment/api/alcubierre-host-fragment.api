@@ -1,0 +1,20 @@
+public final class com/github/octaone/alcubierre/FindDriveKt {
+	public static final fun findNavDrive (Landroid/view/View;)Lcom/github/octaone/alcubierre/NavDrive;
+	public static final fun findNavDrive (Landroidx/fragment/app/Fragment;)Lcom/github/octaone/alcubierre/NavDrive;
+}
+
+public final class com/github/octaone/alcubierre/host/AlcubierreNavDriveFragment : androidx/fragment/app/Fragment, com/github/octaone/alcubierre/NavDriveOwner {
+	public fun <init> ()V
+	public fun dispatch (Lcom/github/octaone/alcubierre/action/NavAction;)V
+	public fun getState ()Lcom/github/octaone/alcubierre/state/RootNavState;
+	public fun getStateFlow ()Lkotlinx/coroutines/flow/StateFlow;
+	public fun initialize (Lcom/github/octaone/alcubierre/reduce/NavReducer;Lcom/github/octaone/alcubierre/state/RootNavState;Ljava/util/Map;)V
+	public fun onAttach (Landroid/content/Context;)V
+	public fun onCreate (Landroid/os/Bundle;)V
+	public fun onCreateView (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
+	public fun onSaveInstanceState (Landroid/os/Bundle;)V
+	public fun requestDismissDialog ()V
+	public fun restoreState (Landroid/os/Bundle;)V
+	public fun saveState (Landroid/os/Bundle;)V
+}
+

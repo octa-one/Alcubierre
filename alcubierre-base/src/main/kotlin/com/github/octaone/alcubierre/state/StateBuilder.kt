@@ -4,24 +4,24 @@ import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
 import kotlin.collections.set
 
-class StackStateBuilder<S : Screen>  {
+public class StackStateBuilder<S : Screen>  {
 
     private val screens = mutableListOf<S>()
 
-    fun screen(screen: S) {
+    public fun screen(screen: S) {
         screens.add(screen)
     }
 
-    fun build(): StackNavState<S> =
+    public fun build(): StackNavState<S> =
         StackNavState(screens.toList())
 }
 
-class RootStateBuilder<S : Screen, D : Dialog>  {
+public class RootStateBuilder<S : Screen, D : Dialog>  {
 
     private val stacks = HashMap<Int, StackNavState<S>>()
     private var stackId: Int? = null
 
-    inline fun stack(id: Int, builder: StackStateBuilder<S>.() -> Unit) {
+    public inline fun stack(id: Int, builder: StackStateBuilder<S>.() -> Unit) {
         stack(id, StackStateBuilder<S>().apply(builder).build())
     }
 
@@ -31,18 +31,18 @@ class RootStateBuilder<S : Screen, D : Dialog>  {
         stacks[id] = state
     }
 
-    fun selectStack(id: Int) {
+    public fun selectStack(id: Int) {
         stackId = id
     }
 
-    fun build(): RootNavState<S, D> =
+    public fun build(): RootNavState<S, D> =
         RootNavState(DialogNavState.EMPTY, stacks, checkNotNull(stackId))
 }
 
-inline fun <S : Screen, D : Dialog> rootState(builder: RootStateBuilder<S, D>.() -> Unit): RootNavState<S, D> =
+public inline fun <S : Screen, D : Dialog> rootState(builder: RootStateBuilder<S, D>.() -> Unit): RootNavState<S, D> =
     RootStateBuilder<S, D>().apply(builder).build()
 
-inline fun <S : Screen, D : Dialog> singleStackRootState(
+public inline fun <S : Screen, D : Dialog> singleStackRootState(
     stackId: Int = SINGLE_STACK_ID,
     builder: StackStateBuilder<S>.() -> Unit
 ): RootNavState<S, D> =
@@ -50,5 +50,4 @@ inline fun <S : Screen, D : Dialog> singleStackRootState(
         .apply { stack(stackId, builder) }
         .build()
 
-@PublishedApi
-internal const val SINGLE_STACK_ID = 100
+public const val SINGLE_STACK_ID: Int = 100

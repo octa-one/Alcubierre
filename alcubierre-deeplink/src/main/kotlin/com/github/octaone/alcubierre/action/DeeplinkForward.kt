@@ -5,7 +5,7 @@ import com.github.octaone.alcubierre.NavDrive
 import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
 
-class DeeplinkForward<S : Screen, D : Dialog>(val deeplink: Uri) : NavAction<S, D>
+public class DeeplinkForward<S : Screen, D : Dialog>(public val deeplink: Uri) : NavAction<S, D>
 
-fun <S : Screen, D : Dialog> NavDrive<S, D>.forward(deeplink: String) = forward(Uri.parse(deeplink))
-fun <S : Screen, D : Dialog> NavDrive<S, D>.forward(deeplink: Uri) = dispatch(DeeplinkForward(deeplink))
+public fun <S : Screen, D : Dialog> NavDrive<S, D>.forward(deeplink: String): Unit = forward(Uri.parse(deeplink))
+public fun <S : Screen, D : Dialog> NavDrive<S, D>.forward(deeplink: Uri): Unit = dispatch(DeeplinkForward(deeplink))

@@ -6,7 +6,7 @@ import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.saveable.SaveableStateHolder
 
 @Immutable
-class ImmutableSaveableStateHolder(
+internal class ImmutableSaveableStateHolder(
     private val holder: SaveableStateHolder
 ) : SaveableStateHolder {
 

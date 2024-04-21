@@ -6,7 +6,7 @@ import com.github.octaone.alcubierre.condition.action.ResolveCondition
 import com.github.octaone.alcubierre.reduce.LinkedNavReducer
 import com.github.octaone.alcubierre.state.AnyRootNavState
 
-class ConditionReducer(
+public class ConditionReducer(
     private val conditionFactory: NavConditionFactory
 ) : LinkedNavReducer<AnyRootNavState>() {
 

@@ -1,6 +1,6 @@
 package com.github.octaone.alcubierre.screen.extra
 
-class LazyExtrasContainer : ExtrasContainer {
+public class LazyExtrasContainer : ExtrasContainer {
 
     private val lazyExtras = lazy(LazyThreadSafetyMode.NONE) {
         BundleParcelableExtras()
