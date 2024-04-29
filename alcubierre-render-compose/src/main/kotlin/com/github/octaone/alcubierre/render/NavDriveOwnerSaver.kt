@@ -4,19 +4,24 @@ import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.NonRestartableComposable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.github.octaone.alcubierre.ComposeNavDriveOwner
+import com.github.octaone.alcubierre.NavDriveOwner
 
+/**
+ * Composable function that saves the state of [NavDriveOwner] with [rememberSaveable].
+ *
+ * It is not part of [AlcubierreRender] because you choose how to save its state.
+ * Saving can be done with this function, or `Activity::onSaveInstanceState`, or `SavedStateHandle`, etc.
+ */
 @Composable
 @NonRestartableComposable
 public fun NavDriveOwnerSaver(navDriveOwner: ComposeNavDriveOwner) {
     val ownerSavedState = rememberSaveable { Bundle() }
-    val lifecycleOwner by rememberUpdatedState(LocalLifecycleOwner.current)
+    val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
         navDriveOwner.restoreState(ownerSavedState)
 

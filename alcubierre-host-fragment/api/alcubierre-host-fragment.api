@@ -1,4 +1,4 @@
-public final class com/github/octaone/alcubierre/FindDriveKt {
+public final class com/github/octaone/alcubierre/FindNavDriveKt {
 	public static final fun findNavDrive (Landroid/view/View;)Lcom/github/octaone/alcubierre/NavDrive;
 	public static final fun findNavDrive (Landroidx/fragment/app/Fragment;)Lcom/github/octaone/alcubierre/NavDrive;
 }

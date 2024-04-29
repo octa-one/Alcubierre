@@ -13,10 +13,11 @@ import kotlin.reflect.KClass
 /**
  * Base interface of navigation entrypoint.
  *
- * Library consists of 3 base classes:
- *  - Reducer: maps [RootNavState] according to [NavAction]
- *  - Render: translate commands to android framework (e.g. FragmentManager) for showing specific [RootNavState]
- *  - NavDriveOwner: Base navigation class and Render for [RootNavState] which also stores screens state
+ * Library consists of 3 base components:
+ *  - [NavReducer]: transforms [RootNavState] according to [NavAction].
+ *  - Render: translate commands to android framework (e.g. FragmentManager) for rendering specific [RootNavState].
+ *    Does not have a base class, as implementation is highly dependent on the UI framework (e.g. Compose or FragmentManager).
+ *  - [NavDriveOwner]: class that stores the current state. It is an entry point for dispatching navigation commands.
  *
  * [state] - current navigation state
  * [dispatch] - method for [NavAction] application
@@ -32,8 +33,8 @@ public interface NavDrive<S : Screen, D : Dialog> {
      * Dispatch new navigation action.
      *
      * A few notes on the behavior of the default implementation:
-     * [dispatch] should be called on the main thread.
-     * [dispatch] can be called any time regardless of the application lifecycle.
+     * * [dispatch] should be called on the main thread.
+     * * [dispatch] can be called any time regardless of the application lifecycle.
      * This means that if actions are dispatched after onSavedInstanceState,
      * they will not be saved in case of process death. (similar to the behavior of commitAllowStateLoss).
      * This is usually not a problem if the navigation events come from the UI.

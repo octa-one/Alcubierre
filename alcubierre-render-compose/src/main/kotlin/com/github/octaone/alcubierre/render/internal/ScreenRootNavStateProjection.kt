@@ -3,6 +3,10 @@ package com.github.octaone.alcubierre.render.internal
 import androidx.compose.runtime.Immutable
 import com.github.octaone.alcubierre.state.ComposeRootNavState
 
+/**
+ * Compose runtime checks if a function can be skipped by comparing its arguments.
+ * This class will ignore any changes made to the dialog queue if the current screen remains unchanged.
+ */
 @Immutable
 internal class ScreenRootNavStateProjection(
     val state: ComposeRootNavState

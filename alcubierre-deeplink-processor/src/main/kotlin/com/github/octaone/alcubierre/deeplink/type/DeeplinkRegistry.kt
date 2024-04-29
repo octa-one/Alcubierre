@@ -17,8 +17,8 @@ import java.util.Locale
  * ```
  * public class DeeplinkRegistry {
  *     val screenConverters = mapOf(
- *          "scheme1://host" to FeatureScreen1Converter(),
- *          "scheme2://host" to FeatureScreen2Converter(),
+ *          "scheme://screen1" to FeatureScreen1Converter(),
+ *          "scheme://screen2" to FeatureScreen2Converter(),
  *     )
  * }
  * ```

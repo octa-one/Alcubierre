@@ -4,9 +4,11 @@ package com.github.octaone.alcubierre.render
 
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.github.octaone.alcubierre.NavDriveOwner
 import com.github.octaone.alcubierre.annotation.AlcubierreInternalApi
 import com.github.octaone.alcubierre.base.util.getParcelableCompat
 import com.github.octaone.alcubierre.screen.ARG_DIALOG
@@ -16,18 +18,22 @@ import com.github.octaone.alcubierre.screen.withDialogData
 import com.github.octaone.alcubierre.state.DialogNavState
 
 /**
- * Render for mapping DialogState to [FragmentManager] commands
+ * Render for [DialogNavState].
  *
- * @property onDismiss - callback provides messages about dialogState dismiss by gesture avoiding reducers
+ * @property classLoader [ClassLoader] for [FragmentFactory].
+ * @property fragmentManager [FragmentManager] for [FragmentFactory].
+ * @property onDismissRequest see [NavDriveOwner.requestDismissDialog]
  */
-public class AlcubierreDialogNavRender(
+internal class AlcubierreDialogNavRender(
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
-    private val onDismiss: () -> Unit
+    private val onDismissRequest: () -> Unit
 ) : FragmentNavRender<DialogNavState<FragmentDialog>> {
 
     private var currentDialogId: String? = null
 
+    // A lifecycle observer that reacts
+    // if a dialog has been dismissed by a user interaction that bypasses NavDrive.
     private val dialogObserver = object : DefaultLifecycleObserver {
 
         override fun onStop(owner: LifecycleOwner) {
@@ -36,7 +42,7 @@ public class AlcubierreDialogNavRender(
                 dialogFragment.setIsNotShowing()
                 dialogFragment.lifecycle.removeObserver(this)
                 currentDialogId = null
-                onDismiss()
+                onDismissRequest()
             }
         }
     }
@@ -46,7 +52,7 @@ public class AlcubierreDialogNavRender(
         val newDialogId = newDialog?.dialogId
         if (currentDialogId == newDialogId) return
 
-        // Need to dismiss old dialogState
+        // Need to dismiss the old Dialog.
         if (currentDialogId != null) {
             fragmentManager.findFragmentByTag(currentDialogId)
                 ?.let { it as DialogFragment }
@@ -56,7 +62,7 @@ public class AlcubierreDialogNavRender(
                     fragment.dismiss()
                 }
         }
-        // Show new dialog and subscribe for closing
+        // Show a new dialog and subscribe to its lifecycle.
         if (newDialog != null) {
             val fragment = createFragment(newDialog).withDialogData(newDialog)
             fragment.lifecycle.addObserver(dialogObserver)

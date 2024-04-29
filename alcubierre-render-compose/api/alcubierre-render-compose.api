@@ -94,7 +94,6 @@ public abstract class com/github/octaone/alcubierre/screen/ComposeDialog : com/g
 	public fun getPriority ()I
 	public fun getSavedStateDefaultArguments ()Landroid/os/Bundle;
 	public fun hasExtras ()Z
-	public final fun hide (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public abstract interface class com/github/octaone/alcubierre/screen/ComposeDialogContent {
@@ -121,16 +120,8 @@ public abstract interface class com/github/octaone/alcubierre/screen/ComposeScre
 
 public final class com/github/octaone/alcubierre/screen/HideRequest {
 	public static final field $stable I
-	public fun <init> ()V
-	public final fun getShouldBeHidden ()Landroidx/compose/runtime/State;
-	public final fun markHidden ()V
-}
-
-public final class com/github/octaone/alcubierre/screen/HideRequestedEffectKt {
-	public static final fun HideRequestedEffect (Lcom/github/octaone/alcubierre/screen/HideRequest;Lcom/github/octaone/alcubierre/screen/ImmutableSuspendFunction;Landroidx/compose/runtime/Composer;I)V
-}
-
-public abstract interface class com/github/octaone/alcubierre/screen/ImmutableSuspendFunction {
-	public abstract fun invoke (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun <init> (Ljava/lang/String;)V
+	public final fun HideEffect (Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)V
+	public final fun hide (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 

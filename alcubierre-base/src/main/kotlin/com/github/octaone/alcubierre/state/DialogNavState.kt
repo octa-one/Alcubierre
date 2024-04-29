@@ -7,7 +7,13 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 
 /**
- * State of dialogs
+ * State of a dialogs queue.
+ *
+ * @param queue Dialogs queue, if multiple dialog actions were called at the same time.
+ * The first dialog in the queue is the one the user sees.
+ * Default reducer fills the queue based on the priority field.
+ *
+ * [equals] only uses [Dialog.dialogId] to compare dialogs.
  */
 @Parcelize
 public data class DialogNavState<out D : Dialog>(

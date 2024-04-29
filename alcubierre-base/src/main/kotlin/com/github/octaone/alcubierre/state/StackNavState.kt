@@ -7,7 +7,12 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 
 /**
- * State of single stack
+ * State of a single stack.
+ *
+ * @param stack Screens stack. The last screen in the stack is the one the user sees.
+ * Default reducer fills the queue based on the priority field.
+ *
+ * [equals] only uses [Screen.screenId] to compare screens.
  */
 @Parcelize
 public data class StackNavState<out S : Screen>(
@@ -35,6 +40,6 @@ public data class StackNavState<out S : Screen>(
     }
 
     public companion object {
-        public val EMPTY: StackNavState<Nothing> = StackNavState<Nothing>(emptyList())
+        public val EMPTY: StackNavState<Nothing> = StackNavState(emptyList())
     }
 }

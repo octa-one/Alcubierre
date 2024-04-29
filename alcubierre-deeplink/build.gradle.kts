@@ -6,10 +6,6 @@ plugins {
 
 android {
     namespace = "com.github.octaone.alcubierre.deeplink"
-
-    defaultConfig {
-        consumerProguardFiles("proguard/rules.pro")
-    }
 }
 
 dependencies {

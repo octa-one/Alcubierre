@@ -27,6 +27,17 @@ import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 
+/**
+ * Default implementation of [DialogLifecycleManager].
+ * Implements same interfaces as fragments:
+ * [LifecycleOwner], [ViewModelStoreOwner], [SavedStateRegistryOwner], [HasDefaultViewModelProviderFactory].
+ * Also provides them to the corresponding composition locals.
+ *
+ * Notes on LifecycleOwner implementation:
+ * * Parent Lifecycle events are propagated to the local LifecycleOwner.
+ * * When a dialog enters a composition, ON_RESUME will be called immediately.
+ * * When a dialog exists a composition, ON_DESTROYED will be called immediately.
+ */
 public class DefaultDialogLifecycleManager(
     override val key: String,
     private val defaultArguments: Bundle?

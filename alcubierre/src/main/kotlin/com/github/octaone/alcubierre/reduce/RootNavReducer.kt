@@ -17,14 +17,26 @@ import com.github.octaone.alcubierre.annotation.AlcubierreInternalApi
 import com.github.octaone.alcubierre.base.util.getNotNull
 import com.github.octaone.alcubierre.state.AnyRootNavState
 import com.github.octaone.alcubierre.state.AnyStackNavState
+import com.github.octaone.alcubierre.state.RootNavState
 import com.github.octaone.alcubierre.state.StackNavState
 import com.github.octaone.alcubierre.util.optimizeReadOnlyMap
 
 /**
- * [NavReducer] responds for commands with stacks and retranslate remaining command to proper [stackReducer]
+ * [NavReducer] for screen specific actions. Responsible for [RootNavState].
+ * For actions associated with a particular stack, forwards them to [stackReducer],
+ * then updates [RootNavState] with the updated [StackNavState] from [stackReducer].
+ *
+ * [NewStack] action creates a new stack in [RootNavState.stackStates].
+ * [SelectStack] action changes value of [RootNavState.currentStackId].
+ * Make sure that [SelectStack.stackId] exists in [RootNavState].
+ * [ClearStack] action removes stack from [RootNavState].
+ * Make sure you do not remove current [RootNavState.currentStackId] stack.
+ * [ApplyState] action returns a completely new state from [ApplyState.state].
+ *
+ * @param stackReducer [NavReducer] that can reduce [StackNavState].
  */
 public class ScreenRootNavReducer(
-    private val stackReducer: NavReducer<AnyStackNavState> = AlcubierreStackNavReducer()
+    private val stackReducer: NavReducer<AnyStackNavState> = ScreenStackNavReducer()
 ) : LinkedNavReducer<AnyRootNavState>() {
 
     override fun reduce(state: AnyRootNavState, action: AnyNavAction): AnyRootNavState = when (action) {

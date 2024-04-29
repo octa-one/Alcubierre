@@ -11,9 +11,15 @@ import com.github.octaone.alcubierre.screen.withScreenData
 import com.github.octaone.alcubierre.state.StackNavState
 
 /**
- * Render for mappings of [StackNavState] to [FragmentManager]
+ * Render for [StackNavState].
+ * Calculates the difference between states of the same stack and translates it into FragmentManager calls.
+ *
+ * A few notes on the behavior of the default implementation:
+ * If a fragment screen was replaced in the middle of the backstack,
+ * all fragments above the modified screen will also be deleted and recreated.
+ * This is because in the FragmentManager you cannot replace a fragment somewhere in the backstack.
  */
-public class AlcubierreStackNavRender(
+internal class AlcubierreStackNavRender(
     private val containerId: Int,
     private val classLoader: ClassLoader,
     private val fragmentManager: FragmentManager,
@@ -47,7 +53,7 @@ public class AlcubierreStackNavRender(
     }
 
     /**
-     * Perform popBackStack [count] times.
+     * Pops backstack [count] times.
      */
     private fun pop(count: Int) {
         val entryName = currentStack[currentStack.size - count]
@@ -55,7 +61,7 @@ public class AlcubierreStackNavRender(
     }
 
     /**
-     * Perform replace or add operations for fragments in [screens].
+     * Performs replace or add transaction for each [screen][screens].
      */
     private fun push(screens: List<FragmentScreen>) {
         screens.forEach { screen ->
@@ -81,10 +87,10 @@ public class AlcubierreStackNavRender(
         }
 
     /**
-     * Мethod calculates diff of two stacks
-     * Comparison begins from the root
-     * When the first mismatch is detected the old stack [prev] is being popped to this mismatched screen including itself
-     * and new stack of [next] is being pushed
+     * Calculates diff of two stacks.
+     * Comparison begins from the root.
+     * When the first mismatch is detected the old stack [prev] is being popped
+     * to this mismatched screen including itself and new stack of [next] is being pushed.
      */
     private fun diff(prev: List<String>, next: List<FragmentScreen>): List<StackAction> = when {
         prev.isEmpty() && next.isEmpty() -> emptyList()

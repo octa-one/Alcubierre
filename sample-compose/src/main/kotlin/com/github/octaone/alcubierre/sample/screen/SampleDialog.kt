@@ -19,7 +19,6 @@ import com.github.octaone.alcubierre.sample.Counter
 import com.github.octaone.alcubierre.screen.ComposeDialog
 import com.github.octaone.alcubierre.screen.ComposeDialogContent
 import com.github.octaone.alcubierre.screen.HideRequest
-import com.github.octaone.alcubierre.screen.HideRequestedEffect
 import kotlinx.parcelize.Parcelize
 import kotlin.random.Random
 
@@ -33,7 +32,7 @@ data class SampleDialog(
     @Composable
     override fun SampleDialog.Content(hideRequest: HideRequest, onDismissRequest: () -> Unit) {
         val sheetState = rememberModalBottomSheetState()
-        HideRequestedEffect(hideRequest) { sheetState.hide() }
+        hideRequest.HideEffect { sheetState.hide() }
 
         ModalBottomSheet(
             sheetState = sheetState,

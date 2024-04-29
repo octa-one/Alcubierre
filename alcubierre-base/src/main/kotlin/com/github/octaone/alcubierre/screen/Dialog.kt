@@ -7,7 +7,14 @@ import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
 import java.util.UUID
 
 /**
- * Base dialog
+ * Abstraction for describing dialog destination for navigation.
+ *
+ * The main difference from [Screen] is that the [Dialog] is shown outside the stack on top of any content.
+ * And also there can only be one shown dialog at a time.
+ * The remaining added dialogs will be queued according to [priority].
+ *
+ * Priority handling depends on the implementation of the reducer.
+ * The default implementation assumes that the visible dialog has the highest priority.
  */
 public abstract class Dialog : Parcelable, Comparable<Dialog>, ExtrasContainer {
 

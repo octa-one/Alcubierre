@@ -8,7 +8,7 @@ import com.github.octaone.alcubierre.deeplink.util.isPlaceholder
 import java.net.URLDecoder
 
 /**
- * [DeeplinkMatcher], based on [Trie](https://en.wikipedia.org/wiki/Trie)
+ * [DeeplinkMatcher], based on [Trie](https://en.wikipedia.org/wiki/Trie).
  *
  * @author Alexander Perfilyev
  */
@@ -19,8 +19,7 @@ internal class TrieDeeplinkMatcher(uris: List<DeeplinkUri>) : DeeplinkMatcher {
     init {
         for (i in uris.indices) {
             val uri = uris[i]
-            val strings = uri.toList()
-            insert(uri, strings)
+            insert(uri, uri.toList())
         }
     }
 
@@ -33,7 +32,7 @@ internal class TrieDeeplinkMatcher(uris: List<DeeplinkUri>) : DeeplinkMatcher {
             val key = values[i]
             val children = current.children
             current = if (children.containsKey(key)) {
-                children.getValue(key)
+                children[key]!!
             } else {
                 val placeholder = current.childPlaceholder
                 if (placeholder != null) {
@@ -41,8 +40,8 @@ internal class TrieDeeplinkMatcher(uris: List<DeeplinkUri>) : DeeplinkMatcher {
                     if (placeholders == null) {
                         placeholders = mutableMapOf()
                     }
-                    placeholders[removeSurrounding] = URLDecoder.decode(key, "UTF-8")
-                    children.getValue(placeholder)
+                    placeholders[removeSurrounding] = URLDecoder.decode(key, Charsets.UTF_8)
+                    children[placeholder]!!
                 } else {
                     return null
                 }
@@ -60,7 +59,7 @@ internal class TrieDeeplinkMatcher(uris: List<DeeplinkUri>) : DeeplinkMatcher {
                 if (placeholders == null) {
                     placeholders = mutableMapOf()
                 }
-                placeholders[placeholder] = URLDecoder.decode(value, "UTF-8")
+                placeholders[placeholder] = URLDecoder.decode(value, Charsets.UTF_8)
             }
         }
         return DeeplinkMatch(uri.pattern, placeholders.orEmpty())
@@ -82,15 +81,12 @@ internal class TrieDeeplinkMatcher(uris: List<DeeplinkUri>) : DeeplinkMatcher {
         current.uri = uri
     }
 
-    private fun DeeplinkUri.toList(): List<String> {
-        return buildList(1 + 1 + pathSegments.size) {
+    private fun DeeplinkUri.toList(): List<String> =
+        buildList(1 + 1 + pathSegments.size) {
             add(scheme)
             add(host)
-            pathSegments.forEach {
-                add(it)
-            }
+            addAll(pathSegments)
         }
-    }
 
     private class TrieNode {
         var childPlaceholder: String? = null

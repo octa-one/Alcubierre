@@ -1,6 +1,5 @@
 package com.github.octaone.alcubierre.deeplink.type.converter
 
-import com.github.octaone.alcubierre.deeplink.processor.api.PARAM_FROM
 import com.github.octaone.alcubierre.deeplink.processor.ConstructorParameter
 import com.github.octaone.alcubierre.deeplink.processor.DeeplinkInformation
 import com.squareup.kotlinpoet.ClassName

@@ -27,6 +27,18 @@ import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 
+/**
+ * Default implementation of [ScreenLifecycleManager].
+ * Implements same interfaces as fragments:
+ * [LifecycleOwner], [ViewModelStoreOwner], [SavedStateRegistryOwner], [HasDefaultViewModelProviderFactory].
+ * Also provides them to the corresponding composition locals.
+ *
+ * Notes on LifecycleOwner implementation:
+ * * Parent Lifecycle events are propagated to the local LifecycleOwner.
+ * * When a screen enters a composition, ON_RESUME will only be called after [onEnterTransitionFinished].
+ * * When a screen is in the process of destroying, ON_DESTROYED will be called after [onExitTransitionFinished].
+ *   This means that the ViewModelStoreOwner will also only be cleared after [onExitTransitionFinished].
+ */
 public class DefaultScreenLifecycleManager(
     override val key: String,
     private val defaultArguments: Bundle?
@@ -38,8 +50,8 @@ public class DefaultScreenLifecycleManager(
 
     private var parentLifecycleState: State = State.INITIALIZED
 
-    override var isFinishing: Boolean = false; private set
-    private var isResuming: Boolean = false
+    private var flag = NONE
+    override val isFinishing: Boolean get() = flag == FINISHING
 
     private var application: Application? = null
     private var savedState: Bundle? = null
@@ -90,35 +102,40 @@ public class DefaultScreenLifecycleManager(
     }
 
     override fun onStacked() {
-        // The screen moved to the backstack.
-        isResuming = false
-        lifecycleRegistry.currentState = State.CREATED
+        if (flag != FINISHING) {
+            flag = NONE
+            lifecycleRegistry.currentState = State.CREATED
+        }
     }
 
     override fun onRemoved() {
         if (lifecycle.currentState == State.INITIALIZED) return // Nothing to do, the screen wasn't even created.
 
-        // Do not move to the DESTROYED state until the transition is completed.
-        isFinishing = true
-        lifecycleRegistry.currentState = State.CREATED
+        if (lifecycle.currentState == State.CREATED) { // Screen is not visible, destroy it immediately
+            flag = NONE
+            lifecycleRegistry.currentState = State.DESTROYED
+        } else { // Do not move to the DESTROYED state until the transition is completed.
+            flag = FINISHING
+            lifecycleRegistry.currentState = State.CREATED
+        }
     }
 
     override fun onLaunched(parentLifecycleState: State) {
-        isFinishing = false
-
         // Perform the restore just once and before we move up.
         if (lifecycle.currentState == State.INITIALIZED) {
             savedStateRegistryController.performAttach()
             enableSavedStateHandles()
             savedStateRegistryController.performRestore(savedState)
+            lifecycleRegistry.currentState = State.CREATED
         }
 
         this.parentLifecycleState = parentLifecycleState
         if (parentLifecycleState == State.RESUMED) {
             // Do not move to the RESUMED state until the transition is completed.
-            isResuming = true
+            flag = RESUMING
             lifecycleRegistry.currentState = State.STARTED
         } else {
+            flag = NONE
             lifecycleRegistry.currentState = parentLifecycleState
         }
     }
@@ -130,15 +147,23 @@ public class DefaultScreenLifecycleManager(
     }
 
     override fun onEnterTransitionFinished() {
-        if (!isResuming) return
-        // Trying to move to the RESUMED state, but not higher than the parent state.
-        lifecycleRegistry.currentState = minOf(State.RESUMED, parentLifecycleState)
+        if (flag == RESUMING) {
+            flag = NONE
+            // Trying to move to the RESUMED state, but not higher than the parent state.
+            lifecycleRegistry.currentState = minOf(State.RESUMED, parentLifecycleState)
+        }
     }
 
     override fun onExitTransitionFinished() {
-        if (!isFinishing) return
-        lifecycleRegistry.currentState = State.DESTROYED
-        application = null
-        savedState = null
+        if (flag == FINISHING) {
+            flag = NONE
+            lifecycleRegistry.currentState = State.DESTROYED
+            application = null
+            savedState = null
+        }
     }
 }
+
+private const val NONE = 0
+private const val RESUMING = 1
+private const val FINISHING = 2

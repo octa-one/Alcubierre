@@ -1,6 +1,5 @@
 package com.github.octaone.alcubierre.deeplink.type.converter
 
-import com.github.octaone.alcubierre.deeplink.processor.api.PARAM_FROM
 import com.github.octaone.alcubierre.deeplink.processor.DeeplinkInformation
 import com.github.octaone.alcubierre.deeplink.type.SCREEN_CONVERTER
 import com.squareup.kotlinpoet.ANY
@@ -41,26 +40,24 @@ public fun generateConverter(info: DeeplinkInformation): TypeSpec {
 
 private fun generateConverterBody(info: DeeplinkInformation): CodeBlock {
 
-    // If an object is annotated with an annotation, we simply return that object
+    // If an `object` is annotated, we simply return that object.
     if (info.targetIsObject) return CodeBlock.of("return %T", info.targetClass)
 
-    // to create an object, all fields of the constructor must be filled in (except those with default values)
-    // this means that all such parameters must be declared in placeholders
+    // To create an object, all fields of the constructor must be filled in (except those with default values).
+    // This means that all such parameters must be declared in placeholders.
     for (param in info.constructorParams) {
         if (!param.hasDefault) {
             requireNotNull(param.placeholder) {
-                "Параметр ${param.name} не объявлен в плейсхолдерах из ${info.patterns}.\n" +
-                        "Укажите все обязательные поля конструктора класса в списке плейсхолдеров"
+                "${param.name} is unknown. Placeholders: ${info.patterns}.\n" +
+                        "Specify all required arguments of the class constructor in the placeholder list."
             }
         }
     }
 
     val paramWithPlaceholders = info.constructorParams.filter { it.placeholder != null }
 
-    // если заполняемый из диплинка параметр конструктора имеет дефолтное значение
-    // то это значение можно потерять, если в диплинке будут отсутствовать данные - нужно создавать объект через reflection,
-    // чаще всего это необходимо при работе с опциональными query параметрами
-    // в противном случае, достаточно вызова простого конструктора
+    // Reflection is used to call the constructor with default values.
+    // You can learn more by reading about DefaultConstructorMarker.
     return if (paramWithPlaceholders.any { it.hasDefault }) {
         generateReflectionConverter(info)
     } else {
@@ -79,3 +76,5 @@ private fun generateConverterBody(info: DeeplinkInformation): CodeBlock {
         }
     }
 }
+
+internal const val PARAM_FROM = "_from"

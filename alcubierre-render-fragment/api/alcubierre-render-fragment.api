@@ -1,24 +1,15 @@
-public final class com/github/octaone/alcubierre/render/AlcubierreDialogNavRender : com/github/octaone/alcubierre/render/FragmentNavRender {
-	public fun <init> (Ljava/lang/ClassLoader;Landroidx/fragment/app/FragmentManager;Lkotlin/jvm/functions/Function0;)V
-	public synthetic fun render (Landroid/os/Parcelable;)V
-	public fun render (Lcom/github/octaone/alcubierre/state/DialogNavState;)V
-	public fun restoreState (Landroid/os/Bundle;)V
-	public fun saveState (Landroid/os/Bundle;)V
-}
-
-public final class com/github/octaone/alcubierre/render/AlcubierreRootNavRender : com/github/octaone/alcubierre/render/FragmentNavRender {
+public class com/github/octaone/alcubierre/render/AlcubierreRootNavRender : com/github/octaone/alcubierre/render/FragmentNavRender {
 	public fun <init> (ILjava/lang/ClassLoader;Landroidx/fragment/app/FragmentManager;Lcom/github/octaone/alcubierre/NavDriveOwner;Lcom/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier;)V
 	public synthetic fun <init> (ILjava/lang/ClassLoader;Landroidx/fragment/app/FragmentManager;Lcom/github/octaone/alcubierre/NavDriveOwner;Lcom/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun createDialogRender ()Lcom/github/octaone/alcubierre/render/FragmentNavRender;
+	public fun createStackRender ()Lcom/github/octaone/alcubierre/render/FragmentNavRender;
+	protected final fun getClassLoader ()Ljava/lang/ClassLoader;
+	protected final fun getContainerId ()I
+	protected final fun getFragmentManager ()Landroidx/fragment/app/FragmentManager;
+	protected final fun getNavDriveOwner ()Lcom/github/octaone/alcubierre/NavDriveOwner;
+	protected final fun getTransactionModifier ()Lcom/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier;
 	public synthetic fun render (Landroid/os/Parcelable;)V
 	public fun render (Lcom/github/octaone/alcubierre/state/RootNavState;)V
-	public fun restoreState (Landroid/os/Bundle;)V
-	public fun saveState (Landroid/os/Bundle;)V
-}
-
-public final class com/github/octaone/alcubierre/render/AlcubierreStackNavRender : com/github/octaone/alcubierre/render/FragmentNavRender {
-	public fun <init> (ILjava/lang/ClassLoader;Landroidx/fragment/app/FragmentManager;Lcom/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier;)V
-	public synthetic fun render (Landroid/os/Parcelable;)V
-	public fun render (Lcom/github/octaone/alcubierre/state/StackNavState;)V
 	public fun restoreState (Landroid/os/Bundle;)V
 	public fun saveState (Landroid/os/Bundle;)V
 }

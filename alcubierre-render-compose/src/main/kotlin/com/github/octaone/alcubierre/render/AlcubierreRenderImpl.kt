@@ -22,16 +22,50 @@ import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.node.Ref
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.Lifecycle
 import com.github.octaone.alcubierre.ComposeNavDriveOwner
+import com.github.octaone.alcubierre.LocalNavDrive
 import com.github.octaone.alcubierre.lifecycle.LifecycleHandler
+import com.github.octaone.alcubierre.lifecycle.ScreenLifecycleOwner
 import com.github.octaone.alcubierre.render.internal.DialogRootNavStateProjection
 import com.github.octaone.alcubierre.render.internal.ImmutableSaveableStateHolder
 import com.github.octaone.alcubierre.render.internal.ScreenRootNavStateProjection
 import com.github.octaone.alcubierre.screen.ComposeScreen
 import com.github.octaone.alcubierre.screen.Content
+import com.github.octaone.alcubierre.screen.HideRequest
+import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.screen.getContent
 import com.github.octaone.alcubierre.state.ComposeRootNavState
 
+@Composable
+@NonRestartableComposable
+internal fun AlcubierreRenderImplWithProvider(
+    navDriveOwner: ComposeNavDriveOwner,
+    animationType: Int,
+    addTransition: (ScreenTransitionScope.() -> ContentTransform)?,
+    removeTransition: (ScreenTransitionScope.() -> ContentTransform)?,
+    animationSpec: FiniteAnimationSpec<Float>?
+) {
+    CompositionLocalProvider(LocalNavDrive provides navDriveOwner) {
+        AlcubierreRenderImpl(navDriveOwner, animationType, addTransition, removeTransition, animationSpec)
+    }
+}
+
+/**
+ * A few notes on the behavior of the default implementation:
+ * * State is produced from [navDriveOwner] StateFlow.
+ * * Before the new state is rendered, the old state is disposed.
+ *   The dialog closes with a hiding animation if [HideRequest.HideEffect] is registered.
+ *   All screens are closed starting from the first mismatch from the root.
+ *   This is the same behavior as in fragment rendering.
+ * * The lifecycle of screen and dialog is aware of the transition state.
+ * * In the default implementation, this means that [Lifecycle.Event.ON_RESUME]
+ *   will only be called after the transition is complete. The same is true for the removed screen,
+ *   [Lifecycle.Event.ON_DESTROY] will be called after the transition is complete.
+ * * Note that [Lifecycle.Event.ON_DESTROY] cannot be observed by an observer
+ *   inside [DisposableEffect] because Composition will be disposed earlier.
+ *   But you can check [ScreenLifecycleOwner.isFinishing], it will be true if [Screen] is in the process of being destroyed.
+ */
 @Composable
 @Suppress("NonSkippableComposable")
 internal fun AlcubierreRenderImpl(
@@ -176,7 +210,7 @@ private fun AnimationEffects(transition: Transition<ComposeRootNavState>) {
             previousScreenRef.value = transition.currentState.currentScreen
         }
     }
-    // When you leave the screen, the current transition is completed.
+    // When you leave the screen, current transition will be marked completed.
     DisposableEffect(Unit) {
         onDispose {
             previousScreenRef.value?.lifecycleManager?.onExitTransitionFinished()
@@ -249,7 +283,7 @@ private suspend fun disposeDialog(
     val currentDialog = current.currentDialog
     if (previousDialog.dialogId == currentDialog?.dialogId) return
 
-    previousDialog.hide()
+    previousDialog.hideRequest.hide()
     previousDialog.lifecycleManager.onRemoved()
     stateHolder.removeState(previousDialog.dialogId)
 }
@@ -260,12 +294,6 @@ private fun disposeUnusedScreens(
     stateHolder: SaveableStateHolder
 ) {
     if (previous == null) return
-
-    val previousScreen = previous.currentScreen
-    if (previousScreen != null && previousScreen.screenId != current.currentScreen?.screenId) {
-        // Actually the screen can be removed (not stacked), in that case onRemoved will be called next after onStacked.
-        previousScreen.lifecycleManager.onStacked()
-    }
 
     previous.stackStates.forEach { (id, previousStackState) ->
         val currentStackState = current.stackStates[id]
@@ -287,6 +315,12 @@ private fun disposeUnusedScreens(
             val screen = previousStackState.stack[i]
             screen.lifecycleManager.onRemoved()
             stateHolder.removeState(screen.screenId)
+        }
+    }
+
+    previous.currentScreen?.let { previousScreen ->
+        if (previousScreen.screenId != current.currentScreen?.screenId) {
+            previousScreen.lifecycleManager.onStacked()
         }
     }
 }

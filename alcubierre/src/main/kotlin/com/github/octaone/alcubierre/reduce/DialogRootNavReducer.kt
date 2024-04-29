@@ -7,9 +7,18 @@ import com.github.octaone.alcubierre.action.ShowDialog
 import com.github.octaone.alcubierre.state.AnyDialogNavState
 import com.github.octaone.alcubierre.state.AnyRootNavState
 import com.github.octaone.alcubierre.state.DialogNavState
+import com.github.octaone.alcubierre.state.RootNavState
 
 /**
- * Reducer responds for action with dialogs
+ * [NavReducer] for dialog specific actions. Responsible for [RootNavState].
+ * Forwards actions to [dialogReducer] and updates [RootNavState]
+ * with the updated [DialogNavState] from [dialogReducer].
+ *
+ * [Back] action closes the current dialog, the same as [DismissDialog].
+ *
+ * @param dialogReducer [NavReducer] that can reduce [DialogNavState].
+ * @param closeDialogsOnActions Whether dialogs should be closed on navigation actions.
+ * If false, it will be possible to update screens under dialogs.
  */
 public class DialogRootNavReducer(
     private val dialogReducer: NavReducer<AnyDialogNavState> = DialogNavReducer(),
@@ -20,7 +29,7 @@ public class DialogRootNavReducer(
         is ShowDialog, DismissDialog -> {
             state.copy(dialogState = dialogReducer.reduce(state.dialogState, action))
         }
-        is Back -> { // Back сначала закрывает диалог, если он отображается.
+        is Back -> { // Back first closes the dialog if it is displayed.
             if (state.dialogState.queue.isEmpty()) {
                 next.reduce(state, action)
             } else {
@@ -28,10 +37,10 @@ public class DialogRootNavReducer(
             }
         }
         else -> {
-            // Остальные действия обрабатываются дальнейшей цепочкой редьюсеров, но диалог закрывается.
-            if (closeDialogsOnActions || state.dialogState.queue.isEmpty()) {
+            if (!closeDialogsOnActions || state.dialogState.queue.isEmpty()) {
                 next.reduce(state, action)
             } else {
+                // The remaining actions are processed by reducers chain, but the dialog will be closed.
                 next.reduce(state.copy(dialogState = DialogNavState.EMPTY), action)
             }
         }
