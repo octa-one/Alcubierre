@@ -7,6 +7,10 @@ import androidx.fragment.app.FragmentTransaction
 import com.github.octaone.alcubierre.fragment.R
 import com.github.octaone.alcubierre.screen.FragmentScreen
 
+/**
+ * Adds custom animations to a transaction.
+ * Default constructor uses animations similar to the default animations from Jetpack Navigation.
+ */
 public class AnimationModifier(
     @AnimatorRes @AnimRes private val enter: Int,
     @AnimatorRes @AnimRes private val exit: Int,

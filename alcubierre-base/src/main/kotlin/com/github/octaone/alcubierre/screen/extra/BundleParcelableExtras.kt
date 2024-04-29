@@ -9,6 +9,9 @@ import com.github.octaone.alcubierre.base.util.getParcelableCompat
 import com.github.octaone.alcubierre.base.util.getSerializableCompat
 import java.io.Serializable
 
+/**
+ * A [ParcelableExtras] implementation based on [Bundle].
+ */
 internal class BundleParcelableExtras : ParcelableExtras {
 
     private val bundle = Bundle()

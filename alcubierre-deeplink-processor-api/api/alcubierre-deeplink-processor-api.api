@@ -22,7 +22,3 @@ public abstract interface class com/github/octaone/alcubierre/deeplink/processor
 	public abstract fun convert (Ljava/util/Map;)Ljava/lang/Object;
 }
 
-public final class com/github/octaone/alcubierre/deeplink/processor/api/ScreenConverterKt {
-	public static final field PARAM_FROM Ljava/lang/String;
-}
-

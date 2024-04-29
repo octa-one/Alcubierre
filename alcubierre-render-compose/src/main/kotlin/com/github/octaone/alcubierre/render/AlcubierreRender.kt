@@ -1,19 +1,29 @@
 package com.github.octaone.alcubierre.render
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import com.github.octaone.alcubierre.ComposeNavDriveOwner
+import com.github.octaone.alcubierre.state.ComposeRootNavState
+import com.github.octaone.alcubierre.state.RootNavState
 
+/**
+ * Render for [ComposeRootNavState].
+ * This implementation does not use animated transitions, screens switch instantly.
+ *
+ * @see AlcubierreRenderImpl
+ */
 @Composable
 @NonRestartableComposable
 public fun AlcubierreRender(
     navDriveOwner: ComposeNavDriveOwner
 ) {
-    AlcubierreRenderImpl(
+    AlcubierreRenderImplWithProvider(
         navDriveOwner = navDriveOwner,
         animationType = NO_ANIMATION,
         addTransition = null,
@@ -22,13 +32,21 @@ public fun AlcubierreRender(
     )
 }
 
+/**
+ * Render for [ComposeRootNavState].
+ * This implementation does use animated transitions.
+ * Only one [transition] is required, which is used for any screen change.
+ * To specify different transitions for add and remove actions, use an overload with two transitions.
+ *
+ * @see AlcubierreRenderImpl
+ */
 @Composable
 @NonRestartableComposable
 public fun AlcubierreAnimatedRender(
     navDriveOwner: ComposeNavDriveOwner,
     transition: ScreenTransitionScope.() -> ContentTransform
 ) {
-    AlcubierreRenderImpl(
+    AlcubierreRenderImplWithProvider(
         navDriveOwner = navDriveOwner,
         animationType = GENERIC_ANIMATION_SAME_ENTER_EXIT,
         addTransition = transition,
@@ -37,6 +55,14 @@ public fun AlcubierreAnimatedRender(
     )
 }
 
+/**
+ * Render for [ComposeRootNavState].
+ * This implementation does use animated transitions.
+ * [addTransition] is used when the screen is added to [RootNavState].
+ * [removeTransition] is used when the screen is removed from [RootNavState].
+ *
+ * @see AlcubierreRenderImpl
+ */
 @Composable
 @NonRestartableComposable
 public fun AlcubierreAnimatedRender(
@@ -44,7 +70,7 @@ public fun AlcubierreAnimatedRender(
     addTransition: ScreenTransitionScope.() -> ContentTransform,
     removeTransition: ScreenTransitionScope.() -> ContentTransform
 ) {
-    AlcubierreRenderImpl(
+    AlcubierreRenderImplWithProvider(
         navDriveOwner = navDriveOwner,
         animationType = GENERIC_ANIMATION,
         addTransition = addTransition,
@@ -53,6 +79,14 @@ public fun AlcubierreAnimatedRender(
     )
 }
 
+/**
+ * Render for [ComposeRootNavState].
+ * This implementation does use crossfaded transitions.
+ * It is based on the [Crossfade] transition.
+ * Its implementation is simpler compared to the generic [AnimatedContent] used in [AlcubierreAnimatedRender].
+ *
+ * @see AlcubierreRenderImpl
+ */
 @ExperimentalAnimationApi
 @Composable
 @NonRestartableComposable
@@ -60,7 +94,7 @@ public fun AlcubierreCrossfadeRender(
     navDriveOwner: ComposeNavDriveOwner,
     animationSpec: FiniteAnimationSpec<Float> = tween()
 ) {
-    AlcubierreRenderImpl(
+    AlcubierreRenderImplWithProvider(
         navDriveOwner = navDriveOwner,
         animationType = CROSSFADE,
         addTransition = null,

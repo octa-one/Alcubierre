@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
 import com.github.octaone.alcubierre.FragmentNavDriveOwner
+import com.github.octaone.alcubierre.NavDriveOwner
 import com.github.octaone.alcubierre.action.NavAction
 import com.github.octaone.alcubierre.action.back
 import com.github.octaone.alcubierre.annotation.AlcubierreInternalApi
@@ -20,6 +21,7 @@ import com.github.octaone.alcubierre.owner.AlcubierreNavDriveOwner
 import com.github.octaone.alcubierre.reduce.NavReducer
 import com.github.octaone.alcubierre.render.AlcubierreRootNavRender
 import com.github.octaone.alcubierre.render.modifier.EmptyModifier
+import com.github.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import com.github.octaone.alcubierre.render.renderFrom
 import com.github.octaone.alcubierre.screen.FragmentDialog
 import com.github.octaone.alcubierre.screen.FragmentScreen
@@ -29,6 +31,20 @@ import com.github.octaone.alcubierre.util.getAndCast
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.reflect.KClass
 
+/**
+ * [NavDriveOwner] implementation base on [Fragment].
+ * Contains all the logic for working with states, so you don't need to save/restore states manually.
+ * Intended for use in [FragmentContainerView]:
+ * ```
+ * <androidx.fragment.app.FragmentContainerView
+ *     android:layout_width="match_parent"
+ *     android:layout_height="match_parent"
+ *     android:id="@+id/nav_host_fragment"
+ *     android:name="com.github.octaone.alcubierre.host.AlcubierreNavDriveFragment" />
+ * ```
+ *
+ * Can be configured with a [FragmentTransactionModifier] passed to extras at [initialization][initialize].
+ */
 public class AlcubierreNavDriveFragment : Fragment(), FragmentNavDriveOwner {
 
     private val delegate = AlcubierreNavDriveOwner<FragmentScreen, FragmentDialog>()
@@ -42,6 +58,12 @@ public class AlcubierreNavDriveFragment : Fragment(), FragmentNavDriveOwner {
 
     override val state: FragmentRootNavState get() = delegate.state
 
+    /**
+     * NavDriveOwner initialization. Should be called before any [dispatch] methods.
+     * Should not be called before onCreate.
+     *
+     * @see NavDriveOwner.initialize
+     */
     override fun initialize(
         reducer: NavReducer<AnyRootNavState>,
         initialState: FragmentRootNavState,
@@ -88,11 +110,11 @@ public class AlcubierreNavDriveFragment : Fragment(), FragmentNavDriveOwner {
     }
 
     override fun saveState(outState: Bundle) {
-        throw UnsupportedOperationException()
+        throw UnsupportedOperationException("AlcubierreNavDriveFragment manages its own state.")
     }
 
     override fun restoreState(savedState: Bundle?) {
-        throw UnsupportedOperationException()
+        throw UnsupportedOperationException("AlcubierreNavDriveFragment manages its own state.")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

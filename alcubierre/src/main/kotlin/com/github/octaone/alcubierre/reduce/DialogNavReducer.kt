@@ -8,6 +8,15 @@ import com.github.octaone.alcubierre.state.AnyDialogNavState
 import com.github.octaone.alcubierre.state.DialogNavState
 import com.github.octaone.alcubierre.util.optimizeReadOnlyList
 
+/**
+ * [NavReducer] for dialog specific actions. Responsible for [DialogNavState].
+ *
+ * [ShowDialog] action inserts a new dialog into the queue based on [Dialog.priority],
+ * but the current visible dialog will not be closed even if it has a lower priority than the new one.
+ * Visible dialog has the highest priority value.
+ *
+ * [DismissDialog] action simply removes current (first) dialog from the queue.
+ */
 public class DialogNavReducer : NavReducer<AnyDialogNavState> {
 
     override fun reduce(state: AnyDialogNavState, action: AnyNavAction): AnyDialogNavState = when (action) {

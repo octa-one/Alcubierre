@@ -166,12 +166,6 @@ public final class com/github/octaone/alcubierre/owner/AlcubierreNavDriveOwner :
 	public fun saveState (Landroid/os/Bundle;)V
 }
 
-public final class com/github/octaone/alcubierre/reduce/AlcubierreStackNavReducer : com/github/octaone/alcubierre/reduce/NavReducer {
-	public fun <init> ()V
-	public fun reduce (Lcom/github/octaone/alcubierre/state/StackNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/StackNavState;
-	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
-}
-
 public final class com/github/octaone/alcubierre/reduce/BatchRootNavReducer : com/github/octaone/alcubierre/reduce/LinkedNavReducer {
 	public fun <init> ()V
 	public fun reduce (Lcom/github/octaone/alcubierre/state/RootNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/RootNavState;
@@ -197,6 +191,12 @@ public final class com/github/octaone/alcubierre/reduce/ScreenRootNavReducer : c
 	public fun <init> (Lcom/github/octaone/alcubierre/reduce/NavReducer;)V
 	public synthetic fun <init> (Lcom/github/octaone/alcubierre/reduce/NavReducer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun reduce (Lcom/github/octaone/alcubierre/state/RootNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+}
+
+public final class com/github/octaone/alcubierre/reduce/ScreenStackNavReducer : com/github/octaone/alcubierre/reduce/NavReducer {
+	public fun <init> ()V
+	public fun reduce (Lcom/github/octaone/alcubierre/state/StackNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/StackNavState;
 	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
 }
 

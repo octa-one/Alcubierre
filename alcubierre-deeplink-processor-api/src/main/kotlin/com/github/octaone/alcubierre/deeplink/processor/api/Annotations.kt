@@ -1,10 +1,11 @@
 package com.github.octaone.alcubierre.deeplink.processor.api
 
 /**
- * Аннотация, позволяющая указать набор диплинков, по которым можно открыть экран приложения.
+ * An annotation that allows you to specify a set of deeplinks that can be used to open the screen.
+ * Only works with applied KSP processor!
  * ```
  * @Deeplink("myapp://feature/{id}")
- * @Deeplink("https://myapp.ru/app/feature/{id}")
+ * @Deeplink("https://my.app/feature/{id}")
  * data class FeatureScreen(val id: String)
  * ```
  */
@@ -13,8 +14,7 @@ package com.github.octaone.alcubierre.deeplink.processor.api
 public annotation class Deeplink(val pattern: String)
 
 /**
- * Аннотация, позволяющая задать полю класса кастомное название, содержащееся в плейсхолдере диплинка
- * пример использования
+ * An annotation that allows you to give a class field a custom name contained in deeplink placeholders.
  * ```
  * @Deeplink("myapp://feature/{ID}")
  * data class FeatureScreen(@DeeplinkParam(name = "ID") val id: String)

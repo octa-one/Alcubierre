@@ -5,6 +5,9 @@ import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
 import com.github.octaone.alcubierre.state.RootNavState
 
+/**
+ * Utility class for recording multiple [NavAction]s and dispatching them simultaneously.
+ */
 internal class NavDriveBatchRecorder<S : Screen, D : Dialog> (
     initialState: RootNavState<S, D>
 ) : NavDrive<S, D> {

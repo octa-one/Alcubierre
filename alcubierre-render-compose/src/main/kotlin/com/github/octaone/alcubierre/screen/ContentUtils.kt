@@ -38,13 +38,7 @@ internal inline fun <D : ComposeDialog> ComposeDialogContent<D>.Content(
     dialog: ComposeDialog,
     noinline onDismissRequest: () -> Unit
 ) {
-    (dialog as D).Content(
-        hideRequest = dialog.hideRequest,
-        onDismissRequest = {
-            dialog.hideRequest.markHidden()
-            onDismissRequest()
-        }
-    )
+    (dialog as D).Content(dialog.hideRequest, onDismissRequest)
 }
 
 @Suppress("UNCHECKED_CAST", "NOTHING_TO_INLINE")

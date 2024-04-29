@@ -3,18 +3,38 @@ package com.github.octaone.alcubierre.deeplink
 import com.github.octaone.alcubierre.deeplink.internal.TrieDeeplinkMatcher
 
 /**
- * Entity enclosing the mapping of a deeplink to a given pattern.
+ * Default [DeeplinkMatcher] implementation.
+ * @param deeplinkUriList A list of known [DeeplinkUri]s for matching.
+ * @see TrieDeeplinkMatcher
+ */
+public fun DeeplinkMatcher(deeplinkUriList: List<DeeplinkUri>): DeeplinkMatcher =
+    TrieDeeplinkMatcher(deeplinkUriList)
+
+/**
+ * Interface for matcher.
  */
 public interface DeeplinkMatcher {
 
+    /**
+     * Matches the given [DeeplinkUri] with known deeplinks.
+     * @param deeplink A deeplink to match.
+     * @return [DeeplinkMatch]
+     *
+     * For example:
+     * Known deeplink: scheme://app/{id}?action={action}
+     * Received deeplink: scheme://app/1?action=SayHello
+     * DeeplinkMatch: DeeplinkMatch("scheme://app/{id}?action={action}", mapOf("id" to 1, "action" to "SayHello")))
+     */
     public fun match(deeplink: DeeplinkUri): DeeplinkMatch?
 }
 
-public fun DeeplinkMatcher(deeplinkUriList: List<DeeplinkUri>): DeeplinkMatcher = TrieDeeplinkMatcher(deeplinkUriList)
 
 /**
  * The result of matching a deeplink with a pattern.
- * @property matchedPattern the pattern of the diplink with which the match occurred
- * @property placeholders placeholders from path and query
+ * @property matchedPattern The pattern of the deeplink with whom match occurred.
+ * @property placeholders Placeholder values from path and query.
  */
-public data class DeeplinkMatch(val matchedPattern: String, val placeholders: Map<String, String>)
+public data class DeeplinkMatch(
+    val matchedPattern: String,
+    val placeholders: Map<String, String>
+)

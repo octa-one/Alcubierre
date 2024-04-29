@@ -11,6 +11,9 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * State of entire navigation of application (dialogs and every stack).
+ * @param [dialogState] Dialogs, see [DialogNavState].
+ * @param [stackStates] Id of each stack with the corresponding [StackNavState].
+ * @param [currentStackId] Id of the currently selected stack.
  */
 @Parcelize
 public data class RootNavState<out S : Screen, out D : Dialog>(
@@ -19,10 +22,19 @@ public data class RootNavState<out S : Screen, out D : Dialog>(
     val currentStackId: Int
 ): Parcelable {
 
+    /**
+     * [StackNavState] for [currentStackId] stack.
+     */
     val currentStackState: StackNavState<S> get() = stackStates.getNotNull(currentStackId)
 
+    /**
+     * Currently visible Screen (last Screen in [currentStackId] stack).
+     */
     val currentScreen: S? get() = currentStackState.stack.lastOrNull()
 
+    /**
+     * Currently visible Dialog (first Dialog in the queue).
+     */
     val currentDialog: D? get() = dialogState.queue.firstOrNull()
 
     public companion object {

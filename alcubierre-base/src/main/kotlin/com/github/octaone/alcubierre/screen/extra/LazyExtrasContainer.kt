@@ -1,5 +1,8 @@
 package com.github.octaone.alcubierre.screen.extra
 
+/**
+ * Lazy implementation of [ExtrasContainer].
+ */
 public class LazyExtrasContainer : ExtrasContainer {
 
     private val lazyExtras = lazy(LazyThreadSafetyMode.NONE) {

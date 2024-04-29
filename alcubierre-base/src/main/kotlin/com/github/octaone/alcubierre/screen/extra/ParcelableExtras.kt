@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.os.Parcelable
 import java.io.Serializable
 
+/**
+ * Parcelable object storage interface.
+ */
 public interface ParcelableExtras {
 
     public fun containsKey(key: String): Boolean

@@ -103,13 +103,13 @@ class ScreenConverterTest {
 
     @Test
     fun `screen with multiple patterns`() {
-        // первый конвертер генерируется для шаблонов "scheme://host/{id}" и "https://host/{id}"
+        // the first converter is generated for templates "scheme://host/{id}" and "https://host/{id}"
         assertEquals(
             MultiplePatternScreen("1"),
             MultiplePatternScreenConverter().convert(mapOf("id" to "1"))
         )
 
-        // второй конвертер генерируется для шаблона "scheme://host"
+        // the second converter is generated for the template "scheme://host"
         assertEquals(
             MultiplePatternScreen("default"),
             MultiplePatternScreenConverter1().convert(emptyMap())

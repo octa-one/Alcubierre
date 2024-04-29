@@ -16,22 +16,19 @@ import androidx.lifecycle.LifecycleEventObserver
 @Composable
 @NonRestartableComposable
 internal fun LifecycleManager.LifecycleHandler(parentLifecycle: Lifecycle) {
-    val savedState = rememberSaveable(key = "$key:bundle") { Bundle() }
+    val savedState = rememberSaveable(key = key) { Bundle() }
     val context = LocalContext.current
 
     initialize(context.applicationContext as Application, savedState)
+    // Called here to restore SavedStateRegistryController before the Content of the Screen.
+    // Internally it will be called once, it's okay that this code will be recomposed.
     onLaunched(parentLifecycle.currentState)
 
     DisposableEffect(Unit) {
         val parentObserver = LifecycleEventObserver { owner, event ->
             if (event == Lifecycle.Event.ON_DESTROY && context.isChangingConfigurations()) {
-                /**
-                 * Instance of the screen isn't recreated during config changes so skip this event
-                 * to avoid crash while accessing to ViewModel with SavedStateHandle, because after
-                 * ON_DESTROY, [androidx.lifecycle.SavedStateHandleController] is marked as not
-                 * attached and next call of [registerSavedStateProvider] after recreating Activity
-                 * on the same instance causing the crash.
-                 */
+                // Instance of the screen isn't recreated during config changes so skip this event
+                // to avoid crash while accessing to ViewModel with SavedStateHandle.
                 return@LifecycleEventObserver
             }
 

@@ -1,5 +1,8 @@
 package com.github.octaone.alcubierre.deeplink.processor
 
+import com.github.octaone.alcubierre.deeplink.processor.api.Deeplink
+import com.github.octaone.alcubierre.deeplink.processor.api.DeeplinkParam
+import com.github.octaone.alcubierre.deeplink.processor.api.ScreenConverter
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
@@ -7,7 +10,7 @@ import com.squareup.kotlinpoet.TypeName
 /**
  * Information for a class labeled with [Deeplink] annotation.
  * There may be multiple [DeeplinkInformation] with different [patterns] and [placeholders] for the same class.
- * This is because all [patterns] specified in [Deeplink.patterns] are grouped by a set of placeholders.
+ * This is because all [patterns] specified in [Deeplink.pattern] are grouped by a set of placeholders.
  * Then, a converter will be generated for each group.
  *
  * @property targetClass The name of the class labeled with the [Deeplink] annotation.

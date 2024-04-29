@@ -18,6 +18,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.reflect.KClass
 
+/**
+ * Default implementation of [NavDriveOwner].
+ * Holds the current [state],
+ * contains logic for saving and restoring it, and transforms it using the [reducer] chain.
+ */
 public class AlcubierreNavDriveOwner<S : Screen, D : Dialog> : NavDriveOwner<S, D> {
 
     private lateinit var reducer: NavReducer<AnyRootNavState>
@@ -30,14 +35,14 @@ public class AlcubierreNavDriveOwner<S : Screen, D : Dialog> : NavDriveOwner<S, 
     override fun initialize(
         reducer: NavReducer<AnyRootNavState>,
         initialState: RootNavState<S, D>,
-        extras: Map<KClass<*>, Any>
+        extras: Map<KClass<*>, Any> // Does not require any extras
     ) {
         this.reducer = reducer
         _stateFlow.value = initialState
     }
 
     override fun restoreState(savedState: Bundle?) {
-        check(::reducer.isInitialized) { "NavDriveOwner was not initialized" }
+        check(::reducer.isInitialized) { "NavDriveOwner is not initialized" }
         savedState?.getParcelableCompat<RootNavState<S, D>>(BUNDLE_KEY_STATE)?.let { restoredState ->
             _stateFlow.value = restoredState
         }

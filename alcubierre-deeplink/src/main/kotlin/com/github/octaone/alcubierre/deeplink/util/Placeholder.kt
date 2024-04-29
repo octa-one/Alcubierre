@@ -2,14 +2,21 @@ package com.github.octaone.alcubierre.deeplink.util
 
 import com.github.octaone.alcubierre.deeplink.DeeplinkUri
 
-internal fun String.isPlaceholder(): Boolean = startsWith('{') && endsWith('}')
-
-internal fun String.extractPlaceholder(): String = substring(1, length - 1)
-
+/**
+ * Checks if String is a placeholder: "{placeholder}".
+ */
+internal fun String.isPlaceholder(): Boolean =
+    startsWith('{') && endsWith('}')
 
 /**
- * Перед составлением дерева шаблоны сортируются, чтобы обеспечить приоритетность в сопоставлении диплинков
- * к примеру, мэтч по шаблону scheme://concreteHost будет приоритетнее чем scheme://{hostPlaceholder}
+ * Removes the brackets to extract the placeholder value.
+ */
+internal fun String.extractPlaceholder(): String =
+    substring(1, length - 1)
+
+/**
+ * Patterns are sorted before the tree is created to ensure that deeplink matching is prioritized.
+ * For example, matching of scheme://app:/explicitSegment will be prioritized over scheme://{segmentPlaceholder}.
  */
 internal fun List<DeeplinkUri>.sortedByPlaceholders() = sortedWith { uri, other ->
     val mainPathSize = uri.pathSegments.size

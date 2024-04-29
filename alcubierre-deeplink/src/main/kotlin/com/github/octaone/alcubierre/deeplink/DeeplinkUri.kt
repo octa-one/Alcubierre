@@ -3,31 +3,45 @@ package com.github.octaone.alcubierre.deeplink
 import android.net.Uri
 import com.github.octaone.alcubierre.deeplink.util.isPlaceholder
 
-public data class DeeplinkUri(
+/**
+ * A simple Uri representation.
+ * Used in annotation processing and unit testing without Android SDK.
+ * @see Uri
+ */
+public data class DeeplinkUri internal constructor(
     val pattern: String,
     val scheme: String,
     val host: String,
-    val path: String?,
-    val query: Map<String, String> = emptyMap()
+    val pathSegments: List<String>,
+    val query: Map<String, String>
 ) {
 
     init {
-        require(scheme.isNotBlank() && host.isNotBlank()) { "Указан пустой scheme/host" }
-        require(!scheme.isPlaceholder() && !host.isPlaceholder()) { "Плейсхолдеры в scheme/host не поддерживаются" }
+        require(!scheme.isPlaceholder() && !host.isPlaceholder()) {
+            "Placeholders in the scheme or host are not supported."
+        }
     }
 
-    public val pathSegments: List<String> = path?.split("/")?.filter(String::isNotEmpty).orEmpty()
+    val path: String
+        get() = pathSegments.joinToString("/")
 
     public companion object {
 
-        public fun parse(uri: String): DeeplinkUri = parse(Uri.parse(uri))
+        /**
+         * Create [DeeplinkUri] from String.
+         */
+        public fun parse(uri: String): DeeplinkUri =
+            parse(Uri.parse(uri))
 
+        /**
+         * Create [DeeplinkUri] from [Uri].
+         */
         public fun parse(uri: Uri): DeeplinkUri =
             DeeplinkUri(
                 pattern = uri.toString(),
                 scheme = requireNotNull(uri.scheme),
                 host = requireNotNull(uri.host),
-                path = uri.path,
+                pathSegments = uri.pathSegments,
                 query = uri.queryParameterNames.associateWith { uri.getQueryParameter(it)!! }
             )
     }
