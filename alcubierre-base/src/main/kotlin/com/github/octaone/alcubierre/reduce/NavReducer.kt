@@ -8,7 +8,7 @@ import com.github.octaone.alcubierre.action.AnyNavAction
 public interface NavReducer<S> {
 
     /**
-     * The reducer function that specifies how the state gets updated based on [action].
+     * The reducer function that specifies how the state gets modified based on [action].
      * As an example, if we have a backstack state A - B, then Forward(C) action will reduce the state to A - B - C.
      *
      * @param state Current state.

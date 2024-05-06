@@ -11,7 +11,7 @@ public interface NavCondition {
 
     /**
      * Condition resolving function.
-     * @param target [ConditionalTarget] on which this [NavCondition] was triggered.
+     * @param target [ConditionalTarget] on which this [NavCondition] has been triggered.
      * @param state Current state of navigation. For example, you can use it to check currently visible screen.
      * @return [NavAction] to be performed as a result of condition evaluation. Can be null if nothing should happen.
      */
