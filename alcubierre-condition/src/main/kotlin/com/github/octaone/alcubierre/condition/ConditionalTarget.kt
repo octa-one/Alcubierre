@@ -8,8 +8,8 @@ import kotlin.reflect.KClass
 
 /**
  * A virtual target for conditional deeplink navigation.
- * Sometimes it is not possible to annotate an specific screen with Deeplink annotation,
- * because that screen might be disabled by a remote config or might be part of an A/B test.
+ * Sometimes it is not possible to annotate a specific screen with Deeplink annotation,
+ * because that screen might be disabled by a remote config or might be a part of an A/B test.
  * But you can replace the screen with ConditionalTarget and decide
  * what to do with the received link later inside the [conditionClass].
  *
