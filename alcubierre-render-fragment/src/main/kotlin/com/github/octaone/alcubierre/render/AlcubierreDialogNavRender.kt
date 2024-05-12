@@ -65,10 +65,9 @@ internal class AlcubierreDialogNavRender(
         // Show a new dialog and subscribe to its lifecycle.
         if (newDialog != null) {
             val fragment = createFragment(newDialog).withDialogData(newDialog)
+            newDialog.isShowing = true
             fragment.lifecycle.addObserver(dialogObserver)
             fragment.show(fragmentManager, newDialogId)
-
-            newDialog.isShowing = true
         }
         currentDialogId = newDialogId
     }
@@ -82,10 +81,8 @@ internal class AlcubierreDialogNavRender(
         val restoredDialogId = savedState.getString(BUNDLE_KEY_DIALOG_STATE)
         currentDialogId = restoredDialogId
         if (restoredDialogId != null) {
-            fragmentManager.findFragmentByTag(restoredDialogId)
-                .let(::requireNotNull)
-                .lifecycle
-                .addObserver(dialogObserver)
+            val fragment = requireNotNull(fragmentManager.findFragmentByTag(restoredDialogId))
+            fragment.lifecycle.addObserver(dialogObserver)
         }
     }
 

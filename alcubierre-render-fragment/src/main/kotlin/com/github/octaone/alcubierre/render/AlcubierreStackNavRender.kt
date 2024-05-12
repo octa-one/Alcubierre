@@ -32,12 +32,8 @@ internal class AlcubierreStackNavRender(
         val diff = diff(currentStack, state.stack)
         diff.forEach { action ->
             when (action) {
-                is Pop -> {
-                    pop(action.count)
-                }
-                is Push -> {
-                    push(action.screens)
-                }
+                is Pop -> pop(action.count)
+                is Push -> push(action.screens)
             }
         }
         currentStack = state.stack.map { it.screenId }
@@ -65,9 +61,9 @@ internal class AlcubierreStackNavRender(
      */
     private fun push(screens: List<FragmentScreen>) {
         screens.forEach { screen ->
+            val fragment = createFragment(screen).withScreenData(screen)
             fragmentManager.commit {
                 setReorderingAllowed(true)
-                val fragment = createFragment(screen).withScreenData(screen)
                 transactionModifier.modify(this, screen, fragment)
                 if (screen.replace) {
                     replace(containerId, fragment, screen.screenId)
