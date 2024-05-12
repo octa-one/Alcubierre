@@ -1,6 +1,5 @@
-# Introduction
+# Alcubierre: An Android Navigation library.
 
-**Alcubierre: An Android Navigation library.**\
 Built to be straightforward and extensible.\
 Based on [Redux principles](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow).
 
