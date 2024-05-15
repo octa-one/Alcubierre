@@ -108,7 +108,7 @@ public fun <S : Screen, D : Dialog> NavDrive<S, D>.forward(vararg screens: S): U
     dispatch(Forward(screens.toList()))
 
 /**
- * Extension to dispatch action [Dialog].
+ * Extension to dispatch action [Replace].
  */
 public fun <S : Screen, D : Dialog> NavDrive<S, D>.replace(vararg screens: S): Unit =
     dispatch(Replace(screens.toList()))
