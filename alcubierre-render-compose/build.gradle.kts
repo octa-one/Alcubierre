@@ -16,8 +16,9 @@ dependencies {
     implementation(projects.alcubierreBase)
 
     implementation(libs.androidx.lifecycle.common)
-    implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.compose)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.viewmodel)
     implementation(libs.androidx.viewmodel.savedstate)
     implementation(libs.androidx.savedstate)

@@ -1,24 +1,24 @@
 [versions]
-agp = "8.4.0"
-annotation = "1.7.1"
+agp = "8.4.1"
+annotation = "1.8.0"
 appcompat = "1.6.1"
-compose-bom = "2024.04.01"
-compose-compiler = "1.5.12"
-core = "1.13.0"
+compose-bom = "2024.05.00"
+compose-compiler = "1.5.14"
+core = "1.13.1"
 activity = "1.9.0"
-fragment = "1.6.2"
-kotlin = "1.9.23"
+fragment = "1.7.1"
+kotlin = "1.9.24"
 coroutines = "1.8.0"
-material = "1.11.0"
+material = "1.12.0"
 kotlinpoet = "1.16.0"
-ksp = "1.9.23-1.0.19"
+ksp = "1.9.24-1.0.20"
 asm = "9.6"
 colonist = "0.1.0-alpha22"
 junit = "4.13.2"
-lifecycle = "2.7.0"
+lifecycle = "2.8.0"
 savedstate = "1.2.1"
 autoservice = "1.1.1"
-vkompose = "0.4.2"
+vkompose = "0.5.2"
 binary-validator = "0.15.0-Beta.2"
 
 null = "null"
@@ -49,6 +49,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
 androidx-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common", version.ref = "lifecycle" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "lifecycle" }
@@ -73,7 +74,6 @@ kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlin
 ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 asm-tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
 asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
-colonist-gradle = { module = "com.joom.colonist:colonist-gradle-plugin", version.ref = "colonist" }
 colonist-core = { module = "com.joom.colonist:colonist-core", version.ref = "colonist" }
 
 # test

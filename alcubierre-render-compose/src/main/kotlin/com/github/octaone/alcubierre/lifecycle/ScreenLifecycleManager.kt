@@ -3,7 +3,6 @@ package com.github.octaone.alcubierre.lifecycle
 import android.app.Application
 import android.os.Bundle
 import androidx.compose.runtime.ProvidedValue
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSavedStateRegistryOwner
 import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -19,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.enableSavedStateHandles
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.MutableCreationExtras
@@ -26,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
+import androidx.compose.ui.platform.LocalLifecycleOwner as UiLocalLifecycleOwner
 
 /**
  * Default implementation of [ScreenLifecycleManager].
@@ -74,6 +75,7 @@ public class DefaultScreenLifecycleManager(
     override val providedValues: Array<ProvidedValue<*>> by lazy(LazyThreadSafetyMode.NONE) {
         arrayOf(
             LocalLifecycleOwner provides this,
+            UiLocalLifecycleOwner provides this,
             LocalViewModelStoreOwner provides this,
             LocalSavedStateRegistryOwner provides this
         )
