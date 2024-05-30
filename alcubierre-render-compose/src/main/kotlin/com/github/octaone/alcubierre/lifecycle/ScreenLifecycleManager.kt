@@ -42,7 +42,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner as PlatformLocalLifecycl
  */
 public class DefaultScreenLifecycleManager(
     override val key: String,
-    private val defaultArguments: Bundle?,
+    private val defaultArguments: Bundle?
 ) : ScreenLifecycleManager,
     ScreenLifecycleOwner,
     ViewModelStoreOwner,
