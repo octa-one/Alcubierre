@@ -26,7 +26,7 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
-import androidx.compose.ui.platform.LocalLifecycleOwner as UiLocalLifecycleOwner
+import androidx.compose.ui.platform.LocalLifecycleOwner as PlatformLocalLifecycleManager
 
 /**
  * Default implementation of [ScreenLifecycleManager].
@@ -42,7 +42,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner as UiLocalLifecycleOwner
  */
 public class DefaultScreenLifecycleManager(
     override val key: String,
-    private val defaultArguments: Bundle?
+    private val defaultArguments: Bundle?,
 ) : ScreenLifecycleManager,
     ScreenLifecycleOwner,
     ViewModelStoreOwner,
@@ -74,8 +74,8 @@ public class DefaultScreenLifecycleManager(
 
     override val providedValues: Array<ProvidedValue<*>> by lazy(LazyThreadSafetyMode.NONE) {
         arrayOf(
+            PlatformLocalLifecycleManager provides this,
             LocalLifecycleOwner provides this,
-            UiLocalLifecycleOwner provides this,
             LocalViewModelStoreOwner provides this,
             LocalSavedStateRegistryOwner provides this
         )
@@ -86,6 +86,7 @@ public class DefaultScreenLifecycleManager(
             override fun onStop(owner: LifecycleOwner) {
                 savedStateRegistryController.performSave(requireNotNull(savedState))
             }
+
             override fun onDestroy(owner: LifecycleOwner) {
                 viewModelStore.clear()
             }

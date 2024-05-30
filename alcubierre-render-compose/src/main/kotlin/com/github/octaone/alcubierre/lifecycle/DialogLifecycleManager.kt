@@ -26,7 +26,7 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
-import androidx.compose.ui.platform.LocalLifecycleOwner as UiLocalLifecycleOwner
+import androidx.compose.ui.platform.LocalLifecycleOwner as PlatformLocalLifecycleManager
 
 /**
  * Default implementation of [DialogLifecycleManager].
@@ -70,8 +70,8 @@ public class DefaultDialogLifecycleManager(
 
     override val providedValues: Array<ProvidedValue<*>> by lazy(LazyThreadSafetyMode.NONE) {
         arrayOf(
+            PlatformLocalLifecycleManager provides this,
             LocalLifecycleOwner provides this,
-            UiLocalLifecycleOwner provides this,
             LocalViewModelStoreOwner provides this,
             LocalSavedStateRegistryOwner provides this
         )
