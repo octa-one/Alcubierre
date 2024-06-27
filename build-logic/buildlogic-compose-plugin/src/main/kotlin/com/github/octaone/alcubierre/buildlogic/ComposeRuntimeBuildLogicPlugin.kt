@@ -13,23 +13,24 @@ class ComposeRuntimeBuildLogicPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
+            with(pluginManager) {
+                apply("org.jetbrains.kotlin.plugin.compose")
+            }
+
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             androidIfPresent {
                 buildFeatures {
                     compose = true
                 }
-                composeOptions {
-                    kotlinCompilerExtensionVersion = libs.findVersion("compose.compiler").get().toString()
-                }
             }
             tasks.withType<KotlinCompile>().configureEach {
-                kotlinOptions {
-                    freeCompilerArgs += listOf(
+                compilerOptions {
+                    freeCompilerArgs.addAll(
                         "-P",
-                        "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${target.buildDir}/compose-metrics/",
+                        "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${layout.buildDirectory.get()}/compose-metrics/",
                         "-P",
-                        "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${target.buildDir}/compose-reports/"
+                        "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${layout.buildDirectory.get()}/compose-reports/"
                     )
                 }
             }

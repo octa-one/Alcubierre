@@ -120,6 +120,7 @@ public class DefaultDialogLifecycleManager(
     override fun onParentLifecycleStateChanged(state: State) {
         if (parentLifecycleState == state) return
 
+        parentLifecycleState = state
         lifecycleRegistry.currentState = state
     }
 }

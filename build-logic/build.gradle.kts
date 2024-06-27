@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.samWithReceiver.gradle.SamWithReceiverExtension
 
@@ -18,11 +19,10 @@ subprojects {
     }
 
     tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_17.toString()
-
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
             // https://docs.gradle.org/current/userguide/kotlin_dsl.html#sec:kotlin_compiler_arguments
-            freeCompilerArgs += listOf(
+            freeCompilerArgs.addAll(
                 "-java-parameters",
                 "-Xjvm-default=all",
                 "-Xjsr305=strict",

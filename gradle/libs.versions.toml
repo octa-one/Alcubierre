@@ -1,24 +1,24 @@
 [versions]
-agp = "8.4.1"
+agp = "8.4.2"
 annotation = "1.8.0"
-appcompat = "1.6.1"
-compose-bom = "2024.05.00"
+appcompat = "1.7.0"
+compose-bom = "2024.06.00"
 compose-compiler = "1.5.14"
 core = "1.13.1"
 activity = "1.9.0"
-fragment = "1.7.1"
-kotlin = "1.9.24"
-coroutines = "1.8.0"
+fragment = "1.8.1"
+kotlin = "2.0.0"
+coroutines = "1.8.1"
 material = "1.12.0"
 kotlinpoet = "1.16.0"
-ksp = "1.9.24-1.0.20"
+ksp = "2.0.0-1.0.21"
 asm = "9.6"
 colonist = "0.1.0-alpha22"
 junit = "4.13.2"
-lifecycle = "2.8.0"
+lifecycle = "2.8.2"
 savedstate = "1.2.1"
 autoservice = "1.1.1"
-vkompose = "0.5.2"
+vkompose = "0.5.4-k2"
 binary-validator = "0.15.0-Beta.2"
 
 null = "null"
@@ -92,6 +92,7 @@ kotlin-sam = { id = "org.jetbrains.kotlin.plugin.sam.with.receiver", version.ref
 vk-recompose-highlighter = { id = "com.vk.recompose-highlighter", version.ref = "vkompose" }
 vk-recompose-checker = { id = "com.vk.composable-skippability-checker", version.ref = "vkompose" }
 binary-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-validator" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 buildlogic-android-app = { id = "buildlogic.android-app", version.ref = "null" }
 buildlogic-android-library = { id = "buildlogic.android-library", version.ref = "null" }

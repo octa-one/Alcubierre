@@ -13,6 +13,7 @@ class ComposeBuildLogicPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
+                apply("org.jetbrains.kotlin.plugin.compose")
                 apply("com.vk.composable-skippability-checker")
             }
 
@@ -22,18 +23,15 @@ class ComposeBuildLogicPlugin : Plugin<Project> {
                 buildFeatures {
                     compose = true
                 }
-                composeOptions {
-                    kotlinCompilerExtensionVersion = libs.findVersion("compose-compiler").get().toString()
-                }
             }
             tasks.withType<KotlinCompile>().configureEach {
-                kotlinOptions {
-                    freeCompilerArgs += listOf(
+                compilerOptions {
+                    freeCompilerArgs.addAll(
                         "-opt-in=androidx.compose.material.ExperimentalMaterialApi,androidx.compose.material3.ExperimentalMaterial3Api",
                         "-P",
-                        "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${target.buildDir}/compose-metrics/",
+                        "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${layout.buildDirectory.get()}/compose-metrics/",
                         "-P",
-                        "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${target.buildDir}/compose-reports/"
+                        "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${layout.buildDirectory.get()}/compose-reports/"
                     )
                 }
             }
