@@ -5,11 +5,16 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.compose"
+    namespace = "com.github.octaone.alcubierre.compose.screen.reflect"
+
+    defaultConfig {
+        consumerProguardFiles("proguard/rules.pro")
+    }
 }
 
 dependencies {
     implementation(projects.alcubierreBase)
+    implementation(projects.alcubierreRenderCompose)
 
     implementation(libs.androidx.lifecycle.common)
     implementation(libs.androidx.lifecycle.compose)

@@ -57,7 +57,7 @@ class SampleActivity : AppCompatActivity() {
                     resolver = DefaultDeeplinkResolver(DeeplinkRegistryCollector().registries),
                     onResolveFailed = {}
                 ),
-                ConditionReducer(DefaultNavConditionFactory()),
+                ConditionReducer(DefaultNavConditionFactory(classLoader)),
                 DialogRootNavReducer(),
                 ScreenRootNavReducer()
             ),

@@ -37,7 +37,6 @@ import com.github.octaone.alcubierre.action.showDialog
 import com.github.octaone.alcubierre.sample.Counter
 import com.github.octaone.alcubierre.sample.Tab
 import com.github.octaone.alcubierre.screen.ComposeScreen
-import com.github.octaone.alcubierre.screen.ComposeScreenContent
 import com.github.octaone.alcubierre.state.ComposeRootNavState
 import kotlinx.parcelize.Parcelize
 import kotlin.random.Random
@@ -45,10 +44,10 @@ import kotlin.random.Random
 @Parcelize
 class SampleScreen(
     val someId: Int
-) : ComposeScreen(), ComposeScreenContent<SampleScreen> {
+) : ComposeScreen() {
 
     @Composable
-    override fun SampleScreen.Content() {
+    override fun Content() {
 
         val navDrive = LocalNavDrive.current
         var text by rememberSaveable { mutableStateOf("") }

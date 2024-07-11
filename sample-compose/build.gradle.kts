@@ -11,6 +11,7 @@ android {
 dependencies {
     implementation(projects.alcubierre)
     implementation(projects.alcubierreRenderCompose)
+    implementation(projects.alcubierreRenderComposeScreenReflect)
 
     implementation(libs.bundles.compose)
     implementation(libs.kotlin.coroutines.android)

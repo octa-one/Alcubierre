@@ -2,16 +2,14 @@
 
 package com.github.octaone.alcubierre.screen
 
-import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistryOwner
-import com.github.octaone.alcubierre.lifecycle.DefaultDialogLifecycleManager
-import com.github.octaone.alcubierre.lifecycle.DialogLifecycleManager
-import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
-import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
+import com.github.octaone.alcubierre.NavDriveOwner
+import kotlin.reflect.KClass
 
 /**
  * [Dialog] implementation for Compose.
@@ -43,27 +41,38 @@ import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
  * The default implementation consists of [LifecycleOwner], [ViewModelStoreOwner], [SavedStateRegistryOwner].
  */
 @Stable
-public abstract class ComposeDialog : Dialog(), ExtrasContainer by LazyExtrasContainer() {
+public abstract class ComposeNameDialog(
+    public val composeContentName: String?,
+    public val composeContentClass: Class<out ComposeDialogContent<*>>?
+) : ComposeDialog() {
 
-    internal val hideRequest = HideRequest(this.javaClass.name)
+    public constructor(contentName: String) : this(contentName, null)
+    public constructor(contentClass: KClass<out ComposeDialogContent<*>>) : this(null, contentClass.java)
 
-    public open val lifecycleManager: DialogLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
-        DefaultDialogLifecycleManager(dialogId, getSavedStateDefaultArguments())
-    }
-
-    /**
-     * Priority of the dialog in the queue.
-     * Priority handling depends on the implementation of the reducer.
-     * The default implementation assumes that the visible dialog has the highest priority.
-     */
-    override val priority: Int = 5
-
-    /**
-     * Default arguments that should be passed to SavedStateHandle.
-     * For example, you can return arguments of a screen constructor for later use in a ViewModel.
-     */
-    public open fun getSavedStateDefaultArguments(): Bundle? = null
+    internal var content: ComposeDialogContent<*>? = null
 
     @Composable
-    public abstract fun Content(hideRequest: HideRequest, onDismissRequest: () -> Unit)
+    final override fun Content(hideRequest: HideRequest, onDismissRequest: () -> Unit) {
+        val classLoader = LocalContext.current.classLoader
+        getContent(classLoader).GenericContent(this, hideRequest, onDismissRequest)
+    }
+}
+
+/**
+ * Separate interface for classes containing composable contents.
+ * It is separate from [ComposeDialog] because in some app architectures
+ * the Dialog classes used for navigation may be separate from its implementation.
+ * If this is not the case, you can implement this interface in the Dialog class.
+ */
+public abstract class ComposeDialogContent<D : ComposeDialog> {
+
+    /**
+     * Content of the [ComposeDialog].
+     * @param hideRequest see [HideRequest].
+     * @param onDismissRequest callback, that can be
+     * passed to any Dialog implementation (eg ModalBottomSheet) that requires it.
+     * Internally, this callback calls [NavDriveOwner.requestDismissDialog].
+     */
+    @Composable
+    public abstract fun Content(dialog: D, hideRequest: HideRequest, onDismissRequest: () -> Unit)
 }

@@ -22,7 +22,7 @@ public class ConditionReducer(
 
     override fun reduce(state: AnyRootNavState, action: AnyNavAction): AnyRootNavState = when (action) {
         is ResolveCondition -> {
-            conditionFactory.create(action.conditionalTarget.conditionClass)
+            conditionFactory.create(action.conditionalTarget)
                 .resolve(action.conditionalTarget, state)
                 ?.let { head.reduce(state, it) }
                 ?: state

@@ -5,9 +5,6 @@ package com.github.octaone.alcubierre.screen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.github.octaone.alcubierre.annotation.AlcubierreFragmentNameConstructor
-import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
-import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
-import kotlin.reflect.KClass
 
 /**
  * [Screen] implementation based on [Fragment].
@@ -16,13 +13,7 @@ import kotlin.reflect.KClass
  *
  * @see FragmentCreator for manual Fragment instantiation.
  */
-public abstract class FragmentScreen @AlcubierreFragmentNameConstructor constructor(
-    public val fragmentName: String,
-    public val replace: Boolean = true
-) : Screen(), ExtrasContainer by LazyExtrasContainer() {
-
-    public constructor(
-        fragmentClass: KClass<out Fragment>,
-        replace: Boolean = true
-    ) : this(fragmentClass.java.name, replace)
-}
+public abstract class FragmentNameScreen(
+    fragmentName: String,
+    replace: Boolean = true
+) : FragmentScreen(fragmentName, replace)

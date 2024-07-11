@@ -27,5 +27,5 @@ public interface NavConditionFactory {
     /**
      * Create a new instance of a [NavCondition].
      */
-    public fun create(conditionClass: Class<out NavCondition>): NavCondition
+    public fun create(conditionalTarget: ConditionalTarget): NavCondition
 }
