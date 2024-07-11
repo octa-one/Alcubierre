@@ -20,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.SaveableStateHolder
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.node.Ref
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import com.github.octaone.alcubierre.ComposeNavDriveOwner
@@ -31,10 +30,8 @@ import com.github.octaone.alcubierre.render.internal.DialogRootNavStateProjectio
 import com.github.octaone.alcubierre.render.internal.ImmutableSaveableStateHolder
 import com.github.octaone.alcubierre.render.internal.ScreenRootNavStateProjection
 import com.github.octaone.alcubierre.screen.ComposeScreen
-import com.github.octaone.alcubierre.screen.Content
 import com.github.octaone.alcubierre.screen.HideRequest
 import com.github.octaone.alcubierre.screen.Screen
-import com.github.octaone.alcubierre.screen.getContent
 import com.github.octaone.alcubierre.state.ComposeRootNavState
 
 @Composable
@@ -224,12 +221,11 @@ private fun CurrentScreen(
     stateHolder: ImmutableSaveableStateHolder
 ) {
     currentStateProjection.state.currentScreen?.let { screen ->
-        val content = screen.getContent(LocalContext.current.classLoader)
         val parentLifecycle = LocalLifecycleOwner.current.lifecycle
         CompositionLocalProvider(*screen.lifecycleManager.providedValues) {
             stateHolder.SaveableStateProvider(screen.screenId) {
                 screen.lifecycleManager.LifecycleHandler(parentLifecycle)
-                content.Content(screen)
+                screen.Content()
             }
         }
     }
@@ -244,12 +240,11 @@ private fun CurrentDialog(
     currentStateProjection.state.currentDialog?.let { dialog ->
         key(dialog.dialogId) {
 
-            val content = dialog.getContent(LocalContext.current.classLoader)
             val parentLifecycle = LocalLifecycleOwner.current.lifecycle
             CompositionLocalProvider(*dialog.lifecycleManager.providedValues) {
                 stateHolder.SaveableStateProvider(dialog.dialogId) {
                     dialog.lifecycleManager.LifecycleHandler(parentLifecycle)
-                    content.Content(dialog, onDismissRequest)
+                    dialog.Content(dialog.hideRequest, onDismissRequest)
                 }
             }
         }

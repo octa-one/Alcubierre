@@ -2,16 +2,13 @@
 
 package com.github.octaone.alcubierre.screen
 
-import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistryOwner
-import com.github.octaone.alcubierre.lifecycle.DefaultScreenLifecycleManager
-import com.github.octaone.alcubierre.lifecycle.ScreenLifecycleManager
-import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
-import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
+import kotlin.reflect.KClass
 
 /**
  * [Screen] implementation for Compose.
@@ -37,23 +34,34 @@ import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
  * The default implementation consists of [LifecycleOwner], [ViewModelStoreOwner], [SavedStateRegistryOwner].
  */
 @Stable
-public abstract class ComposeScreen : Screen(), ExtrasContainer by LazyExtrasContainer() {
+public abstract class ComposeNameScreen(
+    public val composeContentName: String?,
+    public val composeContentClass: Class<out ComposeScreenContent<*>>?
+) : ComposeScreen() {
 
-    /**
-     * A manager for handling the screen lifecycle.
-     * @see DefaultScreenLifecycleManager
-     */
-    public open val lifecycleManager: ScreenLifecycleManager by lazy(LazyThreadSafetyMode.NONE) {
-        DefaultScreenLifecycleManager(screenId, getSavedStateDefaultArguments())
-    }
+    public constructor(contentName: String) : this(contentName, null)
+    public constructor(contentClass: KClass<out ComposeScreenContent<*>>) : this(null, contentClass.java)
 
-    /**
-     * Default arguments that should be passed to SavedStateHandle.
-     * For example, you can return arguments of a screen constructor for later use in a ViewModel.
-     */
-    public open fun getSavedStateDefaultArguments(): Bundle? = null
+    internal var content: ComposeScreenContent<*>? = null
 
     @Composable
-    public abstract fun Content()
+    final override fun Content() {
+        val classLoader = LocalContext.current.classLoader
+        getContent(classLoader).GenericContent(this)
+    }
 }
 
+/**
+ * Separate interface for classes containing composable contents.
+ * It is separate from [ComposeScreen] because in some app architectures
+ * the [Screen] classes used for navigation may be separate from its implementation.
+ * If this is not the case, you can implement this interface in the [Screen] class.
+ */
+public abstract class ComposeScreenContent<S : ComposeScreen> {
+
+    /**
+     * Content of the [ComposeScreen].
+     */
+    @Composable
+    public abstract fun Content(screen: S)
+}

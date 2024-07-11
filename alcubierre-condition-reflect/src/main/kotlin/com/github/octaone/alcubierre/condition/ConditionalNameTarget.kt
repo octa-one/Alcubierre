@@ -5,9 +5,6 @@ package com.github.octaone.alcubierre.condition
 import com.github.octaone.alcubierre.condition.action.resolveCondition
 import com.github.octaone.alcubierre.condition.annotation.AlcubierreConditionalNameConstructor
 import com.github.octaone.alcubierre.condition.reducer.ConditionReducer
-import com.github.octaone.alcubierre.screen.extra.ExtrasContainer
-import com.github.octaone.alcubierre.screen.extra.LazyExtrasContainer
-import kotlin.reflect.KClass
 
 /**
  * A virtual target for conditional deeplink navigation.
@@ -44,10 +41,6 @@ import kotlin.reflect.KClass
  * In this example, target must be cast to a specific [ConditionalTarget] because
  * a single [NavCondition] can be used for multiple targets.
  */
-public abstract class ConditionalTarget @AlcubierreConditionalNameConstructor constructor(
-    public val conditionName: String?,
-    public val conditionClass: Class<out NavCondition>?
-) : ExtrasContainer by LazyExtrasContainer() {
-
-    public constructor(conditionClass: KClass<out NavCondition>) : this(null, conditionClass.java)
-}
+public abstract class ConditionalNameTarget(
+    conditionName: String
+) : ConditionalTarget(conditionName, null)

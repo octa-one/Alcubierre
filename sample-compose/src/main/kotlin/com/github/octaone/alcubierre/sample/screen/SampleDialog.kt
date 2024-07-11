@@ -16,8 +16,8 @@ import com.github.octaone.alcubierre.LocalNavDrive
 import com.github.octaone.alcubierre.action.dismissDialog
 import com.github.octaone.alcubierre.action.showDialog
 import com.github.octaone.alcubierre.sample.Counter
-import com.github.octaone.alcubierre.screen.ComposeDialog
 import com.github.octaone.alcubierre.screen.ComposeDialogContent
+import com.github.octaone.alcubierre.screen.ComposeNameDialog
 import com.github.octaone.alcubierre.screen.HideRequest
 import kotlinx.parcelize.Parcelize
 import kotlin.random.Random
@@ -26,11 +26,13 @@ import kotlin.random.Random
 data class SampleDialog(
     val someId: Int,
     override val priority: Int
-) : ComposeDialog(), ComposeDialogContent<SampleDialog> {
+) : ComposeNameDialog(SampleDialogContent::class)
+
+class SampleDialogContent : ComposeDialogContent<SampleDialog>() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun SampleDialog.Content(hideRequest: HideRequest, onDismissRequest: () -> Unit) {
+    override fun Content(dialog: SampleDialog, hideRequest: HideRequest, onDismissRequest: () -> Unit) {
         val sheetState = rememberModalBottomSheetState()
         hideRequest.HideEffect { sheetState.hide() }
 
@@ -42,7 +44,7 @@ data class SampleDialog(
             Column(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 32.dp)
             ) {
-                Text(text = "$someId (p=$priority)")
+                Text(text = "${dialog.someId} (p=${dialog.priority})")
                 TextButton(
                     modifier = MaxWidthModifier,
                     onClick = remember {{ navDrive.dismissDialog() }}
