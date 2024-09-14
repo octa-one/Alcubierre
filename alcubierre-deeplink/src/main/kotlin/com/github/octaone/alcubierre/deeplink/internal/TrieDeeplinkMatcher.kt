@@ -1,5 +1,6 @@
 package com.github.octaone.alcubierre.deeplink.internal
 
+import android.os.Build
 import com.github.octaone.alcubierre.deeplink.DeeplinkMatch
 import com.github.octaone.alcubierre.deeplink.DeeplinkMatcher
 import com.github.octaone.alcubierre.deeplink.DeeplinkUri
@@ -40,7 +41,7 @@ internal class TrieDeeplinkMatcher(uris: List<DeeplinkUri>) : DeeplinkMatcher {
                     if (placeholders == null) {
                         placeholders = mutableMapOf()
                     }
-                    placeholders[removeSurrounding] = URLDecoder.decode(key, Charsets.UTF_8)
+                    placeholders[removeSurrounding] = decode(key)
                     children[placeholder]!!
                 } else {
                     return null
@@ -59,7 +60,7 @@ internal class TrieDeeplinkMatcher(uris: List<DeeplinkUri>) : DeeplinkMatcher {
                 if (placeholders == null) {
                     placeholders = mutableMapOf()
                 }
-                placeholders[placeholder] = URLDecoder.decode(value, Charsets.UTF_8)
+                placeholders[placeholder] = decode(value)
             }
         }
         return DeeplinkMatch(uri.pattern, placeholders.orEmpty())
@@ -86,6 +87,13 @@ internal class TrieDeeplinkMatcher(uris: List<DeeplinkUri>) : DeeplinkMatcher {
             add(scheme)
             add(host)
             addAll(pathSegments)
+        }
+
+    private fun decode(s: String): String =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            URLDecoder.decode(s, Charsets.UTF_8)
+        } else {
+            URLDecoder.decode(s, "UTF-8")
         }
 
     private class TrieNode {

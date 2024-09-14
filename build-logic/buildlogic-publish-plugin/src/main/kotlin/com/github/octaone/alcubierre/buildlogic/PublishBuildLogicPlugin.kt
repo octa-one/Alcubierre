@@ -11,6 +11,7 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.get
+import org.gradle.kotlin.dsl.maven
 
 class PublishBuildLogicPlugin : Plugin<Project> {
 
@@ -26,7 +27,13 @@ class PublishBuildLogicPlugin : Plugin<Project> {
             }
 
             extensions.configure<ApiValidationExtension> {
-                nonPublicMarkers.add("com.github.octaone.alcubierre.annotation.AlcubierreInternalApi")
+                nonPublicMarkers.addAll(
+                    listOf(
+                        "com.github.octaone.alcubierre.annotation.AlcubierreInternalApi",
+                        "com.github.octaone.alcubierre.condition.annotation.AlcubierreConditionalNameConstructor",
+                        "com.github.octaone.alcubierre.annotation.AlcubierreFragmentNameConstructor"
+                    )
+                )
 
                 validationDisabled = false
                 apiDumpDirectory = "api"
@@ -39,6 +46,7 @@ class PublishBuildLogicPlugin : Plugin<Project> {
                     publishing {
                         singleVariant("release") {
                             withSourcesJar()
+                            withJavadocJar()
                         }
                     }
                 }
@@ -48,12 +56,18 @@ class PublishBuildLogicPlugin : Plugin<Project> {
             extensions.configure<PublishingExtension> {
                 publications {
                     create<MavenPublication>("release") {
-                        groupId = "com.github.octaone.alcubierre"
+                        groupId = "com.github.octaone"
                         artifactId = project.name
                         version = "0.1"
 
                         afterEvaluate {
                             from(components[componentName])
+                        }
+
+                        pom {
+                            name.set("Alcubierre")
+                            description.set("Alcubierre: An Android Navigation library")
+                            url.set("https://github.com/octa-one/Alcubierre")
                         }
                     }
                 }

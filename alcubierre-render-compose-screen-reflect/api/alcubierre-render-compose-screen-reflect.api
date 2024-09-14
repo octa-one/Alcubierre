@@ -1,0 +1,32 @@
+public abstract class com/github/octaone/alcubierre/screen/ComposeDialogContent {
+	public static final field $stable I
+	public fun <init> ()V
+	public abstract fun Content (Lcom/github/octaone/alcubierre/screen/ComposeDialog;Lcom/github/octaone/alcubierre/screen/HideRequest;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;I)V
+}
+
+public abstract class com/github/octaone/alcubierre/screen/ComposeNameDialog : com/github/octaone/alcubierre/screen/ComposeDialog {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Class;)V
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public final fun Content (Lcom/github/octaone/alcubierre/screen/HideRequest;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;I)V
+	public final fun getComposeContentClass ()Ljava/lang/Class;
+	public final fun getComposeContentName ()Ljava/lang/String;
+}
+
+public abstract class com/github/octaone/alcubierre/screen/ComposeNameScreen : com/github/octaone/alcubierre/screen/ComposeScreen {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Class;)V
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public final fun Content (Landroidx/compose/runtime/Composer;I)V
+	public final fun getComposeContentClass ()Ljava/lang/Class;
+	public final fun getComposeContentName ()Ljava/lang/String;
+}
+
+public abstract class com/github/octaone/alcubierre/screen/ComposeScreenContent {
+	public static final field $stable I
+	public fun <init> ()V
+	public abstract fun Content (Lcom/github/octaone/alcubierre/screen/ComposeScreen;Landroidx/compose/runtime/Composer;I)V
+}
+

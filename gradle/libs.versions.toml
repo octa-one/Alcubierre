@@ -1,25 +1,24 @@
 [versions]
-agp = "8.5.0"
-annotation = "1.8.0"
+agp = "8.6.0"
+annotation = "1.8.2"
 appcompat = "1.7.0"
-compose-bom = "2024.06.00"
-compose-compiler = "1.5.14"
+compose-bom = "2024.09.01"
 core = "1.13.1"
-activity = "1.9.0"
-fragment = "1.8.1"
-kotlin = "2.0.0"
+activity = "1.9.2"
+fragment = "1.8.3"
+kotlin = "2.0.20"
 coroutines = "1.8.1"
 material = "1.12.0"
-kotlinpoet = "1.16.0"
-ksp = "2.0.0-1.0.21"
+kotlinpoet = "1.18.0"
+ksp = "2.0.20-1.0.25"
 asm = "9.6"
 colonist = "0.1.0-alpha22"
 junit = "4.13.2"
-lifecycle = "2.8.2"
+lifecycle = "2.8.5"
 savedstate = "1.2.1"
 autoservice = "1.1.1"
-vkompose = "0.5.4-k2"
-binary-validator = "0.15.0-Beta.2"
+vkompose = "0.6.1-k2"
+binary-validator = "0.16.3"
 
 null = "null"
 
@@ -59,7 +58,6 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 
 # compose
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 compose-foundation = { module = "androidx.compose.foundation:foundation" }
 compose-runtime = { module = "androidx.compose.runtime:runtime" }
 compose-ui = { module = "androidx.compose.ui:ui" }

@@ -1,3 +1,6 @@
+public abstract interface annotation class com/github/octaone/alcubierre/annotation/AlcubierreFragmentNameConstructor : java/lang/annotation/Annotation {
+}
+
 public class com/github/octaone/alcubierre/render/AlcubierreRootNavRender : com/github/octaone/alcubierre/render/FragmentNavRender {
 	public fun <init> (ILjava/lang/ClassLoader;Landroidx/fragment/app/FragmentManager;Lcom/github/octaone/alcubierre/NavDriveOwner;Lcom/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier;)V
 	public synthetic fun <init> (ILjava/lang/ClassLoader;Landroidx/fragment/app/FragmentManager;Lcom/github/octaone/alcubierre/NavDriveOwner;Lcom/github/octaone/alcubierre/render/modifier/FragmentTransactionModifier;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -53,8 +56,6 @@ public abstract class com/github/octaone/alcubierre/screen/FragmentDialog : com/
 }
 
 public abstract class com/github/octaone/alcubierre/screen/FragmentScreen : com/github/octaone/alcubierre/screen/Screen, com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
-	public fun <init> (Ljava/lang/String;Z)V
-	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Lkotlin/reflect/KClass;Z)V
 	public synthetic fun <init> (Lkotlin/reflect/KClass;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
