@@ -2,6 +2,7 @@ package com.github.octaone.alcubierre.deeplink
 
 import org.junit.Assert
 import org.junit.Test
+import com.github.octaone.alcubierre.deeplink.util.sortedByPlaceholders
 
 fun matcher(vararg links: String) =
     DeeplinkMatcher(links.map(::parseDeeplinkForTest).sortedByPlaceholders())
@@ -22,7 +23,11 @@ internal fun parseDeeplinkForTest(value: String): DeeplinkUri {
         .associate { (key, value) -> key to value }
 
     return DeeplinkUri(
-        value, scheme, hostPath[0], hostPath.getOrNull(1), query
+        pattern = value,
+        scheme = scheme,
+        host = hostPath[0],
+        pathSegments = hostPath.getOrNull(1)?.split("/")?.filter(String::isNotEmpty).orEmpty(),
+        query = query
     )
 }
 
@@ -36,7 +41,7 @@ class DeeplinkUriParserTest {
                 pattern,
                 "scheme",
                 "host",
-                "path/details",
+                listOf("path", "details"),
                 mapOf("from" to "f", "to" to "t")
             ),
             parseDeeplinkForTest(pattern)

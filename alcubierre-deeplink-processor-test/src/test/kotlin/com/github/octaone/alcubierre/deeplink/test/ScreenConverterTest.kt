@@ -97,7 +97,7 @@ class ScreenConverterTest {
                 g = 6.0,
                 h = false
             ),
-            NullableWithDefaultScreenConverter().convert(mapOf())
+            NullableWithDefaultScreenConverter().convert(emptyMap())
         )
     }
 

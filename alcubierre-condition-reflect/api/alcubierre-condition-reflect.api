@@ -1,0 +1,4 @@
+public abstract class com/github/octaone/alcubierre/condition/ConditionalNameTarget : com/github/octaone/alcubierre/condition/ConditionalTarget {
+	public fun <init> (Ljava/lang/String;)V
+}
+

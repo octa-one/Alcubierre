@@ -55,7 +55,7 @@ private val DEFAULT_CONVERSIONS = mapOf(
 
 internal val PRIMITIVES = listOf(BOOLEAN, CHAR, BYTE, SHORT, INT, FLOAT, LONG, DOUBLE)
 
-internal val TypeName.isPrimitive get() = this in PRIMITIVES
+internal val TypeName.isPrimitive get() = this.copy(nullable = false) in PRIMITIVES
 
 internal fun TypeName.defaultPrimitiveValue(): CodeBlock {
     val code = when (this) {

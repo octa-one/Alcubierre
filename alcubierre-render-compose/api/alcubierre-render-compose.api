@@ -84,11 +84,7 @@ public final class com/github/octaone/alcubierre/render/ScreenTransitionScope {
 public abstract class com/github/octaone/alcubierre/screen/ComposeDialog : com/github/octaone/alcubierre/screen/Dialog, com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
 	public static final field $stable I
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;)V
-	public fun <init> (Ljava/lang/String;Ljava/lang/Class;)V
-	public fun <init> (Lkotlin/reflect/KClass;)V
-	public final fun getComposeContentClass ()Ljava/lang/Class;
-	public final fun getComposeContentName ()Ljava/lang/String;
+	public abstract fun Content (Lcom/github/octaone/alcubierre/screen/HideRequest;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;I)V
 	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
 	public fun getLifecycleManager ()Lcom/github/octaone/alcubierre/lifecycle/LifecycleManager;
 	public fun getPriority ()I
@@ -96,26 +92,14 @@ public abstract class com/github/octaone/alcubierre/screen/ComposeDialog : com/g
 	public fun hasExtras ()Z
 }
 
-public abstract interface class com/github/octaone/alcubierre/screen/ComposeDialogContent {
-	public abstract fun Content (Lcom/github/octaone/alcubierre/screen/ComposeDialog;Lcom/github/octaone/alcubierre/screen/HideRequest;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;I)V
-}
-
 public abstract class com/github/octaone/alcubierre/screen/ComposeScreen : com/github/octaone/alcubierre/screen/Screen, com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
 	public static final field $stable I
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;)V
-	public fun <init> (Ljava/lang/String;Ljava/lang/Class;)V
-	public fun <init> (Lkotlin/reflect/KClass;)V
-	public final fun getComposeContentClass ()Ljava/lang/Class;
-	public final fun getComposeContentName ()Ljava/lang/String;
+	public abstract fun Content (Landroidx/compose/runtime/Composer;I)V
 	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
 	public fun getLifecycleManager ()Lcom/github/octaone/alcubierre/lifecycle/ScreenLifecycleManager;
 	public fun getSavedStateDefaultArguments ()Landroid/os/Bundle;
 	public fun hasExtras ()Z
-}
-
-public abstract interface class com/github/octaone/alcubierre/screen/ComposeScreenContent {
-	public abstract fun Content (Lcom/github/octaone/alcubierre/screen/ComposeScreen;Landroidx/compose/runtime/Composer;I)V
 }
 
 public final class com/github/octaone/alcubierre/screen/HideRequest {
