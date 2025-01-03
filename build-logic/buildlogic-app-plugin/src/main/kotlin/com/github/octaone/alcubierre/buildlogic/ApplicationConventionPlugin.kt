@@ -20,7 +20,7 @@ class ApplicationBuildLogicPlugin : Plugin<Project> {
                 defaultConfig {
                     applicationId = "com.github.octaone.alcubierre_sample"
                     minSdk = 21
-                    targetSdk = 34
+                    targetSdk = 35
                     versionCode = 1
                     versionName = "1.0"
                 }

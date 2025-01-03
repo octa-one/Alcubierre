@@ -10,7 +10,7 @@ class AndroidBaseBuildLogicPlugin : Plugin<Project> {
         with(target) {
 
             androidIfPresent {
-                compileSdk = 34
+                compileSdk = 35
                 defaultConfig {
                     minSdk = 21
                 }

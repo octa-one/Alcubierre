@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import com.github.octaone.alcubierre.ComposeNavDriveOwner
 import com.github.octaone.alcubierre.LocalNavDrive
+import com.github.octaone.alcubierre.LocalRenderAnimatedContentScope
 import com.github.octaone.alcubierre.lifecycle.LifecycleHandler
 import com.github.octaone.alcubierre.lifecycle.ScreenLifecycleOwner
 import com.github.octaone.alcubierre.render.internal.DialogRootNavStateProjection
@@ -170,7 +171,9 @@ private fun AnimatedCurrentScreen(
             }
         }
     ) { targetState ->
-        CurrentScreen(ScreenRootNavStateProjection(targetState), stateHolder)
+        CompositionLocalProvider(LocalRenderAnimatedContentScope provides this) {
+            CurrentScreen(ScreenRootNavStateProjection(targetState), stateHolder)
+        }
     }
     AnimationEffects(transition)
 }
