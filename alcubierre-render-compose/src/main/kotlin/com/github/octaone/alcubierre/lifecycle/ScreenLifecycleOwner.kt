@@ -2,8 +2,8 @@ package com.github.octaone.alcubierre.lifecycle
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 
 /**
  * As stated in documentation for Lifecycle handling in Compose,
@@ -30,5 +30,7 @@ public object LocalScreenLifecycleOwner {
     public val current: ScreenLifecycleOwner
         @ReadOnlyComposable
         @Composable
-        get() = requireNotNull(LocalLifecycleOwner.current as? ScreenLifecycleOwner) { "No ScreenLifecycleOwner provided" }
+        get() = requireNotNull(LocalLifecycleOwner.current as? ScreenLifecycleOwner) {
+            "No ScreenLifecycleOwner provided"
+        }
 }

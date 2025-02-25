@@ -10,5 +10,6 @@ android {
 
 dependencies {
     api(projects.alcubierreBase)
+
     implementation(libs.kotlin.coroutines)
 }

@@ -20,8 +20,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.SaveableStateHolder
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.node.Ref
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.github.octaone.alcubierre.ComposeNavDriveOwner
 import com.github.octaone.alcubierre.LocalNavDrive
 import com.github.octaone.alcubierre.LocalRenderAnimatedContentScope
@@ -164,10 +164,20 @@ private fun AnimatedCurrentScreen(
         transitionSpec = {
             val transitionScope = ScreenTransitionScope(initialState.currentScreen, targetState.currentScreen)
             // No need to check if the previous screen is removed if the transitions are the same.
-            if (sameTransitions || isPreviousScreenRemoved(initialState, targetState)) {
-                removeTransition.invoke(transitionScope)
-            } else {
+            if (sameTransitions) {
                 addTransition.invoke(transitionScope)
+            } else {
+                val initialScreen = initialState.currentScreen
+                if (initialScreen == null || containsScreen(targetState, initialScreen)) { // Previous screen is retained
+                    addTransition.invoke(transitionScope)
+                } else {
+                    val targetScreen = targetState.currentScreen
+                    if (targetScreen == null || containsScreen(initialState, targetScreen)) { // Target screen was already in the stack
+                        removeTransition.invoke(transitionScope)
+                    } else {
+                        addTransition.invoke(transitionScope)
+                    }
+                }
             }
         }
     ) { targetState ->
@@ -254,22 +264,17 @@ private fun CurrentDialog(
     }
 }
 
-private fun isPreviousScreenRemoved(previousState: ComposeRootNavState, targetState: ComposeRootNavState): Boolean {
-    val previousScreen = previousState.currentScreen ?: return false
-    val previousScreenId = previousScreen.screenId
-
-    var isScreenRemoved = true
-    stacksLoop@ for (stackState in targetState.stackStates.values) {
+private fun containsScreen(state: ComposeRootNavState, screen: Screen): Boolean {
+    val targetScreenId = screen.screenId
+    for (stackState in state.stackStates.values) {
         val stack = stackState.stack
         for (i in stack.indices) {
-            if (stack[i].screenId == previousScreenId) {
-                isScreenRemoved = false
-                break@stacksLoop
+            if (stack[i].screenId == targetScreenId) {
+                return true
             }
         }
     }
-
-    return isScreenRemoved
+    return false
 }
 
 private suspend fun disposeDialog(

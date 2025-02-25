@@ -56,6 +56,7 @@ public class ScreenStackNavReducer : NavReducer<AnyStackNavState> {
                 }
             }
             is ReplaceRoot -> {
+                check(action.screens.isNotEmpty())
                 state.copy(stack = action.screens)
             }
             else -> {

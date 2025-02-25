@@ -2,6 +2,10 @@ public final class com/github/octaone/alcubierre/LocalNavDriveProviderKt {
 	public static final fun getLocalNavDrive ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 }
 
+public final class com/github/octaone/alcubierre/LocalRenderAnimatedContentScopeKt {
+	public static final fun getLocalRenderAnimatedContentScope ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
 public final class com/github/octaone/alcubierre/lifecycle/DefaultDialogLifecycleManager : androidx/lifecycle/HasDefaultViewModelProviderFactory, androidx/lifecycle/LifecycleOwner, androidx/lifecycle/ViewModelStoreOwner, androidx/savedstate/SavedStateRegistryOwner, com/github/octaone/alcubierre/lifecycle/LifecycleManager {
 	public static final field $stable I
 	public fun <init> (Ljava/lang/String;Landroid/os/Bundle;)V
