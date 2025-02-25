@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.alcubierreBase)
+    api(projects.alcubierreBase)
 
     implementation(libs.androidx.lifecycle.common)
     implementation(libs.androidx.lifecycle.compose)

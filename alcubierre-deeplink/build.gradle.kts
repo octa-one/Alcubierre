@@ -9,8 +9,9 @@ android {
 }
 
 dependencies {
-    implementation(projects.alcubierre)
+    api(projects.alcubierreBase)
     api(projects.alcubierreDeeplinkProcessorApi)
+    implementation(projects.alcubierre)
     implementation(projects.alcubierreCondition)
 
     testImplementation(libs.junit)

@@ -12,5 +12,5 @@ android {
 }
 
 dependencies {
-    implementation(projects.alcubierre)
+    api(projects.alcubierreBase)
 }
