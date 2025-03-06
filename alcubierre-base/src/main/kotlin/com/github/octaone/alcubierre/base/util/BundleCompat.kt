@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import com.github.octaone.alcubierre.annotation.AlcubierreInternalApi
 import java.io.Serializable
-import kotlin.Array
 import java.lang.reflect.Array as ReflectArray
 
 @AlcubierreInternalApi

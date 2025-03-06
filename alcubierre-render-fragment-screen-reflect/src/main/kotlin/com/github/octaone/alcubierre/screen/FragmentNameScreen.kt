@@ -3,12 +3,12 @@
 package com.github.octaone.alcubierre.screen
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentFactory
 import com.github.octaone.alcubierre.annotation.AlcubierreFragmentNameConstructor
 
 /**
- * [Screen] implementation based on [Fragment].
- * @param fragmentName Fully qualified name class of fragment, required for [FragmentFactory].
+ * “Unsafe” version of [FragmentScreen], allowing the fully qualified name to be used to reference the Fragment class.
+ *
+ * @param fragmentName Fully qualified name of the [Fragment] class.
  * @param replace Transaction to commit, replace or add.
  *
  * @see FragmentCreator for manual Fragment instantiation.

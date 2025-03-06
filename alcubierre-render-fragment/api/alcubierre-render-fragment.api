@@ -47,7 +47,6 @@ public abstract interface class com/github/octaone/alcubierre/screen/FragmentCre
 }
 
 public abstract class com/github/octaone/alcubierre/screen/FragmentDialog : com/github/octaone/alcubierre/screen/Dialog, com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
-	public fun <init> (Ljava/lang/String;)V
 	public fun <init> (Lkotlin/reflect/KClass;)V
 	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
 	public final fun getFragmentName ()Ljava/lang/String;

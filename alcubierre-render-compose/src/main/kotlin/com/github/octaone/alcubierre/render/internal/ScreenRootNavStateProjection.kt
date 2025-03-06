@@ -21,6 +21,6 @@ internal class ScreenRootNavStateProjection(
         return state.currentScreen?.screenId == other.state.currentScreen?.screenId
     }
 
-    // The hashCode/equals contract is not honored, but in this case it doesn't need to be.
-    override fun hashCode(): Int = state.hashCode()
+    // The hashCode/equals contract is not respected, but in this case it doesn't need to be.
+    override fun hashCode(): Int = 0
 }
