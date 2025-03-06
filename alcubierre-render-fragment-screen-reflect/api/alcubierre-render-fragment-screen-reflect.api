@@ -1,10 +1,5 @@
-public abstract class com/github/octaone/alcubierre/screen/FragmentNameDialog : com/github/octaone/alcubierre/screen/Dialog, com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
+public abstract class com/github/octaone/alcubierre/screen/FragmentNameDialog : com/github/octaone/alcubierre/screen/FragmentDialog {
 	public fun <init> (Ljava/lang/String;)V
-	public fun <init> (Lkotlin/reflect/KClass;)V
-	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
-	public final fun getFragmentName ()Ljava/lang/String;
-	public fun getPriority ()I
-	public fun hasExtras ()Z
 }
 
 public abstract class com/github/octaone/alcubierre/screen/FragmentNameScreen : com/github/octaone/alcubierre/screen/FragmentScreen {

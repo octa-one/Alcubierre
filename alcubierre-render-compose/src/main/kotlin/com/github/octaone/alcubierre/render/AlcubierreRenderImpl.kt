@@ -13,6 +13,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.NonRestartableComposable
+import androidx.compose.runtime.NonSkippableComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.produceState
@@ -28,7 +29,6 @@ import com.github.octaone.alcubierre.LocalRenderAnimatedContentScope
 import com.github.octaone.alcubierre.lifecycle.LifecycleHandler
 import com.github.octaone.alcubierre.lifecycle.ScreenLifecycleOwner
 import com.github.octaone.alcubierre.render.internal.DialogRootNavStateProjection
-import com.github.octaone.alcubierre.render.internal.ImmutableSaveableStateHolder
 import com.github.octaone.alcubierre.render.internal.ScreenRootNavStateProjection
 import com.github.octaone.alcubierre.screen.ComposeScreen
 import com.github.octaone.alcubierre.screen.HideRequest
@@ -65,7 +65,7 @@ internal fun AlcubierreRenderImplWithProvider(
  *   But you can check [ScreenLifecycleOwner.isFinishing], it will be true if [Screen] is in the process of being destroyed.
  */
 @Composable
-@Suppress("NonSkippableComposable")
+@NonSkippableComposable
 internal fun AlcubierreRenderImpl(
     navDriveOwner: ComposeNavDriveOwner,
     animationType: Int,
@@ -74,7 +74,7 @@ internal fun AlcubierreRenderImpl(
     animationSpec: FiniteAnimationSpec<Float>?
 ) {
 
-    val stateHolder = ImmutableSaveableStateHolder(rememberSaveableStateHolder())
+    val stateHolder = rememberSaveableStateHolder()
 
     @SuppressLint("StateFlowValueCalledInComposition")
     val currentState by produceState(initialValue = navDriveOwner.stateFlow.value) {
@@ -131,7 +131,7 @@ internal fun AlcubierreRenderImpl(
 @Composable
 private fun ImmediateCurrentScreen(
     currentStateProjection: ScreenRootNavStateProjection,
-    stateHolder: ImmutableSaveableStateHolder
+    stateHolder: SaveableStateHolder
 ) {
     CurrentScreen(
         currentStateProjection = currentStateProjection,
@@ -151,16 +151,14 @@ private fun ImmediateCurrentScreen(
 @Composable
 private fun AnimatedCurrentScreen(
     currentStateProjection: ScreenRootNavStateProjection,
-    stateHolder: ImmutableSaveableStateHolder,
+    stateHolder: SaveableStateHolder,
     addTransition: ScreenTransitionScope.() -> ContentTransform,
     removeTransition: ScreenTransitionScope.() -> ContentTransform,
     sameTransitions: Boolean
 ) {
     val transition = updateTransition(currentStateProjection.state, label = "Alcubierre")
     transition.AnimatedContent(
-        contentKey = { state ->
-            state.currentScreen?.screenId
-        },
+        contentKey = { state -> state.currentScreen?.screenId },
         transitionSpec = {
             val transitionScope = ScreenTransitionScope(initialState.currentScreen, targetState.currentScreen)
             // No need to check if the previous screen is removed if the transitions are the same.
@@ -192,14 +190,12 @@ private fun AnimatedCurrentScreen(
 @Composable
 private fun CrossfadeCurrentScreen(
     currentStateProjection: ScreenRootNavStateProjection,
-    stateHolder: ImmutableSaveableStateHolder,
+    stateHolder: SaveableStateHolder,
     animationSpec: FiniteAnimationSpec<Float>
 ) {
     val transition = updateTransition(currentStateProjection.state, label = "Alcubierre")
     transition.Crossfade(
-        contentKey = { state ->
-            state.currentScreen?.screenId
-        },
+        contentKey = { state -> state.currentScreen?.screenId },
         animationSpec = animationSpec,
     ) { targetState ->
         CurrentScreen(ScreenRootNavStateProjection(targetState), stateHolder)
@@ -231,7 +227,7 @@ private fun AnimationEffects(transition: Transition<ComposeRootNavState>) {
 @Composable
 private fun CurrentScreen(
     currentStateProjection: ScreenRootNavStateProjection,
-    stateHolder: ImmutableSaveableStateHolder
+    stateHolder: SaveableStateHolder
 ) {
     currentStateProjection.state.currentScreen?.let { screen ->
         val parentLifecycle = LocalLifecycleOwner.current.lifecycle
@@ -247,12 +243,11 @@ private fun CurrentScreen(
 @Composable
 private fun CurrentDialog(
     currentStateProjection: DialogRootNavStateProjection,
-    stateHolder: ImmutableSaveableStateHolder,
+    stateHolder: SaveableStateHolder,
     onDismissRequest: () -> Unit,
 ) {
     currentStateProjection.state.currentDialog?.let { dialog ->
         key(dialog.dialogId) {
-
             val parentLifecycle = LocalLifecycleOwner.current.lifecycle
             CompositionLocalProvider(*dialog.lifecycleManager.providedValues) {
                 stateHolder.SaveableStateProvider(dialog.dialogId) {
