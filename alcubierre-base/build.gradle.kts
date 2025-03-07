@@ -10,5 +10,4 @@ android {
 
 dependencies {
     implementation(libs.kotlin.coroutines)
-    implementation(libs.androidx.core)
 }

@@ -2,7 +2,6 @@ package com.github.octaone.alcubierre.state
 
 import com.github.octaone.alcubierre.screen.Dialog
 import com.github.octaone.alcubierre.screen.Screen
-import kotlin.collections.set
 
 public class StackStateBuilder<S : Screen>  {
 
