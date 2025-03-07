@@ -35,7 +35,9 @@ import com.github.octaone.alcubierre.sample.screen.SampleScreen
 import com.github.octaone.alcubierre.screen.ComposeDialog
 import com.github.octaone.alcubierre.screen.ComposeScreen
 import com.github.octaone.alcubierre.state.rootState
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SampleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +86,7 @@ class SampleActivity : AppCompatActivity() {
                                         },
                                         label = null,
                                         selected = isSelected,
-                                        onClick = remember {{ navDriveOwner.selectStack(tab.id) }},
+                                        onClick = { navDriveOwner.selectStack(tab.id) },
                                     )
                                 }
                             }

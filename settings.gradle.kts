@@ -33,6 +33,7 @@ include(":alcubierre-deeplink-processor-test")
 include(":alcubierre-deeplink")
 include(":alcubierre-condition")
 include(":alcubierre-condition-reflect")
+include(":alcubierre-hiltviewmodel")
 
 include(":sample-fragment")
 include(":sample-fragment-host-fragment")

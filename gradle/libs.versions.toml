@@ -19,6 +19,7 @@ savedstate = "1.2.1"
 autoservice = "1.1.1"
 vkompose = "0.7"
 binary-validator = "0.16.3"
+hilt = "2.55"
 
 null = "null"
 
@@ -73,6 +74,8 @@ ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.re
 asm-tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
 asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
 colonist-core = { module = "com.joom.colonist:colonist-core", version.ref = "colonist" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 
 # test
 junit = { module = "junit:junit", version.ref = "junit" }
@@ -91,6 +94,8 @@ vk-recompose-highlighter = { id = "com.vk.recompose-highlighter", version.ref = 
 vk-recompose-checker = { id = "com.vk.composable-skippability-checker", version.ref = "vkompose" }
 binary-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-validator" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 buildlogic-android-app = { id = "buildlogic.android-app", version.ref = "null" }
 buildlogic-android-library = { id = "buildlogic.android-library", version.ref = "null" }

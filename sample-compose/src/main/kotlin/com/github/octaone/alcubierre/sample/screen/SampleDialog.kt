@@ -47,15 +47,15 @@ class SampleDialogContent : ComposeDialogContent<SampleDialog>() {
                 Text(text = "${dialog.someId} (p=${dialog.priority})")
                 TextButton(
                     modifier = MaxWidthModifier,
-                    onClick = remember {{ navDrive.dismissDialog() }}
+                    onClick = { navDrive.dismissDialog() }
                 ) {
                     Text(text = "Dismiss")
                 }
                 TextButton(
                     modifier = MaxWidthModifier,
-                    onClick = remember {{
+                    onClick = {
                         navDrive.showDialog(SampleDialog(Counter.increment(), Random.nextInt(0, 10)))
-                    }}
+                    }
                 ) {
                     Text(text = "Show one more dialog")
                 }

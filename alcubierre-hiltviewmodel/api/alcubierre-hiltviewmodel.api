@@ -1,0 +1,4 @@
+public final class com/github/octaone/alcubierre/hilt/HiltViewModelKt {
+	public static final fun createHiltViewModelFactory (Landroidx/lifecycle/ViewModelStoreOwner;Landroidx/compose/runtime/Composer;I)Landroidx/lifecycle/ViewModelProvider$Factory;
+}
+
