@@ -41,7 +41,7 @@ public data class RootNavState<out S : Screen, out D : Dialog>(
 
         public val EMPTY: RootNavState<Nothing, Nothing> = RootNavState(
             dialogState = DialogNavState.EMPTY,
-            stackStates = hashMapOf(-1 to StackNavState.EMPTY),
+            stackStates = mapOf(-1 to StackNavState.EMPTY),
             currentStackId = -1
         )
     }
