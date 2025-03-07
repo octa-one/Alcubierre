@@ -8,6 +8,7 @@ import com.github.octaone.alcubierre.deeplink.util.isPlaceholder
  * Used in annotation processing and unit testing without Android SDK.
  * @see Uri
  */
+@ConsistentCopyVisibility
 public data class DeeplinkUri internal constructor(
     val pattern: String,
     val scheme: String,
