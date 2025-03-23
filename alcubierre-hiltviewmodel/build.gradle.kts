@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.compose.hilt"
+    namespace = "space.octaone.alcubierre.compose.hilt"
 }
 
 dependencies {

@@ -7,7 +7,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container"
-        android:name="com.github.octaone.alcubierre.host.AlcubierreNavDriveFragment"
+        android:name="space.octaone.alcubierre.host.AlcubierreNavDriveFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

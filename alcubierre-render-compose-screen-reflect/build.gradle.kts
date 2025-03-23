@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.compose.screen.reflect"
+    namespace = "space.octaone.alcubierre.compose.screen.reflect"
 
     defaultConfig {
         consumerProguardFiles("proguard/rules.pro")

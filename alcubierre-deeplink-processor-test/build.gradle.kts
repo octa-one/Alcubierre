@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.deeplink.processor.test"
+    namespace = "space.octaone.alcubierre.deeplink.processor.test"
 }
 
 ksp {
     arg("alcubierre.registryBaseName", project.path)
-    arg("alcubierre.allowedTypes", "com.github.octaone.alcubierre.deeplink.test.TestScreen")
+    arg("alcubierre.allowedTypes", "space.octaone.alcubierre.deeplink.test.TestScreen")
 }
 
 dependencies {

@@ -130,7 +130,7 @@ class SelectStackReducer : NavReducer<RootNavState>() {
     }
 }
 ```
-The `com.github.octaone.alcubierre:alcubierre` module contains a standard set of Actions and Reducers for them.
+The `space.octaone.alcubierre:alcubierre` module contains a standard set of Actions and Reducers for them.
 
 ## Entry point
 The entry point is the interface to interact with the navigation library from your code.

@@ -1,7 +1,7 @@
--keep class * extends com.github.octaone.alcubierre.screen.ComposeScreenContent {
+-keep class * extends space.octaone.alcubierre.screen.ComposeScreenContent {
     public <init>(...);
 }
 
--keep class * extends com.github.octaone.alcubierre.screen.ComposeDialogContent {
+-keep class * extends space.octaone.alcubierre.screen.ComposeDialogContent {
     public <init>(...);
 }

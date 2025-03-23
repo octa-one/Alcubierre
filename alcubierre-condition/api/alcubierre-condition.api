@@ -1,48 +1,48 @@
-public abstract class com/github/octaone/alcubierre/condition/ConditionalTarget : com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
+public abstract class space/octaone/alcubierre/condition/ConditionalTarget : space/octaone/alcubierre/base/screen/extra/ExtrasContainer {
 	public fun <init> (Lkotlin/reflect/KClass;)V
 	public final fun getConditionClass ()Ljava/lang/Class;
 	public final fun getConditionName ()Ljava/lang/String;
-	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
+	public fun getExtras ()Lspace/octaone/alcubierre/base/screen/extra/ParcelableExtras;
 	public fun hasExtras ()Z
 }
 
-public class com/github/octaone/alcubierre/condition/DefaultNavConditionFactory : com/github/octaone/alcubierre/condition/NavConditionFactory {
+public class space/octaone/alcubierre/condition/DefaultNavConditionFactory : space/octaone/alcubierre/condition/NavConditionFactory {
 	public fun <init> (Ljava/lang/ClassLoader;)V
-	public fun create (Lcom/github/octaone/alcubierre/condition/ConditionalTarget;)Lcom/github/octaone/alcubierre/condition/NavCondition;
-	protected fun createClass (Ljava/lang/ClassLoader;Lcom/github/octaone/alcubierre/condition/ConditionalTarget;)Ljava/lang/Class;
-	protected fun createInstance (Ljava/lang/Class;)Lcom/github/octaone/alcubierre/condition/NavCondition;
+	public fun create (Lspace/octaone/alcubierre/condition/ConditionalTarget;)Lspace/octaone/alcubierre/condition/NavCondition;
+	protected fun createClass (Ljava/lang/ClassLoader;Lspace/octaone/alcubierre/condition/ConditionalTarget;)Ljava/lang/Class;
+	protected fun createInstance (Ljava/lang/Class;)Lspace/octaone/alcubierre/condition/NavCondition;
 	protected final fun getClassLoader ()Ljava/lang/ClassLoader;
 }
 
-public abstract interface class com/github/octaone/alcubierre/condition/NavCondition {
-	public abstract fun resolve (Lcom/github/octaone/alcubierre/condition/ConditionalTarget;Lcom/github/octaone/alcubierre/state/RootNavState;)Lcom/github/octaone/alcubierre/action/NavAction;
+public abstract interface class space/octaone/alcubierre/condition/NavCondition {
+	public abstract fun resolve (Lspace/octaone/alcubierre/condition/ConditionalTarget;Lspace/octaone/alcubierre/base/state/RootNavState;)Lspace/octaone/alcubierre/base/action/NavAction;
 }
 
-public abstract interface class com/github/octaone/alcubierre/condition/NavConditionFactory {
-	public abstract fun create (Lcom/github/octaone/alcubierre/condition/ConditionalTarget;)Lcom/github/octaone/alcubierre/condition/NavCondition;
+public abstract interface class space/octaone/alcubierre/condition/NavConditionFactory {
+	public abstract fun create (Lspace/octaone/alcubierre/condition/ConditionalTarget;)Lspace/octaone/alcubierre/condition/NavCondition;
 }
 
-public final class com/github/octaone/alcubierre/condition/action/ResolveCondition : com/github/octaone/alcubierre/action/NavAction {
-	public fun <init> (Lcom/github/octaone/alcubierre/condition/ConditionalTarget;)V
-	public final fun component1 ()Lcom/github/octaone/alcubierre/condition/ConditionalTarget;
-	public final fun copy (Lcom/github/octaone/alcubierre/condition/ConditionalTarget;)Lcom/github/octaone/alcubierre/condition/action/ResolveCondition;
-	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/condition/action/ResolveCondition;Lcom/github/octaone/alcubierre/condition/ConditionalTarget;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/condition/action/ResolveCondition;
+public final class space/octaone/alcubierre/condition/action/ResolveCondition : space/octaone/alcubierre/base/action/NavAction {
+	public fun <init> (Lspace/octaone/alcubierre/condition/ConditionalTarget;)V
+	public final fun component1 ()Lspace/octaone/alcubierre/condition/ConditionalTarget;
+	public final fun copy (Lspace/octaone/alcubierre/condition/ConditionalTarget;)Lspace/octaone/alcubierre/condition/action/ResolveCondition;
+	public static synthetic fun copy$default (Lspace/octaone/alcubierre/condition/action/ResolveCondition;Lspace/octaone/alcubierre/condition/ConditionalTarget;ILjava/lang/Object;)Lspace/octaone/alcubierre/condition/action/ResolveCondition;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getConditionalTarget ()Lcom/github/octaone/alcubierre/condition/ConditionalTarget;
+	public final fun getConditionalTarget ()Lspace/octaone/alcubierre/condition/ConditionalTarget;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/github/octaone/alcubierre/condition/action/ResolveConditionKt {
-	public static final fun resolveCondition (Lcom/github/octaone/alcubierre/NavDrive;Lcom/github/octaone/alcubierre/condition/ConditionalTarget;)V
+public final class space/octaone/alcubierre/condition/action/ResolveConditionKt {
+	public static final fun resolveCondition (Lspace/octaone/alcubierre/base/NavDrive;Lspace/octaone/alcubierre/condition/ConditionalTarget;)V
 }
 
-public abstract interface annotation class com/github/octaone/alcubierre/condition/annotation/AlcubierreConditionalNameConstructor : java/lang/annotation/Annotation {
+public abstract interface annotation class space/octaone/alcubierre/condition/annotation/AlcubierreConditionalNameConstructor : java/lang/annotation/Annotation {
 }
 
-public final class com/github/octaone/alcubierre/condition/reducer/ConditionReducer : com/github/octaone/alcubierre/reduce/LinkedNavReducer {
-	public fun <init> (Lcom/github/octaone/alcubierre/condition/NavConditionFactory;)V
-	public fun reduce (Lcom/github/octaone/alcubierre/state/RootNavState;Lcom/github/octaone/alcubierre/action/NavAction;)Lcom/github/octaone/alcubierre/state/RootNavState;
-	public synthetic fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+public final class space/octaone/alcubierre/condition/reducer/ConditionReducer : space/octaone/alcubierre/base/reduce/LinkedNavReducer {
+	public fun <init> (Lspace/octaone/alcubierre/condition/NavConditionFactory;)V
+	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/base/action/NavAction;)Ljava/lang/Object;
+	public fun reduce (Lspace/octaone/alcubierre/base/state/RootNavState;Lspace/octaone/alcubierre/base/action/NavAction;)Lspace/octaone/alcubierre/base/state/RootNavState;
 }
 

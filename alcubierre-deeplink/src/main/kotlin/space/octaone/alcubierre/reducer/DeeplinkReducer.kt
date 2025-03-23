@@ -1,0 +1,62 @@
+package space.octaone.alcubierre.reducer
+
+import android.net.Uri
+import space.octaone.alcubierre.action.DeeplinkForward
+import space.octaone.alcubierre.action.Forward
+import space.octaone.alcubierre.action.ShowDialog
+import space.octaone.alcubierre.base.action.AnyNavAction
+import space.octaone.alcubierre.base.reduce.LinkedNavReducer
+import space.octaone.alcubierre.base.screen.Dialog
+import space.octaone.alcubierre.base.screen.Screen
+import space.octaone.alcubierre.base.state.AnyRootNavState
+import space.octaone.alcubierre.condition.ConditionalTarget
+import space.octaone.alcubierre.condition.action.ResolveCondition
+import space.octaone.alcubierre.deeplink.DeeplinkResolver
+import space.octaone.alcubierre.deeplink.DefaultDeeplinkResolver
+
+/**
+ * Reducer for handling [DeeplinkForward] actions.
+ * Uses [DeeplinkResolver] to create actual navigation targets.
+ * Support 3 targets:
+ * Resolved [Screen] is converted to a [Forward] action.
+ * Resolved [Dialog] is converted to a [ShowDialog] action.
+ * Resolved [ConditionalTarget] is converted to a [ResolveCondition] action for further processing.
+ *
+ * Be aware: resolved action will be reduced from the head or chain reducers.
+ * So it doesn't matter if [DeeplinkReducer] is at the end or the beginning of the chain.
+ * But it's better to place it at the beginning to minimize unnecessary reduce calls.
+ *
+ * @param resolver [DeeplinkResolver] with all known deeplink, can be created with [DefaultDeeplinkResolver].
+ * @param onResolveFailed Callback to handle unknown deeplinks that cannot be resolved by [resolver].
+ */
+public class DeeplinkReducer(
+    private val resolver: DeeplinkResolver,
+    private val onResolveFailed: (Uri) -> Unit
+) : LinkedNavReducer<AnyRootNavState>() {
+
+    override fun reduce(state: AnyRootNavState, action: AnyNavAction): AnyRootNavState =
+        when (action) {
+            is DeeplinkForward -> {
+                val resolvedAction = resolver.resolve(action.deeplink)
+                    .map { resolved ->
+                        when (resolved) {
+                            is Screen -> Forward(listOf(resolved))
+                            is Dialog -> ShowDialog(resolved)
+                            is ConditionalTarget -> ResolveCondition(resolved)
+                            else -> null
+                        }
+                    }
+                    .getOrNull()
+
+                if (resolvedAction != null) {
+                    head.reduce(state, resolvedAction)
+                } else {
+                    onResolveFailed(action.deeplink)
+                    state
+                }
+            }
+            else -> {
+                next.reduce(state, action)
+            }
+        }
+}

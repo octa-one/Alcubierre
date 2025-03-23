@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.deeplink"
+    namespace = "space.octaone.alcubierre.deeplink"
 }
 
 dependencies {

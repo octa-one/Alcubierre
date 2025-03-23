@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.fragment.host"
+    namespace = "space.octaone.alcubierre.fragment.host"
 }
 
 dependencies {

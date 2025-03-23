@@ -1,75 +1,80 @@
-public abstract interface class com/github/octaone/alcubierre/NavDrive {
-	public abstract fun dispatch (Lcom/github/octaone/alcubierre/action/NavAction;)V
-	public abstract fun getState ()Lcom/github/octaone/alcubierre/state/RootNavState;
+public abstract interface class space/octaone/alcubierre/base/NavDrive {
+	public abstract fun dispatch (Lspace/octaone/alcubierre/base/action/NavAction;)V
+	public abstract fun getState ()Lspace/octaone/alcubierre/base/state/RootNavState;
 }
 
-public abstract interface class com/github/octaone/alcubierre/NavDriveOwner : com/github/octaone/alcubierre/NavDrive {
+public abstract interface class space/octaone/alcubierre/base/NavDriveOwner : space/octaone/alcubierre/base/NavDrive {
 	public abstract fun getStateFlow ()Lkotlinx/coroutines/flow/StateFlow;
-	public abstract fun initialize (Lcom/github/octaone/alcubierre/reduce/NavReducer;Lcom/github/octaone/alcubierre/state/RootNavState;Ljava/util/Map;)V
+	public abstract fun initialize (Lspace/octaone/alcubierre/base/reduce/NavReducer;Lspace/octaone/alcubierre/base/state/RootNavState;Ljava/util/Map;)V
 	public abstract fun requestDismissDialog ()V
 	public abstract fun restoreState (Landroid/os/Bundle;)V
 	public abstract fun saveState (Landroid/os/Bundle;)V
 }
 
-public final class com/github/octaone/alcubierre/NavDriveOwner$DefaultImpls {
-	public static synthetic fun initialize$default (Lcom/github/octaone/alcubierre/NavDriveOwner;Lcom/github/octaone/alcubierre/reduce/NavReducer;Lcom/github/octaone/alcubierre/state/RootNavState;Ljava/util/Map;ILjava/lang/Object;)V
+public final class space/octaone/alcubierre/base/NavDriveOwner$DefaultImpls {
+	public static synthetic fun initialize$default (Lspace/octaone/alcubierre/base/NavDriveOwner;Lspace/octaone/alcubierre/base/reduce/NavReducer;Lspace/octaone/alcubierre/base/state/RootNavState;Ljava/util/Map;ILjava/lang/Object;)V
 }
 
-public abstract interface class com/github/octaone/alcubierre/action/NavAction {
+public abstract interface class space/octaone/alcubierre/base/action/NavAction {
 }
 
-public abstract interface annotation class com/github/octaone/alcubierre/annotation/AlcubierreInternalApi : java/lang/annotation/Annotation {
+public abstract interface annotation class space/octaone/alcubierre/base/annotation/AlcubierreInternalApi : java/lang/annotation/Annotation {
 }
 
-public abstract class com/github/octaone/alcubierre/reduce/LinkedNavReducer : com/github/octaone/alcubierre/reduce/NavReducer {
-	public field head Lcom/github/octaone/alcubierre/reduce/NavReducer;
-	public field next Lcom/github/octaone/alcubierre/reduce/NavReducer;
+public abstract class space/octaone/alcubierre/base/reduce/LinkedNavReducer : space/octaone/alcubierre/base/reduce/NavReducer {
+	public field head Lspace/octaone/alcubierre/base/reduce/NavReducer;
+	public field next Lspace/octaone/alcubierre/base/reduce/NavReducer;
 	public fun <init> ()V
-	public final fun getHead ()Lcom/github/octaone/alcubierre/reduce/NavReducer;
-	public final fun getNext ()Lcom/github/octaone/alcubierre/reduce/NavReducer;
+	public final fun getHead ()Lspace/octaone/alcubierre/base/reduce/NavReducer;
+	public final fun getNext ()Lspace/octaone/alcubierre/base/reduce/NavReducer;
+	public final fun setHead (Lspace/octaone/alcubierre/base/reduce/NavReducer;)V
+	public final fun setNext (Lspace/octaone/alcubierre/base/reduce/NavReducer;)V
 }
 
-public abstract interface class com/github/octaone/alcubierre/reduce/NavReducer {
-	public abstract fun reduce (Ljava/lang/Object;Lcom/github/octaone/alcubierre/action/NavAction;)Ljava/lang/Object;
+public abstract interface class space/octaone/alcubierre/base/reduce/NavReducer {
+	public abstract fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/base/action/NavAction;)Ljava/lang/Object;
 }
 
-public final class com/github/octaone/alcubierre/reduce/builder/ReducerLinkedListBuilder {
+public final class space/octaone/alcubierre/base/reduce/builder/ReducerLinkedListBuilder {
 	public fun <init> ()V
-	public final fun add (Lcom/github/octaone/alcubierre/reduce/LinkedNavReducer;)V
-	public final fun build ()Lcom/github/octaone/alcubierre/reduce/LinkedNavReducer;
+	public final fun add (Lspace/octaone/alcubierre/base/reduce/LinkedNavReducer;)V
+	public final fun build ()Lspace/octaone/alcubierre/base/reduce/LinkedNavReducer;
 }
 
-public final class com/github/octaone/alcubierre/reduce/builder/ReducerLinkedListsKt {
-	public static final fun buildReducerLinkedList (Lkotlin/jvm/functions/Function1;)Lcom/github/octaone/alcubierre/reduce/NavReducer;
-	public static final fun reducerLinkedListOf ([Lcom/github/octaone/alcubierre/reduce/LinkedNavReducer;)Lcom/github/octaone/alcubierre/reduce/NavReducer;
+public final class space/octaone/alcubierre/base/reduce/builder/ReducerLinkedListsKt {
+	public static final fun buildReducerLinkedList (Lkotlin/jvm/functions/Function1;)Lspace/octaone/alcubierre/base/reduce/NavReducer;
+	public static final fun reducerLinkedListOf ([Lspace/octaone/alcubierre/base/reduce/LinkedNavReducer;)Lspace/octaone/alcubierre/base/reduce/NavReducer;
 }
 
-public abstract class com/github/octaone/alcubierre/screen/Dialog : android/os/Parcelable, com/github/octaone/alcubierre/screen/extra/ExtrasContainer, java/lang/Comparable {
+public abstract class space/octaone/alcubierre/base/screen/Dialog : android/os/Parcelable, java/lang/Comparable, space/octaone/alcubierre/base/screen/extra/ExtrasContainer {
 	public fun <init> ()V
-	public fun compareTo (Lcom/github/octaone/alcubierre/screen/Dialog;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lspace/octaone/alcubierre/base/screen/Dialog;)I
 	public final fun getDialogId ()Ljava/lang/String;
 	public abstract fun getPriority ()I
 	public final fun isShowing ()Z
+	public final fun setDialogId (Ljava/lang/String;)V
+	public final fun setShowing (Z)V
 }
 
-public abstract class com/github/octaone/alcubierre/screen/Screen : android/os/Parcelable, com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
+public abstract class space/octaone/alcubierre/base/screen/Screen : android/os/Parcelable, space/octaone/alcubierre/base/screen/extra/ExtrasContainer {
 	public fun <init> ()V
 	public final fun getScreenId ()Ljava/lang/String;
+	public final fun setScreenId (Ljava/lang/String;)V
 }
 
-public abstract interface class com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
-	public abstract fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
+public abstract interface class space/octaone/alcubierre/base/screen/extra/ExtrasContainer {
+	public abstract fun getExtras ()Lspace/octaone/alcubierre/base/screen/extra/ParcelableExtras;
 	public abstract fun hasExtras ()Z
 }
 
-public final class com/github/octaone/alcubierre/screen/extra/LazyExtrasContainer : com/github/octaone/alcubierre/screen/extra/ExtrasContainer {
+public final class space/octaone/alcubierre/base/screen/extra/LazyExtrasContainer : space/octaone/alcubierre/base/screen/extra/ExtrasContainer {
 	public fun <init> ()V
-	public fun getExtras ()Lcom/github/octaone/alcubierre/screen/extra/ParcelableExtras;
+	public fun getExtras ()Lspace/octaone/alcubierre/base/screen/extra/ParcelableExtras;
 	public fun hasExtras ()Z
 }
 
-public abstract interface class com/github/octaone/alcubierre/screen/extra/ParcelableExtras {
+public abstract interface class space/octaone/alcubierre/base/screen/extra/ParcelableExtras {
 	public abstract fun containsKey (Ljava/lang/String;)Z
 	public abstract fun getBoolean (Ljava/lang/String;)Z
 	public abstract fun getInt (Ljava/lang/String;)I
@@ -86,13 +91,13 @@ public abstract interface class com/github/octaone/alcubierre/screen/extra/Parce
 	public abstract fun save ()Landroid/os/Bundle;
 }
 
-public final class com/github/octaone/alcubierre/state/DialogNavState : android/os/Parcelable {
+public final class space/octaone/alcubierre/base/state/DialogNavState : android/os/Parcelable {
 	public static final field CREATOR Landroid/os/Parcelable$Creator;
-	public static final field Companion Lcom/github/octaone/alcubierre/state/DialogNavState$Companion;
+	public static final field Companion Lspace/octaone/alcubierre/base/state/DialogNavState$Companion;
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;)Lcom/github/octaone/alcubierre/state/DialogNavState;
-	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/state/DialogNavState;Ljava/util/List;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/state/DialogNavState;
+	public final fun copy (Ljava/util/List;)Lspace/octaone/alcubierre/base/state/DialogNavState;
+	public static synthetic fun copy$default (Lspace/octaone/alcubierre/base/state/DialogNavState;Ljava/util/List;ILjava/lang/Object;)Lspace/octaone/alcubierre/base/state/DialogNavState;
 	public final fun describeContents ()I
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getQueue ()Ljava/util/List;
@@ -101,67 +106,67 @@ public final class com/github/octaone/alcubierre/state/DialogNavState : android/
 	public final fun writeToParcel (Landroid/os/Parcel;I)V
 }
 
-public final class com/github/octaone/alcubierre/state/DialogNavState$Companion {
-	public final fun getEMPTY ()Lcom/github/octaone/alcubierre/state/DialogNavState;
+public final class space/octaone/alcubierre/base/state/DialogNavState$Companion {
+	public final fun getEMPTY ()Lspace/octaone/alcubierre/base/state/DialogNavState;
 }
 
-public final class com/github/octaone/alcubierre/state/DialogNavState$Creator : android/os/Parcelable$Creator {
+public final class space/octaone/alcubierre/base/state/DialogNavState$Creator : android/os/Parcelable$Creator {
 	public fun <init> ()V
-	public final fun createFromParcel (Landroid/os/Parcel;)Lcom/github/octaone/alcubierre/state/DialogNavState;
 	public synthetic fun createFromParcel (Landroid/os/Parcel;)Ljava/lang/Object;
-	public final fun newArray (I)[Lcom/github/octaone/alcubierre/state/DialogNavState;
+	public final fun createFromParcel (Landroid/os/Parcel;)Lspace/octaone/alcubierre/base/state/DialogNavState;
 	public synthetic fun newArray (I)[Ljava/lang/Object;
+	public final fun newArray (I)[Lspace/octaone/alcubierre/base/state/DialogNavState;
 }
 
-public final class com/github/octaone/alcubierre/state/RootNavState : android/os/Parcelable {
+public final class space/octaone/alcubierre/base/state/RootNavState : android/os/Parcelable {
 	public static final field CREATOR Landroid/os/Parcelable$Creator;
-	public static final field Companion Lcom/github/octaone/alcubierre/state/RootNavState$Companion;
-	public fun <init> (Lcom/github/octaone/alcubierre/state/DialogNavState;Ljava/util/Map;I)V
-	public final fun component1 ()Lcom/github/octaone/alcubierre/state/DialogNavState;
+	public static final field Companion Lspace/octaone/alcubierre/base/state/RootNavState$Companion;
+	public fun <init> (Lspace/octaone/alcubierre/base/state/DialogNavState;Ljava/util/Map;I)V
+	public final fun component1 ()Lspace/octaone/alcubierre/base/state/DialogNavState;
 	public final fun component2 ()Ljava/util/Map;
 	public final fun component3 ()I
-	public final fun copy (Lcom/github/octaone/alcubierre/state/DialogNavState;Ljava/util/Map;I)Lcom/github/octaone/alcubierre/state/RootNavState;
-	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/state/RootNavState;Lcom/github/octaone/alcubierre/state/DialogNavState;Ljava/util/Map;IILjava/lang/Object;)Lcom/github/octaone/alcubierre/state/RootNavState;
+	public final fun copy (Lspace/octaone/alcubierre/base/state/DialogNavState;Ljava/util/Map;I)Lspace/octaone/alcubierre/base/state/RootNavState;
+	public static synthetic fun copy$default (Lspace/octaone/alcubierre/base/state/RootNavState;Lspace/octaone/alcubierre/base/state/DialogNavState;Ljava/util/Map;IILjava/lang/Object;)Lspace/octaone/alcubierre/base/state/RootNavState;
 	public final fun describeContents ()I
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getCurrentDialog ()Lcom/github/octaone/alcubierre/screen/Dialog;
-	public final fun getCurrentScreen ()Lcom/github/octaone/alcubierre/screen/Screen;
+	public final fun getCurrentDialog ()Lspace/octaone/alcubierre/base/screen/Dialog;
+	public final fun getCurrentScreen ()Lspace/octaone/alcubierre/base/screen/Screen;
 	public final fun getCurrentStackId ()I
-	public final fun getCurrentStackState ()Lcom/github/octaone/alcubierre/state/StackNavState;
-	public final fun getDialogState ()Lcom/github/octaone/alcubierre/state/DialogNavState;
+	public final fun getCurrentStackState ()Lspace/octaone/alcubierre/base/state/StackNavState;
+	public final fun getDialogState ()Lspace/octaone/alcubierre/base/state/DialogNavState;
 	public final fun getStackStates ()Ljava/util/Map;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 	public final fun writeToParcel (Landroid/os/Parcel;I)V
 }
 
-public final class com/github/octaone/alcubierre/state/RootNavState$Companion {
-	public final fun getEMPTY ()Lcom/github/octaone/alcubierre/state/RootNavState;
+public final class space/octaone/alcubierre/base/state/RootNavState$Companion {
+	public final fun getEMPTY ()Lspace/octaone/alcubierre/base/state/RootNavState;
 }
 
-public final class com/github/octaone/alcubierre/state/RootNavState$Creator : android/os/Parcelable$Creator {
+public final class space/octaone/alcubierre/base/state/RootNavState$Creator : android/os/Parcelable$Creator {
 	public fun <init> ()V
-	public final fun createFromParcel (Landroid/os/Parcel;)Lcom/github/octaone/alcubierre/state/RootNavState;
 	public synthetic fun createFromParcel (Landroid/os/Parcel;)Ljava/lang/Object;
-	public final fun newArray (I)[Lcom/github/octaone/alcubierre/state/RootNavState;
+	public final fun createFromParcel (Landroid/os/Parcel;)Lspace/octaone/alcubierre/base/state/RootNavState;
 	public synthetic fun newArray (I)[Ljava/lang/Object;
+	public final fun newArray (I)[Lspace/octaone/alcubierre/base/state/RootNavState;
 }
 
-public final class com/github/octaone/alcubierre/state/RootStateBuilder {
+public final class space/octaone/alcubierre/base/state/RootStateBuilder {
 	public fun <init> ()V
-	public final fun build ()Lcom/github/octaone/alcubierre/state/RootNavState;
+	public final fun build ()Lspace/octaone/alcubierre/base/state/RootNavState;
 	public final fun selectStack (I)V
-	public final fun stack (ILcom/github/octaone/alcubierre/state/StackNavState;)V
 	public final fun stack (ILkotlin/jvm/functions/Function1;)V
+	public final fun stack (ILspace/octaone/alcubierre/base/state/StackNavState;)V
 }
 
-public final class com/github/octaone/alcubierre/state/StackNavState : android/os/Parcelable {
+public final class space/octaone/alcubierre/base/state/StackNavState : android/os/Parcelable {
 	public static final field CREATOR Landroid/os/Parcelable$Creator;
-	public static final field Companion Lcom/github/octaone/alcubierre/state/StackNavState$Companion;
+	public static final field Companion Lspace/octaone/alcubierre/base/state/StackNavState$Companion;
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;)Lcom/github/octaone/alcubierre/state/StackNavState;
-	public static synthetic fun copy$default (Lcom/github/octaone/alcubierre/state/StackNavState;Ljava/util/List;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/state/StackNavState;
+	public final fun copy (Ljava/util/List;)Lspace/octaone/alcubierre/base/state/StackNavState;
+	public static synthetic fun copy$default (Lspace/octaone/alcubierre/base/state/StackNavState;Ljava/util/List;ILjava/lang/Object;)Lspace/octaone/alcubierre/base/state/StackNavState;
 	public final fun describeContents ()I
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getStack ()Ljava/util/List;
@@ -170,28 +175,38 @@ public final class com/github/octaone/alcubierre/state/StackNavState : android/o
 	public final fun writeToParcel (Landroid/os/Parcel;I)V
 }
 
-public final class com/github/octaone/alcubierre/state/StackNavState$Companion {
-	public final fun getEMPTY ()Lcom/github/octaone/alcubierre/state/StackNavState;
+public final class space/octaone/alcubierre/base/state/StackNavState$Companion {
+	public final fun getEMPTY ()Lspace/octaone/alcubierre/base/state/StackNavState;
 }
 
-public final class com/github/octaone/alcubierre/state/StackNavState$Creator : android/os/Parcelable$Creator {
+public final class space/octaone/alcubierre/base/state/StackNavState$Creator : android/os/Parcelable$Creator {
 	public fun <init> ()V
-	public final fun createFromParcel (Landroid/os/Parcel;)Lcom/github/octaone/alcubierre/state/StackNavState;
 	public synthetic fun createFromParcel (Landroid/os/Parcel;)Ljava/lang/Object;
-	public final fun newArray (I)[Lcom/github/octaone/alcubierre/state/StackNavState;
+	public final fun createFromParcel (Landroid/os/Parcel;)Lspace/octaone/alcubierre/base/state/StackNavState;
 	public synthetic fun newArray (I)[Ljava/lang/Object;
+	public final fun newArray (I)[Lspace/octaone/alcubierre/base/state/StackNavState;
 }
 
-public final class com/github/octaone/alcubierre/state/StackStateBuilder {
+public final class space/octaone/alcubierre/base/state/StackStateBuilder {
 	public fun <init> ()V
-	public final fun build ()Lcom/github/octaone/alcubierre/state/StackNavState;
-	public final fun screen (Lcom/github/octaone/alcubierre/screen/Screen;)V
+	public final fun build ()Lspace/octaone/alcubierre/base/state/StackNavState;
+	public final fun screen (Lspace/octaone/alcubierre/base/screen/Screen;)V
 }
 
-public final class com/github/octaone/alcubierre/state/StateBuilderKt {
+public final class space/octaone/alcubierre/base/state/StateBuilderKt {
 	public static final field SINGLE_STACK_ID I
-	public static final fun rootState (Lkotlin/jvm/functions/Function1;)Lcom/github/octaone/alcubierre/state/RootNavState;
-	public static final fun singleStackRootState (ILkotlin/jvm/functions/Function1;)Lcom/github/octaone/alcubierre/state/RootNavState;
-	public static synthetic fun singleStackRootState$default (ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/github/octaone/alcubierre/state/RootNavState;
+	public static final fun rootState (Lkotlin/jvm/functions/Function1;)Lspace/octaone/alcubierre/base/state/RootNavState;
+	public static final fun singleStackRootState (ILkotlin/jvm/functions/Function1;)Lspace/octaone/alcubierre/base/state/RootNavState;
+	public static synthetic fun singleStackRootState$default (ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lspace/octaone/alcubierre/base/state/RootNavState;
+}
+
+public final class space/octaone/alcubierre/base/util/BundleCompatKt {
+	public static final fun getParcelableArrayCompat (Landroid/os/Bundle;Ljava/lang/String;Ljava/lang/Class;)[Landroid/os/Parcelable;
+	public static final fun getParcelableCompat (Landroid/os/Bundle;Ljava/lang/String;Ljava/lang/Class;)Landroid/os/Parcelable;
+	public static final fun getSerializableCompat (Landroid/os/Bundle;Ljava/lang/String;Ljava/lang/Class;)Ljava/io/Serializable;
+}
+
+public final class space/octaone/alcubierre/base/util/MapsKt {
+	public static final fun getNotNull (Ljava/util/Map;Ljava/lang/Object;)Ljava/lang/Object;
 }
 

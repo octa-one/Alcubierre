@@ -8,11 +8,11 @@ gradlePlugin {
     plugins {
         register("ComposeBuildLogic") {
             id = "buildlogic.compose"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.ComposeBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.ComposeBuildLogicPlugin"
         }
         register("ComposeRuntimeBuildLogic") {
             id = "buildlogic.compose-runtime"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.ComposeRuntimeBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.ComposeRuntimeBuildLogicPlugin"
         }
     }
 }

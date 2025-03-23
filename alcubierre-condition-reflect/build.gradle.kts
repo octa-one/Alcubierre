@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.condition.reflect"
+    namespace = "space.octaone.alcubierre.condition.reflect"
 }
 
 dependencies {

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.base"
+    namespace = "space.octaone.alcubierre.base"
 }
 
 dependencies {

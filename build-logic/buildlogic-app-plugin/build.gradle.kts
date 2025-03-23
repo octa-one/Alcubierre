@@ -10,7 +10,7 @@ gradlePlugin {
     plugins {
         create("ApplicationBuildLogic") {
             id = "buildlogic.android-app"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.ApplicationBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.ApplicationBuildLogicPlugin"
         }
     }
 }

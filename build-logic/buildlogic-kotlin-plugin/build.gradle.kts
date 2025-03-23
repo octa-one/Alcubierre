@@ -8,15 +8,15 @@ gradlePlugin {
     plugins {
         register("KotlinAndroidBuildLogic") {
             id = "buildlogic.kotlin-android"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.KotlinAndroidBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.KotlinAndroidBuildLogicPlugin"
         }
         register("KotlinJvmBuildLogic") {
             id = "buildlogic.kotlin-jvm"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.KotlinJvmBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.KotlinJvmBuildLogicPlugin"
         }
         register("KotlinBaseBuildLogic") {
             id = "buildlogic.kotlin-base"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.KotlinBaseBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.KotlinBaseBuildLogicPlugin"
         }
     }
 }

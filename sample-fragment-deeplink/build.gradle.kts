@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.sample"
+    namespace = "space.octaone.alcubierre.sample"
 }
 
 ksp {

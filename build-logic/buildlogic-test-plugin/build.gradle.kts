@@ -8,11 +8,11 @@ gradlePlugin {
     plugins {
         register("AndroidTestBuildLogic") {
             id = "buildlogic.android-test"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.AndroidTestBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.AndroidTestBuildLogicPlugin"
         }
         register("KotlinTestBuildLogic") {
             id = "buildlogic.kotlin-test"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.KotlinTestBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.KotlinTestBuildLogicPlugin"
         }
     }
 }

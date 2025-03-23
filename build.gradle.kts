@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.vk.recompose.checker) apply false
     alias(libs.plugins.binary.validator) apply false
     alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.publish) apply false
 }
 
 buildscript {

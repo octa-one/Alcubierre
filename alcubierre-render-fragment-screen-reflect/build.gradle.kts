@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.fragment.screen.reflect"
+    namespace = "space.octaone.alcubierre.fragment.screen.reflect"
 }
 
 dependencies {

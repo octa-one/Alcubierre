@@ -1,3 +1,3 @@
--keep class * implements com.github.octaone.alcubierre.condition.NavCondition {
+-keep class * implements space.octaone.alcubierre.condition.NavCondition {
     public <init>(...);
 }

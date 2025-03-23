@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.octaone.alcubierre.condition"
+    namespace = "space.octaone.alcubierre.condition"
 
     defaultConfig {
         consumerProguardFiles("proguard/rules.pro")

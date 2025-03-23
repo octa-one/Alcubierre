@@ -3,13 +3,14 @@ dependencies {
     compileOnly(libs.gradle.android.tools)
     compileOnly(libs.gradle.kotlin)
     compileOnly(libs.gradle.binary.validator)
+    compileOnly(libs.gradle.publish)
 }
 
 gradlePlugin {
     plugins {
         create("PublishBuildLogic") {
             id = "buildlogic.publish"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.PublishBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.PublishBuildLogicPlugin"
         }
     }
 }

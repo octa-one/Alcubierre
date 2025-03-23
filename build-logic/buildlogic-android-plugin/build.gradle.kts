@@ -8,11 +8,11 @@ gradlePlugin {
     plugins {
         register("AndroidBaseBuildLogic") {
             id = "buildlogic.android-base"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.AndroidBaseBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.AndroidBaseBuildLogicPlugin"
         }
         register("AndroidLibraryBuildLogic") {
             id = "buildlogic.android-library"
-            implementationClass = "com.github.octaone.alcubierre.buildlogic.AndroidLibraryBuildLogicPlugin"
+            implementationClass = "space.octaone.alcubierre.buildlogic.AndroidLibraryBuildLogicPlugin"
         }
     }
 }

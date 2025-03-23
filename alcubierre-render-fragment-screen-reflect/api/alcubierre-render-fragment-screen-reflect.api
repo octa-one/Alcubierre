@@ -1,8 +1,8 @@
-public abstract class com/github/octaone/alcubierre/screen/FragmentNameDialog : com/github/octaone/alcubierre/screen/FragmentDialog {
+public abstract class space/octaone/alcubierre/screen/FragmentNameDialog : space/octaone/alcubierre/screen/FragmentDialog {
 	public fun <init> (Ljava/lang/String;)V
 }
 
-public abstract class com/github/octaone/alcubierre/screen/FragmentNameScreen : com/github/octaone/alcubierre/screen/FragmentScreen {
+public abstract class space/octaone/alcubierre/screen/FragmentNameScreen : space/octaone/alcubierre/screen/FragmentScreen {
 	public fun <init> (Ljava/lang/String;Z)V
 	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 }

@@ -18,8 +18,9 @@ lifecycle = "2.8.7"
 savedstate = "1.2.1"
 autoservice = "1.1.1"
 vkompose = "0.7"
-binary-validator = "0.16.3"
+binary-validator = "0.17.0"
 hilt = "2.55"
+publish = "0.31.0"
 
 null = "null"
 
@@ -30,6 +31,7 @@ gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 gradle-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 gradle-colonist = { module = "com.joom.colonist:colonist-gradle-plugin", version.ref = "colonist" }
 gradle-binary-validator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "binary-validator" }
+gradle-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "publish" }
 
 # kotlin
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
@@ -96,6 +98,7 @@ binary-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator"
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+publish = { id = "com.vanniktech.maven.publish", version.ref = "publish" }
 
 buildlogic-android-app = { id = "buildlogic.android-app", version.ref = "null" }
 buildlogic-android-library = { id = "buildlogic.android-library", version.ref = "null" }

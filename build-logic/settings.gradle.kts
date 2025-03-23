@@ -18,6 +18,7 @@ dependencyResolutionManagement {
     }
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
     }
@@ -25,7 +26,6 @@ dependencyResolutionManagement {
 
 include(":buildlogic-android-plugin")
 include(":buildlogic-app-plugin")
-include(":buildlogic-build-check-plugin")
 include(":buildlogic-compose-plugin")
 include(":buildlogic-kotlin-plugin")
 include(":buildlogic-test-plugin")
