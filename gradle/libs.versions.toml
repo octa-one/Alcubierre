@@ -1,16 +1,16 @@
 [versions]
-agp = "8.9.0"
+agp = "8.9.1"
 annotation = "1.9.1"
 appcompat = "1.7.0"
-compose-bom = "2025.02.00"
+compose-bom = "2025.03.01"
 core = "1.15.0"
-activity = "1.10.0"
+activity = "1.10.1"
 fragment = "1.8.6"
-kotlin = "2.1.0"
+kotlin = "2.1.10"
 coroutines = "1.10.1"
 material = "1.12.0"
 kotlinpoet = "1.18.0"
-ksp = "2.1.0-1.0.29"
+ksp = "2.1.10-1.0.31"
 asm = "9.6"
 colonist = "0.1.0-alpha22"
 junit = "4.13.2"
@@ -75,6 +75,7 @@ kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlin
 ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 asm-tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
 asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
+
 colonist-core = { module = "com.joom.colonist:colonist-core", version.ref = "colonist" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
@@ -96,7 +97,6 @@ vk-recompose-highlighter = { id = "com.vk.recompose-highlighter", version.ref = 
 vk-recompose-checker = { id = "com.vk.composable-skippability-checker", version.ref = "vkompose" }
 binary-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-validator" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 publish = { id = "com.vanniktech.maven.publish", version.ref = "publish" }
 

@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.buildlogic.android.app)
     alias(libs.plugins.buildlogic.compose)
     id(libs.plugins.kotlin.parcelize.get().pluginId)
-    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
