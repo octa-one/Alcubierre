@@ -26,14 +26,14 @@ import space.octaone.alcubierre.FragmentNavDrive
 import space.octaone.alcubierre.FragmentNavDriveOwner
 import space.octaone.alcubierre.action.back
 import space.octaone.alcubierre.action.selectStack
-import space.octaone.alcubierre.base.reduce.builder.reducerLinkedListOf
-import space.octaone.alcubierre.base.state.rootState
+import space.octaone.alcubierre.core.reduce.builder.reducerLinkedListOf
+import space.octaone.alcubierre.core.state.rootState
 import space.octaone.alcubierre.reduce.BatchRootNavReducer
 import space.octaone.alcubierre.reduce.DialogRootNavReducer
 import space.octaone.alcubierre.reduce.ScreenRootNavReducer
 import space.octaone.alcubierre.reduce.StackChangedListenerReducer
 import space.octaone.alcubierre.render.AlcubierreRootNavRender
-import space.octaone.alcubierre.render.modifier.EmptyModifier
+import space.octaone.alcubierre.render.modifier.AnimationModifier
 import space.octaone.alcubierre.render.renderFrom
 import space.octaone.alcubierre.sample.databinding.ActivitySampleBinding
 import space.octaone.alcubierre.sample.screen.SampleScreen
@@ -51,7 +51,7 @@ class SampleActivity : AppCompatActivity() {
             classLoader = classLoader,
             fragmentManager = supportFragmentManager,
             navDriveOwner = navDriveOwner,
-            transactionModifier = EmptyModifier
+            transactionModifier = AnimationModifier()
         )
     }
 

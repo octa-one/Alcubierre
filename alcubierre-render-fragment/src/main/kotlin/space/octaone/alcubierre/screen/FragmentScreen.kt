@@ -21,9 +21,9 @@ package space.octaone.alcubierre.screen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import space.octaone.alcubierre.annotation.AlcubierreFragmentNameConstructor
-import space.octaone.alcubierre.base.screen.Screen
-import space.octaone.alcubierre.base.screen.extra.ExtrasContainer
-import space.octaone.alcubierre.base.screen.extra.LazyExtrasContainer
+import space.octaone.alcubierre.core.screen.Screen
+import space.octaone.alcubierre.core.screen.extra.ExtrasContainer
+import space.octaone.alcubierre.core.screen.extra.LazyExtrasContainer
 import kotlin.reflect.KClass
 
 /**

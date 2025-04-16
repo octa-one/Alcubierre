@@ -31,12 +31,13 @@ import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.flow.StateFlow
 import space.octaone.alcubierre.FragmentNavDriveOwner
 import space.octaone.alcubierre.action.back
-import space.octaone.alcubierre.base.NavDriveOwner
-import space.octaone.alcubierre.base.action.NavAction
-import space.octaone.alcubierre.base.annotation.AlcubierreInternalApi
-import space.octaone.alcubierre.base.reduce.NavReducer
-import space.octaone.alcubierre.base.state.AnyRootNavState
-import space.octaone.alcubierre.owner.AlcubierreNavDriveOwner
+import space.octaone.alcubierre.core.NavDriveOwner
+import space.octaone.alcubierre.core.action.NavAction
+import space.octaone.alcubierre.core.annotation.AlcubierreInternalApi
+import space.octaone.alcubierre.core.owner.AlcubierreNavDriveOwner
+import space.octaone.alcubierre.core.reduce.NavReducer
+import space.octaone.alcubierre.core.state.AnyRootNavState
+import space.octaone.alcubierre.host.util.getAndCast
 import space.octaone.alcubierre.render.AlcubierreRootNavRender
 import space.octaone.alcubierre.render.modifier.EmptyModifier
 import space.octaone.alcubierre.render.modifier.FragmentTransactionModifier
@@ -44,7 +45,6 @@ import space.octaone.alcubierre.render.renderFrom
 import space.octaone.alcubierre.screen.FragmentDialog
 import space.octaone.alcubierre.screen.FragmentScreen
 import space.octaone.alcubierre.state.FragmentRootNavState
-import space.octaone.alcubierre.util.getAndCast
 import kotlin.reflect.KClass
 
 /**

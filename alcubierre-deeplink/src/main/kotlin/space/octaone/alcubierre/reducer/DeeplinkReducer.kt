@@ -20,11 +20,11 @@ import android.net.Uri
 import space.octaone.alcubierre.action.DeeplinkForward
 import space.octaone.alcubierre.action.Forward
 import space.octaone.alcubierre.action.ShowDialog
-import space.octaone.alcubierre.base.action.AnyNavAction
-import space.octaone.alcubierre.base.reduce.LinkedNavReducer
-import space.octaone.alcubierre.base.screen.Dialog
-import space.octaone.alcubierre.base.screen.Screen
-import space.octaone.alcubierre.base.state.AnyRootNavState
+import space.octaone.alcubierre.core.action.AnyNavAction
+import space.octaone.alcubierre.core.reduce.LinkedNavReducer
+import space.octaone.alcubierre.core.screen.Dialog
+import space.octaone.alcubierre.core.screen.Screen
+import space.octaone.alcubierre.core.state.AnyRootNavState
 import space.octaone.alcubierre.condition.ConditionalTarget
 import space.octaone.alcubierre.condition.action.ResolveCondition
 import space.octaone.alcubierre.deeplink.DeeplinkResolver

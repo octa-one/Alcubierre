@@ -16,9 +16,9 @@
 
 package space.octaone.alcubierre.condition.reducer
 
-import space.octaone.alcubierre.base.action.AnyNavAction
-import space.octaone.alcubierre.base.reduce.LinkedNavReducer
-import space.octaone.alcubierre.base.state.AnyRootNavState
+import space.octaone.alcubierre.core.action.AnyNavAction
+import space.octaone.alcubierre.core.reduce.LinkedNavReducer
+import space.octaone.alcubierre.core.state.AnyRootNavState
 import space.octaone.alcubierre.condition.NavCondition
 import space.octaone.alcubierre.condition.NavConditionFactory
 import space.octaone.alcubierre.condition.action.ResolveCondition

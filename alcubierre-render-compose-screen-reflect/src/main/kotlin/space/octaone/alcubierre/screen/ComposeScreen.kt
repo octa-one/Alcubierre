@@ -27,12 +27,12 @@ import androidx.savedstate.SavedStateRegistryOwner
 import kotlin.reflect.KClass
 
 /**
- * [space.octaone.alcubierre.base.screen.Screen] implementation for Compose.
+ * [space.octaone.alcubierre.core.screen.Screen] implementation for Compose.
  *
  * @param composeContentName The fully qualified name of the [ComposeScreenContent] class.
  * @param composeContentClass The class of the [ComposeScreenContent], if it exists, matches [composeContentName].
  *
- * In some app architectures the [space.octaone.alcubierre.base.screen.Screen] classes used for navigation may be separate from its implementation ([ComposeScreenContent]).
+ * In some app architectures the [space.octaone.alcubierre.core.screen.Screen] classes used for navigation may be separate from its implementation ([ComposeScreenContent]).
  * In such case, you can pass a class name or a class of the content.
  * Once navigated, the content will be created using the default constructor via reflection.
  * The same idea is used in FragmentFactory.
@@ -70,8 +70,8 @@ public abstract class ComposeNameScreen(
 /**
  * Separate interface for classes containing composable contents.
  * It is separate from [ComposeScreen] because in some app architectures
- * the [space.octaone.alcubierre.base.screen.Screen] classes used for navigation may be separate from its implementation.
- * If this is not the case, you can implement this interface in the [space.octaone.alcubierre.base.screen.Screen] class.
+ * the [space.octaone.alcubierre.core.screen.Screen] classes used for navigation may be separate from its implementation.
+ * If this is not the case, you can implement this interface in the [space.octaone.alcubierre.core.screen.Screen] class.
  */
 public abstract class ComposeScreenContent<S : ComposeScreen> {
 

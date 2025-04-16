@@ -16,11 +16,11 @@
 
 package space.octaone.alcubierre.action
 
-import space.octaone.alcubierre.base.NavDrive
-import space.octaone.alcubierre.base.action.NavAction
-import space.octaone.alcubierre.base.screen.Dialog
-import space.octaone.alcubierre.base.screen.Screen
-import space.octaone.alcubierre.base.state.RootNavState
+import space.octaone.alcubierre.core.NavDrive
+import space.octaone.alcubierre.core.action.NavAction
+import space.octaone.alcubierre.core.screen.Dialog
+import space.octaone.alcubierre.core.screen.Screen
+import space.octaone.alcubierre.core.state.RootNavState
 import space.octaone.alcubierre.reduce.BatchRootNavReducer
 import space.octaone.alcubierre.reduce.DialogNavReducer
 import space.octaone.alcubierre.reduce.DialogRootNavReducer

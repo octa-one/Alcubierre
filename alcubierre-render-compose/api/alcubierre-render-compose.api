@@ -67,15 +67,15 @@ public abstract interface class space/octaone/alcubierre/lifecycle/ScreenLifecyc
 	public abstract fun isFinishing ()Z
 }
 
-public final class space/octaone/alcubierre/render/AlcubierreRenderKt {
-	public static final fun AlcubierreAnimatedRender (Lspace/octaone/alcubierre/base/NavDriveOwner;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)V
-	public static final fun AlcubierreAnimatedRender (Lspace/octaone/alcubierre/base/NavDriveOwner;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)V
-	public static final fun AlcubierreCrossfadeRender (Lspace/octaone/alcubierre/base/NavDriveOwner;Landroidx/compose/animation/core/FiniteAnimationSpec;Landroidx/compose/runtime/Composer;II)V
-	public static final fun AlcubierreRender (Lspace/octaone/alcubierre/base/NavDriveOwner;Landroidx/compose/runtime/Composer;I)V
+public final class space/octaone/alcubierre/owner/RememberNavDriveOwnerKt {
+	public static final fun rememberNavDriveOwner (Lspace/octaone/alcubierre/core/reduce/NavReducer;Lspace/octaone/alcubierre/core/state/RootNavState;Landroidx/compose/runtime/Composer;I)Lspace/octaone/alcubierre/core/NavDriveOwner;
 }
 
-public final class space/octaone/alcubierre/render/NavDriveOwnerSaverKt {
-	public static final fun NavDriveOwnerSaver (Lspace/octaone/alcubierre/base/NavDriveOwner;Landroidx/compose/runtime/Composer;I)V
+public final class space/octaone/alcubierre/render/AlcubierreRenderKt {
+	public static final fun AlcubierreAnimatedRender (Lspace/octaone/alcubierre/core/NavDriveOwner;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)V
+	public static final fun AlcubierreAnimatedRender (Lspace/octaone/alcubierre/core/NavDriveOwner;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)V
+	public static final fun AlcubierreCrossfadeRender (Lspace/octaone/alcubierre/core/NavDriveOwner;Landroidx/compose/animation/core/FiniteAnimationSpec;Landroidx/compose/runtime/Composer;II)V
+	public static final fun AlcubierreRender (Lspace/octaone/alcubierre/core/NavDriveOwner;Landroidx/compose/runtime/Composer;I)V
 }
 
 public final class space/octaone/alcubierre/render/ScreenTransitionScope {
@@ -85,22 +85,22 @@ public final class space/octaone/alcubierre/render/ScreenTransitionScope {
 	public final fun getTargetScreen ()Lspace/octaone/alcubierre/screen/ComposeScreen;
 }
 
-public abstract class space/octaone/alcubierre/screen/ComposeDialog : space/octaone/alcubierre/base/screen/Dialog, space/octaone/alcubierre/base/screen/extra/ExtrasContainer {
+public abstract class space/octaone/alcubierre/screen/ComposeDialog : space/octaone/alcubierre/core/screen/Dialog, space/octaone/alcubierre/core/screen/extra/ExtrasContainer {
 	public static final field $stable I
 	public fun <init> ()V
 	public abstract fun Content (Lspace/octaone/alcubierre/screen/HideRequest;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;I)V
-	public fun getExtras ()Lspace/octaone/alcubierre/base/screen/extra/ParcelableExtras;
+	public fun getExtras ()Lspace/octaone/alcubierre/core/screen/extra/ParcelableExtras;
 	public fun getLifecycleManager ()Lspace/octaone/alcubierre/lifecycle/LifecycleManager;
 	public fun getPriority ()I
 	public fun getSavedStateDefaultArguments ()Landroid/os/Bundle;
 	public fun hasExtras ()Z
 }
 
-public abstract class space/octaone/alcubierre/screen/ComposeScreen : space/octaone/alcubierre/base/screen/Screen, space/octaone/alcubierre/base/screen/extra/ExtrasContainer {
+public abstract class space/octaone/alcubierre/screen/ComposeScreen : space/octaone/alcubierre/core/screen/Screen, space/octaone/alcubierre/core/screen/extra/ExtrasContainer {
 	public static final field $stable I
 	public fun <init> ()V
 	public abstract fun Content (Landroidx/compose/runtime/Composer;I)V
-	public fun getExtras ()Lspace/octaone/alcubierre/base/screen/extra/ParcelableExtras;
+	public fun getExtras ()Lspace/octaone/alcubierre/core/screen/extra/ParcelableExtras;
 	public fun getLifecycleManager ()Lspace/octaone/alcubierre/lifecycle/ScreenLifecycleManager;
 	public fun getSavedStateDefaultArguments ()Landroid/os/Bundle;
 	public fun hasExtras ()Z

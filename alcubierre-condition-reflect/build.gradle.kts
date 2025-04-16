@@ -8,6 +8,6 @@ android {
 }
 
 dependencies {
-    api(projects.alcubierreBase)
+    api(projects.alcubierreCore)
     api(projects.alcubierreCondition)
 }

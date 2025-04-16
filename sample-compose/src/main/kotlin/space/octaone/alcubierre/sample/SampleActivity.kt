@@ -35,23 +35,19 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.produceState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import space.octaone.alcubierre.LocalNavDrive
 import space.octaone.alcubierre.action.back
 import space.octaone.alcubierre.action.selectStack
-import space.octaone.alcubierre.base.reduce.builder.reducerLinkedListOf
-import space.octaone.alcubierre.base.state.rootState
-import space.octaone.alcubierre.owner.AlcubierreNavDriveOwner
+import space.octaone.alcubierre.core.reduce.builder.reducerLinkedListOf
+import space.octaone.alcubierre.core.state.rootState
+import space.octaone.alcubierre.owner.rememberNavDriveOwner
 import space.octaone.alcubierre.reduce.BatchRootNavReducer
 import space.octaone.alcubierre.reduce.DialogRootNavReducer
 import space.octaone.alcubierre.reduce.ScreenRootNavReducer
 import space.octaone.alcubierre.render.AlcubierreAnimatedRender
-import space.octaone.alcubierre.render.NavDriveOwnerSaver
 import space.octaone.alcubierre.sample.screen.SampleScreen
-import space.octaone.alcubierre.screen.ComposeDialog
-import space.octaone.alcubierre.screen.ComposeScreen
 
 @AndroidEntryPoint
 class SampleActivity : AppCompatActivity() {
@@ -60,29 +56,25 @@ class SampleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val navDriveOwner = remember {
-                AlcubierreNavDriveOwner<ComposeScreen, ComposeDialog>().also { owner ->
-                    owner.initialize(
-                        reducer = reducerLinkedListOf(
-                            BatchRootNavReducer(),
-                            DialogRootNavReducer(),
-                            ScreenRootNavReducer()
-                        ),
-                        initialState = rootState {
-                            stack(Tab.TAB_0.id) {
-                                screen(SampleScreen(Counter.increment()))
-                            }
-                            stack(Tab.TAB_1.id) {
-                                screen(SampleScreen(Counter.increment()))
-                                screen(SampleScreen(Counter.increment()))
-                            }
-                            stack(Tab.TAB_2.id) {
-                                screen(SampleScreen(Counter.increment()))
-                            }
-                        }
-                    )
+            val navDriveOwner = rememberNavDriveOwner(
+                reducer = reducerLinkedListOf(
+                    BatchRootNavReducer(),
+                    DialogRootNavReducer(),
+                    ScreenRootNavReducer()
+                ),
+                initialState = rootState {
+                    stack(Tab.TAB_0.id) {
+                        screen(SampleScreen(Counter.increment()))
+                    }
+                    stack(Tab.TAB_1.id) {
+                        screen(SampleScreen(Counter.increment()))
+                        screen(SampleScreen(Counter.increment()))
+                    }
+                    stack(Tab.TAB_2.id) {
+                        screen(SampleScreen(Counter.increment()))
+                    }
                 }
-            }
+            )
 
             Scaffold(
                 bottomBar = {
@@ -116,7 +108,6 @@ class SampleActivity : AppCompatActivity() {
                     CompositionLocalProvider(
                         LocalNavDrive provides navDriveOwner
                     ) {
-                        NavDriveOwnerSaver(navDriveOwner)
                         BackHandler { navDriveOwner.back() }
                         AlcubierreAnimatedRender(
                             navDriveOwner = navDriveOwner,

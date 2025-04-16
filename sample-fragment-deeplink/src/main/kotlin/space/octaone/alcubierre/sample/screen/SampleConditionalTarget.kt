@@ -17,8 +17,8 @@
 package space.octaone.alcubierre.sample.screen
 
 import space.octaone.alcubierre.action.Forward
-import space.octaone.alcubierre.base.action.AnyNavAction
-import space.octaone.alcubierre.base.state.AnyRootNavState
+import space.octaone.alcubierre.core.action.AnyNavAction
+import space.octaone.alcubierre.core.state.AnyRootNavState
 import space.octaone.alcubierre.condition.ConditionalTarget
 import space.octaone.alcubierre.condition.NavCondition
 import space.octaone.alcubierre.deeplink.processor.api.Deeplink

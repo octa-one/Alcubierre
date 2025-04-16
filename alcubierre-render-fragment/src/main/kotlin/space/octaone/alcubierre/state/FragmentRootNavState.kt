@@ -16,9 +16,9 @@
 
 package space.octaone.alcubierre.state
 
-import space.octaone.alcubierre.base.state.DialogNavState
-import space.octaone.alcubierre.base.state.RootNavState
-import space.octaone.alcubierre.base.state.StackNavState
+import space.octaone.alcubierre.core.state.DialogNavState
+import space.octaone.alcubierre.core.state.RootNavState
+import space.octaone.alcubierre.core.state.StackNavState
 import space.octaone.alcubierre.screen.FragmentDialog
 import space.octaone.alcubierre.screen.FragmentScreen
 

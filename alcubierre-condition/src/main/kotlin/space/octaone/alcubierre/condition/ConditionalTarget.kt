@@ -18,8 +18,8 @@
 
 package space.octaone.alcubierre.condition
 
-import space.octaone.alcubierre.base.screen.extra.ExtrasContainer
-import space.octaone.alcubierre.base.screen.extra.LazyExtrasContainer
+import space.octaone.alcubierre.core.screen.extra.ExtrasContainer
+import space.octaone.alcubierre.core.screen.extra.LazyExtrasContainer
 import space.octaone.alcubierre.condition.action.resolveCondition
 import space.octaone.alcubierre.condition.annotation.AlcubierreConditionalNameConstructor
 import space.octaone.alcubierre.condition.reducer.ConditionReducer

@@ -22,14 +22,14 @@ import space.octaone.alcubierre.action.BackToRoot
 import space.octaone.alcubierre.action.Forward
 import space.octaone.alcubierre.action.Replace
 import space.octaone.alcubierre.action.ReplaceRoot
-import space.octaone.alcubierre.base.action.AnyNavAction
-import space.octaone.alcubierre.base.reduce.NavReducer
-import space.octaone.alcubierre.base.screen.Screen
-import space.octaone.alcubierre.base.state.AnyStackNavState
+import space.octaone.alcubierre.core.action.AnyNavAction
+import space.octaone.alcubierre.core.reduce.NavReducer
+import space.octaone.alcubierre.core.screen.Screen
+import space.octaone.alcubierre.core.state.AnyStackNavState
 import space.octaone.alcubierre.util.optimizeReadOnlyList
 
 /**
- * [space.octaone.alcubierre.base.reduce.NavReducer] responds for commands with specific stack
+ * [space.octaone.alcubierre.core.reduce.NavReducer] responds for commands with specific stack
  */
 public class ScreenStackNavReducer : NavReducer<AnyStackNavState> {
 

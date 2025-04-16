@@ -28,19 +28,19 @@ import space.octaone.alcubierre.action.NewStack
 import space.octaone.alcubierre.action.Replace
 import space.octaone.alcubierre.action.ReplaceRoot
 import space.octaone.alcubierre.action.SelectStack
-import space.octaone.alcubierre.base.action.AnyNavAction
-import space.octaone.alcubierre.base.annotation.AlcubierreInternalApi
-import space.octaone.alcubierre.base.reduce.LinkedNavReducer
-import space.octaone.alcubierre.base.reduce.NavReducer
-import space.octaone.alcubierre.base.state.AnyRootNavState
-import space.octaone.alcubierre.base.state.AnyStackNavState
-import space.octaone.alcubierre.base.state.RootNavState
-import space.octaone.alcubierre.base.state.StackNavState
-import space.octaone.alcubierre.base.util.getNotNull
+import space.octaone.alcubierre.core.action.AnyNavAction
+import space.octaone.alcubierre.core.annotation.AlcubierreInternalApi
+import space.octaone.alcubierre.core.reduce.LinkedNavReducer
+import space.octaone.alcubierre.core.reduce.NavReducer
+import space.octaone.alcubierre.core.state.AnyRootNavState
+import space.octaone.alcubierre.core.state.AnyStackNavState
+import space.octaone.alcubierre.core.state.RootNavState
+import space.octaone.alcubierre.core.state.StackNavState
+import space.octaone.alcubierre.core.util.getNotNull
 import space.octaone.alcubierre.util.optimizeReadOnlyMap
 
 /**
- * [space.octaone.alcubierre.base.reduce.NavReducer] for screen specific actions. Responsible for [RootNavState].
+ * [space.octaone.alcubierre.core.reduce.NavReducer] for screen specific actions. Responsible for [RootNavState].
  * For actions associated with a particular stack, forwards them to [stackReducer],
  * then updates [RootNavState] with the updated [StackNavState] from [stackReducer].
  *
@@ -51,7 +51,7 @@ import space.octaone.alcubierre.util.optimizeReadOnlyMap
  * Make sure you do not remove current [RootNavState.currentStackId] stack.
  * [ApplyState] action returns a completely new state from [ApplyState.state].
  *
- * @param stackReducer [space.octaone.alcubierre.base.reduce.NavReducer] that can reduce [StackNavState].
+ * @param stackReducer [space.octaone.alcubierre.core.reduce.NavReducer] that can reduce [StackNavState].
  */
 public class ScreenRootNavReducer(
     private val stackReducer: NavReducer<AnyStackNavState> = ScreenStackNavReducer()

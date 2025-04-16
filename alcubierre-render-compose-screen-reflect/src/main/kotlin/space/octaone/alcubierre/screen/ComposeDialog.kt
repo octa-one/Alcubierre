@@ -24,11 +24,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistryOwner
-import space.octaone.alcubierre.base.NavDriveOwner
+import space.octaone.alcubierre.core.NavDriveOwner
 import kotlin.reflect.KClass
 
 /**
- * [space.octaone.alcubierre.base.screen.Dialog] implementation for Compose.
+ * [space.octaone.alcubierre.core.screen.Dialog] implementation for Compose.
  * Compared to some other navigation solutions, this library does not force a specific implementation of dialogs.
  * Because of this, you must provide the library with some implementation details, such as how to hide the dialog when the state changes.
  * See [HideRequest] for more information.
@@ -36,7 +36,7 @@ import kotlin.reflect.KClass
  * @param composeContentName The fully qualified name of the [ComposeScreenContent] class.
  * @param composeContentClass The class of the [ComposeScreenContent], if it exists, matches [composeContentName].
  *
- * In some app architectures the [space.octaone.alcubierre.base.screen.Dialog] classes used for navigation may be separate from its implementation ([ComposeDialogContent]).
+ * In some app architectures the [space.octaone.alcubierre.core.screen.Dialog] classes used for navigation may be separate from its implementation ([ComposeDialogContent]).
  * In such case, you can pass a class name or a class of the content.
  * Once navigated, the content will be created using the default constructor via reflection.
  * The same idea is used in FragmentFactory.

@@ -19,7 +19,7 @@ package space.octaone.alcubierre
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
-import space.octaone.alcubierre.base.NavDrive
+import space.octaone.alcubierre.core.NavDrive
 import space.octaone.alcubierre.host.AlcubierreNavDriveFragment
 
 /**

@@ -16,14 +16,14 @@
 
 package space.octaone.alcubierre.action
 
-import space.octaone.alcubierre.base.NavDrive
-import space.octaone.alcubierre.base.action.NavAction
-import space.octaone.alcubierre.base.screen.Dialog
-import space.octaone.alcubierre.base.screen.Screen
-import space.octaone.alcubierre.base.state.RootNavState
+import space.octaone.alcubierre.core.NavDrive
+import space.octaone.alcubierre.core.action.NavAction
+import space.octaone.alcubierre.core.screen.Dialog
+import space.octaone.alcubierre.core.screen.Screen
+import space.octaone.alcubierre.core.state.RootNavState
 
 /**
- * Utility class for recording multiple [space.octaone.alcubierre.base.action.NavAction]s and dispatching them simultaneously.
+ * Utility class for recording multiple [space.octaone.alcubierre.core.action.NavAction]s and dispatching them simultaneously.
  */
 internal class NavDriveBatchRecorder<S : Screen, D : Dialog> (
     initialState: RootNavState<S, D>

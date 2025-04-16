@@ -1,59 +1,59 @@
 public final class space/octaone/alcubierre/action/ActionsKt {
-	public static final fun applyState (Lspace/octaone/alcubierre/base/NavDrive;Lspace/octaone/alcubierre/base/state/RootNavState;)V
-	public static final fun back (Lspace/octaone/alcubierre/base/NavDrive;)V
-	public static final fun backTo (Lspace/octaone/alcubierre/base/NavDrive;Lspace/octaone/alcubierre/base/screen/Screen;Z)V
-	public static synthetic fun backTo$default (Lspace/octaone/alcubierre/base/NavDrive;Lspace/octaone/alcubierre/base/screen/Screen;ZILjava/lang/Object;)V
-	public static final fun backToRoot (Lspace/octaone/alcubierre/base/NavDrive;)V
-	public static final fun batch (Lspace/octaone/alcubierre/base/NavDrive;Lkotlin/jvm/functions/Function1;)V
-	public static final fun clearStack (Lspace/octaone/alcubierre/base/NavDrive;I)V
-	public static final fun dismissDialog (Lspace/octaone/alcubierre/base/NavDrive;)V
-	public static final fun forward (Lspace/octaone/alcubierre/base/NavDrive;[Lspace/octaone/alcubierre/base/screen/Screen;)V
-	public static final fun newStack (Lspace/octaone/alcubierre/base/NavDrive;I[Lspace/octaone/alcubierre/base/screen/Screen;)V
-	public static final fun replace (Lspace/octaone/alcubierre/base/NavDrive;[Lspace/octaone/alcubierre/base/screen/Screen;)V
-	public static final fun replaceRoot (Lspace/octaone/alcubierre/base/NavDrive;[Lspace/octaone/alcubierre/base/screen/Screen;)V
-	public static final fun selectStack (Lspace/octaone/alcubierre/base/NavDrive;I)V
-	public static final fun showDialog (Lspace/octaone/alcubierre/base/NavDrive;Lspace/octaone/alcubierre/base/screen/Dialog;)V
+	public static final fun applyState (Lspace/octaone/alcubierre/core/NavDrive;Lspace/octaone/alcubierre/core/state/RootNavState;)V
+	public static final fun back (Lspace/octaone/alcubierre/core/NavDrive;)V
+	public static final fun backTo (Lspace/octaone/alcubierre/core/NavDrive;Lspace/octaone/alcubierre/core/screen/Screen;Z)V
+	public static synthetic fun backTo$default (Lspace/octaone/alcubierre/core/NavDrive;Lspace/octaone/alcubierre/core/screen/Screen;ZILjava/lang/Object;)V
+	public static final fun backToRoot (Lspace/octaone/alcubierre/core/NavDrive;)V
+	public static final fun batch (Lspace/octaone/alcubierre/core/NavDrive;Lkotlin/jvm/functions/Function1;)V
+	public static final fun clearStack (Lspace/octaone/alcubierre/core/NavDrive;I)V
+	public static final fun dismissDialog (Lspace/octaone/alcubierre/core/NavDrive;)V
+	public static final fun forward (Lspace/octaone/alcubierre/core/NavDrive;[Lspace/octaone/alcubierre/core/screen/Screen;)V
+	public static final fun newStack (Lspace/octaone/alcubierre/core/NavDrive;I[Lspace/octaone/alcubierre/core/screen/Screen;)V
+	public static final fun replace (Lspace/octaone/alcubierre/core/NavDrive;[Lspace/octaone/alcubierre/core/screen/Screen;)V
+	public static final fun replaceRoot (Lspace/octaone/alcubierre/core/NavDrive;[Lspace/octaone/alcubierre/core/screen/Screen;)V
+	public static final fun selectStack (Lspace/octaone/alcubierre/core/NavDrive;I)V
+	public static final fun showDialog (Lspace/octaone/alcubierre/core/NavDrive;Lspace/octaone/alcubierre/core/screen/Dialog;)V
 }
 
-public final class space/octaone/alcubierre/action/ApplyState : space/octaone/alcubierre/base/action/NavAction {
-	public fun <init> (Lspace/octaone/alcubierre/base/state/RootNavState;)V
-	public final fun component1 ()Lspace/octaone/alcubierre/base/state/RootNavState;
-	public final fun copy (Lspace/octaone/alcubierre/base/state/RootNavState;)Lspace/octaone/alcubierre/action/ApplyState;
-	public static synthetic fun copy$default (Lspace/octaone/alcubierre/action/ApplyState;Lspace/octaone/alcubierre/base/state/RootNavState;ILjava/lang/Object;)Lspace/octaone/alcubierre/action/ApplyState;
+public final class space/octaone/alcubierre/action/ApplyState : space/octaone/alcubierre/core/action/NavAction {
+	public fun <init> (Lspace/octaone/alcubierre/core/state/RootNavState;)V
+	public final fun component1 ()Lspace/octaone/alcubierre/core/state/RootNavState;
+	public final fun copy (Lspace/octaone/alcubierre/core/state/RootNavState;)Lspace/octaone/alcubierre/action/ApplyState;
+	public static synthetic fun copy$default (Lspace/octaone/alcubierre/action/ApplyState;Lspace/octaone/alcubierre/core/state/RootNavState;ILjava/lang/Object;)Lspace/octaone/alcubierre/action/ApplyState;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getState ()Lspace/octaone/alcubierre/base/state/RootNavState;
+	public final fun getState ()Lspace/octaone/alcubierre/core/state/RootNavState;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/Back : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/Back : space/octaone/alcubierre/core/action/NavAction {
 	public static final field INSTANCE Lspace/octaone/alcubierre/action/Back;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/BackTo : space/octaone/alcubierre/base/action/NavAction {
-	public fun <init> (Lspace/octaone/alcubierre/base/screen/Screen;Z)V
-	public final fun component1 ()Lspace/octaone/alcubierre/base/screen/Screen;
+public final class space/octaone/alcubierre/action/BackTo : space/octaone/alcubierre/core/action/NavAction {
+	public fun <init> (Lspace/octaone/alcubierre/core/screen/Screen;Z)V
+	public final fun component1 ()Lspace/octaone/alcubierre/core/screen/Screen;
 	public final fun component2 ()Z
-	public final fun copy (Lspace/octaone/alcubierre/base/screen/Screen;Z)Lspace/octaone/alcubierre/action/BackTo;
-	public static synthetic fun copy$default (Lspace/octaone/alcubierre/action/BackTo;Lspace/octaone/alcubierre/base/screen/Screen;ZILjava/lang/Object;)Lspace/octaone/alcubierre/action/BackTo;
+	public final fun copy (Lspace/octaone/alcubierre/core/screen/Screen;Z)Lspace/octaone/alcubierre/action/BackTo;
+	public static synthetic fun copy$default (Lspace/octaone/alcubierre/action/BackTo;Lspace/octaone/alcubierre/core/screen/Screen;ZILjava/lang/Object;)Lspace/octaone/alcubierre/action/BackTo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getInclusive ()Z
-	public final fun getScreen ()Lspace/octaone/alcubierre/base/screen/Screen;
+	public final fun getScreen ()Lspace/octaone/alcubierre/core/screen/Screen;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/BackToRoot : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/BackToRoot : space/octaone/alcubierre/core/action/NavAction {
 	public static final field INSTANCE Lspace/octaone/alcubierre/action/BackToRoot;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/Batch : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/Batch : space/octaone/alcubierre/core/action/NavAction {
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun copy (Ljava/util/List;)Lspace/octaone/alcubierre/action/Batch;
@@ -64,7 +64,7 @@ public final class space/octaone/alcubierre/action/Batch : space/octaone/alcubie
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/ClearStack : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/ClearStack : space/octaone/alcubierre/core/action/NavAction {
 	public fun <init> (I)V
 	public final fun component1 ()I
 	public final fun copy (I)Lspace/octaone/alcubierre/action/ClearStack;
@@ -75,7 +75,7 @@ public final class space/octaone/alcubierre/action/ClearStack : space/octaone/al
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/DismissDialog : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/DismissDialog : space/octaone/alcubierre/core/action/NavAction {
 	public static final field INSTANCE Lspace/octaone/alcubierre/action/DismissDialog;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -83,11 +83,11 @@ public final class space/octaone/alcubierre/action/DismissDialog : space/octaone
 }
 
 public final class space/octaone/alcubierre/action/FindScreenKt {
-	public static final fun findScreenByClass (Lspace/octaone/alcubierre/base/state/RootNavState;Lkotlin/reflect/KClass;)Lspace/octaone/alcubierre/base/screen/Screen;
-	public static final fun findScreenByTag (Lspace/octaone/alcubierre/base/state/RootNavState;Ljava/lang/String;)Lspace/octaone/alcubierre/base/screen/Screen;
+	public static final fun findScreenByClass (Lspace/octaone/alcubierre/core/state/RootNavState;Lkotlin/reflect/KClass;)Lspace/octaone/alcubierre/core/screen/Screen;
+	public static final fun findScreenByTag (Lspace/octaone/alcubierre/core/state/RootNavState;Ljava/lang/String;)Lspace/octaone/alcubierre/core/screen/Screen;
 }
 
-public final class space/octaone/alcubierre/action/Forward : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/Forward : space/octaone/alcubierre/core/action/NavAction {
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun copy (Ljava/util/List;)Lspace/octaone/alcubierre/action/Forward;
@@ -98,7 +98,7 @@ public final class space/octaone/alcubierre/action/Forward : space/octaone/alcub
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/NewStack : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/NewStack : space/octaone/alcubierre/core/action/NavAction {
 	public fun <init> (ILjava/util/List;)V
 	public final fun component1 ()I
 	public final fun component2 ()Ljava/util/List;
@@ -111,7 +111,7 @@ public final class space/octaone/alcubierre/action/NewStack : space/octaone/alcu
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/Replace : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/Replace : space/octaone/alcubierre/core/action/NavAction {
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun copy (Ljava/util/List;)Lspace/octaone/alcubierre/action/Replace;
@@ -122,7 +122,7 @@ public final class space/octaone/alcubierre/action/Replace : space/octaone/alcub
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/ReplaceRoot : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/ReplaceRoot : space/octaone/alcubierre/core/action/NavAction {
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun copy (Ljava/util/List;)Lspace/octaone/alcubierre/action/ReplaceRoot;
@@ -133,7 +133,7 @@ public final class space/octaone/alcubierre/action/ReplaceRoot : space/octaone/a
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/SelectStack : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/SelectStack : space/octaone/alcubierre/core/action/NavAction {
 	public fun <init> (I)V
 	public final fun component1 ()I
 	public final fun copy (I)Lspace/octaone/alcubierre/action/SelectStack;
@@ -144,70 +144,59 @@ public final class space/octaone/alcubierre/action/SelectStack : space/octaone/a
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/action/ShowDialog : space/octaone/alcubierre/base/action/NavAction {
-	public fun <init> (Lspace/octaone/alcubierre/base/screen/Dialog;)V
-	public final fun component1 ()Lspace/octaone/alcubierre/base/screen/Dialog;
-	public final fun copy (Lspace/octaone/alcubierre/base/screen/Dialog;)Lspace/octaone/alcubierre/action/ShowDialog;
-	public static synthetic fun copy$default (Lspace/octaone/alcubierre/action/ShowDialog;Lspace/octaone/alcubierre/base/screen/Dialog;ILjava/lang/Object;)Lspace/octaone/alcubierre/action/ShowDialog;
+public final class space/octaone/alcubierre/action/ShowDialog : space/octaone/alcubierre/core/action/NavAction {
+	public fun <init> (Lspace/octaone/alcubierre/core/screen/Dialog;)V
+	public final fun component1 ()Lspace/octaone/alcubierre/core/screen/Dialog;
+	public final fun copy (Lspace/octaone/alcubierre/core/screen/Dialog;)Lspace/octaone/alcubierre/action/ShowDialog;
+	public static synthetic fun copy$default (Lspace/octaone/alcubierre/action/ShowDialog;Lspace/octaone/alcubierre/core/screen/Dialog;ILjava/lang/Object;)Lspace/octaone/alcubierre/action/ShowDialog;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDialog ()Lspace/octaone/alcubierre/base/screen/Dialog;
+	public final fun getDialog ()Lspace/octaone/alcubierre/core/screen/Dialog;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class space/octaone/alcubierre/owner/AlcubierreNavDriveOwner : space/octaone/alcubierre/base/NavDriveOwner {
+public final class space/octaone/alcubierre/reduce/BatchRootNavReducer : space/octaone/alcubierre/core/reduce/LinkedNavReducer {
 	public fun <init> ()V
-	public fun dispatch (Lspace/octaone/alcubierre/base/action/NavAction;)V
-	public fun getState ()Lspace/octaone/alcubierre/base/state/RootNavState;
-	public fun getStateFlow ()Lkotlinx/coroutines/flow/StateFlow;
-	public fun initialize (Lspace/octaone/alcubierre/base/reduce/NavReducer;Lspace/octaone/alcubierre/base/state/RootNavState;Ljava/util/Map;)V
-	public fun requestDismissDialog ()V
-	public fun restoreState (Landroid/os/Bundle;)V
-	public fun saveState (Landroid/os/Bundle;)V
+	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/core/action/NavAction;)Ljava/lang/Object;
+	public fun reduce (Lspace/octaone/alcubierre/core/state/RootNavState;Lspace/octaone/alcubierre/core/action/NavAction;)Lspace/octaone/alcubierre/core/state/RootNavState;
 }
 
-public final class space/octaone/alcubierre/reduce/BatchRootNavReducer : space/octaone/alcubierre/base/reduce/LinkedNavReducer {
+public final class space/octaone/alcubierre/reduce/DialogNavReducer : space/octaone/alcubierre/core/reduce/NavReducer {
 	public fun <init> ()V
-	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/base/action/NavAction;)Ljava/lang/Object;
-	public fun reduce (Lspace/octaone/alcubierre/base/state/RootNavState;Lspace/octaone/alcubierre/base/action/NavAction;)Lspace/octaone/alcubierre/base/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/core/action/NavAction;)Ljava/lang/Object;
+	public fun reduce (Lspace/octaone/alcubierre/core/state/DialogNavState;Lspace/octaone/alcubierre/core/action/NavAction;)Lspace/octaone/alcubierre/core/state/DialogNavState;
 }
 
-public final class space/octaone/alcubierre/reduce/DialogNavReducer : space/octaone/alcubierre/base/reduce/NavReducer {
+public final class space/octaone/alcubierre/reduce/DialogRootNavReducer : space/octaone/alcubierre/core/reduce/LinkedNavReducer {
 	public fun <init> ()V
-	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/base/action/NavAction;)Ljava/lang/Object;
-	public fun reduce (Lspace/octaone/alcubierre/base/state/DialogNavState;Lspace/octaone/alcubierre/base/action/NavAction;)Lspace/octaone/alcubierre/base/state/DialogNavState;
+	public fun <init> (Lspace/octaone/alcubierre/core/reduce/NavReducer;Z)V
+	public synthetic fun <init> (Lspace/octaone/alcubierre/core/reduce/NavReducer;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/core/action/NavAction;)Ljava/lang/Object;
+	public fun reduce (Lspace/octaone/alcubierre/core/state/RootNavState;Lspace/octaone/alcubierre/core/action/NavAction;)Lspace/octaone/alcubierre/core/state/RootNavState;
 }
 
-public final class space/octaone/alcubierre/reduce/DialogRootNavReducer : space/octaone/alcubierre/base/reduce/LinkedNavReducer {
+public final class space/octaone/alcubierre/reduce/ScreenRootNavReducer : space/octaone/alcubierre/core/reduce/LinkedNavReducer {
 	public fun <init> ()V
-	public fun <init> (Lspace/octaone/alcubierre/base/reduce/NavReducer;Z)V
-	public synthetic fun <init> (Lspace/octaone/alcubierre/base/reduce/NavReducer;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/base/action/NavAction;)Ljava/lang/Object;
-	public fun reduce (Lspace/octaone/alcubierre/base/state/RootNavState;Lspace/octaone/alcubierre/base/action/NavAction;)Lspace/octaone/alcubierre/base/state/RootNavState;
+	public fun <init> (Lspace/octaone/alcubierre/core/reduce/NavReducer;)V
+	public synthetic fun <init> (Lspace/octaone/alcubierre/core/reduce/NavReducer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/core/action/NavAction;)Ljava/lang/Object;
+	public fun reduce (Lspace/octaone/alcubierre/core/state/RootNavState;Lspace/octaone/alcubierre/core/action/NavAction;)Lspace/octaone/alcubierre/core/state/RootNavState;
 }
 
-public final class space/octaone/alcubierre/reduce/ScreenRootNavReducer : space/octaone/alcubierre/base/reduce/LinkedNavReducer {
+public final class space/octaone/alcubierre/reduce/ScreenStackNavReducer : space/octaone/alcubierre/core/reduce/NavReducer {
 	public fun <init> ()V
-	public fun <init> (Lspace/octaone/alcubierre/base/reduce/NavReducer;)V
-	public synthetic fun <init> (Lspace/octaone/alcubierre/base/reduce/NavReducer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/base/action/NavAction;)Ljava/lang/Object;
-	public fun reduce (Lspace/octaone/alcubierre/base/state/RootNavState;Lspace/octaone/alcubierre/base/action/NavAction;)Lspace/octaone/alcubierre/base/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/core/action/NavAction;)Ljava/lang/Object;
+	public fun reduce (Lspace/octaone/alcubierre/core/state/StackNavState;Lspace/octaone/alcubierre/core/action/NavAction;)Lspace/octaone/alcubierre/core/state/StackNavState;
 }
 
-public final class space/octaone/alcubierre/reduce/ScreenStackNavReducer : space/octaone/alcubierre/base/reduce/NavReducer {
-	public fun <init> ()V
-	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/base/action/NavAction;)Ljava/lang/Object;
-	public fun reduce (Lspace/octaone/alcubierre/base/state/StackNavState;Lspace/octaone/alcubierre/base/action/NavAction;)Lspace/octaone/alcubierre/base/state/StackNavState;
-}
-
-public final class space/octaone/alcubierre/reduce/StackChangedListenerReducer : space/octaone/alcubierre/base/reduce/LinkedNavReducer {
+public final class space/octaone/alcubierre/reduce/StackChangedListenerReducer : space/octaone/alcubierre/core/reduce/LinkedNavReducer {
 	public fun <init> (Lkotlin/jvm/functions/Function2;)V
-	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/base/action/NavAction;)Ljava/lang/Object;
-	public fun reduce (Lspace/octaone/alcubierre/base/state/RootNavState;Lspace/octaone/alcubierre/base/action/NavAction;)Lspace/octaone/alcubierre/base/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/core/action/NavAction;)Ljava/lang/Object;
+	public fun reduce (Lspace/octaone/alcubierre/core/state/RootNavState;Lspace/octaone/alcubierre/core/action/NavAction;)Lspace/octaone/alcubierre/core/state/RootNavState;
 }
 
 public final class space/octaone/alcubierre/screen/TagKt {
-	public static final fun getTag (Lspace/octaone/alcubierre/base/screen/extra/ExtrasContainer;)Ljava/lang/String;
-	public static final fun setTag (Lspace/octaone/alcubierre/base/screen/extra/ExtrasContainer;Ljava/lang/String;)V
+	public static final fun getTag (Lspace/octaone/alcubierre/core/screen/extra/ExtrasContainer;)Ljava/lang/String;
+	public static final fun setTag (Lspace/octaone/alcubierre/core/screen/extra/ExtrasContainer;Ljava/lang/String;)V
 }
 

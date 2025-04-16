@@ -21,8 +21,8 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import space.octaone.alcubierre.render.AlcubierreRender
 
 /**
- * Composition local for [space.octaone.alcubierre.base.NavDrive].
- * [AlcubierreRender] provides [space.octaone.alcubierre.base.NavDrive] value.
+ * Composition local for [space.octaone.alcubierre.core.NavDrive].
+ * [AlcubierreRender] provides [space.octaone.alcubierre.core.NavDrive] value.
  */
 public val LocalNavDrive: ProvidableCompositionLocal<ComposeNavDrive> =
     staticCompositionLocalOf { error("No NavDrive provided") }

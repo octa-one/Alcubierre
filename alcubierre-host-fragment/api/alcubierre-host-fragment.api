@@ -1,14 +1,14 @@
 public final class space/octaone/alcubierre/FindNavDriveKt {
-	public static final fun findNavDrive (Landroid/view/View;)Lspace/octaone/alcubierre/base/NavDrive;
-	public static final fun findNavDrive (Landroidx/fragment/app/Fragment;)Lspace/octaone/alcubierre/base/NavDrive;
+	public static final fun findNavDrive (Landroid/view/View;)Lspace/octaone/alcubierre/core/NavDrive;
+	public static final fun findNavDrive (Landroidx/fragment/app/Fragment;)Lspace/octaone/alcubierre/core/NavDrive;
 }
 
-public final class space/octaone/alcubierre/host/AlcubierreNavDriveFragment : androidx/fragment/app/Fragment, space/octaone/alcubierre/base/NavDriveOwner {
+public final class space/octaone/alcubierre/host/AlcubierreNavDriveFragment : androidx/fragment/app/Fragment, space/octaone/alcubierre/core/NavDriveOwner {
 	public fun <init> ()V
-	public fun dispatch (Lspace/octaone/alcubierre/base/action/NavAction;)V
-	public fun getState ()Lspace/octaone/alcubierre/base/state/RootNavState;
+	public fun dispatch (Lspace/octaone/alcubierre/core/action/NavAction;)V
+	public fun getState ()Lspace/octaone/alcubierre/core/state/RootNavState;
 	public fun getStateFlow ()Lkotlinx/coroutines/flow/StateFlow;
-	public fun initialize (Lspace/octaone/alcubierre/base/reduce/NavReducer;Lspace/octaone/alcubierre/base/state/RootNavState;Ljava/util/Map;)V
+	public fun initialize (Lspace/octaone/alcubierre/core/reduce/NavReducer;Lspace/octaone/alcubierre/core/state/RootNavState;Ljava/util/Map;)V
 	public fun onAttach (Landroid/content/Context;)V
 	public fun onCreate (Landroid/os/Bundle;)V
 	public fun onCreateView (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;

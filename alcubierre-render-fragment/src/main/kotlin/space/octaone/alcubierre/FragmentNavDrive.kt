@@ -16,8 +16,8 @@
 
 package space.octaone.alcubierre
 
-import space.octaone.alcubierre.base.NavDrive
-import space.octaone.alcubierre.base.NavDriveOwner
+import space.octaone.alcubierre.core.NavDrive
+import space.octaone.alcubierre.core.NavDriveOwner
 import space.octaone.alcubierre.screen.FragmentDialog
 import space.octaone.alcubierre.screen.FragmentScreen
 

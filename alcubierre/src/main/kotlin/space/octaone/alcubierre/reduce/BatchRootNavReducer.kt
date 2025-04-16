@@ -17,12 +17,12 @@
 package space.octaone.alcubierre.reduce
 
 import space.octaone.alcubierre.action.Batch
-import space.octaone.alcubierre.base.action.AnyNavAction
-import space.octaone.alcubierre.base.reduce.LinkedNavReducer
-import space.octaone.alcubierre.base.state.AnyRootNavState
+import space.octaone.alcubierre.core.action.AnyNavAction
+import space.octaone.alcubierre.core.reduce.LinkedNavReducer
+import space.octaone.alcubierre.core.state.AnyRootNavState
 
 /**
- * [space.octaone.alcubierre.base.reduce.NavReducer] for [Batch] action.
+ * [space.octaone.alcubierre.core.reduce.NavReducer] for [Batch] action.
  * Reduce every recorded action from the head of the chain. Thus, Batch actions can be nested.
  */
 public class BatchRootNavReducer : LinkedNavReducer<AnyRootNavState>() {

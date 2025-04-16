@@ -24,10 +24,10 @@ import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import space.octaone.alcubierre.base.NavDriveOwner
-import space.octaone.alcubierre.base.annotation.AlcubierreInternalApi
-import space.octaone.alcubierre.base.state.DialogNavState
-import space.octaone.alcubierre.base.util.getParcelableCompat
+import space.octaone.alcubierre.core.NavDriveOwner
+import space.octaone.alcubierre.core.annotation.AlcubierreInternalApi
+import space.octaone.alcubierre.core.state.DialogNavState
+import space.octaone.alcubierre.core.util.getParcelableCompat
 import space.octaone.alcubierre.screen.ARG_DIALOG
 import space.octaone.alcubierre.screen.FragmentCreator
 import space.octaone.alcubierre.screen.FragmentDialog

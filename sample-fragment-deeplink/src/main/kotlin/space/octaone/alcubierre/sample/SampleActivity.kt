@@ -22,10 +22,10 @@ import androidx.appcompat.app.AppCompatActivity
 import space.octaone.alcubierre.FragmentNavDrive
 import space.octaone.alcubierre.FragmentNavDriveOwner
 import space.octaone.alcubierre.action.back
-import space.octaone.alcubierre.base.reduce.builder.reducerLinkedListOf
-import space.octaone.alcubierre.base.state.singleStackRootState
 import space.octaone.alcubierre.condition.DefaultNavConditionFactory
 import space.octaone.alcubierre.condition.reducer.ConditionReducer
+import space.octaone.alcubierre.core.reduce.builder.reducerLinkedListOf
+import space.octaone.alcubierre.core.state.singleStackRootState
 import space.octaone.alcubierre.deeplink.DefaultDeeplinkResolver
 import space.octaone.alcubierre.reduce.BatchRootNavReducer
 import space.octaone.alcubierre.reduce.DialogRootNavReducer

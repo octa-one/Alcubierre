@@ -20,7 +20,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
-import space.octaone.alcubierre.base.state.StackNavState
+import space.octaone.alcubierre.core.state.StackNavState
 import space.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import space.octaone.alcubierre.screen.FragmentCreator
 import space.octaone.alcubierre.screen.FragmentScreen

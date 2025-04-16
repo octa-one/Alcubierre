@@ -24,9 +24,9 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistryOwner
-import space.octaone.alcubierre.base.screen.Screen
-import space.octaone.alcubierre.base.screen.extra.ExtrasContainer
-import space.octaone.alcubierre.base.screen.extra.LazyExtrasContainer
+import space.octaone.alcubierre.core.screen.Screen
+import space.octaone.alcubierre.core.screen.extra.ExtrasContainer
+import space.octaone.alcubierre.core.screen.extra.LazyExtrasContainer
 import space.octaone.alcubierre.lifecycle.DefaultScreenLifecycleManager
 import space.octaone.alcubierre.lifecycle.ScreenLifecycleManager
 

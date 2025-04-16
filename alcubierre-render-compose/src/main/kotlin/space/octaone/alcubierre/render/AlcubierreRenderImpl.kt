@@ -42,7 +42,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import space.octaone.alcubierre.ComposeNavDriveOwner
 import space.octaone.alcubierre.LocalNavDrive
 import space.octaone.alcubierre.LocalRenderAnimatedContentScope
-import space.octaone.alcubierre.base.screen.Screen
+import space.octaone.alcubierre.core.screen.Screen
 import space.octaone.alcubierre.lifecycle.LifecycleHandler
 import space.octaone.alcubierre.lifecycle.ScreenLifecycleOwner
 import space.octaone.alcubierre.render.internal.DialogRootNavStateProjection

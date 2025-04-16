@@ -18,15 +18,15 @@ package space.octaone.alcubierre.reduce
 
 import space.octaone.alcubierre.action.DismissDialog
 import space.octaone.alcubierre.action.ShowDialog
-import space.octaone.alcubierre.base.action.AnyNavAction
-import space.octaone.alcubierre.base.reduce.NavReducer
-import space.octaone.alcubierre.base.screen.Dialog
-import space.octaone.alcubierre.base.state.AnyDialogNavState
-import space.octaone.alcubierre.base.state.DialogNavState
+import space.octaone.alcubierre.core.action.AnyNavAction
+import space.octaone.alcubierre.core.reduce.NavReducer
+import space.octaone.alcubierre.core.screen.Dialog
+import space.octaone.alcubierre.core.state.AnyDialogNavState
+import space.octaone.alcubierre.core.state.DialogNavState
 import space.octaone.alcubierre.util.optimizeReadOnlyList
 
 /**
- * [space.octaone.alcubierre.base.reduce.NavReducer] for dialog specific actions. Responsible for [DialogNavState].
+ * [space.octaone.alcubierre.core.reduce.NavReducer] for dialog specific actions. Responsible for [DialogNavState].
  *
  * [ShowDialog] action inserts a new dialog into the queue based on [Dialog.priority],
  * but the current visible dialog will not be closed even if it has a lower priority than the new one.

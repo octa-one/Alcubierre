@@ -1,8 +1,8 @@
-public abstract class space/octaone/alcubierre/condition/ConditionalTarget : space/octaone/alcubierre/base/screen/extra/ExtrasContainer {
+public abstract class space/octaone/alcubierre/condition/ConditionalTarget : space/octaone/alcubierre/core/screen/extra/ExtrasContainer {
 	public fun <init> (Lkotlin/reflect/KClass;)V
 	public final fun getConditionClass ()Ljava/lang/Class;
 	public final fun getConditionName ()Ljava/lang/String;
-	public fun getExtras ()Lspace/octaone/alcubierre/base/screen/extra/ParcelableExtras;
+	public fun getExtras ()Lspace/octaone/alcubierre/core/screen/extra/ParcelableExtras;
 	public fun hasExtras ()Z
 }
 
@@ -15,14 +15,14 @@ public class space/octaone/alcubierre/condition/DefaultNavConditionFactory : spa
 }
 
 public abstract interface class space/octaone/alcubierre/condition/NavCondition {
-	public abstract fun resolve (Lspace/octaone/alcubierre/condition/ConditionalTarget;Lspace/octaone/alcubierre/base/state/RootNavState;)Lspace/octaone/alcubierre/base/action/NavAction;
+	public abstract fun resolve (Lspace/octaone/alcubierre/condition/ConditionalTarget;Lspace/octaone/alcubierre/core/state/RootNavState;)Lspace/octaone/alcubierre/core/action/NavAction;
 }
 
 public abstract interface class space/octaone/alcubierre/condition/NavConditionFactory {
 	public abstract fun create (Lspace/octaone/alcubierre/condition/ConditionalTarget;)Lspace/octaone/alcubierre/condition/NavCondition;
 }
 
-public final class space/octaone/alcubierre/condition/action/ResolveCondition : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/condition/action/ResolveCondition : space/octaone/alcubierre/core/action/NavAction {
 	public fun <init> (Lspace/octaone/alcubierre/condition/ConditionalTarget;)V
 	public final fun component1 ()Lspace/octaone/alcubierre/condition/ConditionalTarget;
 	public final fun copy (Lspace/octaone/alcubierre/condition/ConditionalTarget;)Lspace/octaone/alcubierre/condition/action/ResolveCondition;
@@ -34,15 +34,15 @@ public final class space/octaone/alcubierre/condition/action/ResolveCondition : 
 }
 
 public final class space/octaone/alcubierre/condition/action/ResolveConditionKt {
-	public static final fun resolveCondition (Lspace/octaone/alcubierre/base/NavDrive;Lspace/octaone/alcubierre/condition/ConditionalTarget;)V
+	public static final fun resolveCondition (Lspace/octaone/alcubierre/core/NavDrive;Lspace/octaone/alcubierre/condition/ConditionalTarget;)V
 }
 
 public abstract interface annotation class space/octaone/alcubierre/condition/annotation/AlcubierreConditionalNameConstructor : java/lang/annotation/Annotation {
 }
 
-public final class space/octaone/alcubierre/condition/reducer/ConditionReducer : space/octaone/alcubierre/base/reduce/LinkedNavReducer {
+public final class space/octaone/alcubierre/condition/reducer/ConditionReducer : space/octaone/alcubierre/core/reduce/LinkedNavReducer {
 	public fun <init> (Lspace/octaone/alcubierre/condition/NavConditionFactory;)V
-	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/base/action/NavAction;)Ljava/lang/Object;
-	public fun reduce (Lspace/octaone/alcubierre/base/state/RootNavState;Lspace/octaone/alcubierre/base/action/NavAction;)Lspace/octaone/alcubierre/base/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/core/action/NavAction;)Ljava/lang/Object;
+	public fun reduce (Lspace/octaone/alcubierre/core/state/RootNavState;Lspace/octaone/alcubierre/core/action/NavAction;)Lspace/octaone/alcubierre/core/state/RootNavState;
 }
 

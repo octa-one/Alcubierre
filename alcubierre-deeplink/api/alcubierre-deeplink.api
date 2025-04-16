@@ -1,11 +1,11 @@
-public final class space/octaone/alcubierre/action/DeeplinkForward : space/octaone/alcubierre/base/action/NavAction {
+public final class space/octaone/alcubierre/action/DeeplinkForward : space/octaone/alcubierre/core/action/NavAction {
 	public fun <init> (Landroid/net/Uri;)V
 	public final fun getDeeplink ()Landroid/net/Uri;
 }
 
 public final class space/octaone/alcubierre/action/DeeplinkForwardKt {
-	public static final fun forward (Lspace/octaone/alcubierre/base/NavDrive;Landroid/net/Uri;)V
-	public static final fun forward (Lspace/octaone/alcubierre/base/NavDrive;Ljava/lang/String;)V
+	public static final fun forward (Lspace/octaone/alcubierre/core/NavDrive;Landroid/net/Uri;)V
+	public static final fun forward (Lspace/octaone/alcubierre/core/NavDrive;Ljava/lang/String;)V
 }
 
 public final class space/octaone/alcubierre/deeplink/DeeplinkMatch {
@@ -61,14 +61,14 @@ public final class space/octaone/alcubierre/deeplink/DefaultDeeplinkResolverKt {
 	public static final fun DefaultDeeplinkResolver (Ljava/util/List;)Lspace/octaone/alcubierre/deeplink/DeeplinkResolver;
 }
 
-public final class space/octaone/alcubierre/reducer/DeeplinkReducer : space/octaone/alcubierre/base/reduce/LinkedNavReducer {
+public final class space/octaone/alcubierre/reducer/DeeplinkReducer : space/octaone/alcubierre/core/reduce/LinkedNavReducer {
 	public fun <init> (Lspace/octaone/alcubierre/deeplink/DeeplinkResolver;Lkotlin/jvm/functions/Function1;)V
-	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/base/action/NavAction;)Ljava/lang/Object;
-	public fun reduce (Lspace/octaone/alcubierre/base/state/RootNavState;Lspace/octaone/alcubierre/base/action/NavAction;)Lspace/octaone/alcubierre/base/state/RootNavState;
+	public synthetic fun reduce (Ljava/lang/Object;Lspace/octaone/alcubierre/core/action/NavAction;)Ljava/lang/Object;
+	public fun reduce (Lspace/octaone/alcubierre/core/state/RootNavState;Lspace/octaone/alcubierre/core/action/NavAction;)Lspace/octaone/alcubierre/core/state/RootNavState;
 }
 
 public final class space/octaone/alcubierre/screen/ExtrasDeeplinkKt {
-	public static final fun getDeeplinkUri (Lspace/octaone/alcubierre/base/screen/extra/ExtrasContainer;)Landroid/net/Uri;
-	public static final fun isFromDeeplink (Lspace/octaone/alcubierre/base/screen/extra/ExtrasContainer;)Z
+	public static final fun getDeeplinkUri (Lspace/octaone/alcubierre/core/screen/extra/ExtrasContainer;)Landroid/net/Uri;
+	public static final fun isFromDeeplink (Lspace/octaone/alcubierre/core/screen/extra/ExtrasContainer;)Z
 }
 

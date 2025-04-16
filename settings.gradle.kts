@@ -21,7 +21,7 @@ rootProject.name = "alcubierre-root"
 includeBuild("build-logic")
 
 include(":alcubierre")
-include(":alcubierre-base")
+include(":alcubierre-core")
 include(":alcubierre-host-fragment")
 include(":alcubierre-render-fragment")
 include(":alcubierre-render-fragment-screen-reflect")

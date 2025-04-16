@@ -17,7 +17,7 @@
 package space.octaone.alcubierre.deeplink
 
 import android.net.Uri
-import space.octaone.alcubierre.base.screen.extra.ExtrasContainer
+import space.octaone.alcubierre.core.screen.extra.ExtrasContainer
 import space.octaone.alcubierre.deeplink.processor.api.ScreenConverter
 import space.octaone.alcubierre.screen.DEEPLINK_URI
 

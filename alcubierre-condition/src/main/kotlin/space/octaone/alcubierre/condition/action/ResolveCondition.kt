@@ -16,10 +16,10 @@
 
 package space.octaone.alcubierre.condition.action
 
-import space.octaone.alcubierre.base.NavDrive
-import space.octaone.alcubierre.base.action.NavAction
-import space.octaone.alcubierre.base.screen.Dialog
-import space.octaone.alcubierre.base.screen.Screen
+import space.octaone.alcubierre.core.NavDrive
+import space.octaone.alcubierre.core.action.NavAction
+import space.octaone.alcubierre.core.screen.Dialog
+import space.octaone.alcubierre.core.screen.Screen
 import space.octaone.alcubierre.condition.ConditionalTarget
 import space.octaone.alcubierre.condition.reducer.ConditionReducer
 

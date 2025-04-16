@@ -16,9 +16,9 @@
 
 package space.octaone.alcubierre.condition
 
-import space.octaone.alcubierre.base.action.AnyNavAction
-import space.octaone.alcubierre.base.action.NavAction
-import space.octaone.alcubierre.base.state.AnyRootNavState
+import space.octaone.alcubierre.core.action.AnyNavAction
+import space.octaone.alcubierre.core.action.NavAction
+import space.octaone.alcubierre.core.state.AnyRootNavState
 
 /**
  * An interface for classes that encapsulate conditional navigation logic.

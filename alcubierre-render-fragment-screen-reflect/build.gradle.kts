@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    api(projects.alcubierreBase)
+    api(projects.alcubierreCore)
     api(projects.alcubierreRenderFragment)
 
     implementation(libs.androidx.fragment)

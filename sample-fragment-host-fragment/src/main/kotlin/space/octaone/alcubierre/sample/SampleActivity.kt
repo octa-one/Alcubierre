@@ -23,13 +23,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.navigation.NavigationBarView
 import space.octaone.alcubierre.FragmentNavDrive
 import space.octaone.alcubierre.action.selectStack
-import space.octaone.alcubierre.base.reduce.builder.reducerLinkedListOf
-import space.octaone.alcubierre.base.state.rootState
+import space.octaone.alcubierre.core.reduce.builder.reducerLinkedListOf
+import space.octaone.alcubierre.core.state.rootState
 import space.octaone.alcubierre.host.AlcubierreNavDriveFragment
 import space.octaone.alcubierre.reduce.BatchRootNavReducer
 import space.octaone.alcubierre.reduce.DialogRootNavReducer
 import space.octaone.alcubierre.reduce.ScreenRootNavReducer
 import space.octaone.alcubierre.reduce.StackChangedListenerReducer
+import space.octaone.alcubierre.render.modifier.AnimationModifier
+import space.octaone.alcubierre.render.modifier.FragmentTransactionModifier
 import space.octaone.alcubierre.sample.databinding.ActivitySampleBinding
 import space.octaone.alcubierre.sample.screen.SampleScreen
 
@@ -101,7 +103,8 @@ class SampleActivity : AppCompatActivity() {
                 stack(R.id.stack_2) {
                     screen(SampleScreen(Counter.increment()))
                 }
-            }
+            },
+            extras = mapOf(FragmentTransactionModifier::class to AnimationModifier())
         )
 
         binding.bottomNavigation.setOnItemSelectedListener(onItemSelectedListener)

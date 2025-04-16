@@ -25,7 +25,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import space.octaone.alcubierre.ComposeNavDriveOwner
-import space.octaone.alcubierre.base.state.RootNavState
+import space.octaone.alcubierre.core.state.RootNavState
 import space.octaone.alcubierre.state.ComposeRootNavState
 
 /**

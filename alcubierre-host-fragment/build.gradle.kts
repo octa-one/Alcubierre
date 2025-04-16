@@ -8,7 +8,6 @@ android {
 }
 
 dependencies {
-    api(projects.alcubierreBase)
     api(projects.alcubierre)
     api(projects.alcubierreRenderFragment)
 

@@ -17,10 +17,10 @@
 package space.octaone.alcubierre.action
 
 import android.net.Uri
-import space.octaone.alcubierre.base.NavDrive
-import space.octaone.alcubierre.base.action.NavAction
-import space.octaone.alcubierre.base.screen.Dialog
-import space.octaone.alcubierre.base.screen.Screen
+import space.octaone.alcubierre.core.NavDrive
+import space.octaone.alcubierre.core.action.NavAction
+import space.octaone.alcubierre.core.screen.Dialog
+import space.octaone.alcubierre.core.screen.Screen
 import space.octaone.alcubierre.deeplink.DeeplinkResolver
 import space.octaone.alcubierre.reducer.DeeplinkReducer
 

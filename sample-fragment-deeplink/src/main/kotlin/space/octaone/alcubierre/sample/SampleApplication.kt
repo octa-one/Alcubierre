@@ -20,7 +20,7 @@ import android.app.Application
 import android.content.Context
 import space.octaone.alcubierre.FragmentNavDrive
 import space.octaone.alcubierre.FragmentNavDriveOwner
-import space.octaone.alcubierre.owner.AlcubierreNavDriveOwner
+import space.octaone.alcubierre.core.owner.AlcubierreNavDriveOwner
 
 class SampleApplication : Application() {
 

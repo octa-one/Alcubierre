@@ -19,9 +19,9 @@ package space.octaone.alcubierre.deeplink.test
 import android.annotation.SuppressLint
 import android.os.Parcel
 import android.os.Parcelable
-import space.octaone.alcubierre.base.screen.Screen
-import space.octaone.alcubierre.base.screen.extra.ExtrasContainer
-import space.octaone.alcubierre.base.screen.extra.ParcelableExtras
+import space.octaone.alcubierre.core.screen.Screen
+import space.octaone.alcubierre.core.screen.extra.ExtrasContainer
+import space.octaone.alcubierre.core.screen.extra.ParcelableExtras
 
 @SuppressLint("ParcelCreator", "NonDataScreenClassRule")
 open class TestScreen : Screen(), Parcelable by ParcelableStub, ExtrasContainer by ExtrasContainerStub

@@ -16,8 +16,8 @@
 
 package space.octaone.alcubierre.action
 
-import space.octaone.alcubierre.base.screen.Screen
-import space.octaone.alcubierre.base.state.RootNavState
+import space.octaone.alcubierre.core.screen.Screen
+import space.octaone.alcubierre.core.state.RootNavState
 import space.octaone.alcubierre.screen.tag
 import kotlin.reflect.KClass
 

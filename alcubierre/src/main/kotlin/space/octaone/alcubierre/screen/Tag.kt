@@ -17,7 +17,7 @@
 package space.octaone.alcubierre.screen
 
 import space.octaone.alcubierre.action.findScreenByTag
-import space.octaone.alcubierre.base.screen.extra.ExtrasContainer
+import space.octaone.alcubierre.core.screen.extra.ExtrasContainer
 
 /**
  * A simple extension to associate a screen or dialog with a string as a tag.

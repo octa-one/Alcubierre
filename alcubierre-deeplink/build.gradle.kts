@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    api(projects.alcubierreBase)
+    api(projects.alcubierreCore)
     api(projects.alcubierreDeeplinkProcessorApi)
     implementation(projects.alcubierre)
     implementation(projects.alcubierreCondition)
