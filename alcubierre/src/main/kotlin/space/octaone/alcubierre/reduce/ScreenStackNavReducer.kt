@@ -29,7 +29,7 @@ import space.octaone.alcubierre.core.state.AnyStackNavState
 import space.octaone.alcubierre.util.optimizeReadOnlyList
 
 /**
- * [space.octaone.alcubierre.core.reduce.NavReducer] responds for commands with specific stack
+ * [NavReducer] responds for commands with specific stack
  */
 public class ScreenStackNavReducer : NavReducer<AnyStackNavState> {
 

@@ -40,7 +40,7 @@ import space.octaone.alcubierre.core.util.getNotNull
 import space.octaone.alcubierre.util.optimizeReadOnlyMap
 
 /**
- * [space.octaone.alcubierre.core.reduce.NavReducer] for screen specific actions. Responsible for [RootNavState].
+ * [NavReducer] for screen specific actions. Responsible for [RootNavState].
  * For actions associated with a particular stack, forwards them to [stackReducer],
  * then updates [RootNavState] with the updated [StackNavState] from [stackReducer].
  *
@@ -51,7 +51,7 @@ import space.octaone.alcubierre.util.optimizeReadOnlyMap
  * Make sure you do not remove current [RootNavState.currentStackId] stack.
  * [ApplyState] action returns a completely new state from [ApplyState.state].
  *
- * @param stackReducer [space.octaone.alcubierre.core.reduce.NavReducer] that can reduce [StackNavState].
+ * @param stackReducer [NavReducer] that can reduce [StackNavState].
  */
 public class ScreenRootNavReducer(
     private val stackReducer: NavReducer<AnyStackNavState> = ScreenStackNavReducer()

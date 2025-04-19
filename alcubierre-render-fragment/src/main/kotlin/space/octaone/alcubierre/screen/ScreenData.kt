@@ -23,10 +23,12 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import space.octaone.alcubierre.core.annotation.AlcubierreInternalApi
 import space.octaone.alcubierre.core.util.getParcelableCompat
+import space.octaone.alcubierre.core.screen.Dialog
+import space.octaone.alcubierre.core.screen.Screen
 
 /**
  * Return [Lazy] with [FragmentScreen] from which the fragment was created.
- * Used to access [space.octaone.alcubierre.core.screen.Screen] parameters from a [Fragment], similar to Safe Args in Jetpack Navigation.
+ * Used to access [Screen] parameters from a [Fragment], similar to Safe Args in Jetpack Navigation.
  * For example:
  * ```
  * class SomeScreen(val title: String, val id: Int) : FragmentScreen(...)
@@ -49,7 +51,7 @@ public inline fun <reified T : FragmentScreen> Fragment.screenData(): Lazy<T> =
 
 /**
  * Return [Lazy] with [FragmentDialog] from which the fragment was created.
- * Used to access [space.octaone.alcubierre.core.screen.Dialog] parameters from a [DialogFragment], similar to Safe Args in Jetpack Navigation.
+ * Used to access [Dialog] parameters from a [DialogFragment], similar to Safe Args in Jetpack Navigation.
  * @see Fragment.screenData for code example.
  */
 public inline fun <reified T : FragmentDialog> DialogFragment.dialogData(): Lazy<T> =
@@ -58,7 +60,7 @@ public inline fun <reified T : FragmentDialog> DialogFragment.dialogData(): Lazy
     }
 
 /**
- * Puts [space.octaone.alcubierre.core.screen.Screen] to arguments bundle.
+ * Puts [Screen] to arguments bundle.
  */
 internal fun Fragment.withScreenData(screen: FragmentScreen): Fragment {
     val bundle = arguments ?: Bundle()
@@ -68,7 +70,7 @@ internal fun Fragment.withScreenData(screen: FragmentScreen): Fragment {
 }
 
 /**
- * Puts [space.octaone.alcubierre.core.screen.Dialog] to arguments bundle.
+ * Puts [Dialog] to arguments bundle.
  */
 internal fun DialogFragment.withDialogData(dialog: FragmentDialog): DialogFragment {
     val bundle = arguments ?: Bundle()

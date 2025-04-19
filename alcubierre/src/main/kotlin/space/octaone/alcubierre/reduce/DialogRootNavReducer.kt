@@ -28,13 +28,13 @@ import space.octaone.alcubierre.core.state.DialogNavState
 import space.octaone.alcubierre.core.state.RootNavState
 
 /**
- * [space.octaone.alcubierre.core.reduce.NavReducer] for dialog specific actions. Responsible for [RootNavState].
+ * [NavReducer] for dialog specific actions. Responsible for [RootNavState].
  * Forwards actions to [dialogReducer] and updates [RootNavState]
  * with the updated [DialogNavState] from [dialogReducer].
  *
  * [Back] action closes the current dialog, the same as [DismissDialog].
  *
- * @param dialogReducer [space.octaone.alcubierre.core.reduce.NavReducer] that can reduce [DialogNavState].
+ * @param dialogReducer [NavReducer] that can reduce [DialogNavState].
  * @param closeDialogsOnActions Whether dialogs should be closed on navigation actions.
  * If false, it will be possible to update screens under dialogs.
  */

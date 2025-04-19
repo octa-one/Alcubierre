@@ -19,9 +19,10 @@ package space.octaone.alcubierre.reduce
 import space.octaone.alcubierre.core.action.AnyNavAction
 import space.octaone.alcubierre.core.reduce.LinkedNavReducer
 import space.octaone.alcubierre.core.state.AnyRootNavState
+import space.octaone.alcubierre.core.reduce.NavReducer
 
 /**
- * [space.octaone.alcubierre.core.reduce.NavReducer] for listening to stack selection.
+ * [NavReducer] for listening to stack selection.
  * Should be placed at the beginning of a reducers chain in order to observe changes made by the following reducers.
  *
  * @param onStackChanged Callback, invoked after selecting a new stack.

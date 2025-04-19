@@ -26,7 +26,7 @@ import space.octaone.alcubierre.core.state.DialogNavState
 import space.octaone.alcubierre.util.optimizeReadOnlyList
 
 /**
- * [space.octaone.alcubierre.core.reduce.NavReducer] for dialog specific actions. Responsible for [DialogNavState].
+ * [NavReducer] for dialog specific actions. Responsible for [DialogNavState].
  *
  * [ShowDialog] action inserts a new dialog into the queue based on [Dialog.priority],
  * but the current visible dialog will not be closed even if it has a lower priority than the new one.
