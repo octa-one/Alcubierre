@@ -1,5 +1,5 @@
 /*
- *  Copyright 2022-2025. Alcubierre Contributors
+ *  Copyright 2025. Alcubierre Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-package space.octaone.alcubierre.action
+package space.octaone.alcubierre.core.action
 
 import space.octaone.alcubierre.core.NavDrive
-import space.octaone.alcubierre.core.action.NavAction
 import space.octaone.alcubierre.core.screen.Dialog
 import space.octaone.alcubierre.core.screen.Screen
 import space.octaone.alcubierre.core.state.RootNavState
 
 /**
- * Utility class for recording multiple [space.octaone.alcubierre.core.action.NavAction]s and dispatching them simultaneously.
+ * Utility class for recording multiple [NavAction]s for simultaneous dispatching.
  */
-internal class NavDriveBatchRecorder<S : Screen, D : Dialog> (
-    initialState: RootNavState<S, D>
+public class NavActionRecorder<S : Screen, D : Dialog> (
+    override val state: RootNavState<S, D>
 ) : NavDrive<S, D> {
 
-    override val state: RootNavState<S, D> = initialState
-
-    val actions = mutableListOf<NavAction<S, D>>()
+    private val _actions = mutableListOf<NavAction<S, D>>()
+    public val actions: List<NavAction<S, D>> get() = _actions.toList()
 
     override fun dispatch(action: NavAction<S, D>) {
-        actions.add(action)
+        _actions.add(action)
     }
 }

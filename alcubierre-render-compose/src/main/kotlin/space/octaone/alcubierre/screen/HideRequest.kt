@@ -44,7 +44,7 @@ public class HideRequest(
 
     private var action: (suspend () -> Unit)? = null
 
-    public suspend fun hide() {
+    internal suspend fun hide() {
         action?.invoke()
             ?: Log.w(
                 TAG,
@@ -62,6 +62,13 @@ public class HideRequest(
             onDispose { this@HideRequest.action = null }
         }
     }
+
+    @Composable
+    @NonRestartableComposable
+    public fun ImmediateHideEffect() {
+        HideEffect(ImmediateAction)
+    }
 }
 
+private val ImmediateAction: suspend () -> Unit = { }
 private const val TAG = "Alcubierre"

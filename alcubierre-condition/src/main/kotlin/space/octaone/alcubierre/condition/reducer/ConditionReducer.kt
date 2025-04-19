@@ -16,12 +16,15 @@
 
 package space.octaone.alcubierre.condition.reducer
 
-import space.octaone.alcubierre.core.action.AnyNavAction
-import space.octaone.alcubierre.core.reduce.LinkedNavReducer
-import space.octaone.alcubierre.core.state.AnyRootNavState
 import space.octaone.alcubierre.condition.NavCondition
 import space.octaone.alcubierre.condition.NavConditionFactory
 import space.octaone.alcubierre.condition.action.ResolveCondition
+import space.octaone.alcubierre.core.action.AnyNavAction
+import space.octaone.alcubierre.core.action.NavActionRecorder
+import space.octaone.alcubierre.core.reduce.LinkedNavReducer
+import space.octaone.alcubierre.core.screen.Dialog
+import space.octaone.alcubierre.core.screen.Screen
+import space.octaone.alcubierre.core.state.AnyRootNavState
 
 /**
  * Reducer for handling [ResolveCondition] actions.
@@ -38,10 +41,16 @@ public class ConditionReducer(
 
     override fun reduce(state: AnyRootNavState, action: AnyNavAction): AnyRootNavState = when (action) {
         is ResolveCondition -> {
-            conditionFactory.create(action.conditionalTarget)
-                .resolve(action.conditionalTarget, state)
-                ?.let { head.reduce(state, it) }
-                ?: state
+            val recorder = NavActionRecorder<Screen, Dialog>(state)
+            val factory = conditionFactory.create(action.conditionalTarget)
+            with(factory) {
+                recorder.resolve(action.conditionalTarget)
+            }
+            when (recorder.actions.size) {
+                0 -> state
+                1 -> head.reduce(state, recorder.actions[0])
+                else -> recorder.actions.fold(state) { foldState, foldAction -> head.reduce(foldState, foldAction) }
+            }
         }
         else -> {
             next.reduce(state, action)

@@ -18,6 +18,7 @@ package space.octaone.alcubierre.action
 
 import space.octaone.alcubierre.core.NavDrive
 import space.octaone.alcubierre.core.action.NavAction
+import space.octaone.alcubierre.core.action.NavActionRecorder
 import space.octaone.alcubierre.core.screen.Dialog
 import space.octaone.alcubierre.core.screen.Screen
 import space.octaone.alcubierre.core.state.RootNavState
@@ -201,4 +202,4 @@ public fun <S : Screen, D : Dialog> NavDrive<S, D>.dismissDialog(): Unit =
  * All actions inside the [block] will be dispatched simultaneously.
  */
 public fun <S : Screen, D : Dialog>  NavDrive<S, D>.batch(block: NavDrive<S, D>.() -> Unit): Unit =
-    dispatch(Batch(NavDriveBatchRecorder(state).apply(block).actions))
+    dispatch(Batch(NavActionRecorder(state).apply(block).actions))

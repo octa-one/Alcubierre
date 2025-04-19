@@ -16,9 +16,11 @@
 
 package space.octaone.alcubierre.condition
 
-import space.octaone.alcubierre.core.action.AnyNavAction
-import space.octaone.alcubierre.core.action.NavAction
-import space.octaone.alcubierre.core.state.AnyRootNavState
+import space.octaone.alcubierre.core.NavDrive
+import space.octaone.alcubierre.core.screen.Dialog
+import space.octaone.alcubierre.core.screen.Screen
+
+public typealias AnyNavDrive = NavDrive<Screen, Dialog>
 
 /**
  * An interface for classes that encapsulate conditional navigation logic.
@@ -27,11 +29,10 @@ public interface NavCondition {
 
     /**
      * Condition resolving function.
+     * @receiver A [NavDrive] that allows you to access current state and use action extensions.
      * @param target [ConditionalTarget] on which this [NavCondition] has been triggered.
-     * @param state Current state of navigation. For example, you can use it to check currently visible screen.
-     * @return [NavAction] to be performed as a result of condition evaluation. Can be null if nothing should happen.
      */
-    public fun resolve(target: ConditionalTarget, state: AnyRootNavState): AnyNavAction?
+    public fun AnyNavDrive.resolve(target: ConditionalTarget)
 }
 
 /**

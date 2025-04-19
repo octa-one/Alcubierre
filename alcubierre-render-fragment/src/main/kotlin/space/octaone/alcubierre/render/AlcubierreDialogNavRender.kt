@@ -112,7 +112,8 @@ internal class AlcubierreDialogNavRender(
     }
 
     private fun DialogFragment.setIsNotShowing() {
-        requireArguments().getParcelableCompat<FragmentDialog>(ARG_DIALOG)!!.isShowing = false
+        val dialog = requireArguments().getParcelableCompat<FragmentDialog>(ARG_DIALOG)
+        requireNotNull(dialog).isShowing = false
     }
 }
 

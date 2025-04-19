@@ -57,7 +57,7 @@ import kotlin.reflect.KClass
  * The default implementation consists of [LifecycleOwner], [ViewModelStoreOwner], [SavedStateRegistryOwner].
  */
 @Stable
-public abstract class ComposeNameDialog(
+public abstract class ComposeNameDialog private constructor(
     public val composeContentName: String?,
     public val composeContentClass: Class<out ComposeDialogContent<*>>?
 ) : ComposeDialog() {

@@ -50,7 +50,7 @@ The library consists of 4 main components and a unidirectional data flow between
 ### State
 Let begin with the state:
 It can be described by the following class:
-```Kotlin
+```kotlin
 class RootNavState(
     val dialogState: Queue<Dialog>,
     val stackStates: Map<Int, Stack<Screen>>,
@@ -104,7 +104,7 @@ So you can disable dialogs or remove all operations related to multibackstack.
 The state is observed by Render.
 Render is the entity responsible for translating the state into content visible to the user.
 There are two implementations: for fragment navigation and for Compose.
-You can learn more about implementation details by checking KDocs. 
+You can learn more about implementation details by checking KDocs.
 
 ### Actions
 User can generate actions from the UI.
@@ -121,7 +121,7 @@ A reducer is a function that receives the current state and an action instance, 
 It is also important that reducers can be chained together. This allows you to create complex logic for processing incoming actions.
 
 Here's a simple example of a stack switching reducer:
-```Kotlin
+```kotlin
 class SelectStackReducer : NavReducer<RootNavState>() {
 
     override fun reduce(state: RootNavState, action: NavAction): RootNavState = when (action) {
@@ -135,7 +135,7 @@ The `space.octaone.alcubierre:alcubierre` module contains a standard set of Acti
 ## Entry point
 The entry point is the interface to interact with the navigation library from your code.
 It can be described as follows
-```Kotlin
+```kotlin
 interface NavDrive {
 
     val state: RootNavState
