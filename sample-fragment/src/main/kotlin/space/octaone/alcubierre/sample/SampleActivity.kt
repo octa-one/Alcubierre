@@ -104,7 +104,6 @@ class SampleActivity : AppCompatActivity() {
                 onItemSelectedListener.isEnabled = false
                 binding.bottomNavigation.selectedItemId = to
                 onItemSelectedListener.isEnabled = true
-
             },
             BatchRootNavReducer(),
             DialogRootNavReducer(),

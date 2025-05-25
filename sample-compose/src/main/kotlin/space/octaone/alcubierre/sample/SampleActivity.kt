@@ -40,6 +40,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import space.octaone.alcubierre.LocalNavDrive
 import space.octaone.alcubierre.action.back
 import space.octaone.alcubierre.action.selectStack
+import space.octaone.alcubierre.condition.reducer.ConditionReducer
 import space.octaone.alcubierre.core.reduce.builder.reducerLinkedListOf
 import space.octaone.alcubierre.core.state.rootState
 import space.octaone.alcubierre.owner.rememberNavDriveOwner
@@ -47,10 +48,15 @@ import space.octaone.alcubierre.reduce.BatchRootNavReducer
 import space.octaone.alcubierre.reduce.DialogRootNavReducer
 import space.octaone.alcubierre.reduce.ScreenRootNavReducer
 import space.octaone.alcubierre.render.AlcubierreAnimatedRender
+import space.octaone.alcubierre.sample.condition.HiltNavConditionFactory
 import space.octaone.alcubierre.sample.screen.SampleScreen
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SampleActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var navConditionFactory: HiltNavConditionFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +65,7 @@ class SampleActivity : AppCompatActivity() {
             val navDriveOwner = rememberNavDriveOwner(
                 reducer = reducerLinkedListOf(
                     BatchRootNavReducer(),
+                    ConditionReducer(navConditionFactory),
                     DialogRootNavReducer(),
                     ScreenRootNavReducer()
                 ),

@@ -52,9 +52,11 @@ import space.octaone.alcubierre.action.newStack
 import space.octaone.alcubierre.action.replace
 import space.octaone.alcubierre.action.replaceRoot
 import space.octaone.alcubierre.action.showDialog
+import space.octaone.alcubierre.condition.action.resolveCondition
 import space.octaone.alcubierre.hilt.hiltViewModel
 import space.octaone.alcubierre.sample.Counter
 import space.octaone.alcubierre.sample.Tab
+import space.octaone.alcubierre.sample.condition.SampleConditionalTarget
 import space.octaone.alcubierre.sample.viewmodel.SampleViewModel
 import space.octaone.alcubierre.screen.ComposeScreen
 import space.octaone.alcubierre.state.ComposeRootNavState
@@ -93,6 +95,12 @@ class SampleScreen(
                 onClick = { navDrive.forward(SampleScreen(Counter.increment())) }
             ) {
                 Text(text = "Forward")
+            }
+            Button(
+                modifier = MaxWidthModifier,
+                onClick = { navDrive.resolveCondition(SampleConditionalTarget()) }
+            ) {
+                Text(text = "Forward (conditional)")
             }
             Button(
                 modifier = MaxWidthModifier,

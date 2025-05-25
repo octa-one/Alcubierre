@@ -15,6 +15,7 @@ dependencies {
     implementation(projects.alcubierreRenderCompose)
     implementation(projects.alcubierreRenderComposeScreenReflect)
     implementation(projects.alcubierreHiltviewmodel)
+    implementation(projects.alcubierreCondition)
 
     implementation(libs.bundles.compose)
     implementation(libs.kotlin.coroutines.android)
